@@ -113,7 +113,7 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `enumerate` | رقم | عدد، عدد_متسلسل | MSA "number"; short and clear. |
 | `eval` | قيم | — | MSA "evaluate". |
 | `exec` | نفذ | — | MSA "execute". |
-| `filter` | صف | فلتر | MSA "filter/refine". |
+| `filter` | فلتر | صف | Transliteration; `صف` would collide with `tuple`. See collision audit. |
 | `format` | نسق | — | MSA "format". |
 | `getattr` | اجلب_صفة | — | Composed: "fetch attribute". |
 | `globals` | متغيرات_عامة | عامات | Composed for clarity. |
@@ -207,7 +207,7 @@ Methods are stored without the leading dot in the machine-readable dictionary. T
 |---|---|---|---|
 | `.count` | عد | — | MSA "count". |
 | `.decode` | فك_رمز | — | Composed: "decode". |
-| `.encode` | رمز | — | MSA "encode"; collision with `chr`'s رمز is fine — both are token-level NAME lookups. |
+| `.encode` | رمز_بايتات | رمز | Composed; `رمز` alone would collide with `chr`. See collision audit. |
 | `.endswith` | ينتهي_بـ | — | Composed: "ends with". |
 | `.find` | ابحث | — | MSA "find/search". |
 | `.format` | نسق | — | Same as built-in `format`. |
@@ -241,7 +241,7 @@ Methods are stored without the leading dot in the machine-readable dictionary. T
 | `.keys` | مفاتيح | — | MSA "keys". |
 | `.setdefault` | عين_افتراضي | — | Composed. |
 | `.update` | حدث | — | MSA "update". |
-| `.values` | قيم | — | MSA "values". |
+| `.values` | قيم_القاموس | قيم | Composed; `قيم` alone would collide with `eval`. See collision audit. |
 
 ### Generic methods (on multiple types)
 
@@ -268,11 +268,9 @@ The following canonicals appear in more than one section and must resolve to the
 
 ### Resolutions applied
 
-- `.encode` → `رمز_بايتات` (was رمز)
-- `.values` → `قيم_القاموس` (was قيم)
-- `filter` → `فلتر` (was صف)
+The three collisions above are resolved **inline in the tables** — `filter`, `.encode`, and `.values` now use their resolved canonicals (`فلتر`, `رمز_بايتات`, `قيم_القاموس`) in their respective sections. The rejected forms (`صف`, `رمز`, `قيم`) are listed as alternates for the audit trail.
 
-These three renames supersede the entries above. When this file is consumed by Packet 1.2, the resolved names are used.
+The loader reads only the tables; this audit section is historical documentation.
 
 ---
 
