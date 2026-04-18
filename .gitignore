@@ -67,3 +67,4 @@ Thumbs.db
 # apython-specific
 *.apyc
 .apython-cache/
+.aider*
