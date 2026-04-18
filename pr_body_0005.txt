@@ -1,0 +1,10 @@
+Implements Packet 0005 per the core-translate-v1 spec.
+Spec: [specs/0005-core-translate-v1.md](https://github.com/GalaxyRuler/apython/blob/main/specs/0005-core-translate-v1.md)
+What changed:
+- added `arabicpython.translate.translate` as the core translator loop using Python's stdlib tokenizer to rewrite `NAME` tokens securely.
+- implemented all 59 exact spec tests ensuring dictionary correctness and Python string/statement structure holds identically.
+- created a delivery note.
+Validation:
+- `python -m pytest -v` (197/197 passing)
+- `python -m ruff check .`
+- `python -m black --check .`

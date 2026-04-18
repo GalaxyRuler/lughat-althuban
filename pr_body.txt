@@ -1,0 +1,10 @@
+Implements Packet 0003 per the dialect-loader-v1 spec.
+Spec: [specs/0003-dialect-loader-v1.md](https://github.com/GalaxyRuler/apython/blob/main/specs/0003-dialect-loader-v1.md)
+What changed:
+- added `arabicpython.dialect.load_dialect` and the `Dialect` dataclass
+- added the spec-driven test suite in `tests/test_dialect.py`
+- added malformed-dictionary fixtures under `tests/fixtures/`
+Validation:
+- `python -m pytest tests/test_dialect.py -v`
+- `python -m ruff check .`
+- `python -m black --check .`
