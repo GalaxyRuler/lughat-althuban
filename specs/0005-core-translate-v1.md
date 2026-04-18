@@ -122,6 +122,13 @@ Strip a leading UTF-8 BOM if present (untokenize sometimes emits one because we 
 
 No version-gating in the implementation — the same code path runs on all versions; behavior just differs because the underlying tokenizer differs.
 
+### CPython 3.11 tokenizer gaps (added 2026-04-18 post-merge)
+
+Two further version-dependent behaviors were discovered in PR review and need to be handled:
+
+- **Harakat in identifiers**: CPython 3.11's tokenizer rejects Arabic combining marks (U+064B–065F, U+0670) as `ID_Continue`. So `كَلب` tokenizes as `ك` + `َلب` (two tokens) on 3.11 but as one `NAME` on 3.12+. Tests that exercise harakat-in-identifier behavior (`test_translate_with_harakat`, `test_unknown_identifier_normalized`) MUST be gated with `pytest.mark.skipif(sys.version_info < (3, 12), reason=...)`. Documented as known v1 limitation.
+- **Unclosed strings**: CPython 3.11's `tokenize.tokenize` yields an `ERRORTOKEN` for unclosed strings; 3.12+ raises `TokenError`. To make error behavior uniform across versions, `translate` MUST scan the token list for `ERRORTOKEN` after `tokenize` completes and raise `SyntaxError` itself.
+
 ### Encoding and BOM
 
 `tokenize.tokenize` requires a binary readline that yields a `coding:` line first or defaults to UTF-8. Encode the pretokenized string to UTF-8 bytes; do not prepend a coding cookie.

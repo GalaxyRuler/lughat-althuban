@@ -30,3 +30,14 @@ None. The specs were comprehensive.
 
 ## Known limitations
 - Harakat inside identifiers require Python 3.12+ (CPython 3.11 tokenizer limitation, not an apython bug).
+- Identifier translation inside f-string expression bodies requires Python 3.12+ (PEP 701 tokenizer changes). On 3.11 the entire f-string is a single `STRING` token and is opaque to the rewriter.
+
+## Planner addendum (2026-04-18, post-merge)
+
+Two CPython 3.11 behaviors were not anticipated in the original spec and surfaced during PR review:
+
+1. **Harakat not in `ID_Continue` on 3.11**: caused `test_translate_with_harakat` and `test_unknown_identifier_normalized` to fail on 3.11 cells. Resolution: `pytest.mark.skipif(sys.version_info < (3, 12), ...)` on both tests. Spec retroactively updated to mandate the skipif gating.
+
+2. **`ERRORTOKEN` vs `TokenError` for unclosed strings on 3.11**: caused `test_unclosed_string_raises_syntax_error` to fail because 3.11 does not raise. Resolution: `translate` now scans the token list for `ERRORTOKEN` after `tokenize` completes and raises `SyntaxError` itself, making error behavior uniform across versions. Spec retroactively updated to mandate this scan.
+
+One mechanical fix was applied directly to the PR branch by the planner ([`6709953`](https://github.com/GalaxyRuler/apython/commit/6709953)): adding the missing `skipif` decorator to `test_translate_with_harakat`. The implementer had applied the decorator to one of the two harakat tests but missed the other; pushed inline to save a round-trip on a one-line mechanical fix that had been explicitly specified in the review.
