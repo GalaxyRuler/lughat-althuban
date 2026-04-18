@@ -3,7 +3,7 @@
 **Phase**: A
 **Depends on**: Packet 0005 (translate); Packet 0006 (cli); ADR 0001 (architecture), ADR 0002 (file extension), ADR 0007 (scope).
 **Estimated size**: medium (one focused implementer session)
-**Owner**: Gemini 3.1 Pro
+**Owner**: Gemini 3.1 Flash
 
 ## Goal
 
