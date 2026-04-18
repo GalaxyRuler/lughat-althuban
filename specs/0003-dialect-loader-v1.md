@@ -244,7 +244,9 @@ For these tests, write a small fixture dictionary with exactly ONE defect per te
 
 ### Cross-check: every dictionary Python target is a valid Python identifier
 
-41. `test_all_python_targets_are_identifiers`: for every value in `d.names.values()` and `d.attributes.values()`, assert `value.isidentifier()` and `not keyword.iskeyword(value)` OR (`keyword.iskeyword(value)` AND the category is `"keyword"`). This catches accidental leading dots, dashes, or typos in Python targets.
+41. `test_all_python_targets_are_identifiers`: for every value in `d.names.values()` and `d.attributes.values()`, assert `value.isidentifier()` and either `not keyword.iskeyword(value)` OR (`keyword.iskeyword(value)` AND the category is `"keyword"` OR `"literal"`). The `"literal"` allowance is required because `True`, `False`, and `None` are reserved keywords in Python 3.7+ (`keyword.iskeyword` returns `True` for them) but are categorized as literals in our dictionary. This catches accidental leading dots, dashes, or typos in Python targets.
+
+> **Spec correction (2026-04-18):** the original assertion only allowed `"keyword"`. This was a planner oversight — `True`/`False`/`None` are keywords-as-literals. Updated above; reflected in PR #4.
 
 ## Reference materials
 

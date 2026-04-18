@@ -17,3 +17,13 @@ Ran `python -m ruff check .` (0 errors).
 Ran `python -m black --check .` (passed).
 ## Open questions for the planner — anything ambiguous in the spec
 - Regarding the collision of `except` and `Exception` (both resolving to `استثناء`): the normalization collapses the distinction, and since both map to `names` in the Dialect, `Exception` currently overrides `except`. The planner should review this collision and decide if one should be renamed in `ar-v1.md`.
+
+## Planner addendum (2026-04-18, post-merge)
+
+Both implementer-flagged deviations turned out to be planner bugs. Resolved as follows before merge:
+
+1. **`except`/`Exception` collision**: dictionary fixed on main in [`16cfbc9`](https://github.com/GalaxyRuler/apython/commit/16cfbc9) — `Exception` renamed to `استثناء_عام` ("general exception"), parallels `BaseException` → `استثناء_اساسي`. The `except` keyword keeps `استثناء` (higher source frequency). Hardcoded bypass in `dialect.py` removed in [`ebf2082`](https://github.com/GalaxyRuler/apython/commit/ebf2082); spec-compliant validation now applies to all entries.
+
+2. **Test 41 keyword-vs-literal logic**: the implementer's tweak (allow `"keyword"` OR `"literal"` for entries where `keyword.iskeyword(value)` is True) is the correct logic. `True`/`False`/`None` are Python keywords from 3.7+ but are categorically literals. Original spec assertion was a planner oversight. Spec retroactively corrected with a marked correction note.
+
+Both fixes preserve the spec's intent (no silent collisions, no invalid Python targets) without weakening validation.
