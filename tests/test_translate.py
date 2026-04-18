@@ -197,6 +197,10 @@ def test_attribute_does_not_match_name():
 
 
 # Normalization in translation (3)
+@pytest.mark.skipif(
+    sys.version_info < (3, 12),
+    reason="Python 3.11 tokenizer does not accept Arabic harakat in identifiers (fixed in 3.12)",
+)
 def test_translate_with_harakat():
     res = translate("إِذا x: pass\n")
     assert "if " in res
