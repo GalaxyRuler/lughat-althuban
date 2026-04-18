@@ -1,8 +1,8 @@
 # Delivery Note: Packet 0007 import-hook-v1
 
-**PR**: [TBD]
+**PR**: https://github.com/GalaxyRuler/apython/pull/8
 **Branch**: `packet/0007-import-hook-v1`
-**Implementation commit**: [TBD]
+**Implementation commit**: 2b441e341eeb7f567b56b038f044f6b0eca90693
 **Implementer**: Gemini 3.1 Pro
 **Reviewer**: Claude
 
