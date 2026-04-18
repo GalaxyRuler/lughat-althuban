@@ -7,6 +7,7 @@
 | 0002 | normalize-v1 | A | Codex | merged |
 | 0003 | dialect-loader-v1 | A | Gemini 3.1 Pro | merged |
 | 0004 | pretokenize-v1 | A | Gemini 3.1 Pro | merged |
+| 0005 | core-translate-v1 | A | Gemini 3.1 Pro | drafted |
 
 ## Legend
 
