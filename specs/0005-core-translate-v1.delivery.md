@@ -1,8 +1,8 @@
 # Delivery Note: Packet 0005 core-translate-v1
 
-**PR**: (Pending creation)
+**PR**: 6
 **Branch**: packet/0005-core-translate-v1
-**Implementation commit**: (Pending)
+**Implementation commit**: ebe4fe82bb610d75b7698c76b56e1690dc979cb4
 **Implementer**: Gemini 3.1 Pro
 **Reviewer**: Claude
 
