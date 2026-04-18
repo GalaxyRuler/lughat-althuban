@@ -50,8 +50,8 @@ def test_runsource_returns_true_for_incomplete_block(console):
     assert ret is True
 
 
-def test_runsource_returns_true_for_unclosed_string(console):
-    ret = console.runsource("س = 'unclosed")
+def test_runsource_returns_true_for_unclosed_triple_string(console):
+    ret = console.runsource('س = """unclosed')
     assert ret is True
 
 

@@ -87,7 +87,7 @@ def run_repl(
         0 on clean exit (EOF or sys.exit(0)).
         Other ints if the user calls sys.exit(N).
     """
-    _setup_readline()
+    history_path = _setup_readline()
 
     if banner is None:
         banner = (
@@ -111,18 +111,27 @@ def run_repl(
             return e.code
         sys.stderr.write(str(e.code) + "\n")
         return 1
+    finally:
+        if history_path is not None:
+            _save_history(history_path)
     return 0
 
 
-def _setup_readline() -> None:
-    """Best-effort readline setup. Never raises."""
+def _setup_readline() -> "str | None":
+    """Best-effort readline setup. Never raises.
+
+    Returns the resolved history file path if readline is available, else None.
+    The caller is responsible for invoking _save_history(path) on shutdown so
+    that history is written even when the process exits via the normal
+    interpreter-shutdown path (atexit handlers do not fire between pytest cases).
+    The atexit registration is kept as a fallback for crashes.
+    """
     try:
         import readline
         import rlcompleter  # noqa: F401
     except ImportError:
-        return
+        return None
 
-    # History
     history_path = os.path.expanduser("~/.apython_history")
     with contextlib.suppress(OSError, FileNotFoundError):
         readline.read_history_file(history_path)
@@ -130,8 +139,8 @@ def _setup_readline() -> None:
     readline.set_history_length(1000)
     atexit.register(_save_history, history_path)
 
-    # Tab completion
     readline.parse_and_bind("tab: complete")
+    return history_path
 
 
 def _save_history(path: str) -> None:
