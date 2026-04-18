@@ -9,6 +9,7 @@
 | 0004 | pretokenize-v1 | A | Gemini 3.1 Pro | merged |
 | 0005 | core-translate-v1 | A | Gemini 3.1 Pro | merged |
 | 0006 | cli-v1 | A | Gemini 3.1 Pro | merged |
+| 0007 | import-hook-v1 | A | Gemini 3.1 Pro | drafted |
 
 ## Legend
 
