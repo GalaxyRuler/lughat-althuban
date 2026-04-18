@@ -1,7 +1,10 @@
-"""apython — Arabic Python dialect.
+"""apython — Arabic-keyword Python dialect.
 
-This package is a placeholder during Phase 0. Real implementation lands
-starting with Packet 1.1.
+Transpiler that executes ``.apy`` source files by translating Arabic
+keywords to their Python equivalents at the tokenize layer, then handing
+the result to the standard CPython compiler. The public API installs an
+import hook for ``.apy`` modules, runs an interactive REPL, and rewrites
+tracebacks so errors point back at the original Arabic source.
 """
 
 __version__ = "0.0.1"
