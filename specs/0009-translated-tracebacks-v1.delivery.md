@@ -1,8 +1,8 @@
 # Delivery Note: Packet 0009 translated-tracebacks-v1
 
-**PR**: [TBD]
+**PR**: https://github.com/GalaxyRuler/apython/pull/10
 **Branch**: `packet/0009-translated-tracebacks-v1`
-**Implementation commit**: [TBD]
+**Implementation commit**: ea66ba4f25b3c856fc7f6d55e99f14016c7a6f5f
 **Implementer**: Gemini 3.1 Pro
 **Reviewer**: Claude
 
