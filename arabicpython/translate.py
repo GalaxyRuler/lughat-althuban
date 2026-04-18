@@ -59,6 +59,13 @@ def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
         msg, loc = e.args
         raise SyntaxError(msg, ("<string>", loc[0], loc[1], "", loc[0], loc[1])) from e
 
+    for tok in tokens:
+        if tok.type == tokenize.ERRORTOKEN:
+            raise SyntaxError(
+                f"tokenization error near {tok.string!r}",
+                ("<string>", tok.start[0], tok.start[1], tok.line, tok.start[0], tok.start[1]),
+            )
+
     # Step 3: NAME rewrite
     new_tokens = []
     # Track last significant token to check for attribute context

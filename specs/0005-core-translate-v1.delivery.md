@@ -27,3 +27,6 @@ None. The code perfectly conforms to the spec algorithm.
 
 ## Open questions for the planner — anything ambiguous in the spec
 None. The specs were comprehensive.
+
+## Known limitations
+- Harakat inside identifiers require Python 3.12+ (CPython 3.11 tokenizer limitation, not an apython bug).

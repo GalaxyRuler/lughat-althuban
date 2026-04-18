@@ -209,6 +209,10 @@ def test_translate_hamza_variant():
     compile(res, "<test>", "exec")
 
 
+@pytest.mark.skipif(
+    sys.version_info < (3, 12),
+    reason="Python 3.11 tokenizer does not accept Arabic harakat in identifiers (fixed in 3.12)",
+)
 def test_unknown_identifier_normalized():
     # كَلب is normalized to كلب
     res = translate("كَلب = 1\nكلب = 2\n")
