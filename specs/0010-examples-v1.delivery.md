@@ -1,8 +1,8 @@
 # Delivery Note: Packet 0010 examples-v1
 
-**PR**: [TBD]
+**PR**: https://github.com/GalaxyRuler/apython/pull/12
 **Branch**: `packet/0010-examples-v1`
-**Implementation commit**: [TBD]
+**Implementation commit**: b5f5ff8aac2fecff2945ab1f3b962a2615654e0f
 **Implementer**: Gemini 3.1 Pro
 **Reviewer**: Claude
 
