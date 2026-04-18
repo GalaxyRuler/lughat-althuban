@@ -1,8 +1,8 @@
 # Delivery Note: Packet 0004 pretokenize-v1
 
-**PR**: (Pending creation)
+**PR**: 5
 **Branch**: packet/0004-pretokenize-v1
-**Implementation commit**: (Pending)
+**Implementation commit**: ffb0d5fdbecf90e2b8ce049dbec4f676fce17e28
 **Implementer**: Gemini 3.1 Pro
 **Reviewer**: Claude
 
