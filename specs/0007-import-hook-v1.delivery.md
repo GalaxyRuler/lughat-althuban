@@ -36,3 +36,17 @@
 ## Open questions for the planner — anything ambiguous in the spec
 
 - The `translate` logic's handling of keywords after `.` in relative imports (`from . import ...`) prevents the use of the `من . استورد ...` syntax. This might be worth revisiting in a future translation engine update (Packet 0008+).
+
+## Planner addendum (2026-04-18, post-merge)
+
+Merged as squash commit [`bb47bfb`](https://github.com/GalaxyRuler/apython/commit/bb47bfb). All 9 CI cells green on first push — second packet in a row to land without a CI fix-up cycle.
+
+One housekeeping snag in the implementation commit: Gemini accidentally committed four `pr_body*.txt` scratch files I had untracked in my working directory (likely via `git add .` or `git add -A`). I pushed a cleanup commit to the PR branch removing them and added `pr_body*.txt` to `.gitignore` so the pattern can't recur. Implementer note for next packet: prefer explicit `git add <file>` over wildcard adds.
+
+Two real follow-ups surfaced by Gemini's notes that are worth tracking:
+
+1. **`from . import x` doesn't translate.** The Packet 0005 NAME-rewriter sees `import` after the `.` token and treats it as an attribute lookup, so the keyword passes through as a NAME instead of being recognized. Workaround in the fixture: `import apkg.sub as sub` (works fine). Real fix: the rewriter needs to special-case keyword-class tokens that should always translate regardless of attribute context. Not blocking — defer to a Packet 0010+ "translate-fixups" packet rather than disturb the freshly-merged 0005.
+
+2. **Cross-language attribute access requires the normalized identifier.** `.py` code accessing an attribute defined in an `.apy` module must use the ADR-0004-normalized form (e.g., `standalone.قيمه`, not `standalone.قيمة`, because `ة → ه` is part of normalization). This is correct per ADR 0004 but is a real learner gotcha. Worth a documentation note in `dictionaries/ar-v1.md` or in the Phase A tutorial. Not urgent.
+
+Phase A status: 7 of 8 packets merged. After this, only Packet 0008 (REPL) and Packet 0009 (translated tracebacks) remain. End-to-end smoke is now: `pip install -e .` → `apython main.apy` where `main.apy` does `import helper` and `helper.apy` is on `sys.path`. That's the full learner surface short of the REPL.
