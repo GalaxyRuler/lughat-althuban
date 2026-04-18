@@ -269,32 +269,6 @@ def test_idempotent_on_ascii_python():
 
 # Combined transformation (2)
 def test_full_arabic_function():
-    # Actually wait. The spec says input is:
-    # """def اضافة(a، b):
-    #     return a + b
-    #
-    # print(اضافة(٢، ٣))
-    # """
-    # Meaning the code is NOT a string literal. Ah, the spec uses Markdown code block with """ for some reason?
-    # No, the spec says:
-    # """def اضافة(a، b):
-    #     return a + b
-    #
-    # print(اضافة(٢، ٣))
-    # """
-    # expected output:
-    # """def اضافة(a, b):
-    #     return a + b
-    #
-    # print(اضافة(2, 3))
-    # """
-    # The spec's Markdown has:
-    # ```python
-    # """def اضافة(a، b):
-    # ...
-    # ```
-    # If it is a string literal, then it shouldn't fold! But the expected output shows it folded.
-    # Therefore, the `"""` in the spec means literal file content, not string quotes.
     src_content = "def اضافة(a، b):\n    return a + b\n\nprint(اضافة(٢، ٣))\n"
     expected_content = "def اضافة(a, b):\n    return a + b\n\nprint(اضافة(2, 3))\n"
     assert pretokenize(src_content) == expected_content
