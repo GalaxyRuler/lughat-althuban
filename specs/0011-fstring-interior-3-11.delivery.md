@@ -1,8 +1,8 @@
 # Delivery Note: Packet 0011 fstring-interior-3-11
 
-**PR**: [TBD]
+**PR**: https://github.com/GalaxyRuler/apython/pull/13
 **Branch**: `packet/0011-fstring-interior-3-11`
-**Implementation commit**: [TBD]
+**Implementation commit**: f40dc555514feaae281629b9aa803e0356325352
 **Implementer**: Gemini 3.1 Pro
 **Reviewer**: Claude
 
