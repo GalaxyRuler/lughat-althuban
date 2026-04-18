@@ -28,3 +28,13 @@ None. The implementation followed the spec and corresponding ADRs strictly.
 
 ## Open questions for the planner — anything ambiguous in the spec
 None. The spec was completely unambiguous and covered all edge cases.
+
+## Planner addendum (2026-04-18, post-merge)
+
+One spec self-contradiction was caught during review and resolved before merge:
+
+- **COMMENT state behavior**: §State machine line 109 said COMMENT should "Pass characters through" but tests 33–35 require digit/punctuation folding inside comments (e.g., `# value is ٥` → `# value is 5`). The implementation correctly followed the tests over the prose. Spec prose retroactively corrected to match the tests; the substantive rule (folding inside comments, bidi rejected, mixed-digit detection not required) is unchanged from what shipped.
+
+One stylistic regression was caught and fixed during review:
+
+- **Stream-of-consciousness comment block in `test_full_arabic_function`** (26 lines of the implementer's reasoning about a markdown formatting ambiguity in the spec) was left in the test file. Removed in commit [`2b64b08`](https://github.com/GalaxyRuler/apython/commit/2b64b08); the deletion also resolved a ruff E501 violation that had turned all 9 CI cells red. Test logic itself was correct on first push.

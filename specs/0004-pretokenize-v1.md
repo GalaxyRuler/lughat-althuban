@@ -106,7 +106,7 @@ The codepoint (`U+202E`), the Unicode name (use `unicodedata.name`), and the 1-i
 Implement a single-pass walker. States:
 
 - `DEFAULT` — outside strings/comments. Apply substitutions. Reject bidi.
-- `COMMENT` — between `#` and the next newline. Pass characters through. Reject bidi.
+- `COMMENT` — between `#` and the next newline. Apply digit and punctuation substitutions (per tests 33–35; comments are NOT strings). Reject bidi. Mixed-digit detection is not required inside comments.
 - `STRING_SQ` — inside `'...'`. Pass through. Allow bidi.
 - `STRING_DQ` — inside `"..."`. Pass through. Allow bidi.
 - `STRING_TSQ` — inside `'''...'''`. Pass through. Allow bidi.
