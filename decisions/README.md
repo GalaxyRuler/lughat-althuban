@@ -40,6 +40,7 @@ What else we looked at, and why it was rejected.
 | 0003 | Keyword dictionary governance | accepted |
 | 0004 | Identifier normalization policy | accepted |
 | 0005 | Arabic numerals and punctuation in source | accepted |
-| 0006 | Bidi control character policy | accepted |
+| 0006 | Bidi control character policy | superseded by 0009 |
 | 0007 | Scope: learning dialect first, production replacement second | accepted |
 | 0008 | Phase B charter | accepted |
+| 0009 | Bidi control marks extension | accepted |

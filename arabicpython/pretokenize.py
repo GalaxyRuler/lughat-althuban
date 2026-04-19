@@ -2,7 +2,13 @@
 
 import unicodedata
 
-_BIDI_CONTROLS = frozenset("\u202a\u202b\u202c\u202d\u202e\u2066\u2067\u2068\u2069")
+_BIDI_CONTROLS = frozenset(
+    "\u061c"  # ARABIC LETTER MARK (ALM)
+    "\u200e"  # LEFT-TO-RIGHT MARK (LRM)
+    "\u200f"  # RIGHT-TO-LEFT MARK (RLM)
+    "\u202a\u202b\u202c\u202d\u202e"  # LRE, RLE, PDF, LRO, RLO
+    "\u2066\u2067\u2068\u2069"  # LRI, RLI, FSI, PDI
+)
 _ASCII_DIGITS = frozenset("0123456789")
 _ARABIC_INDIC_DIGITS = frozenset("٠١٢٣٤٥٦٧٨٩")
 _EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷۸۹")
@@ -47,9 +53,12 @@ def pretokenize(source: str) -> str:
        ASCII digits 0-9.
     2. Outside string literals: replace U+060C (،) with U+002C (,),
        U+061B (؛) with U+003B (;), U+061F (؟) with U+003F (?).
-    3. Outside string literals: raise SyntaxError if any of U+202A-U+202E or
-       U+2066-U+2069 (bidi control characters) is encountered. Inside string
-       literals these pass through unchanged.
+    3. Outside string literals: raise SyntaxError if any of the 12 bidi
+       formatting characters from UAX #9 is encountered — U+061C (ALM),
+       U+200E (LRM), U+200F (RLM), U+202A-U+202E (LRE/RLE/PDF/LRO/RLO),
+       U+2066-U+2069 (LRI/RLI/FSI/PDI). Inside string literals these pass
+       through unchanged. Per ADR 0009 (which supersedes ADR 0006's
+       narrower 9-codepoint reject set).
 
     Single-line and multi-line string literals (', ", ''', \"\"\") and string
     prefixes (r, b, u, f, and case-insensitive combinations) are recognized.

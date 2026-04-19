@@ -169,7 +169,7 @@ def test_comment_ends_at_newline():
     assert pretokenize("# ٥\n٥ = 1") == "# 5\n5 = 1"
 
 
-# Bidi rejection (9)
+# Bidi rejection (12) — see ADR 0009 (supersedes ADR 0006's 9-codepoint set)
 def _check_bidi_rejection(codepoint: str, expected_name: str):
     with pytest.raises(SyntaxError) as exc:
         pretokenize(f"x = {codepoint}")
@@ -179,6 +179,18 @@ def _check_bidi_rejection(codepoint: str, expected_name: str):
     assert hex_code in msg
     assert expected_name in msg
     assert "trojansource.codes" in msg
+
+
+def test_bidi_alm_rejected():
+    _check_bidi_rejection("\u061c", "ARABIC LETTER MARK")
+
+
+def test_bidi_lrm_rejected():
+    _check_bidi_rejection("\u200e", "LEFT-TO-RIGHT MARK")
+
+
+def test_bidi_rlm_rejected():
+    _check_bidi_rejection("\u200f", "RIGHT-TO-LEFT MARK")
 
 
 def test_bidi_lre_rejected():
@@ -230,6 +242,13 @@ def test_bidi_in_triple_quoted_passes():
 
 def test_bidi_in_docstring_passes():
     src = '"""\u202e"""\n'
+    assert pretokenize(src) == src
+
+
+def test_alm_in_string_passes():
+    # ALM is the 0009-added codepoint most likely to appear legitimately in
+    # Arabic data (as a per-character RTL hint inside a quoted Arabic string).
+    src = "x = '\u061c'"
     assert pretokenize(src) == src
 
 

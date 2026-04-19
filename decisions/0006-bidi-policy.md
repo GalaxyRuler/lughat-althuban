@@ -1,6 +1,6 @@
 # 0006 — Bidi control character policy
 
-**Status**: accepted
+**Status**: superseded by 0009 (reject-list extended from 9 to 12 codepoints; rationale, in-string allowance, and comment rejection are unchanged and still in force)
 **Date**: 2026-04-17
 **Deciders**: project planner
 
