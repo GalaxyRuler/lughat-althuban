@@ -18,4 +18,4 @@
 ## Legend
 
 - **Status**: `drafted` → `in-progress` → `delivered` → `reviewing` → `merged` | `blocked`
-- **Owner**: always `Codex` for implementation packets; `Claude` for packets that are planner-only work (dictionary curation, decision docs).
+- **Owner**: the implementer assigned to the packet. Phase A used `Codex` for the early packets and switched to `Gemini 3.1 Pro` / `Gemini 3.1 Flash` partway through. `Claude` is the owner for planner-only work (dictionary curation, decision docs, spec authoring).

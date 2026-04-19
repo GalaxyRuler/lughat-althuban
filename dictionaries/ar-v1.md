@@ -1,9 +1,9 @@
 # Arabic dialect dictionary — ar-v1.0
 
-**Status**: draft (Packet 0001)
-**Locked**: pending review
+**Status**: locked (ar-v1.0)
+**Locked**: 2026-04-19 per ADR 0008 § B.0 (Phase B charter freezes ar-v1)
 **Supersedes**: none
-**Governance**: changes to existing entries require a new ADR (see ADR 0003).
+**Governance**: changes to existing entries require a new ADR (see ADR 0003). The dictionary is now frozen for the lifetime of Phase A; subsequent dictionary versions (`ar-v2`, etc.) require a superseding ADR per ADR 0008 § B.0.
 
 ---
 
@@ -276,13 +276,18 @@ The loader reads only the tables; this audit section is historical documentation
 
 ## Counts
 
-- Keywords: 36 hard + 4 soft = 40
-- Literals: 3 (in keywords section above)
+These match what `dialect.load_dialect("ar-v1")` reports at runtime
+(`names: 144, attributes: 29, total: 173`).
+
+- Hard keywords: 32 (Python 3.13's `keyword.kwlist` minus `True`/`False`/`None`, which live in *Literals* below)
+- Soft keywords: 4 (`match`, `case`, `type`, `_`)
+- Literals: 3 (`True`, `False`, `None`)
 - Built-in types: 15
 - Built-in functions: 51 (unique; excludes type-constructor duplicates)
 - Built-in exceptions: 40
-- Methods: 29
-- **Total entries: 175**
+- Subtotal (names): **144** — sums to 145 by section, minus 1 for the `type` soft-keyword / `type` built-in-type dedup (both map to `نوع`, stored once in `dialect.names`)
+- Methods (attributes): 29
+- **Total entries: 173**
 
 ## Known omissions (v1.1 and later)
 

@@ -2,30 +2,35 @@
 
 This directory holds the canonical human-readable source of truth for every Arabic ↔ Python symbol mapping the dialect supports.
 
-## Contents (planned)
+## Contents
 
 | File | Contents | Status |
 |---|---|---|
-| `ar-v1.md` | Arabic keyword/builtin/exception table, v1 | not yet written |
-| `ar-v1-alternates.md` | Candidate alternatives considered but rejected, with rationale | not yet written |
+| `ar-v1.md` | Arabic keyword/builtin/exception table, v1 | locked (Phase A ship; ar-v1.0) |
+| `exceptions-ar-v1.md` | Exception subclass hierarchy + interpreter-message translations | locked (Phase A ship) |
+| `REVIEW-2026-04-19.md` | Planner-only sanity review of `ar-v1.md` | informational |
 
 ## Governance
 
-Dictionary files are versioned separately from the package (see ADR 0003). A change to a dictionary file requires a new ADR if it alters an existing entry's translation. New entries for Python features not previously covered (e.g., `match` added in 3.10) do not require an ADR.
+Dictionary files are versioned separately from the package (see ADR 0003).
 
-The machine-loadable form lives at `arabicpython/dialects/ar.py` and is generated from the markdown file by a build step. Do not edit the Python file directly; edit the markdown and regenerate.
+- **Frozen rule.** Per ADR 0008 § B.0, `ar-v1` is now permanently frozen for the lifetime of Phase A. Any change that would alter an existing entry's translation requires a new ADR superseding ADR 0008's freeze.
+- **Allowed in-place under the freeze**: doc-hygiene corrections (typos, header status, count math), cosmetic rendering normalization, and *additions* for Python features not previously covered (e.g., a future `match` extension would be additive). See ADR 0003 for the additions carve-out.
+- **Future versions** (`ar-v2`, etc.) are charter material for a superseding ADR. The Category D items in `REVIEW-2026-04-19.md` are the current best inputs to that charter.
+
+## How the dictionary is loaded
+
+`arabicpython.dialect.load_dialect("ar-v1")` parses `ar-v1.md` directly at load time — there is no generated Python sidecar. The loader walks the markdown tables, normalizes each canonical entry through `arabicpython.normalize.normalize_identifier`, and produces two frozen mappings:
+
+- `dialect.names` (144 entries) — keywords, soft keywords, literals, types, built-in functions, exceptions
+- `dialect.attributes` (29 entries) — methods on built-in types
+
+Translation lookups consult these mappings; nothing is generated, regenerated, or built. Editing `ar-v1.md` and re-running the package picks up changes (subject to the frozen-rule constraints above).
 
 ## Format
 
-Entries in `ar-v1.md` look like:
-
-```
-### if
-- **Canonical**: إذا
-- **Alternates considered**: لو, اذا
-- **Rationale**: MSA-standard; matches Hedy; unambiguous in context.
-```
+Entries are rendered as markdown tables with four columns: Python symbol, Canonical Arabic, Alternates considered (informational only — not loaded), and Rationale. Multi-word translations use `_` (not space) because Python's tokenizer treats space as a token boundary. Method entries are rendered with a leading `.` for clarity but stored without it.
 
 ## Phase ownership
 
-Curating `ar-v1.md` is **planner work, not implementer work**. Claude writes it by hand in Packet 1.1 before any code is handed to Codex.
+`ar-v1` was authored by the planner (Claude) in spec packet 0001 and has been live in every released package version. It is now frozen. Subsequent dictionary versions require a superseding ADR per the rules above.

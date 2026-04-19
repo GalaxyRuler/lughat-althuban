@@ -107,7 +107,7 @@ apython/
 ├── dictionaries/     ar-v1.md (keywords/built-ins) + exceptions-ar-v1.md
 ├── specs/            Spec packets handed off to the implementer
 ├── arabicpython/     The transpiler package
-├── tests/            pytest suite (316 tests as of Phase A wrap)
+├── tests/            pytest suite (336 passing + 21 intentional skips)
 └── examples/         Runnable .apy programs (7 progressive demos)
 ```
 
