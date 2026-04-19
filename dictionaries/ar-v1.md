@@ -14,7 +14,7 @@
 - **Alternates considered**: other Arabic words that are defensible; documented for transparency, **not accepted at runtime**.
 - **Rationale**: why this canonical was chosen.
 
-Every canonical entry is written in a form that is idempotent under the ADR 0004 normalizer (no harakat, no tatweel, no hamza variants that fold). Loading code applies the normalizer once on the way in and once on each identifier at lookup time.
+Every canonical entry is shown in its **natural visible form** — the spelling a learner would type and that appears in IDE tooltips and error messages. The ADR 0004 normalizer folds hamza variants (`أ`/`إ`/`آ` → `ا`), ta-marbuta (`ة` → `ه`), harakat, and tatweel on both the dictionary entry and the user's identifier at lookup time, so `خطأ` and `خطا` resolve to the same key at runtime. Where a rationale note references the stored (normalized) form, it is marked explicitly.
 
 Multi-word translations use underscore `_` rather than space, because Python tokenizes space as a token boundary. Dotted method names are written with a leading `.` in this file for clarity but are stored without the dot in the machine-readable dictionary.
 
@@ -41,7 +41,7 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `for` | لكل | من_أجل | "For each" idiom in MSA; concise. |
 | `from` | من | — | MSA preposition "from". |
 | `global` | عام | عالمي | MSA "public/general"; avoid عالمي which means "global as in worldwide". |
-| `if` | إذا | لو، اذا | MSA conditional "if". |
+| `if` | إذا | لو، إذا | MSA conditional "if". |
 | `import` | استورد | اجلب، ادرج | MSA "import". |
 | `in` | في | — | MSA preposition "in". |
 | `is` | هو | يكون | MSA copula "is/he". |
@@ -70,7 +70,7 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 
 | Python | Canonical | Alternates | Rationale |
 |---|---|---|---|
-| `False` | خطا | باطل، كاذب | Semantic literal "incorrect"; Hedy uses صحيح/خطأ pair. Hamza in خطأ folds to ا per ADR 0004, stored as خطا. |
+| `False` | خطأ | باطل، كاذب | Semantic literal "incorrect"; Hedy uses صحيح/خطأ pair. Shown in visible form `خطأ`; normalizer folds final hamza to give stored key `خطا` per ADR 0004. |
 | `None` | لاشيء | عدم، فراغ | Literal "nothing"; closest to `None` semantically. |
 | `True` | صحيح | حق | Semantic literal "correct"; Hedy uses. |
 
@@ -100,8 +100,8 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 |---|---|---|---|
 | `abs` | مطلق | — | MSA "absolute". |
 | `all` | كل | — | MSA "all". |
-| `any` | اي | — | MSA "any" (stored without hamza per normalizer). |
-| `ascii` | ايسكي | — | Transliteration. |
+| `any` | أي | — | MSA "any"; normalizer folds hamza to give stored key `اي` per ADR 0004. |
+| `ascii` | أيسكي | — | Transliteration. |
 | `bin` | ثنائي | — | MSA "binary". |
 | `callable` | قابل_للاستدعاء | — | MSA "callable". |
 | `chr` | رمز | حرف | MSA "symbol"; `.ord` counterpart is قيمة_رمز. |
@@ -129,13 +129,13 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `len` | طول | — | MSA "length". |
 | `locals` | متغيرات_محلية | محلات | Composed for clarity. |
 | `map` | طبق | — | MSA "apply"; closer to functional map than alternatives. |
-| `max` | الاكبر | اكبر | MSA "maximum". |
-| `min` | الاصغر | اصغر | MSA "minimum". |
+| `max` | الأكبر | أكبر | MSA "maximum". |
+| `min` | الأصغر | أصغر | MSA "minimum". |
 | `next` | التالي | — | MSA "next". |
 | `oct` | ثماني | — | MSA "octal". |
 | `open` | افتح | — | MSA "open". |
 | `ord` | قيمة_رمز | — | Composed: "value of symbol"; pairs with chr. |
-| `pow` | اس | — | MSA "power/exponent" (short mathematical form). |
+| `pow` | أس | — | MSA "power/exponent" (short mathematical form). |
 | `print` | اطبع | — | MSA "print"; Hedy uses. |
 | `property` | خاصية | — | MSA "property/attribute". |
 | `repr` | تمثيل | — | MSA "representation". |
@@ -146,7 +146,7 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `sorted` | مرتب | — | MSA "sorted". |
 | `staticmethod` | تابع_ثابت | — | Composed: "static method". |
 | `sum` | مجموع | — | MSA "sum". |
-| `super` | الاصل | الاب | MSA "origin/parent"; matches OOP inheritance metaphor. |
+| `super` | الأصل | الأب | MSA "origin/parent"; matches OOP inheritance metaphor. |
 | `vars` | متغيرات | — | MSA "variables". |
 | `zip` | ازدوج | دمج | MSA "pair up". |
 
@@ -156,46 +156,46 @@ Type-constructor duplicates (also function and type, but listed once above): `bo
 
 | Python | Canonical | Alternates | Rationale |
 |---|---|---|---|
-| `ArithmeticError` | خطا_حسابي | — | Composed. |
-| `AssertionError` | خطا_تاكيد | — | Composed (tashkeel stripped per normalizer). |
-| `AttributeError` | خطا_صفة | — | Composed. |
-| `BaseException` | استثناء_اساسي | — | Composed. |
-| `ConnectionError` | خطا_اتصال | — | Composed. |
-| `EOFError` | خطا_نهاية_ملف | — | Composed. |
-| `Exception` | استثناء_عام | استثناء | "general exception"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_اساسي`. |
-| `FileExistsError` | خطا_ملف_موجود | — | Composed. |
-| `FileNotFoundError` | خطا_ملف_مفقود | — | Composed. |
-| `FloatingPointError` | خطا_عشري | — | Composed. |
+| `ArithmeticError` | خطأ_حسابي | — | Composed. |
+| `AssertionError` | خطأ_تأكيد | — | Composed. |
+| `AttributeError` | خطأ_صفة | — | Composed. |
+| `BaseException` | استثناء_أساسي | — | Composed. |
+| `ConnectionError` | خطأ_اتصال | — | Composed. |
+| `EOFError` | خطأ_نهاية_ملف | — | Composed. |
+| `Exception` | استثناء_عام | استثناء | "general exception"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_أساسي`. |
+| `FileExistsError` | خطأ_ملف_موجود | — | Composed. |
+| `FileNotFoundError` | خطأ_ملف_مفقود | — | Composed. |
+| `FloatingPointError` | خطأ_عشري | — | Composed. |
 | `GeneratorExit` | خروج_مولد | — | Composed. |
-| `ImportError` | خطا_استيراد | — | Composed. |
-| `IndentationError` | خطا_ازاحة | — | Composed. |
-| `IndexError` | خطا_فهرس | — | Composed. |
-| `IOError` | خطا_ادخال_اخراج | — | Composed. |
+| `ImportError` | خطأ_استيراد | — | Composed. |
+| `IndentationError` | خطأ_إزاحة | — | Composed. |
+| `IndexError` | خطأ_فهرس | — | Composed. |
+| `IOError` | خطأ_إدخال_إخراج | — | Composed. |
 | `KeyboardInterrupt` | مقاطعة | — | MSA "interruption"; simplest form. |
-| `KeyError` | خطا_مفتاح | — | Composed. |
-| `LookupError` | خطا_بحث | — | Composed. |
-| `MemoryError` | خطا_ذاكرة | — | Composed. |
-| `ModuleNotFoundError` | خطا_وحدة_مفقودة | — | Composed. |
-| `NameError` | خطا_اسم | — | Composed. |
-| `NotImplementedError` | خطا_غير_منفذ | — | Composed. |
-| `OSError` | خطا_نظام | — | Composed. |
-| `OverflowError` | خطا_فائض | — | Composed. |
-| `PermissionError` | خطا_صلاحية | — | Composed. |
-| `RecursionError` | خطا_تكرار_ذاتي | — | Composed. |
-| `RuntimeError` | خطا_تشغيل | — | Composed. |
+| `KeyError` | خطأ_مفتاح | — | Composed. |
+| `LookupError` | خطأ_بحث | — | Composed. |
+| `MemoryError` | خطأ_ذاكرة | — | Composed. |
+| `ModuleNotFoundError` | خطأ_وحدة_مفقودة | — | Composed. |
+| `NameError` | خطأ_اسم | — | Composed. |
+| `NotImplementedError` | خطأ_غير_منفذ | — | Composed. |
+| `OSError` | خطأ_نظام | — | Composed. |
+| `OverflowError` | خطأ_فائض | — | Composed. |
+| `PermissionError` | خطأ_صلاحية | — | Composed. |
+| `RecursionError` | خطأ_تكرار_ذاتي | — | Composed. |
+| `RuntimeError` | خطأ_تشغيل | — | Composed. |
 | `StopIteration` | انتهاء_التكرار | — | Composed. |
-| `SyntaxError` | خطا_صياغة | — | Composed. |
-| `SystemError` | خطا_نظام_داخلي | — | Composed. |
+| `SyntaxError` | خطأ_صياغة | — | Composed. |
+| `SystemError` | خطأ_نظام_داخلي | — | Composed. |
 | `SystemExit` | خروج_نظام | — | Composed. |
-| `TabError` | خطا_جدولة | — | Composed. |
-| `TimeoutError` | خطا_انتهاء_وقت | — | Composed. |
-| `TypeError` | خطا_نوع | — | Composed. |
-| `UnicodeDecodeError` | خطا_فك_يونيكود | — | Composed. |
-| `UnicodeEncodeError` | خطا_ترميز_يونيكود | — | Composed. |
-| `UnicodeError` | خطا_يونيكود | — | Composed. |
-| `ValueError` | خطا_قيمة | — | Composed. |
+| `TabError` | خطأ_جدولة | — | Composed. |
+| `TimeoutError` | خطأ_انتهاء_وقت | — | Composed. |
+| `TypeError` | خطأ_نوع | — | Composed. |
+| `UnicodeDecodeError` | خطأ_فك_يونيكود | — | Composed. |
+| `UnicodeEncodeError` | خطأ_ترميز_يونيكود | — | Composed. |
+| `UnicodeError` | خطأ_يونيكود | — | Composed. |
+| `ValueError` | خطأ_قيمة | — | Composed. |
 | `Warning` | تحذير | — | MSA "warning". |
-| `ZeroDivisionError` | خطا_قسمة_صفر | — | Composed. |
+| `ZeroDivisionError` | خطأ_قسمة_صفر | — | Composed. |
 
 ## 6. Common methods on built-in types
 
@@ -215,7 +215,7 @@ Methods are stored without the leading dot in the machine-readable dictionary. T
 | `.lower` | صغير | — | MSA "small/lowercase". |
 | `.replace` | استبدل | — | MSA "replace". |
 | `.split` | قسم | — | MSA "split/divide". |
-| `.startswith` | يبدا_بـ | — | Composed: "starts with". |
+| `.startswith` | يبدأ_بـ | — | Composed: "starts with". |
 | `.strip` | جرد | نظف | MSA "strip". |
 | `.upper` | كبير | — | MSA "big/uppercase". |
 
