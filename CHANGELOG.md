@@ -11,6 +11,39 @@ Nothing yet. Phase B is chartered (ADR 0008) but not started; first packet
 B-001 (alias-runtime + `requests`) is gated on funding-unlock conditions
 documented in the charter.
 
+## [0.1.1] — 2026-04-20 — Dictionary rendering + coverage pass
+
+Post-release doc and dictionary improvements. No code changes.
+
+### Changed — dictionaries
+
+- **ar-v1.md rendering convention**: all canonical entries now shown in natural
+  visible (pre-normalizer) form. The ADR 0004 normalizer folds on lookup so
+  runtime behaviour is unchanged; this is documentation-only. 45 entries
+  corrected — primarily `خطا_*` → `خطأ_*` exception names, `اي` → `أي`,
+  `الاكبر` → `الأكبر`, `يبدا_بـ` → `يبدأ_بـ`, and similar hamza restorations.
+
+### Added — dictionaries (Category C, no ADR required per ADR 0003)
+
+- `breakpoint` → `نقطة_توقف` (built-in function)
+- 7 string methods: `.title عنوان`, `.capitalize كبر_الأول`,
+  `.swapcase عكس_الحالة`, `.zfill مل_بأصفار`, `.center توسط`,
+  `.ljust ضبط_يسار`, `.rjust ضبط_يمين`
+- 5 set methods: `.add ضم`, `.discard أسقط`, `.union اتحاد`,
+  `.intersection تقاطع`, `.difference فرق`
+  (`.remove` / `.clear` / `.copy` already worked via existing mappings)
+- 1 dict method: `.popitem → انتزع_زوج`
+  (`.pop` was already covered via the shared `انتزع → pop` mapping)
+- `aiter` / `anext` documented as deferred to Phase B in Known omissions
+
+**Updated counts**: 173 → 187 entries (names 144→145, attributes 29→42).
+
+### Added — tests
+
+- 15 new tests in `test_dialect.py` covering all v1.1 additions.
+- Count assertions updated to ≥ 187 total / ≥ 42 attributes.
+- **Test suite: 351 passing, 21 intentionally skipped.**
+
 ## [0.1.0] — 2026-04-19 — Phase A complete
 
 First feature-complete release of the Arabic-keyword Python dialect. Source-to-source preprocessor on top of CPython 3.11+; no fork.
@@ -19,7 +52,7 @@ First feature-complete release of the Arabic-keyword Python dialect. Source-to-s
 
 - **Pretokenize layer** (`arabicpython/pretokenize.py`): Arabic-Indic + Eastern-Arabic digit folding, Arabic punctuation aliasing (`،`/`؛`/`؟`), 12-codepoint bidi-control rejection per UAX #9.
 - **Identifier normalization** (`arabicpython/normalize.py`): hamza folding, ta-marbuta→ha, harakat stripping, tatweel removal. Idempotent; `قيمه` and `قيمة` resolve to the same name.
-- **Dialect loader** (`arabicpython/dialect.py`): parses `dictionaries/ar-v1.md` directly at load time into frozen name/attribute mappings. 173 entries total (144 names + 29 method attributes).
+- **Dialect loader** (`arabicpython/dialect.py`): parses `dictionaries/ar-v1.md` directly at load time into frozen name/attribute mappings. 173 entries at Phase A ship (expanded to 187 in v0.1.1).
 - **Translate layer** (`arabicpython/translate.py`): tokenize → name-rewrite → untokenize. Includes a Python-3.11-specific f-string-interior rewriter (Packet 0011) that's bypassed on 3.12+ where PEP 701 changed f-string tokenization.
 - **`.apy` import hook** (`arabicpython/importer.py`): `sys.meta_path` finder so `.apy` files import each other and `.py` modules transparently in both directions.
 - **Interactive REPL** (`arabicpython/repl.py`): multi-line Arabic input with continuation prompts; readline-aware where available.
