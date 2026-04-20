@@ -1,3 +1,5 @@
+<div dir="rtl">
+
 # الأمثلة التعليمية
 
 سبعة برامج تعليمية تصاعدية مكتوبة بلهجة apython العربية. كل مثال مستقل وقابل للتشغيل مباشرة.
@@ -176,3 +178,5 @@ Get-ChildItem examples\0*.apy | ForEach-Object {
 - **نظرة عامة على المشروع**: [`docs/ar/overview.md`](../docs/ar/overview.md)
 - **القاموس الكامل**: [`dictionaries/ar-v1.md`](../dictionaries/ar-v1.md)
 - **الكلمات المفتاحية والقرارات**: [`decisions/`](../decisions/)
+
+</div>
