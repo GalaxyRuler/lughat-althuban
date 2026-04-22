@@ -1,15 +1,13 @@
-import sys
-import os
 import subprocess
-import pytest
+import sys
 
 import arabicpython
 
 arabicpython.install()
 
-import apps.search_engine.normalizer as normalizer
-import apps.search_engine.indexer as indexer
-import apps.search_engine.ranker as ranker
+import apps.search_engine.indexer as indexer  # noqa: E402
+import apps.search_engine.normalizer as normalizer  # noqa: E402
+import apps.search_engine.ranker as ranker  # noqa: E402
 
 DOCS_DIR = "apps/search_engine/docs"
 

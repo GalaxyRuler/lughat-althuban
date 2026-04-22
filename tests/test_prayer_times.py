@@ -1,16 +1,12 @@
-import sys
-import os
-import subprocess
 import pytest
-import datetime
 
 import arabicpython
 
 arabicpython.install()
 
-import apps.prayer_times.المدن as المدن
-import apps.prayer_times.الحساب as الحساب
-import apps.prayer_times.الرئيسي as الرئيسي
+import apps.prayer_times.المدن as المدن  # noqa: E402, I001
+import apps.prayer_times.الحساب as الحساب  # noqa: E402, I001
+import apps.prayer_times.الرئيسي as الرئيسي  # noqa: E402, I001
 
 
 def test_arabic_indic_conversion():
