@@ -1,0 +1,86 @@
+# arabicpython/aliases/asyncio.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `asyncio` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Name notes:
+#   اجمع → .join in dialect.attributes — conflict. Use اجمع_مهام for gather.
+#   انتظر → await in dialect.names (standalone). Attr access .انتظر works fine.
+#   مجموعة_مهام: ة is mid-identifier (before _), not final → no normalization.
+#   نمه → already used by time.sleep in وقت_نظام. asyncio.sleep uses تريث instead.
+
+[meta]
+arabic_name   = "اتزامن"
+python_module = "asyncio"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Core control functions ────────────────────────────────────────────────────
+"شغل"                   = "run"
+"تريث"                  = "sleep"
+"اجمع_مهام"             = "gather"
+"انتظر"                 = "wait"
+"انتظر_من_اجل"          = "wait_for"
+"درع"                   = "shield"
+"اكمل_ما_ينتهي"         = "as_completed"
+
+# ── Task and Future ───────────────────────────────────────────────────────────
+"مهمه"                  = "Task"
+"مستقبل"                = "Future"
+"مجموعة_مهام"           = "TaskGroup"
+"انشئ_مهمه"             = "create_task"
+"مهمه_حاليه"            = "current_task"
+"كل_المهام"             = "all_tasks"
+"تاكد_مستقبل"           = "ensure_future"
+"مستقبل_ملفوف"          = "wrap_future"
+
+# ── Event loop ────────────────────────────────────────────────────────────────
+"حلقه_احداث"            = "EventLoop"
+"احضر_حلقه_احداث"       = "get_event_loop"
+"احضر_حلقه_عامله"       = "get_running_loop"
+"حلقه_احداث_جديده"      = "new_event_loop"
+"ضبط_حلقه_احداث"        = "set_event_loop"
+"شغل_في_خيط"            = "run_coroutine_threadsafe"
+"في_خيط"                = "to_thread"
+
+# ── Synchronization primitives ────────────────────────────────────────────────
+"قفل"                   = "Lock"
+"حدث"                   = "Event"
+"سيمافور"               = "Semaphore"
+"سيمافور_محدود"          = "BoundedSemaphore"
+"حاجز"                  = "Barrier"
+"شرط"                   = "Condition"
+
+# ── Queues ────────────────────────────────────────────────────────────────────
+"صف_مهام"               = "Queue"
+"صف_اولويه"             = "PriorityQueue"
+"صف_مقلوب"              = "LifoQueue"
+"صف_فارغ"               = "QueueEmpty"
+"صف_ممتلئ"              = "QueueFull"
+
+# ── Timeout ───────────────────────────────────────────────────────────────────
+"مهله"                  = "timeout"
+"مهله_عند"              = "timeout_at"
+"كائن_مهله"             = "Timeout"
+
+# ── Exceptions ────────────────────────────────────────────────────────────────
+"خطا_الغاء"             = "CancelledError"
+"خطا_مهله"              = "TimeoutError"
+"خطا_حاله_غير_صالحه"    = "InvalidStateError"
+
+# ── Coroutine checks ──────────────────────────────────────────────────────────
+"هل_كوروتين"            = "iscoroutine"
+"هل_دالة_كوروتين"       = "iscoroutinefunction"
+"هل_مستقبل"             = "isfuture"
+
+# ── Streaming ─────────────────────────────────────────────────────────────────
+"افتح_اتصال"            = "open_connection"
+"ابدا_خادم"             = "start_server"
+"قارئ_دفق"              = "StreamReader"
+"كاتب_دفق"              = "StreamWriter"
