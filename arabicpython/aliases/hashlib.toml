@@ -1,0 +1,49 @@
+# arabicpython/aliases/hashlib.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `hashlib` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Algorithm-name keys embed ASCII digits (e.g. "مد5", "شا256") which
+# are valid Python 3 identifiers and pass the round-trip normalization
+# check (last char is a digit → no ة/ى substitution).
+#
+# Collision notes:
+#   بصمه → already used by dialect.names (hash builtin). Not used here.
+#   هاش_ملف uses compound form to avoid conflict.
+
+[meta]
+arabic_name   = "هاشلب"
+python_module = "hashlib"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Constructor ───────────────────────────────────────────────────────────────
+"هاش_جديد"              = "new"
+
+# ── Named constructors (algorithm families) ───────────────────────────────────
+"مد5"                   = "md5"
+"شا1"                   = "sha1"
+"شا224"                 = "sha224"
+"شا256"                 = "sha256"
+"شا384"                 = "sha384"
+"شا512"                 = "sha512"
+"شا3_224"               = "sha3_224"
+"شا3_256"               = "sha3_256"
+"شا3_384"               = "sha3_384"
+"شا3_512"               = "sha3_512"
+"بليك_ب"                = "blake2b"
+"بليك_ص"                = "blake2s"
+
+# ── Available algorithms ──────────────────────────────────────────────────────
+"خوارزميات_متاحه"        = "algorithms_available"
+"خوارزميات_مضمونه"       = "algorithms_guaranteed"
+
+# ── Key derivation and file hashing ──────────────────────────────────────────
+"مشتق_مفتاح"            = "pbkdf2_hmac"
+"هاش_ملف"               = "file_digest"

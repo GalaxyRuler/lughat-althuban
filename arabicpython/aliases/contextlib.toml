@@ -1,0 +1,41 @@
+# arabicpython/aliases/contextlib.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `contextlib` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Name notes:
+#   arabic_name "مدير_سياق" does not clash with any dialect keyword.
+#   Entry keys مدير_سياق_داله / مدير_سياق_متزامن share the prefix but are
+#   distinct from the module arabic_name (they are longer compound strings).
+#   اكتم (suppress) — not in dialect.names or dialect.attributes. Safe.
+
+[meta]
+arabic_name   = "مدير_سياق"
+python_module = "contextlib"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Decorators / factory functions ────────────────────────────────────────────
+"مدير_سياق_داله"        = "contextmanager"
+"مدير_سياق_متزامن"      = "asynccontextmanager"
+
+# ── Utilities ──────────────────────────────────────────────────────────────────
+"اغلاق_تلقائي"          = "closing"
+"اكتم"                  = "suppress"
+"سياق_فارغ"             = "nullcontext"
+"اعد_خارج"              = "redirect_stdout"
+"اعد_خطا_خارج"          = "redirect_stderr"
+
+# ── Stack-based context managers ──────────────────────────────────────────────
+"مكدس_خروج"             = "ExitStack"
+"مكدس_خروج_متزامن"      = "AsyncExitStack"
+
+# ── Abstract base classes ─────────────────────────────────────────────────────
+"مدير_سياق_مجرد"        = "AbstractContextManager"
+"مدير_سياق_متزامن_مجرد" = "AbstractAsyncContextManager"
