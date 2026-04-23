@@ -1,0 +1,71 @@
+# arabicpython/aliases/math.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `math` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# All entries are module-level (no unbound methods; math is all functions/constants).
+
+[meta]
+arabic_name   = "رياضيات"
+python_module = "math"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Constants ─────────────────────────────────────────────────────────────────
+"باي"                   = "pi"
+"اساس_طبيعي"            = "e"
+"ثاو"                   = "tau"
+"لانهايه"               = "inf"
+"غير_محدد"              = "nan"
+
+# ── Power / logarithm ────────────────────────────────────────────────────────
+"جذر"                   = "sqrt"
+"جذر_صحيح"              = "isqrt"
+"قوه"                   = "pow"
+"اسيه"                  = "exp"
+"اسيه2"                 = "exp2"
+"لوغاريتم"              = "log"
+"لوغاريتم2"             = "log2"
+"لوغاريتم10"            = "log10"
+
+# ── Rounding / integer ops ────────────────────────────────────────────────────
+"ارضيه"                 = "floor"
+"سقف"                   = "ceil"
+"اقتطع"                 = "trunc"
+"مجموع_دقيق"            = "fsum"
+"ضرب_كل"                = "prod"
+"قاسم_مشترك"            = "gcd"
+"مضاعف_مشترك"           = "lcm"
+"تباديل_عدد"            = "perm"
+"توليفه"                = "comb"
+"مصنوعيه"               = "factorial"
+
+# ── Trigonometry ──────────────────────────────────────────────────────────────
+"جيب"                   = "sin"
+"جيب_تمام"              = "cos"
+"ظل"                    = "tan"
+"جيب_معكوس"             = "asin"
+"جيب_تمام_معكوس"        = "acos"
+"ظل_معكوس"              = "atan"
+"ظل_معكوس2"             = "atan2"
+"درجات"                 = "degrees"
+"قطاع"                  = "radians"
+"وتر"                   = "hypot"
+"مسافه"                 = "dist"
+
+# ── Hyperbolic ────────────────────────────────────────────────────────────────
+"جيب_زائدي"             = "sinh"
+"جيب_تمام_زائدي"        = "cosh"
+"ظل_زائدي"              = "tanh"
+
+# ── Predicates ───────────────────────────────────────────────────────────────
+"قريب_منه"              = "isclose"
+"محدود"                 = "isfinite"
+"لانهائي_سالب"          = "isinf"
+"غير_محدده"             = "isnan"
