@@ -1,0 +1,65 @@
+# arabicpython/aliases/re.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `re` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Dotted-path entries resolve unbound methods:
+#   "Pattern.search" → re.Pattern.search  (call with compiled pattern as first arg)
+#   "Match.group"    → re.Match.group     (call with match object as first arg)
+#
+# Note: re.error is an alias for re.PatternError (same class); we map both.
+
+[meta]
+arabic_name   = "تعابير_نمطيه"
+python_module = "re"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Module-level search/match functions ──────────────────────────────────────
+"بحث"                   = "search"
+"طابق"                  = "match"
+"طابق_كامل"             = "fullmatch"
+"ابحث_الكل"             = "findall"
+"ابحث_مكرر"             = "finditer"
+"قسم"                   = "split"
+"عوض"                   = "sub"
+"عوض_عدد"               = "subn"
+"هرب"                   = "escape"
+"رجم"                   = "compile"
+
+# ── Module-level classes ──────────────────────────────────────────────────────
+"نمط"                   = "Pattern"
+"نتيجة_بحث"             = "Match"
+"خطا_نمط"               = "PatternError"
+
+# ── Module-level flags (constants) ───────────────────────────────────────────
+"تجاهل_حاله"            = "IGNORECASE"
+"متعدد_اسطر"            = "MULTILINE"
+"نقطة_للكل"             = "DOTALL"
+"مطول"                  = "VERBOSE"
+"يونيكود"               = "UNICODE"
+"اسكي"                  = "ASCII"
+
+# ── Pattern unbound methods ───────────────────────────────────────────────────
+"بحث_نمط"               = "Pattern.search"
+"طابق_نمط"              = "Pattern.match"
+"طابق_كامل_نمط"         = "Pattern.fullmatch"
+"ابحث_الكل_نمط"         = "Pattern.findall"
+"ابحث_مكرر_نمط"         = "Pattern.finditer"
+"قسم_نمط"               = "Pattern.split"
+"عوض_نمط"               = "Pattern.sub"
+"عوض_عدد_نمط"           = "Pattern.subn"
+
+# ── Match unbound methods ─────────────────────────────────────────────────────
+"مجموعه"                = "Match.group"
+"مجموعات"               = "Match.groups"
+"قاموس_مجموعات"         = "Match.groupdict"
+"بدايه"                 = "Match.start"
+"نهايه"                 = "Match.end"
+"نطاق"                  = "Match.span"

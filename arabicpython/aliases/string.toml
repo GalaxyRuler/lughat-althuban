@@ -1,0 +1,38 @@
+# arabicpython/aliases/string.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `string` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+
+[meta]
+arabic_name   = "نصوص"
+python_module = "string"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Module-level constants ────────────────────────────────────────────────────
+"احرف_اسكي"             = "ascii_letters"
+"احرف_صغيره"            = "ascii_lowercase"
+"احرف_كبيره"            = "ascii_uppercase"
+"ارقام"                 = "digits"
+"ارقام_سداسيه"          = "hexdigits"
+"ارقام_ثمانيه"          = "octdigits"
+"قابل_طباعه"            = "printable"
+"ترقيم"                 = "punctuation"
+"فراغات"                = "whitespace"
+
+# ── Module-level functions ────────────────────────────────────────────────────
+"حرف_اول_كبير"          = "capwords"
+
+# ── Module-level classes ──────────────────────────────────────────────────────
+"قالب"                  = "Template"
+"منسق"                  = "Formatter"
+
+# ── Template unbound methods ──────────────────────────────────────────────────
+"بديل"                  = "Template.substitute"
+"بديل_امن"              = "Template.safe_substitute"
