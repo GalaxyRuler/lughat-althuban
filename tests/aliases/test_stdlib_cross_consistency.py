@@ -8,6 +8,9 @@
 # another module is intentional.
 
 import pathlib
+import sys
+
+import pytest
 
 ALIASES_DIR = pathlib.Path(__file__).parent.parent.parent / "arabicpython" / "aliases"
 
@@ -93,6 +96,7 @@ class TestCrossConsistency:
         os_arabic, path_arabic = KNOWN_DIVERGENCES["os.mkdir vs Path.mkdir"]
         assert os_arabic != path_arabic
 
+    @pytest.mark.skipif(sys.version_info < (3, 12), reason="Path.walk added in Python 3.12")
     def test_os_walk_vs_pathlib_walk_names_differ(self):
         """os.walk → سر_شجره; Path.walk → سر; different names."""
         os_arabic, path_arabic = KNOWN_DIVERGENCES["os.walk vs Path.walk"]

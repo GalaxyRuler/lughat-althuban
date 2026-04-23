@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import importlib
+import sys
 import tomllib
+import warnings
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -139,15 +141,24 @@ def load_mapping(toml_path: Path) -> AliasMapping:
 
     # ------------------------------------------------------------------ #
     # 5. Verify all mapped Python attributes exist
+    #    Attributes absent on the *current* Python version (e.g. Path.walk
+    #    added in 3.12) are skipped with a warning rather than aborting the
+    #    entire mapping.  This lets a single TOML stay canonical across
+    #    versions while gracefully degrading on older interpreters.
     # ------------------------------------------------------------------ #
+    validated_entries: dict[str, str] = {}
     for arabic_key, python_attr in entries_raw.items():
         try:
             _resolve_dotted_attr(module, python_attr)
-        except AttributeError as exc:
-            raise AliasMappingError(
-                f"{toml_path}: module {python_module!r} has no attribute {python_attr!r} "
-                f"(mapped from Arabic key {arabic_key!r})"
-            ) from exc
+            validated_entries[arabic_key] = python_attr
+        except AttributeError:
+            warnings.warn(
+                f"{toml_path.name}: attribute {python_attr!r} not found in "
+                f"{python_module!r} on Python {sys.version_info[:2]}; "
+                f"Arabic key {arabic_key!r} will not be available.",
+                ImportWarning,
+                stacklevel=2,
+            )
 
     # ------------------------------------------------------------------ #
     # 6. Verify proxy_classes entries are actual classes in the module
@@ -169,7 +180,7 @@ def load_mapping(toml_path: Path) -> AliasMapping:
         arabic_name=arabic_name,
         python_module=python_module,
         dict_version=dict_version,
-        entries=dict(entries_raw),
+        entries=validated_entries,
         source_path=toml_path,
         proxy_classes=proxy_classes,
     )
