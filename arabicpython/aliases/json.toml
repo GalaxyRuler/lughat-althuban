@@ -1,0 +1,33 @@
+# arabicpython/aliases/json.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `json` standard-library module.
+# Normalization: خطأ → خطا (أ→ا anywhere), final ة→ه.
+
+[meta]
+arabic_name   = "جيسون"
+python_module = "json"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Core encode / decode functions ───────────────────────────────────────────
+"نص"                    = "dumps"
+"من_نص"                 = "loads"
+"حفظ"                   = "dump"
+"تحميل"                 = "load"
+
+# ── Encoder / Decoder classes ─────────────────────────────────────────────────
+"مرمز"                  = "JSONEncoder"
+"محلل"                  = "JSONDecoder"
+
+# ── Exception ─────────────────────────────────────────────────────────────────
+"خطا_تفكيك"             = "JSONDecodeError"
+
+# ── Encoder unbound methods ───────────────────────────────────────────────────
+"رمز"                   = "JSONEncoder.encode"
+"رمز_متدرج"             = "JSONEncoder.iterencode"
+
+# ── Decoder unbound method ────────────────────────────────────────────────────
+"فكك"                   = "JSONDecoder.decode"

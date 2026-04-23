@@ -1,0 +1,57 @@
+# arabicpython/aliases/sqlite3.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `sqlite3` standard-library module.
+# Normalization:
+#   أنشئ → انشئ (أ→ا), أنشئ_دالة → انشئ_داله (أ→ا + final ة→ه)
+#   وصلة → وصله (final ة→ه)
+#   خطأ → خطا (أ→ا)
+#
+# Dotted-path entries resolve against the sqlite3 module:
+#   "Connection.execute" → getattr(sqlite3.Connection, "execute")  (unbound)
+#   "Cursor.fetchall"    → getattr(sqlite3.Cursor, "fetchall")  (unbound)
+#
+# Both Connection and Cursor expose .execute(); Arabic names are distinct:
+#   نفذ       → Connection.execute   (shorthand, creates cursor internally)
+#   نفذ_مؤشر  → Cursor.execute      (cursor-level execute)
+
+[meta]
+arabic_name   = "قاعدة_بيانات"
+python_module = "sqlite3"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Module-level connect function ─────────────────────────────────────────────
+"اتصل"                  = "connect"
+
+# ── Module-level classes ──────────────────────────────────────────────────────
+"وصله"                  = "Connection"
+"مؤشر"                  = "Cursor"
+"صف"                    = "Row"
+
+# ── Module-level exceptions ───────────────────────────────────────────────────
+"خطا_قاعدة_بيانات"      = "DatabaseError"
+"خطا_تشغيل"             = "OperationalError"
+"خطا_برمجه"             = "ProgrammingError"
+"خطا_تكامل"             = "IntegrityError"
+
+# ── Connection unbound methods ────────────────────────────────────────────────
+"مؤشر_جديد"             = "Connection.cursor"
+"نفذ"                   = "Connection.execute"
+"نفذ_عديد"              = "Connection.executemany"
+"نفذ_نص"                = "Connection.executescript"
+"ثبت"                   = "Connection.commit"
+"تراجع"                 = "Connection.rollback"
+"اغلق"                  = "Connection.close"
+"انشئ_داله"             = "Connection.create_function"
+"انشئ_تجميع"            = "Connection.create_aggregate"
+"انشئ_ترتيب"            = "Connection.create_collation"
+
+# ── Cursor unbound methods ────────────────────────────────────────────────────
+"نفذ_مؤشر"              = "Cursor.execute"
+"نفذ_عديد_مؤشر"         = "Cursor.executemany"
+"اجلب_واحد"             = "Cursor.fetchone"
+"اجلب_عديد"             = "Cursor.fetchmany"
+"اجلب_الكل"             = "Cursor.fetchall"

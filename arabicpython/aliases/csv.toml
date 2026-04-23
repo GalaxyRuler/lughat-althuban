@@ -1,0 +1,45 @@
+# arabicpython/aliases/csv.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `csv` standard-library module.
+# Normalization:
+#   final ة→ه  (لهجة→لهجه)
+#   أ/إ/آ→ا anywhere
+#   final ى→ي  (أدنى→ادني)
+#
+# Note: `csv.reader` and `csv.writer` are C-extension types; their methods
+# are not accessible as class attributes (csv.writer.writerow fails).
+# Dotted-path method entries are only provided for DictWriter (Python class).
+
+[meta]
+arabic_name   = "ملفات_csv"
+python_module = "csv"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Module-level classes ──────────────────────────────────────────────────────
+"قارئ"                  = "reader"
+"كاتب"                  = "writer"
+"قارئ_قاموس"            = "DictReader"
+"كاتب_قاموس"            = "DictWriter"
+"لهجه"                  = "Dialect"
+
+# ── Module-level constants ────────────────────────────────────────────────────
+"اقتباس_ادني"            = "QUOTE_MINIMAL"
+"اقتباس_الكل"            = "QUOTE_ALL"
+"اقتباس_غير_رقمي"        = "QUOTE_NONNUMERIC"
+"بلا_اقتباس"             = "QUOTE_NONE"
+
+# ── Module-level functions ────────────────────────────────────────────────────
+"سجل_لهجه"              = "register_dialect"
+"الغ_لهجه"              = "unregister_dialect"
+"احصل_لهجه"             = "get_dialect"
+"قائمة_اللهجات"          = "list_dialects"
+"اكبر_حجم_حقل"          = "field_size_limit"
+
+# ── DictWriter unbound methods ────────────────────────────────────────────────
+"اكتب_سطر"              = "DictWriter.writerow"
+"اكتب_اسطر"             = "DictWriter.writerows"
+"اكتب_راس"              = "DictWriter.writeheader"
