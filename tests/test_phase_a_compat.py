@@ -101,9 +101,7 @@ def run_apy_program(
     project_root_str = str(PROJECT_ROOT)
     if project_root_str not in existing_pp.split(os.pathsep):
         env["PYTHONPATH"] = (
-            project_root_str + os.pathsep + existing_pp
-            if existing_pp
-            else project_root_str
+            project_root_str + os.pathsep + existing_pp if existing_pp else project_root_str
         )
 
     # UTF-8 in/out for the child process — matches the CLI's own reconfigure call
@@ -133,15 +131,13 @@ def run_apy_program(
 # B01_http.apy makes live HTTP calls — excluded from the compat suite.
 # B30_filesystem_walk.apy requires a CLI argument (directory path) — excluded.
 _EXCLUDED = {
-    "helper.apy",               # imported by 07_imports.apy, not a standalone program
-    "B01_http.apy",             # makes live HTTP call; requires @pytest.mark.network
-    "B10_flask_hello.apy",      # starts a blocking HTTP server
+    "helper.apy",  # imported by 07_imports.apy, not a standalone program
+    "B01_http.apy",  # makes live HTTP call; requires @pytest.mark.network
+    "B10_flask_hello.apy",  # starts a blocking HTTP server
     "B30_filesystem_walk.apy",  # requires a CLI argument (directory path)
 }
 
-_EXAMPLE_PARAMS = sorted(
-    p for p in EXAMPLES_DIR.glob("*.apy") if p.name not in _EXCLUDED
-)
+_EXAMPLE_PARAMS = sorted(p for p in EXAMPLES_DIR.glob("*.apy") if p.name not in _EXCLUDED)
 
 
 @pytest.mark.parametrize("example_path", _EXAMPLE_PARAMS, ids=lambda p: p.stem)
@@ -149,21 +145,15 @@ def test_phase_a_example_runs_unchanged(example_path: pathlib.Path) -> None:
     """Each Phase A example must exit 0, produce no stderr, and match its snapshot."""
     snapshot_file = OUTPUTS_DIR / f"{example_path.stem}.txt"
     assert snapshot_file.exists(), (
-        f"No snapshot found for {example_path.name}. "
-        f"Expected: {snapshot_file}"
+        f"No snapshot found for {example_path.name}. " f"Expected: {snapshot_file}"
     )
 
     # 07_imports needs cwd=examples_dir (so `import helper` resolves via '' in sys.path)
     # All other examples also benefit from cwd=path.parent — it's always examples_dir here.
     rc, stdout, stderr = run_apy_program(example_path)
 
-    assert rc == 0, (
-        f"{example_path.name} exited with code {rc}.\n"
-        f"stderr:\n{stderr}"
-    )
-    assert stderr == "", (
-        f"{example_path.name} wrote unexpected output to stderr:\n{stderr}"
-    )
+    assert rc == 0, f"{example_path.name} exited with code {rc}.\n" f"stderr:\n{stderr}"
+    assert stderr == "", f"{example_path.name} wrote unexpected output to stderr:\n{stderr}"
 
     # Read snapshot with universal newline suppression so \r\n on Windows
     # doesn't cause spurious mismatches.
@@ -180,9 +170,7 @@ def test_phase_a_example_runs_unchanged(example_path: pathlib.Path) -> None:
                 tofile=f"actual ({example_path.name})",
             )
         )
-        pytest.fail(
-            f"{example_path.name}: stdout does not match snapshot.\n\n{diff}"
-        )
+        pytest.fail(f"{example_path.name}: stdout does not match snapshot.\n\n{diff}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -235,12 +223,10 @@ def test_search_engine_app_runs() -> None:
 
     assert rc == 0, f"search_engine/cli.apy exited {rc}.\nstderr:\n{stderr}"
     # The corpus contains a document about الخوارزمي; check headline markers.
-    assert "النتائج" in stdout, (
-        f"Expected 'النتائج' in search output.\nstdout:\n{stdout}"
-    )
-    assert "الخوارزمي" in stdout, (
-        f"Expected document 'الخوارزمي' in search output.\nstdout:\n{stdout}"
-    )
+    assert "النتائج" in stdout, f"Expected 'النتائج' in search output.\nstdout:\n{stdout}"
+    assert (
+        "الخوارزمي" in stdout
+    ), f"Expected document 'الخوارزمي' in search output.\nstdout:\n{stdout}"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -269,9 +255,7 @@ def test_prayer_times_app_runs() -> None:
 
     assert rc == 0, f"prayer_times/الرئيسي.apy exited {rc}.\nstderr:\n{stderr}"
     for prayer in _PRAYER_NAMES:
-        assert prayer in stdout, (
-            f"Expected prayer name '{prayer}' in output.\nstdout:\n{stdout}"
-        )
+        assert prayer in stdout, f"Expected prayer name '{prayer}' in output.\nstdout:\n{stdout}"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -281,9 +265,7 @@ def test_prayer_times_app_runs() -> None:
 
 def test_run_apy_program_decodes_arabic_correctly() -> None:
     """run_apy_program must return Arabic text as proper Unicode, not mojibake."""
-    with tempfile.NamedTemporaryFile(
-        suffix=".apy", mode="w", encoding="utf-8", delete=False
-    ) as f:
+    with tempfile.NamedTemporaryFile(suffix=".apy", mode="w", encoding="utf-8", delete=False) as f:
         f.write('اطبع("مرحبا")\n')
         tmp_path = pathlib.Path(f.name)
 

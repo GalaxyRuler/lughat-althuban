@@ -23,18 +23,18 @@ KNOWN_DIVERGENCES = {
     #   pathlib.Path → مسار ("path", singular class name)
     "sys.path vs pathlib.Path": (
         "مسارات_الاستيراد",  # sys.path
-        "مسار",              # pathlib.Path
+        "مسار",  # pathlib.Path
     ),
     # os._exit bypasses atexit/finalizers; sys.exit raises SystemExit.
     # Both share root اخرج; os._exit adds فورا ("immediately") as modifier.
     "sys.exit vs os._exit": (
-        "اخرج",       # sys.exit
+        "اخرج",  # sys.exit
         "اخرج_فورا",  # os._exit
     ),
     # os.mkdir creates one level; pathlib.Path.mkdir supports parents=True.
     # Different signatures → different Arabic names for safety.
     "os.mkdir vs Path.mkdir": (
-        "انشئ_دليل",   # os.mkdir
+        "انشئ_دليل",  # os.mkdir
         "انشئ_دليلا",  # Path.mkdir
     ),
     # os.walk vs Path.walk — same concept, different modules → different names.
@@ -42,7 +42,7 @@ KNOWN_DIVERGENCES = {
     # Path.walk (3.12+) returns a generator of (Path, dirs, files).
     "os.walk vs Path.walk": (
         "سر_شجره",  # os.walk
-        "سر",       # Path.walk
+        "سر",  # Path.walk
     ),
 }
 

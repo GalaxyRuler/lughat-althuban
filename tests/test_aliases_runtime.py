@@ -88,6 +88,7 @@ def test_proxy_english_fallthrough(sys_proxy: ModuleProxy) -> None:
 def test_proxy_dotted_path_resolution() -> None:
     """An entry with a dotted path like 'adapters.HTTPAdapter' is resolved step-by-step."""
     import os
+
     # Use os.path.sep as the dotted target — a real stdlib dotted attribute
     proxy = ModuleProxy(os, {"فاصل": "path.sep"}, arabic_name="نظام_الملفات")
     assert proxy.فاصل == os.path.sep
@@ -256,8 +257,7 @@ def test_loader_error_duplicate_python_value() -> None:
 
 
 def test_loader_error_bad_normalization() -> None:
-    """load_mapping on bad_normalization.toml raises AliasMappingError about normalize_identifier.
-    """
+    """bad_normalization.toml: AliasMappingError must mention normalize_identifier."""
     path = FIXTURES_DIR / "bad_normalization.toml"
     with pytest.raises(AliasMappingError, match="normalize_identifier"):
         load_mapping(path)

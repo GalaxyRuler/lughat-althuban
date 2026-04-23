@@ -80,6 +80,7 @@ def test_requests_session_class(طلبات: ModuleProxy) -> None:
 def test_requests_dotted_path_http_adapter(طلبات: ModuleProxy) -> None:
     """'محول_http' uses a dotted path 'adapters.HTTPAdapter'; must resolve correctly."""
     import requests.adapters  # ensure sub-module is loaded
+
     assert طلبات.محول_http is requests.adapters.HTTPAdapter
 
 

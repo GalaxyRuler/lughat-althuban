@@ -32,11 +32,11 @@ from typing import Any
 
 # Unicode ranges covering Arabic script variants
 _ARABIC_RANGES: tuple[tuple[str, str], ...] = (
-    ("\u0600", "\u06FF"),  # Arabic
-    ("\u0750", "\u077F"),  # Arabic Supplement
-    ("\u08A0", "\u08FF"),  # Arabic Extended-A
-    ("\uFB50", "\uFDFF"),  # Arabic Presentation Forms-A
-    ("\uFE70", "\uFEFF"),  # Arabic Presentation Forms-B
+    ("\u0600", "\u06ff"),  # Arabic
+    ("\u0750", "\u077f"),  # Arabic Supplement
+    ("\u08a0", "\u08ff"),  # Arabic Extended-A
+    ("\ufb50", "\ufdff"),  # Arabic Presentation Forms-A
+    ("\ufe70", "\ufeff"),  # Arabic Presentation Forms-B
 )
 
 
@@ -90,7 +90,7 @@ class InstanceProxy:
             python_value: str = mapping[name]
             # Only handle entries prefixed with this instance's class name
             if python_value.startswith(prefix):
-                method_name = python_value[len(prefix):]  # e.g. "route"
+                method_name = python_value[len(prefix) :]  # e.g. "route"
                 result = getattr(obj, method_name)
                 # If the result is itself a proxy class, wrap it too
                 if isinstance(result, type) and python_value in proxy_classes:
