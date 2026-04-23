@@ -132,7 +132,12 @@ def run_apy_program(
 # helper.apy is an importee, not a runnable program.
 # B01_http.apy makes live HTTP calls — excluded from the compat suite.
 # B30_filesystem_walk.apy requires a CLI argument (directory path) — excluded.
-_EXCLUDED = {"helper.apy", "B01_http.apy", "B30_filesystem_walk.apy"}
+_EXCLUDED = {
+    "helper.apy",               # imported by 07_imports.apy, not a standalone program
+    "B01_http.apy",             # makes live HTTP call; requires @pytest.mark.network
+    "B10_flask_hello.apy",      # starts a blocking HTTP server
+    "B30_filesystem_walk.apy",  # requires a CLI argument (directory path)
+}
 
 _EXAMPLE_PARAMS = sorted(
     p for p in EXAMPLES_DIR.glob("*.apy") if p.name not in _EXCLUDED

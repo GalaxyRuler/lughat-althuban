@@ -9,8 +9,6 @@
 
 import pathlib
 
-import pytest
-
 ALIASES_DIR = pathlib.Path(__file__).parent.parent.parent / "arabicpython" / "aliases"
 
 # ---------------------------------------------------------------------------
@@ -77,8 +75,8 @@ class TestCrossConsistency:
         نظام = _proxy("نظام")
         مسار_مكتبه = _proxy("مسار_مكتبه")
 
-        import sys as _sys
         import pathlib as _pathlib
+        import sys as _sys
 
         assert نظام.مسارات_الاستيراد is _sys.path
         assert مسار_مكتبه.مسار is _pathlib.Path

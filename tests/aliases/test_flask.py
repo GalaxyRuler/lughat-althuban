@@ -156,7 +156,7 @@ class TestInstanceProxy:
             return "tc"
 
         flask_app = object.__getattribute__(تطبيق, "_wrapped")
-        client = تطبيق.عميل_تجريبي()
+        assert callable(تطبيق.عميل_تجريبي)  # resolves to app.test_client
         with flask_app.test_client() as std_client:
             assert std_client.get("/tc").status_code == 200
 
@@ -181,7 +181,6 @@ class TestInstanceProxy:
 
     def test_run_method_resolves(self, تطبيق):
         """يعمل resolves to the Flask app's run method (not called, just resolved)."""
-        import flask as _flask
 
         run_method = تطبيق.يعمل
         assert callable(run_method)

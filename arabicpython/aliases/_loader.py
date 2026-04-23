@@ -143,11 +143,11 @@ def load_mapping(toml_path: Path) -> AliasMapping:
     for arabic_key, python_attr in entries_raw.items():
         try:
             _resolve_dotted_attr(module, python_attr)
-        except AttributeError:
+        except AttributeError as exc:
             raise AliasMappingError(
                 f"{toml_path}: module {python_module!r} has no attribute {python_attr!r} "
                 f"(mapped from Arabic key {arabic_key!r})"
-            )
+            ) from exc
 
     # ------------------------------------------------------------------ #
     # 6. Verify proxy_classes entries are actual classes in the module

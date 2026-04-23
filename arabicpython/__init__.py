@@ -12,6 +12,8 @@ third-party and stdlib modules via ``arabicpython.aliases``.
 
 __version__ = "0.0.1"
 
+from arabicpython.aliases import install as install_aliases  # noqa: E402,F401
+from arabicpython.aliases import uninstall as uninstall_aliases  # noqa: E402,F401
 from arabicpython.import_hook import install as install  # noqa: E402
 from arabicpython.import_hook import uninstall as uninstall
 from arabicpython.repl import run_repl as run_repl  # noqa: E402
@@ -24,5 +26,3 @@ from arabicpython.tracebacks import (
 from arabicpython.tracebacks import (
     uninstall_excepthook as uninstall_excepthook,
 )
-from arabicpython.aliases import install as install_aliases  # noqa: E402
-from arabicpython.aliases import uninstall as uninstall_aliases

@@ -10,15 +10,15 @@ CI environment).  No actual HTTP calls are made; every assertion is local.
 from __future__ import annotations
 
 import sys
-import types
 from pathlib import Path
 
 import pytest
 
-requests = pytest.importorskip("requests", reason="requests not installed — skipping integration tests")
+requests = pytest.importorskip(
+    "requests", reason="requests not installed — skipping integration tests"
+)
 
-from arabicpython.aliases import AliasFinder, ModuleProxy, install, uninstall  # noqa: E402
-
+from arabicpython.aliases import AliasFinder, ModuleProxy  # noqa: E402
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Fixtures

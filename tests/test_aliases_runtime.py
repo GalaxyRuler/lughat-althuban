@@ -9,9 +9,7 @@ Loader       (7 tests):  load_mapping validation paths, AliasMapping frozen
 
 from __future__ import annotations
 
-import importlib
 import sys
-import tempfile
 import types
 import warnings
 from pathlib import Path
@@ -239,14 +237,14 @@ def test_loader_parses_valid_minimal() -> None:
 
 
 def test_loader_error_missing_module() -> None:
-    """load_mapping on missing_module.toml must raise AliasMappingError mentioning 'not importable'."""
+    """load_mapping on missing_module.toml raises AliasMappingError mentioning 'not importable'."""
     path = FIXTURES_DIR / "missing_module.toml"
     with pytest.raises(AliasMappingError, match="not importable"):
         load_mapping(path)
 
 
 def test_loader_error_duplicate_python_value() -> None:
-    """load_mapping on duplicate_arabic.toml must raise AliasMappingError listing both Arabic keys."""
+    """load_mapping on duplicate_arabic.toml raises AliasMappingError listing both Arabic keys."""
     path = FIXTURES_DIR / "duplicate_arabic.toml"
     with pytest.raises(AliasMappingError, match="argv"):
         load_mapping(path)
@@ -258,7 +256,8 @@ def test_loader_error_duplicate_python_value() -> None:
 
 
 def test_loader_error_bad_normalization() -> None:
-    """load_mapping on bad_normalization.toml must raise AliasMappingError about normalize_identifier."""
+    """load_mapping on bad_normalization.toml raises AliasMappingError about normalize_identifier.
+    """
     path = FIXTURES_DIR / "bad_normalization.toml"
     with pytest.raises(AliasMappingError, match="normalize_identifier"):
         load_mapping(path)

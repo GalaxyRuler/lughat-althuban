@@ -30,9 +30,9 @@ def main(argv: "list[str] | None" = None) -> int:
         Exit code: 0 on success, 1 on translate/compile/runtime errors,
         2 on usage errors (mirrors argparse convention).
     """
+    from arabicpython.aliases import install as install_aliases
     from arabicpython.import_hook import install
     from arabicpython.tracebacks import install_excepthook, print_translated_exception
-    from arabicpython.aliases import install as install_aliases
 
     _configure_utf8_streams()
     install()
