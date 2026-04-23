@@ -1,6 +1,6 @@
 # Phase B Roadmap
 
-**Status as of 2026-04-23:** Phase A complete. Phase B chartered (ADR 0008). 28 packets drafted; 6 fully specified and ready to implement; 19 awaiting full specification (handoff doc in `specs/B-HANDOFF-FOR-GEMINI.md`); 3 awaiting sponsor commitment.
+**Status as of 2026-04-24:** Phase A complete. Phase B well underway — B-030 through B-038 merged (21 stdlib modules aliased), Flask (`قارورة`) and requests (`طلبات`) SDK aliases shipped. 1093 tests passing on Python 3.11–3.13 across Ubuntu/macOS/Windows. B-039 and SDK packets open for contributors.
 
 This file is the **single visible map** of what Phase B contains, what's open for contribution, and what depends on what. To pick up work, see [CONTRIBUTING.md](CONTRIBUTING.md). To understand *why* Phase B is structured this way, see [decisions/0008-phase-b-charter.md](decisions/0008-phase-b-charter.md).
 
@@ -47,7 +47,7 @@ One packet per library. All depend on B-001 (which already covers `requests` its
 
 | ID | Title | Depends on | Size | Status | Owner | First-pickup? |
 |---|---|---|---|---|---|---|
-| [B-010](specs/B-010-aliases-flask-v1.md) | aliases-flask-v1 — ~60 entries; the success-criterion packet | B-001 | M | drafted | — | **yes** |
+| [B-010](specs/B-010-aliases-flask-v1.md) | aliases-flask-v1 — ~60 entries; the success-criterion packet | B-001 | M | merged | — | **yes** |
 | B-011 | aliases-fastapi-v1 | B-001 | M | stub | ? | yes |
 | B-012 | aliases-django-core-v1 — urls, views, models, forms | B-001 | L | stub | ? | no (large surface) |
 | B-013 | aliases-sqlalchemy-v1 | B-001 | M | stub | ? | no (semantic depth) |
@@ -67,15 +67,16 @@ Each batch is a coherent group of stdlib modules that ship together. All depend 
 
 | ID | Title | Modules covered | Depends on | Size | Status | Owner |
 |---|---|---|---|---|---|---|
-| [B-030](specs/B-030-stdlib-os-pathlib-sys.md) | stdlib-os-pathlib-sys | `os`, `pathlib`, `sys` | B-001 | M | drafted | — |
-| B-031 | stdlib-collections-itertools-functools | `collections`, `itertools`, `functools` | B-001 | M | stub | ? |
-| B-032 | stdlib-datetime-time-calendar | `datetime`, `time`, `calendar` (+ `hijridate` hook) | B-001 | M | stub | ? |
-| B-033 | stdlib-json-csv-sqlite3 | `json`, `csv`, `sqlite3` | B-001 | M | stub | ? |
-| B-034 | stdlib-re-string-textwrap | `re`, `string`, `textwrap` | B-001 | M | stub | ? |
-| B-035 | stdlib-math-statistics-random-decimal-fractions | `math`, `statistics`, `random`, `decimal`, `fractions` | B-001 | M | stub | ? |
-| B-036 | stdlib-logging | `logging` | B-001 | S | stub | ? |
-| B-037 | stdlib-asyncio-core | `asyncio` core surface | B-001, B-040 | M | stub | ? |
-| B-038 | stdlib-leftovers | `subprocess`, `tempfile`, `shutil`, `argparse`, `urllib.parse`, `hashlib`, `secrets`, `uuid` | B-001 | M | stub | ? |
+| [B-030](specs/B-030-stdlib-os-pathlib-sys.md) | stdlib-os-pathlib-sys | `os`, `pathlib`, `sys` | B-001 | M | merged | — |
+| B-031 | stdlib-collections-itertools-functools | `collections`, `itertools`, `functools` | B-001 | M | merged | — |
+| B-032 | stdlib-datetime-time-calendar | `datetime`, `time`, `calendar` | B-001 | M | merged | — |
+| B-033 | stdlib-json-csv-sqlite3 | `json`, `csv`, `sqlite3` | B-001 | M | merged | — |
+| B-034 | stdlib-re-string-textwrap | `re`, `string`, `textwrap` | B-001 | M | merged | — |
+| B-035 | stdlib-math-statistics-random | `math`, `statistics`, `random` | B-001 | M | merged | — |
+| B-036 | stdlib-logging | `logging` | B-001 | S | merged | — |
+| B-037 | stdlib-asyncio-core | `asyncio` core surface | B-001 | M | merged | — |
+| B-038 | stdlib-hashlib-io-contextlib | `hashlib`, `io`, `contextlib` | B-001 | M | merged | — |
+| B-039 | stdlib-subprocess-shutil-argparse-secrets-uuid | `subprocess`, `shutil`, `argparse`, `secrets`, `uuid` | B-001 | M | stub | ? |
 
 ---
 

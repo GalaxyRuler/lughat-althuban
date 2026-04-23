@@ -7,9 +7,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet. Phase B is chartered (ADR 0008) but not started; first packet
-B-001 (alias-runtime + `requests`) is gated on funding-unlock conditions
-documented in the charter.
+### Phase B — stdlib aliases (B-030 through B-038)
+
+All modules import via Arabic names and expose curated Arabic attribute aliases.
+Every batch ships with a TOML mapping, test file, cross-consistency test (no
+Arabic key collisions with earlier batches), demo `.apy` file, and snapshot.
+CI matrix: ubuntu / macOS / windows × Python 3.11 / 3.12 / 3.13 — **1093 passing**.
+
+#### B-038 — hashlib (`هاشلب`), io (`مجاري`), contextlib (`مدير_سياق`)
+
+- **هاشلب**: 17 entries — `شا256`, `مد5`, `بليك_ب/ص`, `خوارزميات_مضمونه`, `مشتق_مفتاح`, `هاش_ملف`, SHA-3 family.
+- **مجاري**: 16 entries — `تيار_نص` (StringIO), `تيار_بايت` (BytesIO), Buffered*/TextIOWrapper, IOBase hierarchy, `ابحث_بدايه/حاليه/نهايه` (SEEK_*).
+- **مدير_سياق**: 11 entries — `مدير_سياق_داله` (contextmanager), `اكتم` (suppress), `سياق_فارغ` (nullcontext), ExitStack, redirect_stdout/stderr.
+
+#### B-037 — asyncio (`اتزامن`)
+
+46 entries: `شغل` (run), `تريث` (sleep — uses `تريث` not `نمه` to avoid collision with `وقت_نظام`), `اجمع_مهام` (gather), `انتظر`/`انتظر_من_اجل`, Task/Future/TaskGroup, Lock/Queue/Semaphore/Barrier, `مهله` (timeout), coroutine checks, event-loop helpers.
+
+Note: `حلقه_احداث` maps to `AbstractEventLoop` (not `EventLoop` which is Python 3.13-only).
+
+#### B-036 — logging (`تسجيل`)
+
+41 entries: level constants (`مستوى_تصحيح`/`مستوى_خطا`/…), logger functions, `احضر_مسجل` (getLogger), Handler/Formatter (`منسق_سجل`)/Filter class aliases, StreamHandler/FileHandler/NullHandler.
+
+#### B-035 — math (`رياضيات`), statistics (`احصاء`), random (`عشوائيات`)
+
+- **رياضيات**: 41 entries — `باي`, `جذر`, `مصنوعيه` (factorial), `قاسم_مشترك` (gcd), trig functions (جيب/جيب_تمام/ظل), `توليفه`/`تباديل_عدد` (comb/perm).
+- **احصاء**: 21 entries — `وسط` (mean), `وسيط` (median), `منوال` (mode), `انحراف` (stdev), `توزيع_طبيعي` (NormalDist).
+- **عشوائيات**: 21 entries — `عشوائي` (random), `عدد_عشوائي` (randint), `اختر` (choice), `خلط` (shuffle), `ابذر` (seed). Uses `بايتات_عشوائيه_عدد` for `randbytes` (avoids collision with `os.urandom`).
+
+#### B-034 — re (`تعابير_نمطيه`), string (`نصوص`), textwrap (`تنسيق_نص`)
+
+- **تعابير_نمطيه**: 33 entries — `رجم` (compile), `طابق` (match), `ابحث` (search), `عوض` (sub — uses `عوض` not `استبدل` to avoid dialect `.replace` collision), `خطا_نمط` maps to `re.error` (not `PatternError` which is Python 3.13-only), Pattern/Match unbound methods.
+- **نصوص**: 14 entries — Template/Formatter class aliases, `بديل_امن` (safe_substitute).
+- **تنسيق_نص**: 8 entries — `التف` (wrap), `امل` (fill), `اختصر` (shorten), TextWrapper class.
+
+#### B-033 — json (`جيسون`), csv (`ملفات_csv`), sqlite3 (`قاعدة_بيانات`)
+
+- **جيسون**: 10 entries — `نص` (dumps), `من_نص` (loads), `حفظ`/`تحميل` (dump/load), JSONEncoder/Decoder unbound `رمز`/`فكك`.
+- **ملفات_csv**: 17 entries — `قارئ`/`كاتب` (reader/writer), DictReader/DictWriter with `اكتب_سطر`/`اكتب_راس`, QUOTE_* constants.
+- **قاعدة_بيانات**: 23 entries — `اتصل` (connect), Connection/Cursor/Row, `نفذ`/`نفذ_عديد`/`ثبت`/`تراجع`/`اغلق`, `اجلب_واحد`/`اجلب_الكل`.
+
+#### B-032 — datetime (`مكتبة_تاريخ`), time (`وقت_نظام`), calendar (`روزنامه`)
+
+#### B-031 — collections (`مجموعات`), itertools (`ادوات_تكرار`), functools (`ادوات_داليه`)
+
+#### B-030 — os (`نظام_تشغيل`), pathlib (`مسار_مكتبه`), sys (`نظام`)
+
+### SDK aliases
+
+- **قارورة** (flask): ~60 entries covering Flask app, routes, request/response, blueprints, error handlers.
+- **طلبات** (requests): core HTTP surface — `اجلب`/`ارسل`/`رفع`/`حذف`, Session, Response aliases.
 
 ## [0.1.1] — 2026-04-20 — Dictionary rendering + coverage pass
 

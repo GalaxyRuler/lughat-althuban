@@ -76,8 +76,8 @@ $ ثعبان -c '1 / 0'
 
 A Python dialect where keywords, built-ins, and exceptions are written in Arabic. `.apy` files are translated to standard Python at load time and executed by CPython — no interpreter fork.
 
-**Status**: Phase A complete (2026-04-19). All four entry surfaces work: file, `-c`, stdin, REPL. `.apy` modules import each other. Uncaught exceptions print Arabic tracebacks.
-**Phase B**: chartered (ADR 0008). 28 packets drafted; 6 fully specified; **contributors welcome**. See [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+**Status**: Phase A complete (2026-04-19). Phase B well underway — 21 stdlib modules aliased, Flask + requests SDK aliases shipped, 1093 tests passing across Python 3.11–3.13 on Ubuntu/macOS/Windows.
+**Phase B**: in progress. B-030 through B-038 merged; **contributors welcome**. See [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 **License**: Apache-2.0.
 **Repo**: private during pre-release.
 
@@ -181,19 +181,51 @@ lughat-althuban/
 ├── dictionaries/     ar-v1.md (keywords/built-ins) + exceptions-ar-v1.md
 ├── specs/            Spec packets handed off to the implementer
 ├── arabicpython/     The transpiler package
-├── tests/            pytest suite (351 passing + 21 intentional skips)
-└── examples/         Runnable .apy programs (7 progressive demos)
+├── tests/            pytest suite (1093 passing + 21 intentional skips)
+├── examples/         Runnable .apy programs (progressive demos)
+└── arabicpython/aliases/   TOML alias mappings (21 stdlib + 2 SDK modules)
 ```
 
 ## Architecture in one paragraph
 
 Source goes through `pretokenize` (Arabic numerals → ASCII, punctuation aliasing, bidi-control rejection) → Python's `tokenize` → a NAME-rewriter that consults the canonical Arabic→Python dictionary → `untokenize` → `compile` → `exec`. No AST rewrite, no CPython fork. The same pipeline backs every entry surface (CLI, REPL, import hook). See [`decisions/0001-architecture.md`](decisions/0001-architecture.md) for the full rationale and [`decisions/0004-normalization-policy.md`](decisions/0004-normalization-policy.md) for how Arabic identifier variants (hamza, ta-marbuta, alef-maksura) are folded.
 
-## Known limitations (Phase A)
+## Arabic stdlib modules (Phase B)
+
+Import Python's standard library using Arabic names:
+
+| Arabic name | Python module | Arabic name | Python module |
+|---|---|---|---|
+| `نظام_تشغيل` | `os` | `رياضيات` | `math` |
+| `مسار_مكتبه` | `pathlib` | `احصاء` | `statistics` |
+| `نظام` | `sys` | `عشوائيات` | `random` |
+| `مجموعات` | `collections` | `تسجيل` | `logging` |
+| `ادوات_تكرار` | `itertools` | `اتزامن` | `asyncio` |
+| `ادوات_داليه` | `functools` | `هاشلب` | `hashlib` |
+| `مكتبة_تاريخ` | `datetime` | `مجاري` | `io` |
+| `وقت_نظام` | `time` | `مدير_سياق` | `contextlib` |
+| `روزنامه` | `calendar` | `قارورة` | `flask` |
+| `جيسون` | `json` | `طلبات` | `requests` |
+| `ملفات_csv` | `csv` | `قاعدة_بيانات` | `sqlite3` |
+| `تعابير_نمطيه` | `re` | | |
+
+```python
+# example: async web data → JSON file
+استورد اتزامن
+استورد جيسون
+استورد مسار_مكتبه
+
+غير_متزامن دالة احفظ(بيانات, مسار):
+    نص = جيسون.نص(بيانات, ensure_ascii=False)
+    مسار_مكتبه.مسار(مسار).write_text(نص)
+
+اتزامن.شغل(احفظ({"نتيجة": "نجاح"}, "output.json"))
+```
+
+## Known limitations
 
 - **`from . import x` in package `__init__.apy`** does not translate — the tokenizer sees `import` after the `.` and treats it as an attribute lookup. Workaround: `import pkg.sub as sub`. Fix deferred to a future "translate-fixups" packet.
 - **Cross-language attribute access from `.py` to `.apy`** must use the ADR-0004-normalized identifier form (e.g., `module.قيمه`, not `module.قيمة`). This is correct per the normalization policy but is a real learner gotcha.
-- **No async/await ergonomics testing yet.** The keywords translate; end-to-end async program coverage is not part of Phase A.
 
 ## Development model
 
@@ -210,7 +242,7 @@ Every implementation unit is a spec packet. See [`specs/0000-template.md`](specs
 |---|---|---|
 | 0 | Design decisions (8 ADRs) | complete |
 | A | Tokenize-based dialect: pretokenize, normalize, translate, CLI, import hook, REPL, Arabic tracebacks | complete |
-| B | Production-grade ecosystem: alias-runtime + per-library mappings (Flask, Django, NumPy, …), stdlib coverage, dictionary v1.1 (async/match), tutorial translation, optional tooling (LSP, formatter) | **in progress — open for contributors** |
+| B | Production-grade ecosystem: alias-runtime + per-library mappings, stdlib coverage (B-030–B-038 merged), SDK aliases (Flask, requests), tutorial translation, optional tooling | **in progress — B-030–B-038 merged, open for contributors** |
 
 **Phase B is where this project becomes useful for real work and where outside contributors are most welcome.** See:
 
