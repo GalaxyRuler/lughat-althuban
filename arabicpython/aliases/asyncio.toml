@@ -12,6 +12,7 @@
 #   انتظر → await in dialect.names (standalone). Attr access .انتظر works fine.
 #   مجموعة_مهام: ة is mid-identifier (before _), not final → no normalization.
 #   نمه → already used by time.sleep in وقت_نظام. asyncio.sleep uses تريث instead.
+#   EventLoop → only public in Python 3.13+. Use AbstractEventLoop (3.4+) instead.
 
 [meta]
 arabic_name   = "اتزامن"
@@ -41,7 +42,7 @@ maintainer    = "—"
 "مستقبل_ملفوف"          = "wrap_future"
 
 # ── Event loop ────────────────────────────────────────────────────────────────
-"حلقه_احداث"            = "EventLoop"
+"حلقه_احداث"            = "AbstractEventLoop"
 "احضر_حلقه_احداث"       = "get_event_loop"
 "احضر_حلقه_عامله"       = "get_running_loop"
 "حلقه_احداث_جديده"      = "new_event_loop"

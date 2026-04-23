@@ -87,8 +87,8 @@ class TestAsyncioProxy:
         assert اتزامن.مجموعة_مهام is asyncio.TaskGroup
 
     def test_event_loop_alias(self, اتزامن):
-        """حلقه_احداث maps to asyncio.EventLoop."""
-        assert اتزامن.حلقه_احداث is asyncio.EventLoop
+        """حلقه_احداث maps to asyncio.AbstractEventLoop (public since 3.4)."""
+        assert اتزامن.حلقه_احداث is asyncio.AbstractEventLoop
 
     def test_lock_alias(self, اتزامن):
         """قفل maps to asyncio.Lock."""

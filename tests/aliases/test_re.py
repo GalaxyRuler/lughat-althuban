@@ -34,8 +34,8 @@ class TestReProxy:
         assert تعابير_نمطيه.نتيجة_بحث is re.Match
 
     def test_pattern_error_alias(self, تعابير_نمطيه):
-        """خطا_نمط maps to re.PatternError."""
-        assert تعابير_نمطيه.خطا_نمط is re.PatternError
+        """خطا_نمط maps to re.error (re.PatternError alias added in 3.13)."""
+        assert تعابير_نمطيه.خطا_نمط is re.error
 
     # ── Flag aliases ──────────────────────────────────────────────────────────
 
@@ -162,6 +162,6 @@ class TestReProxy:
     # ── Error handling ────────────────────────────────────────────────────────
 
     def test_pattern_error_raised_on_bad_regex(self, تعابير_نمطيه):
-        """خطا_نمط is raised for an invalid regular expression."""
-        with pytest.raises(re.PatternError):
+        """خطا_نمط (re.error) is raised for an invalid regular expression."""
+        with pytest.raises(re.error):
             تعابير_نمطيه.رجم("[invalid(")

@@ -11,7 +11,8 @@
 #   "Pattern.search" → re.Pattern.search  (call with compiled pattern as first arg)
 #   "Match.group"    → re.Match.group     (call with match object as first arg)
 #
-# Note: re.error is an alias for re.PatternError (same class); we map both.
+# Note: re.PatternError was added in Python 3.13 as an alias for re.error.
+#   We map خطا_نمط → error (available in all versions).
 
 [meta]
 arabic_name   = "تعابير_نمطيه"
@@ -36,7 +37,7 @@ maintainer    = "—"
 # ── Module-level classes ──────────────────────────────────────────────────────
 "نمط"                   = "Pattern"
 "نتيجة_بحث"             = "Match"
-"خطا_نمط"               = "PatternError"
+"خطا_نمط"               = "error"
 
 # ── Module-level flags (constants) ───────────────────────────────────────────
 "تجاهل_حاله"            = "IGNORECASE"
