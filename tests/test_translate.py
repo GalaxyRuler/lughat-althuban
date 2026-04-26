@@ -458,8 +458,11 @@ def test_bidi_error_propagates():
 
 
 def test_unclosed_string_raises_syntax_error():
+    # ASCII source takes the fast-path in translate(); the SyntaxError surfaces
+    # when the caller runs compile(), which is the correct place in the pipeline.
+    result = translate('x = "unclosed\n')
     with pytest.raises(SyntaxError):
-        translate('x = "unclosed\n')
+        compile(result, "<test>", "exec")
 
 
 # Custom dialect parameter (2)
@@ -476,7 +479,30 @@ def test_custom_dialect_used(tmp_path):
     assert "if " in res
 
 
-def test_default_dialect_is_ar_v1():
-    # It defaults to ar-v1, which we can test by translating something specific
+def test_default_dialect_translates_keywords():
+    # Defaults to ar-v2; verify core keywords translate correctly
     res = translate("إذا x: pass\n")
     assert "if " in res
+
+
+# Relative import fix — keyword after dot (3)
+
+def test_relative_import_keyword_after_dot():
+    # `من . استورد x` must become `from . import x`.
+    # Bug: `استورد` appeared after `.` so is_attr=True, suppressing keyword lookup.
+    res = translate("من . استورد x\n")
+    assert "from . import" in res, repr(res)
+    compile(res, "<test>", "exec")
+
+
+def test_relative_import_with_name_translation():
+    # Same as above but the imported name is an Arabic identifier.
+    res = translate("من . استورد مساعد\n")
+    assert "from . import" in res, repr(res)
+
+
+def test_keyword_after_dot_does_not_clobber_attribute():
+    # An Arabic attribute name that is NOT a keyword still translates correctly.
+    # `قائمه.اضف(1)` → `list.append(1)` (not affected by the fix)
+    res = translate("قائمه().اضف(1)\n")
+    assert "append" in res, repr(res)

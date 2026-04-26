@@ -1,5 +1,6 @@
 """Pre-process Arabic Python source for Python's tokenizer."""
 
+import re
 import unicodedata
 
 _BIDI_CONTROLS = frozenset(
@@ -13,6 +14,56 @@ _ASCII_DIGITS = frozenset("0123456789")
 _ARABIC_INDIC_DIGITS = frozenset("٠١٢٣٤٥٦٧٨٩")
 _EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷۸۹")
 _ALL_DIGITS = _ASCII_DIGITS | _ARABIC_INDIC_DIGITS | _EASTERN_ARABIC_INDIC_DIGITS
+
+# Single compiled regex that matches any character pretokenize needs to act on.
+# If this pattern does not match anywhere in the source, the source can be
+# returned unchanged immediately (skipping the full O(n) Python char-loop).
+# Covers: Arabic-Indic digits (U+0660–U+0669), Eastern Arabic-Indic digits
+# (U+06F0–U+06F9), Arabic punctuation (،؛؟), and all 12 BiDi control chars.
+_PRETOKENIZE_TRIGGER = re.compile(
+    r"[٠-٩۰-۹،؛؟"
+    r"؜‎‏‪-‮⁦-⁩]"
+)
+
+# Arabic escape sequences: \س → \n, \ج → \t, etc.
+_ARABIC_ESCAPE = {
+    "س": "n",  # newline
+    "ج": "t",  # tab
+    "ر": "r",  # carriage return
+    "م": "b",  # backspace
+    "ف": "f",  # form feed
+    "ع": "v",  # vertical tab
+    "ن": "a",  # alert/bell
+}
+
+# Arabic numeric literal prefixes: 0س → 0x (hex), 0ث → 0b (binary), 0ذ → 0o (octal)
+_ARABIC_NUM_PREFIX = {
+    "س": "x",  # سِتَّة عشر (hexadecimal)
+    "ث": "b",  # ثنائي (binary)
+    "ذ": "o",  # ذو ثمانية (octal)
+}
+
+# Arabic string type prefixes: ت"..." → f"...", ب"..." → b"...", خ"..." → r"...", ي"..." → u"..."
+_ARABIC_STR_PREFIX = {
+    "ت": "f",  # تنسيق (format)
+    "ب": "b",  # بايت (bytes)
+    "خ": "r",  # خام (raw)
+    "ي": "u",  # يونيكود (unicode)
+}
+# Two-letter combinations (e.g., raw-format, raw-bytes)
+_ARABIC_STR_PREFIX_2 = {
+    "خت": "rf",
+    "تخ": "fr",
+    "خب": "rb",
+    "بخ": "br",
+}
+_ARABIC_STR_PREFIX_CHARS = frozenset("تبخي")
+
+# Supplemental triggers for the new Arabic-ification features.
+# These are checked in addition to _PRETOKENIZE_TRIGGER.
+_STR_PREFIX_TRIGGER = re.compile(r"(?:خت|تخ|خب|بخ|[تبخي])['\"]")
+_ESCAPE_TRIGGER = re.compile(r"\\[سجرمفعن]")
+_NUM_PREFIX_TRIGGER = re.compile(r"0[سثذ]")
 
 _PUNCTUATION_TRANSLATE = str.maketrans(
     {
@@ -83,6 +134,18 @@ def pretokenize(source: str) -> str:
             or a clear message naming the offending characters and line/column
             for mixed-digit literals.
     """
+    # Fast path: if none of the characters pretokenize cares about appear in the
+    # source at all, return immediately.  The regex runs in C and short-circuits
+    # at the first hit, so for clean sources this is much faster than the Python
+    # char-loop below.
+    if (
+        not _PRETOKENIZE_TRIGGER.search(source)
+        and not _STR_PREFIX_TRIGGER.search(source)
+        and not _ESCAPE_TRIGGER.search(source)
+        and not _NUM_PREFIX_TRIGGER.search(source)
+    ):
+        return source
+
     state = "DEFAULT"
     out = []
     line = 1
@@ -96,7 +159,8 @@ def pretokenize(source: str) -> str:
         ch = source[i]
 
         if escape_next:
-            out.append(ch)
+            # Translate Arabic escape letters to their ASCII equivalents.
+            out.append(_ARABIC_ESCAPE.get(ch, ch))
             escape_next = False
             if ch == "\n":
                 line += 1
@@ -123,6 +187,24 @@ def pretokenize(source: str) -> str:
                 i += 1
                 continue
 
+            # Arabic string type prefix: ت/ب/خ/ي (or two-letter combo) before a quote.
+            if ch in _ARABIC_STR_PREFIX_CHARS and i + 1 < n:
+                # Check two-letter combo first.
+                two = source[i : i + 2]
+                if two in _ARABIC_STR_PREFIX_2 and i + 2 < n and source[i + 2] in ("'", '"'):
+                    out.append(_ARABIC_STR_PREFIX_2[two])
+                    col += 2
+                    i += 2
+                    ch = source[i]
+                    # fall through to quote handling below
+                elif source[i + 1] in ("'", '"'):
+                    out.append(_ARABIC_STR_PREFIX[ch])
+                    col += 1
+                    i += 1
+                    ch = source[i]
+                    # fall through to quote handling below
+                # else: Arabic letter not followed by a quote — normal char, fall through
+
             if ch in ("'", '"'):
                 if source[i : i + 3] == "'''":
                     state = "STRING_TSQ"
@@ -142,6 +224,14 @@ def pretokenize(source: str) -> str:
                     col += 1
                     i += 1
                     continue
+
+            # Arabic numeric literal prefix: 0س → 0x, 0ث → 0b, 0ذ → 0o
+            if ch == "0" and i + 1 < n and source[i + 1] in _ARABIC_NUM_PREFIX:
+                out.append("0")
+                out.append(_ARABIC_NUM_PREFIX[source[i + 1]])
+                col += 2
+                i += 2
+                continue
 
             if ch in _ALL_DIGITS:
                 start_i = i

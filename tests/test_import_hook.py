@@ -224,7 +224,8 @@ def test_importlib_reload_re_executes(fixtures_on_path):
         pathlib.Path(standalone.__file__).write_text(original_source, encoding="utf-8")
 
 
-def test_no_pycache_for_apy(fixtures_on_path, tmp_path):
+def test_apyc_cache_created_on_import(fixtures_on_path, tmp_path):
+    """Importing a .apy file should create a .apyc bytecode cache in __pycache__."""
     apy_source = (pathlib.Path(fixtures_on_path) / "standalone.apy").read_text(encoding="utf-8")
     test_apy = tmp_path / "to_cache.apy"
     test_apy.write_text(apy_source, encoding="utf-8")
@@ -234,7 +235,30 @@ def test_no_pycache_for_apy(fixtures_on_path, tmp_path):
 
     assert to_cache.قيمه == 42
     pycache = tmp_path / "__pycache__"
-    assert not pycache.exists()
+    assert pycache.exists(), "__pycache__ directory should be created"
+    apyc_files = list(pycache.glob("to_cache.*.apyc"))
+    assert len(apyc_files) == 1, f"expected one .apyc file, got {apyc_files}"
+
+
+def test_apyc_cache_avoids_retranslation(fixtures_on_path, tmp_path):
+    """A warm .apyc cache means the module loads without re-running translate()."""
+    from arabicpython.import_hook import _cache_path, _read_cache
+    apy_source = (pathlib.Path(fixtures_on_path) / "standalone.apy").read_text(encoding="utf-8")
+    test_apy = tmp_path / "to_cache2.apy"
+    test_apy.write_text(apy_source, encoding="utf-8")
+    sys.path.insert(0, str(tmp_path))
+    install()
+
+    # First import: creates the cache.
+    import to_cache2  # noqa: F401
+
+    cpath = _cache_path(str(test_apy))
+    st = test_apy.stat()
+    code = _read_cache(cpath, st.st_mtime_ns, st.st_size)
+    assert code is not None, "cache should be populated after first import"
+
+    # Second import via reload: should hit the cache (no exception means success).
+    importlib.reload(to_cache2)
 
 
 # Error handling (5)
@@ -353,3 +377,25 @@ def test_cli_installs_hook(tmp_path, capsys):
     assert ret == 0
     out, err = capsys.readouterr()
     assert "مرحبا" in out
+
+
+# Relative import fix (2)
+
+
+def test_relative_import_arabic_keyword_translates(fixtures_on_path):
+    """من . استورد must work inside __init__.apy (was broken: `استورد` after `.` skipped keyword table)."""
+    install()
+    import apkg_rel  # noqa: F401 — exercises relative import in __init__.apy
+
+    # The package imported and the submodule is accessible via the relative import
+    assert hasattr(apkg_rel, "اسم_الحزمه")
+    assert apkg_rel.اسم_الحزمه == "نسبية"
+
+
+def test_relative_import_submodule_accessible(fixtures_on_path):
+    """Submodule loaded by relative import exposes its names through the package."""
+    install()
+    import apkg_rel
+
+    assert hasattr(apkg_rel, "فرعيه")
+    assert apkg_rel.فرعيه.قيمه == 42

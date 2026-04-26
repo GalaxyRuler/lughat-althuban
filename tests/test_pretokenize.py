@@ -296,3 +296,121 @@ def test_full_arabic_function():
 def test_string_with_arabic_inside_arabic_function():
     src = 'تحية = "مرحبا، يا عالم"\n'
     assert pretokenize(src) == src
+
+
+# Arabic escape sequences (9)
+
+
+def test_escape_newline_arabic():
+    assert pretokenize(r'x = "\س"') == r'x = "\n"'
+
+
+def test_escape_tab_arabic():
+    assert pretokenize(r'x = "\ج"') == r'x = "\t"'
+
+
+def test_escape_carriage_return_arabic():
+    assert pretokenize(r'x = "\ر"') == r'x = "\r"'
+
+
+def test_escape_backspace_arabic():
+    assert pretokenize(r'x = "\م"') == r'x = "\b"'
+
+
+def test_escape_form_feed_arabic():
+    assert pretokenize(r'x = "\ف"') == r'x = "\f"'
+
+
+def test_escape_vertical_tab_arabic():
+    assert pretokenize(r'x = "\ع"') == r'x = "\v"'
+
+
+def test_escape_alert_arabic():
+    assert pretokenize(r'x = "\ن"') == r'x = "\a"'
+
+
+def test_escape_unknown_arabic_letter_passthrough():
+    # Arabic letter that is NOT in the escape table: passes through unchanged.
+    assert pretokenize(r'x = "\ق"') == r'x = "\ق"'
+
+
+def test_escape_multiple_in_string():
+    assert pretokenize(r'x = "\س\ج"') == r'x = "\n\t"'
+
+
+# Arabic numeric literal prefixes (6)
+
+
+def test_num_prefix_hex():
+    assert pretokenize("x = 0سFF") == "x = 0xFF"
+
+
+def test_num_prefix_binary():
+    assert pretokenize("x = 0ث1010") == "x = 0b1010"
+
+
+def test_num_prefix_octal():
+    assert pretokenize("x = 0ذ17") == "x = 0o17"
+
+
+def test_num_prefix_hex_zero():
+    assert pretokenize("x = 0س0") == "x = 0x0"
+
+
+def test_num_prefix_no_match_regular_zero():
+    # Plain 0 without an Arabic prefix letter: unaffected.
+    assert pretokenize("x = 0") == "x = 0"
+
+
+def test_num_prefix_ascii_prefix_unaffected():
+    # Standard 0x/0b/0o: must not be affected.
+    assert pretokenize("x = 0xFF") == "x = 0xFF"
+
+
+# Arabic string type prefixes (11)
+
+
+def test_str_prefix_f_arabic():
+    assert pretokenize('x = ت"hello"') == 'x = f"hello"'
+
+
+def test_str_prefix_b_arabic():
+    assert pretokenize('x = ب"data"') == 'x = b"data"'
+
+
+def test_str_prefix_r_arabic():
+    assert pretokenize('x = خ"path"') == 'x = r"path"'
+
+
+def test_str_prefix_u_arabic():
+    assert pretokenize('x = ي"text"') == 'x = u"text"'
+
+
+def test_str_prefix_single_quote():
+    assert pretokenize("x = ت'hello'") == "x = f'hello'"
+
+
+def test_str_prefix_rf_combo():
+    assert pretokenize('x = خت"path"') == 'x = rf"path"'
+
+
+def test_str_prefix_fr_combo():
+    assert pretokenize('x = تخ"path"') == 'x = fr"path"'
+
+
+def test_str_prefix_rb_combo():
+    assert pretokenize('x = خب"data"') == 'x = rb"data"'
+
+
+def test_str_prefix_br_combo():
+    assert pretokenize('x = بخ"data"') == 'x = br"data"'
+
+
+def test_str_prefix_arabic_letter_not_before_quote_passthrough():
+    # Arabic letter NOT immediately before a quote: treated as identifier, pass through.
+    result = pretokenize("ت = 1\n")
+    assert result == "ت = 1\n"
+
+
+def test_str_prefix_triple_quote():
+    assert pretokenize('x = ت"""hello"""') == 'x = f"""hello"""'

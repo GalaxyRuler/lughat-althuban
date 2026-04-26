@@ -25,6 +25,10 @@ HAMZA_FOLD_TRANSLATION = str.maketrans(
 
 def normalize_identifier(s: str, *, strict: bool = False) -> str:
     """Normalize an Arabic (or mixed-script) identifier to canonical form."""
+    # Fast path: pure ASCII identifiers need no normalization at all.
+    # This covers every English keyword/builtin that passes through unchanged.
+    if s.isascii():
+        return s
     normalized = unicodedata.normalize("NFKC", s)
     if strict:
         return normalized

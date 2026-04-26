@@ -30,13 +30,13 @@ def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
          - On miss, replace with normalize_identifier(name) — collapses
            harakat/hamza variants per ADR 0004 so equivalent spellings refer
            to the same Python identifier.
-         - ASCII-only NAME tokens that are unchanged by normalize_identifier
-           pass through untouched.
-      4. untokenize and return the result as a str.
+         - ASCII-only NAME tokens pass through untouched (fast path).
+      4. Apply all changes right-to-left by byte offset into the intermediate
+         source, preserving all whitespace and indentation from the original.
 
     Args:
         source: the .apy source text.
-        dialect: optional Dialect to use; defaults to load_dialect("ar-v1").
+        dialect: optional Dialect to use; defaults to load_dialect("ar-v2").
 
     Returns:
         Python source text suitable for compile(src, path, "exec").
@@ -48,10 +48,23 @@ def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
             explicit dialect is provided.
     """
     if dialect is None:
-        dialect = load_dialect("ar-v1")
+        dialect = load_dialect("ar-v2")
+
+    # Fast path: pure ASCII source has no Arabic keywords or identifiers to
+    # translate.  Skip the entire pipeline and return the source unchanged.
+    # This makes translate() essentially free for .py files loaded via the hook.
+    if source.isascii():
+        return source
 
     # Step 1: pretokenize
     intermediate = pretokenize(source)
+
+    # Strip UTF-8 BOM if present.  The tokenizer skips the BOM when reporting
+    # token positions, so our line→char-offset table must NOT include it.
+    # We restore the BOM at the end if the original source had one.
+    _had_bom = intermediate.startswith("﻿")
+    if _had_bom:
+        intermediate = intermediate[1:]
 
     # Step 2: tokenize
     try:
@@ -68,11 +81,31 @@ def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
                 ("<string>", tok.start[0], tok.start[1], tok.line, tok.start[0], tok.start[1]),
             )
 
-    # Step 3: NAME rewrite
-    new_tokens = []
-    # Track last significant token to check for attribute context
+    # Step 3: NAME rewrite — collect (char_start, char_end, new_str) for each
+    # token whose string changes.  Applied right-to-left in Step 4 so earlier
+    # character offsets stay valid as we splice from the right.
+    #
+    # Positional note: tokenize reports tok.start / tok.end as (row, col) where
+    # col is a CHARACTER offset in the decoded line (not a byte offset).  We
+    # build a line→char-offset table once so each lookup is O(1).
+    _line_starts: list[int] = [0]
+    for _idx, _ch in enumerate(intermediate):
+        if _ch == "\n":
+            _line_starts.append(_idx + 1)
+
+    def _abs(row: int, col: int) -> int:
+        return _line_starts[row - 1] + col
+
+    # Track last significant token for attribute-context detection.
+    # Also track the significant token *before* the most recent '.' to detect
+    # the `from . import` pattern where `import`/`استورد` follows a dot but is
+    # still a keyword, not an attribute.
     last_significant_type = None
     last_significant_string = None
+    before_dot_string: str | None = None
+
+    # changes: (char_start, char_end, new_str) in token order.
+    changes: list[tuple[int, int, str]] = []
 
     for tok in tokens:
         is_significant = tok.type not in (
@@ -89,47 +122,50 @@ def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
             is_attr = last_significant_type == tokenize.OP and last_significant_string == "."
             key = normalize_identifier(tok.string)
 
-            if is_attr and key in dialect.attributes:
-                new_string = dialect.attributes[key]
-            elif not is_attr and key in dialect.names:
+            # Keywords translate even after '.' only in `from . import` context
+            # (token before the dot was `from`/`من`).  In normal attribute access
+            # (`obj.اطبع`) the keyword table is suppressed so user-defined method
+            # names don't accidentally map to Python builtins.
+            _bds_key = normalize_identifier(before_dot_string) if before_dot_string else ""
+            is_from_keyword = _bds_key in dialect.names and dialect.names[_bds_key] == "from"
+            is_relative_import_ctx = is_attr and (is_from_keyword or before_dot_string == "from")
+
+            if (not is_attr or is_relative_import_ctx) and key in dialect.names:
                 new_string = dialect.names[key]
+            elif is_attr and key in dialect.attributes:
+                new_string = dialect.attributes[key]
             else:
                 new_string = key
 
-            if new_string == tok.string:
-                new_tokens.append(tok)
-            else:
-                new_tokens.append(
-                    tokenize.TokenInfo(tokenize.NAME, new_string, tok.start, tok.end, tok.line)
-                )
+            if new_string != tok.string:
+                changes.append((_abs(*tok.start), _abs(*tok.end), new_string))
+
         elif tok.type == tokenize.STRING and sys.version_info < (3, 12):
-            # TODO(phase-b-drop-311): delete this branch and rewrite_fstring_literal
-            # when 3.11 support is dropped.
+            # TODO(phase-b-drop-311): delete this branch when 3.11 support drops.
             new_literal = rewrite_fstring_literal(tok.string, dialect)
-            if new_literal == tok.string:
-                new_tokens.append(tok)
-            else:
-                new_tokens.append(
-                    tokenize.TokenInfo(tokenize.STRING, new_literal, tok.start, tok.end, tok.line)
-                )
-        else:
-            new_tokens.append(tok)
+            if new_literal != tok.string:
+                changes.append((_abs(*tok.start), _abs(*tok.end), new_literal))
 
         if is_significant:
+            if tok.type == tokenize.OP and tok.string == ".":
+                before_dot_string = last_significant_string
             last_significant_type = tok.type
             last_significant_string = tok.string
 
-    # Step 4: untokenize
-    try:
-        result_bytes = tokenize.untokenize(new_tokens)
-    except tokenize.TokenError as e:
-        msg, loc = e.args
-        raise SyntaxError(msg, ("<string>", loc[0], loc[1], "", loc[0], loc[1])) from e
+    # Step 4: apply changes right-to-left so earlier character offsets stay valid.
+    if not changes:
+        result_str = intermediate
+    else:
+        parts: list[str] = []
+        prev_end = len(intermediate)
+        for cs, ce, replacement in reversed(changes):
+            parts.append(intermediate[ce:prev_end])
+            parts.append(replacement)
+            prev_end = cs
+        parts.append(intermediate[:prev_end])
+        result_str = "".join(reversed(parts))
 
-    result_str = result_bytes.decode("utf-8") if isinstance(result_bytes, bytes) else result_bytes
-
-    # Strip BOM if present
-    if result_str.startswith("\ufeff"):
-        result_str = result_str[1:]
+    # BOM was stripped from intermediate before tokenizing; don't restore it —
+    # compile() rejects U+FEFF as a non-printable character in Python 3.13+.
 
     return result_str

@@ -103,7 +103,26 @@ A few things are happening here that are worth calling out:
   apython.
 - **f-strings work normally.** Interior expressions are pretokenized just like
   the rest of the source, so `f"{السنوات_حتى_التقاعد}"` resolves the variable
-  exactly as you'd expect.
+  exactly as you'd expect. You can also use the Arabic `ت"..."` prefix as a shorthand: `ت"باقي {السنوات_حتى_التقاعد} سنة"` is identical to `f"باقي {السنوات_حتى_التقاعد} سنة"`.
+- **Other string type prefixes:** `ب"..."` for bytes (ب = بايت), `خ"..."` for raw strings (خ = خام), `ي"..."` for unicode (ي = يونيكود). Combine them: `خت"..."` for raw f-strings (خام-تنسيق).
+- **Arabic escape sequences inside strings** let you use Arabic letters instead of backslash codes:
+  - `\س` → `\n` (newline; س from سطر = line)
+  - `\ج` → `\t` (tab; ج from جدول = table)
+  - `\ر` → `\r` (carriage return; ر from رجوع = return)
+  - `\م` → `\b` (backspace; م from مسح = erase)
+  - `\ف` → `\f` (form feed; ف from فاصلة = page break)
+  - `\ع` → `\v` (vertical tab; ع from عمودي = vertical)
+  - `\ن` → `\a` (alert/bell; ن from نغمة = sound)
+  
+  Example: `"مرحبا\سشكرا"` outputs two lines.
+
+- **Arabic numeric literal prefixes** let you write hex, binary, and octal using Arabic letters:
+  - `0س` → `0x` (hex; س from ستة عشر = sixteen)
+  - `0ث` → `0b` (binary; ث from ثنائي = binary)
+  - `0ذ` → `0o` (octal; ذ from ذو ثمانية = eight)
+  
+  Example: `ن = 0سFF` is equivalent to `n = 0xFF` (decimal 255).
+
 - **Arabic-Indic and Eastern-Arabic digits are auto-folded.** Writing
   `العمر = ٢٥` is identical to writing `العمر = 25`. Mixing digit systems
   inside one numeric literal (e.g. `١2`) is a `SyntaxError` — apython rejects
@@ -261,7 +280,7 @@ other transparently:
 
 ```arabic
 # main.apy
-استورد helper كـ مساعد
+استورد helper باسم مساعد
 
 اطبع(مساعد.مربع(5))   # 25
 اطبع(مساعد.مكعب(3))   # 27
@@ -284,7 +303,7 @@ not the standard library. Library-name aliasing is the job of Phase B; see
 - An `.apy` file can `استورد json` to get a stdlib `.py` module.
 
 One Phase A gotcha: `from . import x` inside a package `__init__.apy` doesn't
-yet translate. Workaround: write `استورد pkg.sub كـ sub`. This is documented
+yet translate. Workaround: write `استورد pkg.sub باسم sub`. This is documented
 in the project README's *Known limitations* section and slated for a future
 fix-up packet.
 
@@ -330,7 +349,7 @@ English class name — both resolve to the same object:
 ```arabic
 حاول:
     ارفع خطا_القيمه("القيمة غير صالحة")
-استثناء خطا_القيمه كـ خطأ:
+استثناء خطا_القيمه باسم خطأ:
     اطبع(f"التُقط: {خطأ}")
 ```
 
