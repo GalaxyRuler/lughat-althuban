@@ -12,7 +12,7 @@ _BIDI_CONTROLS = frozenset(
 )
 _ASCII_DIGITS = frozenset("0123456789")
 _ARABIC_INDIC_DIGITS = frozenset("٠١٢٣٤٥٦٧٨٩")
-_EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷٨٩")
+_EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷۸۹")
 _ALL_DIGITS = _ASCII_DIGITS | _ARABIC_INDIC_DIGITS | _EASTERN_ARABIC_INDIC_DIGITS
 
 # Single compiled regex that matches any character pretokenize needs to act on.
