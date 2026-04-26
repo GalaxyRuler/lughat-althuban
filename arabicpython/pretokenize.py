@@ -12,7 +12,7 @@ _BIDI_CONTROLS = frozenset(
 )
 _ASCII_DIGITS = frozenset("0123456789")
 _ARABIC_INDIC_DIGITS = frozenset("٠١٢٣٤٥٦٧٨٩")
-_EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷۸۹")
+_EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷٨٩")
 _ALL_DIGITS = _ASCII_DIGITS | _ARABIC_INDIC_DIGITS | _EASTERN_ARABIC_INDIC_DIGITS
 
 # Single compiled regex that matches any character pretokenize needs to act on.
@@ -20,10 +20,7 @@ _ALL_DIGITS = _ASCII_DIGITS | _ARABIC_INDIC_DIGITS | _EASTERN_ARABIC_INDIC_DIGIT
 # returned unchanged immediately (skipping the full O(n) Python char-loop).
 # Covers: Arabic-Indic digits (U+0660–U+0669), Eastern Arabic-Indic digits
 # (U+06F0–U+06F9), Arabic punctuation (،؛؟), and all 12 BiDi control chars.
-_PRETOKENIZE_TRIGGER = re.compile(
-    r"[٠-٩۰-۹،؛؟"
-    r"؜‎‏‪-‮⁦-⁩]"
-)
+_PRETOKENIZE_TRIGGER = re.compile(r"[٠-٩۰-۹،؛؟" r"؜‎‏‪-‮⁦-⁩]")
 
 # Arabic escape sequences: \س → \n, \ج → \t, etc.
 _ARABIC_ESCAPE = {

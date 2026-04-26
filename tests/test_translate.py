@@ -487,6 +487,7 @@ def test_default_dialect_translates_keywords():
 
 # Relative import fix — keyword after dot (3)
 
+
 def test_relative_import_keyword_after_dot():
     # `من . استورد x` must become `from . import x`.
     # Bug: `استورد` appeared after `.` so is_attr=True, suppressing keyword lookup.

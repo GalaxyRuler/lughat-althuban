@@ -243,6 +243,7 @@ def test_apyc_cache_created_on_import(fixtures_on_path, tmp_path):
 def test_apyc_cache_avoids_retranslation(fixtures_on_path, tmp_path):
     """A warm .apyc cache means the module loads without re-running translate()."""
     from arabicpython.import_hook import _cache_path, _read_cache
+
     apy_source = (pathlib.Path(fixtures_on_path) / "standalone.apy").read_text(encoding="utf-8")
     test_apy = tmp_path / "to_cache2.apy"
     test_apy.write_text(apy_source, encoding="utf-8")
