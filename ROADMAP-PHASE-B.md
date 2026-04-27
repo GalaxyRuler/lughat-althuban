@@ -1,6 +1,6 @@
 # Phase B Roadmap
 
-**Status as of 2026-04-24:** Phase A complete. Phase B well underway — B-030 through B-038 merged (21 stdlib modules aliased), Flask (`قارورة`) and requests (`طلبات`) SDK aliases shipped. 1093 tests passing on Python 3.11–3.13 across Ubuntu/macOS/Windows. B-039 and SDK packets open for contributors.
+**Status as of 2026-04-27:** Phase A complete. Phase B well underway — B-030 through B-039 merged (26 stdlib modules aliased), Flask (`فلاسك`), requests (`طلبات`), Django (`دجانغو`), and SQLAlchemy (`قاعده_علائقيه`) SDK aliases shipped. B-016/B-017 (numpy/pandas) also merged. Remaining SDK packets open for contributors.
 
 This file is the **single visible map** of what Phase B contains, what's open for contribution, and what depends on what. To pick up work, see [CONTRIBUTING.md](CONTRIBUTING.md). To understand *why* Phase B is structured this way, see [decisions/0008-phase-b-charter.md](decisions/0008-phase-b-charter.md).
 
@@ -34,8 +34,8 @@ To claim a packet: open a "Claim a packet" issue (template in `.github/ISSUE_TEM
 
 | ID | Title | Depends on | Size | Status | Owner | First-pickup? |
 |---|---|---|---|---|---|---|
-| [B-001](specs/B-001-alias-runtime-v1.md) | alias-runtime-v1 — proxy meta-path finder + `requests` mapping | — | L | drafted | — | no (architectural) |
-| [B-002](specs/B-002-phase-a-compat-suite.md) | phase-a-compat-suite — pin Phase A examples in CI permanently | — | S | drafted | — | **yes** |
+| [B-001](specs/B-001-alias-runtime-v1.md) | alias-runtime-v1 — proxy meta-path finder + `requests` mapping | — | L | merged | — | no (architectural) |
+| [B-002](specs/B-002-phase-a-compat-suite.md) | phase-a-compat-suite — pin Phase A examples in CI permanently | — | S | merged | — | **yes** |
 
 **Why these two first:** B-001 commits to the proxy class's exact public API and TOML schema. Every SDK and stdlib alias packet in Phase B inherits from it. B-002 is the safety net that makes the rest of Phase B safe to land — without it, any later packet could silently break a Phase A example.
 
@@ -49,8 +49,8 @@ One packet per library. All depend on B-001 (which already covers `requests` its
 |---|---|---|---|---|---|---|
 | [B-010](specs/B-010-aliases-flask-v1.md) | aliases-flask-v1 — ~60 entries; the success-criterion packet | B-001 | M | merged | — | **yes** |
 | B-011 | aliases-fastapi-v1 | B-001 | M | stub | ? | yes |
-| B-012 | aliases-django-core-v1 — urls, views, models, forms | B-001 | L | stub | ? | no (large surface) |
-| B-013 | aliases-sqlalchemy-v1 | B-001 | M | stub | ? | no (semantic depth) |
+| B-012 | aliases-django-core-v1 — urls, views, models, forms | B-001 | L | merged | — | no (large surface) |
+| B-013 | aliases-sqlalchemy-v1 | B-001 | M | merged | — | no (semantic depth) |
 | B-014 | aliases-requests-extras-v1 — session/auth surface omitted from B-001 | B-001 | S | stub | ? | **yes** |
 | B-015 | aliases-pytest-v1 | B-001 | M | stub | ? | yes |
 | B-016 | aliases-numpy-core-v1 | B-001 | L | merged | — | no (large surface) |
