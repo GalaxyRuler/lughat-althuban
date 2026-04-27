@@ -39,6 +39,7 @@ dev = [
     "django>=4.2",
     "sqlalchemy>=2.0",
     "Pillow>=10.0",
+    "fastapi>=0.100",
 ]
 
 [project.scripts]

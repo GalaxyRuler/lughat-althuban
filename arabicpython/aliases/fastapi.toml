@@ -1,0 +1,76 @@
+# arabicpython/aliases/fastapi.toml
+# B-011: Arabic aliases for the FastAPI web framework.
+#
+# Arabic import name : واجهه_برمجيه
+# Python module      : fastapi
+#
+# Collision notes (terms that would have been obvious but are taken):
+#   موجه      → sqlalchemy (use موجه_api)
+#   نموذج     → django    (use استماره for Form)
+#   استجابه_* → django    (use رد_* prefix for FastAPI responses)
+#   اعد_توجيه → django    (use رد_توجيه)
+#   وسيط      → statistics (use برمجيات_وسيطه)
+#
+# Normalization reminders:
+#   يعتمد_على → يعتمد_علي (final ى → ي)
+#   استماره   already normalized (ة → ه)
+
+[meta]
+arabic_name    = "واجهه_برمجيه"
+python_module  = "fastapi"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+# ── Core application & routing ────────────────────────────────────────────────
+"تطبيق_سريع"          = "FastAPI"
+"موجه_api"             = "APIRouter"
+
+# ── Parameter functions ───────────────────────────────────────────────────────
+"استعلام"              = "Query"
+"مسار_معامل"           = "Path"
+"جسم"                  = "Body"
+"استماره"              = "Form"          # Form (استمارة → استماره)
+"ترويسه"               = "Header"
+"كوكي"                 = "Cookie"
+"ملف"                  = "File"
+"ملف_مرفوع"            = "UploadFile"
+
+# ── Dependency injection ──────────────────────────────────────────────────────
+"يعتمد_علي"            = "Depends"       # يعتمد_على → يعتمد_علي (alef maqsura fold)
+"امان"                 = "Security"
+
+# ── HTTP primitives ───────────────────────────────────────────────────────────
+"استثناء_http"         = "HTTPException"
+"طلب_http"             = "Request"
+"رد_http"              = "Response"
+"مهام_خلفيه"           = "BackgroundTasks"
+
+# ── WebSocket ─────────────────────────────────────────────────────────────────
+"وصله_ويب"             = "WebSocket"
+"قطع_وصله_ويب"         = "WebSocketDisconnect"
+"استثناء_وصله_ويب"     = "WebSocketException"
+
+# ── Response types ────────────────────────────────────────────────────────────
+"رد_json"              = "responses.JSONResponse"
+"رد_html"              = "responses.HTMLResponse"
+"رد_نص"                = "responses.PlainTextResponse"
+"رد_تدفق"              = "responses.StreamingResponse"
+"رد_ملف"               = "responses.FileResponse"
+"رد_توجيه"             = "responses.RedirectResponse"
+
+# ── Security schemes ──────────────────────────────────────────────────────────
+"مفتاح_api_راس"        = "security.APIKeyHeader"
+"مفتاح_api_استعلام"    = "security.APIKeyQuery"
+"مفتاح_api_كوكي"       = "security.APIKeyCookie"
+"حامل_oauth2"          = "security.OAuth2PasswordBearer"
+"نموذج_oauth2"         = "security.OAuth2PasswordRequestForm"
+"http_اساسي"           = "security.HTTPBasic"
+"http_حامل"            = "security.HTTPBearer"
+
+# ── Submodules ────────────────────────────────────────────────────────────────
+"استجابات"             = "responses"
+"رموز_الحاله_http"     = "status"
+"امان_fastapi"         = "security"
+"برمجيات_وسيطه"        = "middleware"
