@@ -49,7 +49,16 @@ def _resolve_dotted_attr(obj: Any, dotted_name: str) -> Any:
         except AttributeError:
             if isinstance(result, types.ModuleType):
                 submod_name = f"{result.__name__}.{part}"
-                importlib.import_module(submod_name)  # may raise ImportError
+                try:
+                    importlib.import_module(submod_name)
+                except ImportError:
+                    # Attribute doesn't exist as a submodule either (e.g.
+                    # subprocess.STARTUPINFO on non-Windows).  Re-raise as
+                    # AttributeError so load_mapping's version-skipping logic
+                    # can issue a warning and continue gracefully.
+                    raise AttributeError(
+                        f"module {result.__name__!r} has no attribute {part!r}"
+                    ) from None
                 result = getattr(result, part)
             else:
                 raise
