@@ -1,0 +1,50 @@
+# arabicpython/aliases/subprocess.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `subprocess` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Collision notes:
+#   شغل → asyncio.run.  Use شغل_امر (run-command) for subprocess.run.
+#   نفذ → sqlite3 Connection.execute. Not used here.
+#   نفذ_امر → os.system. Not used here.
+#   انتهاء_مهله_عمليه — longer compound avoids asyncio timeout names.
+#   Platform-only constants (ABOVE_NORMAL_PRIORITY_CLASS etc.) and
+#   internal re-exports (io, os, threading …) are deliberately omitted.
+
+[meta]
+arabic_name   = "عملية_فرعية"
+python_module = "subprocess"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── High-level API ────────────────────────────────────────────────────────────
+"شغل_امر"               = "run"
+"استدعي"                = "call"
+"استدعي_وتحقق"          = "check_call"
+"احضر_مخرجات"           = "check_output"
+"احضر_ناتج"             = "getoutput"
+"احضر_حاله_وناتج"       = "getstatusoutput"
+
+# ── Low-level process class ───────────────────────────────────────────────────
+"فتح_عمليه"             = "Popen"
+
+# ── Special file-descriptor sentinels ────────────────────────────────────────
+"انبوب"                 = "PIPE"
+"مخرجات_قياسيه"         = "STDOUT"
+"مجهول"                 = "DEVNULL"
+
+# ── Result / error types ──────────────────────────────────────────────────────
+"عمليه_مكتمله"          = "CompletedProcess"
+"خطا_عمليه_فرعيه"       = "SubprocessError"
+"خطا_استدعاء_عمليه"     = "CalledProcessError"
+"انتهاء_مهله_عمليه"     = "TimeoutExpired"
+
+# ── Windows startup helper (no-op on POSIX) ───────────────────────────────────
+"معلومات_بدء_عمليه"     = "STARTUPINFO"
+"قائمه_لامر"            = "list2cmdline"

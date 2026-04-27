@@ -1,0 +1,52 @@
+# arabicpython/aliases/argparse.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `argparse` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Collision notes:
+#   محلل → json.JSONDecoder already uses it. Use محلل_الوسائط for
+#   ArgumentParser (with definite article — distinct key from محلل).
+#   ngettext is an internal i18n helper — omitted.
+
+[meta]
+arabic_name   = "محلل_وسائط"
+python_module = "argparse"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Main parser class ─────────────────────────────────────────────────────────
+"محلل_الوسائط"          = "ArgumentParser"
+
+# ── Result container ──────────────────────────────────────────────────────────
+"فضاء_اسماء"            = "Namespace"
+
+# ── Action base and subclasses ────────────────────────────────────────────────
+"اجراء"                 = "Action"
+"اجراء_منطقي"           = "BooleanOptionalAction"
+
+# ── Formatters ────────────────────────────────────────────────────────────────
+"منسق_مساعده"           = "HelpFormatter"
+"منسق_نص_خام"           = "RawTextHelpFormatter"
+"منسق_وصف_خام"          = "RawDescriptionHelpFormatter"
+"منسق_قيم_افتراضيه"     = "ArgumentDefaultsHelpFormatter"
+"منسق_نوع_متغير"        = "MetavarTypeHelpFormatter"
+
+# ── Type helper ───────────────────────────────────────────────────────────────
+"نوع_ملف"               = "FileType"
+
+# ── Sentinel constants ────────────────────────────────────────────────────────
+"واحد_او_اكثر"          = "ONE_OR_MORE"
+"صفر_او_اكثر"           = "ZERO_OR_MORE"
+"اختياري"               = "OPTIONAL"
+"باقي"                  = "REMAINDER"
+"اخفاء"                 = "SUPPRESS"
+
+# ── Exception types ───────────────────────────────────────────────────────────
+"خطا_وسيطه"             = "ArgumentError"
+"خطا_نوع_وسيطه"         = "ArgumentTypeError"

@@ -1,0 +1,43 @@
+# arabicpython/aliases/uuid.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `uuid` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Name notes:
+#   arabic_name "معرفات_فريده" (unique identifiers) — plural for the module.
+#   UUID class → "معرف_فريد" (singular) — distinct from the module name.
+#   SafeUUID → "معرف_فريد_امن" — the Enum of safe/unsafe UUID generation.
+#   فضاء_رابط: رابط root also appears in os (symlink). Key is different. Safe.
+#   Omitted: bytes_, int_ (internal aliases), main (CLI entrypoint),
+#   os/sys/Enum (internal re-exports), RFC_4122/RESERVED_* (arcane constants).
+
+[meta]
+arabic_name   = "معرفات_فريده"
+python_module = "uuid"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── UUID generators ───────────────────────────────────────────────────────────
+"معرف1"                 = "uuid1"
+"معرف3"                 = "uuid3"
+"معرف4"                 = "uuid4"
+"معرف5"                 = "uuid5"
+
+# ── UUID class ────────────────────────────────────────────────────────────────
+"معرف_فريد"             = "UUID"
+"معرف_فريد_امن"         = "SafeUUID"
+
+# ── Node / hardware identifier ────────────────────────────────────────────────
+"عقده"                  = "getnode"
+
+# ── Namespace UUIDs (for uuid3 / uuid5) ──────────────────────────────────────
+"فضاء_دنس"              = "NAMESPACE_DNS"
+"فضاء_رابط"             = "NAMESPACE_URL"
+"فضاء_oid"              = "NAMESPACE_OID"
+"فضاء_x500"             = "NAMESPACE_X500"

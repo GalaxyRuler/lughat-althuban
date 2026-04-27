@@ -76,7 +76,7 @@ Each batch is a coherent group of stdlib modules that ship together. All depend 
 | B-036 | stdlib-logging | `logging` | B-001 | S | merged | — |
 | B-037 | stdlib-asyncio-core | `asyncio` core surface | B-001 | M | merged | — |
 | B-038 | stdlib-hashlib-io-contextlib | `hashlib`, `io`, `contextlib` | B-001 | M | merged | — |
-| B-039 | stdlib-subprocess-shutil-argparse-secrets-uuid | `subprocess`, `shutil`, `argparse`, `secrets`, `uuid` | B-001 | M | stub | ? |
+| B-039 | stdlib-subprocess-shutil-argparse-secrets-uuid | `subprocess`, `shutil`, `argparse`, `secrets`, `uuid` | B-001 | M | merged | — |
 
 ---
 

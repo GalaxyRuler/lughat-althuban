@@ -1,0 +1,57 @@
+# arabicpython/aliases/shutil.toml
+# Schema version: 1
+#
+# Maps Arabic names to the `shutil` standard-library module.
+# Normalization:
+#   أ/إ/آ → ا  anywhere
+#   final ة → ه
+#   final ى → ي
+#
+# Collision notes:
+#   حجم_الطرفيه → os.get_terminal_size already uses it.
+#     Use حجم_نافذه_طرفيه (terminal window size) instead.
+#   Internal re-exports (os, stat, fnmatch, sys …) deliberately omitted.
+#   register_*/unregister_* hooks omitted (advanced API, no learner demand).
+
+[meta]
+arabic_name   = "ادوات_ملفات"
+python_module = "shutil"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+# ── Copying ───────────────────────────────────────────────────────────────────
+"انسخ"                  = "copy"
+"انسخ_مع_بيانات"        = "copy2"
+"انسخ_ملف"              = "copyfile"
+"انسخ_كائن_ملف"         = "copyfileobj"
+"انسخ_صلاحيات"          = "copymode"
+"انسخ_احصائيات"         = "copystat"
+"انسخ_شجره"             = "copytree"
+
+# ── Moving / deleting ─────────────────────────────────────────────────────────
+"انقل"                  = "move"
+"احذف_شجره"             = "rmtree"
+
+# ── Archive helpers ───────────────────────────────────────────────────────────
+"اصنع_ارشيف"            = "make_archive"
+"فك_ارشيف"              = "unpack_archive"
+"صيغ_الارشيف"           = "get_archive_formats"
+"صيغ_فك_الارشيف"        = "get_unpack_formats"
+
+# ── Disk / terminal introspection ─────────────────────────────────────────────
+"استخدام_القرص"         = "disk_usage"
+"حجم_نافذه_طرفيه"       = "get_terminal_size"
+
+# ── Filesystem helpers ────────────────────────────────────────────────────────
+"اين"                   = "which"
+"انماط_تجاهل"           = "ignore_patterns"
+"غير_المالك"            = "chown"
+
+# ── Exception types ───────────────────────────────────────────────────────────
+"خطا_ملفات"             = "Error"
+"خطا_نفس_الملف"         = "SameFileError"
+"خطا_ملف_خاص"           = "SpecialFileError"
+"خطا_تنفيذ"             = "ExecError"
+"خطا_قراءه_ارشيف"       = "ReadError"
