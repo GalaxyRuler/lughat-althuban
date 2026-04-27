@@ -13,44 +13,93 @@ if TYPE_CHECKING:
 # --- Translation tables (data) ---
 
 EXCEPTION_NAMES_AR: dict[str, str] = {
+    # ── Base hierarchy ────────────────────────────────────────────────────────
     "BaseException": "استثناء_اساسي",
     "Exception": "استثناء",
+    "GeneratorExit": "خروج_مولد",
+    "KeyboardInterrupt": "مقاطعه_لوحه_المفاتيح",
+    "SystemExit": "خروج_نظام",
+    # ── Arithmetic ────────────────────────────────────────────────────────────
     "ArithmeticError": "خطا_حسابي",
+    "FloatingPointError": "خطا_فاصله_عائمه",
+    "OverflowError": "خطا_فيضان",
+    "ZeroDivisionError": "خطا_القسمه_على_صفر",
+    # ── Assertion / attribute / name ──────────────────────────────────────────
     "AssertionError": "خطا_تاكيد",
     "AttributeError": "خطا_خاصيه",
-    "BlockingIOError": "خطا_ادخال_اخراج_حاجب",
+    "NameError": "خطا_اسم",
+    "UnboundLocalError": "خطا_متغير_غير_مرتبط",
+    # ── Buffer ────────────────────────────────────────────────────────────────
+    "BufferError": "خطا_مخزن_مؤقت",
+    # ── EOF ───────────────────────────────────────────────────────────────────
     "EOFError": "خطا_نهايه_الملف",
+    # ── Import ────────────────────────────────────────────────────────────────
+    "ImportError": "خطا_استيراد",
+    "ModuleNotFoundError": "خطا_الوحده_غير_موجوده",
+    # ── Lookup ────────────────────────────────────────────────────────────────
+    "LookupError": "خطا_بحث",
+    "IndexError": "خطا_فهرس",
+    "KeyError": "خطا_مفتاح",
+    # ── Memory ───────────────────────────────────────────────────────────────
+    "MemoryError": "خطا_ذاكره",
+    # ── OS / IO errors ────────────────────────────────────────────────────────
+    "OSError": "خطا_نظام",
+    "EnvironmentError": "خطا_بيئه",  # alias for OSError in Python 3
+    "IOError": "خطا_ادخال_اخراج",  # alias for OSError in Python 3
+    "BlockingIOError": "خطا_ادخال_اخراج_حاجب",
+    "ChildProcessError": "خطا_عمليه_فرعيه",
+    "ConnectionError": "خطا_اتصال",
+    "BrokenPipeError": "خطا_انبوب_مكسور",
+    "ConnectionAbortedError": "خطا_اتصال_ملغي",
+    "ConnectionRefusedError": "خطا_اتصال_مرفوض",
+    "ConnectionResetError": "خطا_اتصال_منقطع",
     "FileExistsError": "خطا_الملف_موجود",
     "FileNotFoundError": "خطا_الملف_غير_موجود",
-    "FloatingPointError": "خطا_فاصله_عائمه",
-    "ImportError": "خطا_استيراد",
-    "IndentationError": "خطا_ازاحه",
-    "IndexError": "خطا_فهرس",
+    "InterruptedError": "خطا_مقاطعه",
     "IsADirectoryError": "خطا_هذا_مجلد",
-    "KeyError": "خطا_مفتاح",
-    "KeyboardInterrupt": "مقاطعه_لوحه_المفاتيح",
-    "LookupError": "خطا_بحث",
-    "MemoryError": "خطا_ذاكره",
-    "ModuleNotFoundError": "خطا_الوحده_غير_موجوده",
-    "NameError": "خطا_اسم",
     "NotADirectoryError": "خطا_ليس_مجلدا",
-    "NotImplementedError": "خطا_غير_منفذ",
-    "OSError": "خطا_نظام",
-    "OverflowError": "خطا_فيضان",
     "PermissionError": "خطا_صلاحيات",
-    "RecursionError": "خطا_عوديه",
-    "RuntimeError": "خطا_تشغيل",
-    "StopIteration": "ايقاف_التكرار",
-    "SyntaxError": "خطا_صياغه",
-    "SystemExit": "خروج_نظام",
-    "TabError": "خطا_تبويب",
+    "ProcessLookupError": "خطا_بحث_عمليه",
     "TimeoutError": "خطا_انتهاء_مهله",
+    # ── Reference ────────────────────────────────────────────────────────────
+    "ReferenceError": "خطا_مرجع",
+    # ── Runtime ──────────────────────────────────────────────────────────────
+    "RuntimeError": "خطا_تشغيل",
+    "NotImplementedError": "خطا_غير_منفذ",
+    "RecursionError": "خطا_عوديه",
+    "SystemError": "خطا_نظام_داخلي",
+    # ── StopIteration ────────────────────────────────────────────────────────
+    "StopIteration": "ايقاف_التكرار",
+    "StopAsyncIteration": "ايقاف_التكرار_المتزامن",
+    # ── Syntax ───────────────────────────────────────────────────────────────
+    "SyntaxError": "خطا_صياغه",
+    "IndentationError": "خطا_ازاحه",
+    "TabError": "خطا_تبويب",
+    # ── Type ─────────────────────────────────────────────────────────────────
     "TypeError": "خطا_نوع",
+    # ── Unicode ──────────────────────────────────────────────────────────────
+    "UnicodeError": "خطا_يونيكود",
     "UnicodeDecodeError": "خطا_فك_يونيكود",
     "UnicodeEncodeError": "خطا_ترميز_يونيكود",
-    "UnicodeError": "خطا_يونيكود",
+    "UnicodeTranslateError": "خطا_ترجمه_يونيكود",
+    # ── Value ────────────────────────────────────────────────────────────────
     "ValueError": "خطا_قيمه",
-    "ZeroDivisionError": "خطا_القسمه_على_صفر",
+    # ── Warning hierarchy ────────────────────────────────────────────────────
+    "Warning": "تحذير",
+    "BytesWarning": "تحذير_بايت",
+    "DeprecationWarning": "تحذير_اهمال",
+    "EncodingWarning": "تحذير_ترميز",
+    "FutureWarning": "تحذير_مستقبلي",
+    "ImportWarning": "تحذير_استيراد",
+    "PendingDeprecationWarning": "تحذير_اهمال_قادم",
+    "ResourceWarning": "تحذير_موارد",
+    "RuntimeWarning": "تحذير_تشغيل",
+    "SyntaxWarning": "تحذير_صياغه",
+    "UnicodeWarning": "تحذير_يونيكود",
+    "UserWarning": "تحذير_مستخدم",
+    # ── Exception groups (Python 3.11+) ──────────────────────────────────────
+    "BaseExceptionGroup": "مجموعه_استثنائات_اساسيه",
+    "ExceptionGroup": "مجموعه_استثنائات",
 }
 
 # Each entry: (compiled_regex, arabic_template_with_named_groups)
@@ -105,7 +154,6 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     (re.compile(r"^string index out of range$"), "فهرس النص خارج النطاق"),
     (re.compile(r"^pop from empty list$"), "إخراج من قائمة فارغة"),
     (re.compile(r"^pop from an empty (set|deque|dict)$"), "إخراج من {1} فارغ"),
-    (re.compile(r"^dictionary changed size during iteration$"), "تغير حجم القاموس أثناء التكرار"),
     (
         re.compile(r"^maximum recursion depth exceeded(?P<rest>.*)$"),
         "تم تجاوز عمق العودية الأقصى{rest}",
@@ -155,6 +203,134 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     (
         re.compile(r"^\[Errno (?P<errno>\d+)\] (?P<msg>[^:]+): '(?P<path>.+)'$"),
         "[رقم الخطأ {errno}] {msg}: '{path}'",
+    ),
+    # OSError without a path
+    (
+        re.compile(r"^\[Errno (?P<errno>\d+)\] (?P<msg>.+)$"),
+        "[رقم الخطأ {errno}] {msg}",
+    ),
+    # Windows OSError format
+    (
+        re.compile(r"^\[WinError (?P<errno>\d+)\] (?P<msg>.+)$"),
+        "[خطأ ويندوز {errno}] {msg}",
+    ),
+    # ── TypeError variants ────────────────────────────────────────────────────
+    (
+        re.compile(r"^list indices must be integers or slices, not (?P<type>\w+)$"),
+        "فهارس القائمة يجب أن تكون أعداداً صحيحة أو شرائح، لا '{type}'",
+    ),
+    (
+        re.compile(r"^tuple indices must be integers or slices, not (?P<type>\w+)$"),
+        "فهارس الصف يجب أن تكون أعداداً صحيحة أو شرائح، لا '{type}'",
+    ),
+    (
+        re.compile(r"^string indices must be integers(?:, not '(?P<type>[^']+)')?$"),
+        "فهارس النص يجب أن تكون أعداداً صحيحة",
+    ),
+    (
+        re.compile(r"^object of type '(?P<type>[^']+)' has no len\(\)$"),
+        "الكائن من نوع '{type}' لا يملك دالة len()",
+    ),
+    (
+        re.compile(r"^unhashable type: '(?P<type>[^']+)'$"),
+        "النوع '{type}' غير قابل للتجزئة",
+    ),
+    (
+        re.compile(r"^'(?P<type>[^']+)' object is not an iterator$"),
+        "الكائن من نوع '{type}' ليس مكرراً",
+    ),
+    (
+        re.compile(r"^a bytes-like object is required, not '(?P<type>[^']+)'$"),
+        "مطلوب كائن من نوع bytes، لا '{type}'",
+    ),
+    (
+        re.compile(
+            r"^(?P<func>\w+)\(\) takes (?P<n>\d+) positional argument(?P<plural>s?) "
+            r"but (?P<got>\d+) (?:were|was) given$"
+        ),
+        "{func}() تأخذ {n} وسيط موضعي{plural} لكن تم تمرير {got}",
+    ),
+    (
+        re.compile(r"^sequence item (?P<n>\d+): expected str instance, (?P<got>\w+) found$"),
+        "عنصر المتسلسلة {n}: متوقع نص، وجد {got}",
+    ),
+    # ── UnboundLocalError (Python 3.12+ message) ──────────────────────────────
+    (
+        re.compile(
+            r"^cannot access local variable '(?P<name>[^']+)' "
+            r"where it is not associated with a value$"
+        ),
+        "لا يمكن الوصول إلى المتغير المحلي '{name}' لأنه غير مرتبط بقيمة",
+    ),
+    # ── AttributeError with suggestion ───────────────────────────────────────
+    (
+        re.compile(
+            r"^'(?P<type>[^']+)' object has no attribute '(?P<attr>[^']+)'\. "
+            r"Did you mean: '(?P<sugg>[^']+)'\?$"
+        ),
+        "الكائن من نوع '{type}' لا يملك الخاصية '{attr}'. هل تقصد: '{sugg}'؟",
+    ),
+    # ── ValueError variants ───────────────────────────────────────────────────
+    (
+        re.compile(r"^too many values to unpack \(expected (?P<n>\d+)\)$"),
+        "قيم كثيرة جداً للتفريغ (متوقع {n})",
+    ),
+    (
+        re.compile(r"^not enough values to unpack \(expected (?P<n>\d+), got (?P<got>\d+)\)$"),
+        "قيم غير كافية للتفريغ (متوقع {n}، حصلنا على {got})",
+    ),
+    (
+        re.compile(r"^math domain error$"),
+        "خطأ في نطاق الرياضيات",
+    ),
+    # ── OverflowError ─────────────────────────────────────────────────────────
+    (
+        re.compile(r"^math range error$"),
+        "خطأ في مجال الرياضيات",
+    ),
+    (
+        re.compile(r"^int too large to convert to float$"),
+        "العدد الصحيح كبير جداً للتحويل إلى عشري",
+    ),
+    # ── RuntimeError variants ─────────────────────────────────────────────────
+    (
+        re.compile(r"^generator already executing$"),
+        "المولّد قيد التنفيذ بالفعل",
+    ),
+    (
+        re.compile(r"^coroutine already executing$"),
+        "الكوروتين قيد التنفيذ بالفعل",
+    ),
+    # ── SyntaxError / IndentationError messages ───────────────────────────────
+    (
+        re.compile(r"^expected an indented block(?P<rest>.*)$"),
+        "متوقع كتلة مزاحة{rest}",
+    ),
+    (
+        re.compile(r"^inconsistent use of tabs and spaces in indentation$"),
+        "استخدام غير متسق للجداول والمسافات في الإزاحة",
+    ),
+    (
+        re.compile(r"^unindent does not match any outer indentation level$"),
+        "الإزاحة لا تطابق أي مستوى خارجي",
+    ),
+    # ── StopIteration / StopAsyncIteration ───────────────────────────────────
+    (
+        re.compile(r"^coroutine raised StopIteration$"),
+        "الكوروتين أطلق ايقاف_التكرار",
+    ),
+    # ── Connection errors ─────────────────────────────────────────────────────
+    (
+        re.compile(r"^Connection refused$"),
+        "رُفض الاتصال",
+    ),
+    (
+        re.compile(r"^Connection reset by peer$"),
+        "أعاد الطرف الآخر ضبط الاتصال",
+    ),
+    (
+        re.compile(r"^Broken pipe$"),
+        "الأنبوب معطوب",
     ),
 ]
 
