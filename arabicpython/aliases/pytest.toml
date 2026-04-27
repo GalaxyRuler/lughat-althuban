@@ -1,0 +1,68 @@
+# arabicpython/aliases/pytest.toml
+# B-015: Arabic aliases for the pytest testing framework.
+#
+# Arabic import name : اختبارات
+# Python module      : pytest
+#
+# All Arabic keys must round-trip through normalize_identifier() unchanged.
+# No two Arabic keys may share the same Python attribute value.
+#
+# Normalization notes:
+#   - Words ending in ta-marbuta (ة) are stored with heh (ه): علامة → علامه
+#   - Hamza-above alef (أ/إ/آ) folds to bare alef (ا): أفشل → افشل
+#   - Final alef maqsura (ى) folds to yeh (ي): تخطى → تخطي
+#   - Hamza on waw (ؤ) and hamza on yeh (ئ) do NOT fold: مؤقت stays مؤقت
+#
+# Design decisions:
+#   - pytest.mark is a MarkGenerator object; aliased as علامه. Sub-marks
+#     (mark.parametrize, mark.skip, etc.) are accessed as اختبارات.علامه.parametrize —
+#     the proxy returns the real MarkGenerator so dot-access continues in English.
+#     Full Arabic mark names are out of scope until a MarkProxy is added.
+#   - pytest.exit / pytest.fail / pytest.skip return sentinel objects, not plain
+#     functions; they are aliased as-is.
+#   - Internal / rarely-used types (HookRecorder, Stash, StashKey, etc.) omitted.
+
+[meta]
+arabic_name    = "اختبارات"
+python_module  = "pytest"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+# ── Core test helpers ────────────────────────────────────────────────────────
+"افشل"               = "fail"           # أفشل → افشل (hamza fold)
+"استدعاء_مهمل"       = "deprecated_call"
+"استورد_او_تخطي"     = "importorskip"
+"تخطي"               = "skip"           # تخطى → تخطي (alef maqsura fold)
+"تقريبا"             = "approx"
+"فشل_متوقع"          = "xfail"
+"مثبت"               = "fixture"
+"معامل"              = "param"
+"يثير"               = "raises"
+"يحذر"               = "warns"
+
+# ── Marks ────────────────────────────────────────────────────────────────────
+"علامه"              = "mark"           # علامة → علامه (ta-marbuta fold)
+                                        # sub-marks accessed as اختبارات.علامه.parametrize etc.
+
+# ── Runner ───────────────────────────────────────────────────────────────────
+"اخرج_pytest"        = "exit"
+"شغل_الاختبارات"     = "main"
+
+# ── Types — fixtures & reports ───────────────────────────────────────────────
+"اعداد_pytest"       = "Config"         # إعداد → اعداد (hamza fold)
+"تقرير_الاختبار"     = "TestReport"
+"رمز_الخروج"         = "ExitCode"
+"طلب_المثبت"         = "FixtureRequest"
+"مثبت_التقاط"        = "CaptureFixture"
+"مثبت_السجل"         = "LogCaptureFixture"
+"مسجل_التحذيرات"     = "WarningsRecorder"
+"مصنع_مسار_مؤقت"     = "TempPathFactory"
+
+# ── Types — exceptions & errors ──────────────────────────────────────────────
+"خطا_الاستخدام"      = "UsageError"
+"معلومات_الخطا"      = "ExceptionInfo"
+
+# ── Types — monkeypatching ───────────────────────────────────────────────────
+"ترقيع_القرد"        = "MonkeyPatch"
