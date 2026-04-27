@@ -3,11 +3,28 @@
 import argparse
 import contextlib
 import os
+import re
 import sys
 import types
 
 from arabicpython import __version__
 from arabicpython.translate import translate
+
+# Regex for the per-file dictionary directive.
+# Matches: # arabicpython: dict=<version>   (in any of the first 5 lines)
+_DIRECTIVE_RE = re.compile(r"#\s*arabicpython\s*:\s*dict\s*=\s*(\S+)")
+
+
+def _parse_file_directive(source: str) -> "str | None":
+    """Return the dict version named by the first per-file directive, or None.
+
+    Scans only the first five lines so a shebang on line 1 doesn't block it.
+    """
+    for line in source.splitlines()[:5]:
+        m = _DIRECTIVE_RE.search(line)
+        if m:
+            return m.group(1)
+    return None
 
 
 def _configure_utf8_streams() -> None:
@@ -44,12 +61,20 @@ def main(argv: "list[str] | None" = None) -> int:
 
     parser = argparse.ArgumentParser(
         prog="ثعبان",
-        usage="ثعبان [-h] [--version] [-c CODE] [FILE] [args ...]",
+        usage="ثعبان [-h] [--version] [--dict VERSION] [-c CODE] [FILE] [args ...]",
         description="لغة الثعبان — Arabic Python runner.",
         add_help=False,
     )
     parser.add_argument("-h", "--help", action="store_true")
     parser.add_argument("--version", action="version", version=f"ثعبان {__version__}")
+    parser.add_argument(
+        "--dict",
+        dest="dict_version",
+        metavar="VERSION",
+        default=None,
+        help="dictionary version to use (e.g. ar-v1.1, ar-v2). "
+             "Overrides any per-file '# arabicpython: dict=' directive.",
+    )
     parser.add_argument("-c", dest="code", metavar="CODE")
     parser.add_argument("file", nargs="?", metavar="FILE")
     parser.add_argument("args", nargs=argparse.REMAINDER)
@@ -128,11 +153,30 @@ def main(argv: "list[str] | None" = None) -> int:
 
         return run_repl()
 
+    # Resolve the dictionary version: --dict flag > per-file directive > default.
+    # If the file has a directive and the flag is also given, they must agree;
+    # a mismatch is a hard error so ambiguity surfaces early.
+    file_directive = _parse_file_directive(source)
+    cli_dict = args.dict_version  # may be None if flag not given
+
+    if cli_dict is not None and file_directive is not None and cli_dict != file_directive:
+        sys.stderr.write(
+            f"ثعبان: dictionary version conflict — "
+            f"--dict specifies '{cli_dict}' but the file directive says '{file_directive}'. "
+            f"Remove one or make them agree.\n"
+        )
+        return 1
+
+    effective_dict = cli_dict if cli_dict is not None else file_directive  # None → use default
+
     # Step 1 & 2 & 3: translate
     try:
-        translated = translate(source)
+        translated = translate(source, dict_version=effective_dict)
     except SyntaxError:
         print_translated_exception(*sys.exc_info())
+        return 1
+    except FileNotFoundError as e:
+        sys.stderr.write(f"ثعبان: unknown dictionary version: {e}\n")
         return 1
     except Exception:
         print_translated_exception(*sys.exc_info())

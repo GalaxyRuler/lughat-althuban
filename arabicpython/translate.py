@@ -14,7 +14,12 @@ if TYPE_CHECKING:
     from arabicpython.dialect import Dialect
 
 
-def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
+def translate(
+    source: str,
+    *,
+    dialect: "Dialect | None" = None,
+    dict_version: "str | None" = None,
+) -> str:
     """Translate apython source to Python source.
 
     Pipeline:
@@ -36,19 +41,28 @@ def translate(source: str, *, dialect: "Dialect | None" = None) -> str:
 
     Args:
         source: the .apy source text.
-        dialect: optional Dialect to use; defaults to load_dialect("ar-v2").
+        dialect: optional pre-loaded Dialect to use.  Mutually exclusive with
+            dict_version — if both are supplied a ValueError is raised.
+        dict_version: name of the dictionary to load (e.g. ``"ar-v1.1"``).
+            When omitted and dialect is None, defaults to ``"ar-v2"``.
 
     Returns:
         Python source text suitable for compile(src, path, "exec").
 
     Raises:
+        ValueError: if both dialect and dict_version are supplied.
+        FileNotFoundError: if dict_version doesn't resolve to a dictionary file.
         SyntaxError: propagated from pretokenize (bidi, mixed digits) or
             from tokenize (e.g., unclosed string literal).
         DialectError: propagated from load_dialect on first call when no
             explicit dialect is provided.
     """
+    if dialect is not None and dict_version is not None:
+        raise ValueError(
+            "translate(): supply at most one of 'dialect' and 'dict_version', not both"
+        )
     if dialect is None:
-        dialect = load_dialect("ar-v2")
+        dialect = load_dialect(dict_version if dict_version is not None else "ar-v2")
 
     # Fast path: pure ASCII source has no Arabic keywords or identifiers to
     # translate.  Skip the entire pipeline and return the source unchanged.

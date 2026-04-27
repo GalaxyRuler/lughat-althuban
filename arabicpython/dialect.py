@@ -123,12 +123,13 @@ def load_dialect(name: str = "ar-v1", *, path: "Path | None" = None) -> Dialect:
                 )
 
         if python_symbol in reverse_map:
-            existing_canonical = reverse_map[python_symbol]
-            if normalize_identifier(existing_canonical) != normalized:
-                raise DialectError(
-                    f"Line {i}: Python symbol '{python_symbol}' mapped from different "
-                    f"Arabic keys: '{existing_canonical}' and '{canonical}'"
-                )
+            # Multiple Arabic words may legitimately map to the same Python symbol
+            # (e.g. v1.1 adds متزامن as a second spelling for async alongside
+            # غير_متزامن).  The reverse map keeps the FIRST canonical seen, so
+            # the "preferred" form is whichever appears first in the file.
+            # No error is raised; the forward map still enforces one-to-one on
+            # the Arabic side (one Arabic word → at most one Python symbol).
+            pass
 
         target_map[normalized] = python_symbol
         reverse_map[python_symbol] = canonical

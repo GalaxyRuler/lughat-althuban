@@ -84,7 +84,7 @@ Each batch is a coherent group of stdlib modules that ship together. All depend 
 
 | ID | Title | Depends on | Size | Status | Owner | First-pickup? |
 |---|---|---|---|---|---|---|
-| [B-040](specs/B-040-dictionary-v1.1-async-match.md) | dictionary-v1.1 — `async`, `await`, `match`, `case` keyword translations | — | S | drafted | — | **yes** (small, high-impact) |
+| [B-040](specs/B-040-dictionary-v1.1-async-match.md) | dictionary-v1.1 — `async`, `await`, `match`, `case` keyword translations | — | S | merged | — | **yes** (small, high-impact) |
 | B-041 | traceback-coverage-v2 — full Python exception hierarchy + ~120 message templates | — | M | stub | ? | yes |
 
 ---
