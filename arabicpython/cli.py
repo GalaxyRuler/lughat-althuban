@@ -66,6 +66,13 @@ def main(argv: "list[str] | None" = None) -> int:
 
         return run_tests(argv[1:])
 
+    # `ثعبان نصّب|أزل|قائمه|… [args]` — Arabic pip wrapper (B-050).
+    if argv:
+        from arabicpython.pip_wrapper import ARABIC_SUBCOMMANDS, run_pip
+
+        if argv[0] in ARABIC_SUBCOMMANDS:
+            return run_pip(argv[0], argv[1:])
+
     parser = argparse.ArgumentParser(
         prog="ثعبان",
         usage="ثعبان [-h] [--version] [--dict VERSION] [-c CODE] [FILE] [args ...]",
