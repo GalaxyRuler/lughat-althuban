@@ -191,13 +191,13 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     ),
     (
         re.compile(
-            r"^(?P<func>\w+)\(\) missing (?P<n>\d+) "
+            r"^(?P<func>[^(]+)\(\) missing (?P<n>\d+) "
             r"required positional argument(?P<plural>s?): (?P<rest>.+)$"
         ),
         "{func}() ينقصها {n} وسيط إجباري{plural}: {rest}",
     ),
     (
-        re.compile(r"^(?P<func>\w+)\(\) got an unexpected keyword argument '(?P<name>[^']+)'$"),
+        re.compile(r"^(?P<func>[^(]+)\(\) got an unexpected keyword argument '(?P<name>[^']+)'$"),
         "{func}() استلمت وسيطا مفتاحيا غير متوقع '{name}'",
     ),
     (
@@ -245,7 +245,7 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     ),
     (
         re.compile(
-            r"^(?P<func>\w+)\(\) takes (?P<n>\d+) positional argument(?P<plural>s?) "
+            r"^(?P<func>[^(]+)\(\) takes (?P<n>\d+) positional argument(?P<plural>s?) "
             r"but (?P<got>\d+) (?:were|was) given$"
         ),
         "{func}() تأخذ {n} وسيط موضعي{plural} لكن تم تمرير {got}",
@@ -331,6 +331,41 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     (
         re.compile(r"^Broken pipe$"),
         "الأنبوب معطوب",
+    ),
+    # ── Unicode codec errors ──────────────────────────────────────────────────
+    (
+        re.compile(
+            r"^'(?P<codec>[^']+)' codec can't decode byte (?P<byte>0x[0-9a-f]+) "
+            r"in position (?P<pos>\d+): (?P<reason>.+)$"
+        ),
+        "ترميز '{codec}' لا يستطيع فك تشفير البايت {byte} في الموضع {pos}: {reason}",
+    ),
+    (
+        re.compile(
+            r"^'(?P<codec>[^']+)' codec can't decode bytes? in position "
+            r"(?P<start>\d+)-(?P<end>\d+): (?P<reason>.+)$"
+        ),
+        "ترميز '{codec}' لا يستطيع فك تشفير البايتات في الموضع {start}-{end}: {reason}",
+    ),
+    (
+        re.compile(
+            r"^'(?P<codec>[^']+)' codec can't encode character '(?P<char>[^']+)' "
+            r"in position (?P<pos>\d+): (?P<reason>.+)$"
+        ),
+        "ترميز '{codec}' لا يستطيع ترميز الحرف '{char}' في الموضع {pos}: {reason}",
+    ),
+    (
+        re.compile(
+            r"^'(?P<codec>[^']+)' codec can't encode characters? in position "
+            r"(?P<start>\d+)-(?P<end>\d+): (?P<reason>.+)$"
+        ),
+        "ترميز '{codec}' لا يستطيع ترميز الأحرف في الموضع {start}-{end}: {reason}",
+    ),
+    # ── KeyError — quoted string key ──────────────────────────────────────────
+    # Must be last: pattern is deliberately broad (matches any quoted word).
+    (
+        re.compile(r"^'(?P<key>[^']+)'$"),
+        "المفتاح '{key}' غير موجود",
     ),
 ]
 

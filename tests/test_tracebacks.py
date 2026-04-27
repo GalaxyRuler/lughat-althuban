@@ -524,3 +524,76 @@ class TestB041OSErrorTemplates:
     def test_math_domain_error(self):
         result = translate_exception_message("math domain error")
         assert "نطاق الرياضيات" in result
+
+
+# ── B-061: Coverage audit fixes ───────────────────────────────────────────────
+
+
+class TestB061LambdaFuncNames:
+    """Function-name patterns must match <lambda> and other non-identifier names."""
+
+    def test_lambda_missing_arg(self):
+        msg = "<lambda>() missing 1 required positional argument: 'x'"
+        result = translate_exception_message(msg)
+        assert "<lambda>()" in result
+        assert "وسيط إجباري" in result
+
+    def test_lambda_takes_n_but_got_m(self):
+        msg = "<lambda>() takes 1 positional argument but 2 were given"
+        result = translate_exception_message(msg)
+        assert "<lambda>()" in result
+        assert "تأخذ" in result
+
+    def test_lambda_unexpected_kwarg(self):
+        msg = "<lambda>() got an unexpected keyword argument 'x'"
+        result = translate_exception_message(msg)
+        assert "<lambda>()" in result
+        assert "مفتاحيا غير متوقع" in result
+
+    def test_regular_func_still_works(self):
+        msg = "my_func() missing 2 required positional arguments: 'a' and 'b'"
+        result = translate_exception_message(msg)
+        assert "my_func()" in result
+        assert "وسيط إجباري" in result
+
+
+class TestB061UnicodeCodecTemplates:
+    def test_decode_single_byte(self):
+        msg = "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+        result = translate_exception_message(msg)
+        assert "utf-8" in result
+        assert "فك تشفير" in result
+        assert "0xff" in result
+        assert "الموضع 0" in result
+
+    def test_decode_byte_range(self):
+        msg = "'utf-8' codec can't decode bytes in position 0-1: invalid continuation byte"
+        result = translate_exception_message(msg)
+        assert "utf-8" in result
+        assert "فك تشفير" in result
+        assert "0-1" in result
+
+    def test_encode_single_char(self):
+        msg = "'ascii' codec can't encode character '\\u0041' in position 2: ordinal not in range"
+        result = translate_exception_message(msg)
+        assert "ascii" in result
+        assert "ترميز الحرف" in result
+        assert "الموضع 2" in result
+
+    def test_encode_char_range(self):
+        msg = "'ascii' codec can't encode characters in position 1-3: ordinal not in range(128)"
+        result = translate_exception_message(msg)
+        assert "ascii" in result
+        assert "ترميز الأحرف" in result
+        assert "1-3" in result
+
+
+class TestB061KeyErrorTemplate:
+    def test_string_key(self):
+        result = translate_exception_message("'mykey'")
+        assert result == "المفتاح 'mykey' غير موجود"
+
+    def test_does_not_fire_on_empty_string(self):
+        # Empty StopIteration message must NOT be translated
+        result = translate_exception_message("")
+        assert result == ""
