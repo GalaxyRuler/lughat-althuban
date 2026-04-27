@@ -233,9 +233,18 @@ class ModuleProxy:
             python_attr = mapping[name]
             # Support dotted paths such as "adapters.HTTPAdapter" or "Flask.route"
             if "." in python_attr:
+                import importlib
+
                 result: Any = wrapped
                 for part in python_attr.split("."):
-                    result = getattr(result, part)
+                    try:
+                        result = getattr(result, part)
+                    except AttributeError:
+                        if isinstance(result, types.ModuleType):
+                            importlib.import_module(f"{result.__name__}.{part}")
+                            result = getattr(result, part)
+                        else:
+                            raise
             else:
                 result = getattr(wrapped, python_attr)
 

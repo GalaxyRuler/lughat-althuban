@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib
 import sys
 import tomllib
+import types
 import warnings
 from dataclasses import dataclass
 from pathlib import Path
@@ -34,10 +35,33 @@ class AliasMapping:
 
 
 def _resolve_dotted_attr(obj: Any, dotted_name: str) -> Any:
-    """Resolve a potentially dotted attribute path, e.g. ``'adapters.HTTPAdapter'``."""
+    """Resolve a potentially dotted attribute path, e.g. ``'adapters.HTTPAdapter'``.
+
+    If a path step's getattr fails on a module (because the submodule has not
+    been imported yet — e.g. ``django.shortcuts``), this attempts an explicit
+    ``importlib.import_module`` for that submodule before retrying.  This makes
+    libraries that don't auto-import submodules (Django) work transparently.
+    """
     result = obj
     for part in dotted_name.split("."):
-        result = getattr(result, part)
+        try:
+            result = getattr(result, part)
+        except AttributeError:
+            if isinstance(result, types.ModuleType):
+                submod_name = f"{result.__name__}.{part}"
+                try:
+                    importlib.import_module(submod_name)
+                except ImportError:
+                    # Attribute doesn't exist as a submodule either (e.g.
+                    # subprocess.STARTUPINFO on non-Windows).  Re-raise as
+                    # AttributeError so load_mapping's version-skipping logic
+                    # can issue a warning and continue gracefully.
+                    raise AttributeError(
+                        f"module {result.__name__!r} has no attribute {part!r}"
+                    ) from None
+                result = getattr(result, part)
+            else:
+                raise
     return result
 
 
