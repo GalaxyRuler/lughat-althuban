@@ -2,6 +2,7 @@
 B-061 audit script: test real CPython error messages against translate_exception_message().
 Collects misses (untranslated messages) and reports coverage.
 """
+
 import sys
 
 sys.path.insert(0, ".")
