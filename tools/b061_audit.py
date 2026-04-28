@@ -177,7 +177,7 @@ check(
 # ── Report ───────────────────────────────────────────────────────────────────
 total = len(hits) + len(misses_list)
 print(f"\n{'='*64}")
-print(f"تقرير تغطية رسائل الأخطاء (B-061)")
+print("تقرير تغطية رسائل الأخطاء (B-061)")
 print(f"{'='*64}")
 print(f"المجموع  : {total}")
 print(f"مغطى     : {len(hits)}  ({len(hits)/total*100:.1f}%)")
