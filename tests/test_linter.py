@@ -1,9 +1,8 @@
 # tests/test_linter.py
 # B-056: Linter tests
 
-import pytest
 
-from arabicpython.linter import lint_source, Diagnostic
+from arabicpython.linter import Diagnostic, lint_source
 
 
 def codes(diags):
@@ -110,7 +109,7 @@ class TestCLI:
         from arabicpython.linter import main
         p = tmp_path / "bad.apy"
         p.write_text("س = 1   \n", encoding="utf-8")
-        rc = main(["--select", "W002", str(p)])
+        main(["--select", "W002", str(p)])
         out = capsys.readouterr().out
         assert "W002" in out
 

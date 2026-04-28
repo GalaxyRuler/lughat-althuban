@@ -5,8 +5,6 @@
 # or ipykernel installation.  The ArabicPythonKernel class is exercised via
 # mocking when ipykernel is unavailable.
 
-import importlib
-import json
 import sys
 import types
 from pathlib import Path
@@ -67,7 +65,10 @@ class TestKernelAttributes:
                 return {"status": "ok"}
 
             def do_complete(self, code, cursor_pos):
-                return {"matches": [], "cursor_start": cursor_pos, "cursor_end": cursor_pos, "status": "ok"}
+                return {
+                    "matches": [], "cursor_start": cursor_pos,
+                    "cursor_end": cursor_pos, "status": "ok",
+                }
 
             def _topic(self, name):
                 return name.encode()
@@ -127,7 +128,10 @@ class TestDoExecuteTranslation:
                 return {"status": "ok", "execution_count": 1}
 
             def do_complete(self, code, cursor_pos):
-                return {"matches": [], "cursor_start": cursor_pos, "cursor_end": cursor_pos, "status": "ok"}
+                return {
+                    "matches": [], "cursor_start": cursor_pos,
+                    "cursor_end": cursor_pos, "status": "ok",
+                }
 
             def _topic(self, name):
                 return name.encode()

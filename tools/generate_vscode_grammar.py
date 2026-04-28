@@ -8,6 +8,7 @@
 # dialect: ar-v2 (default) — Arabic keyword set
 
 from __future__ import annotations
+
 import argparse
 import json
 from pathlib import Path
@@ -108,7 +109,11 @@ def build_grammar(dialect: str = "ar-v2") -> dict:
             },
             "literal": {
                 "name": "constant.language.apy",
-                "match": r"(?<![ء-يa-zA-Z_٠-٩0-9])(صحيح|خطأ|لا_شيء|True|False|None)(?![ء-يa-zA-Z_٠-٩0-9])",
+                "match": (
+                    r"(?<![ء-يa-zA-Z_٠-٩0-9])"
+                    r"(صحيح|خطأ|لا_شيء|True|False|None)"
+                    r"(?![ء-يa-zA-Z_٠-٩0-9])"
+                ),
             },
             "builtin-function": {
                 "name": "support.function.builtin.apy",
@@ -124,7 +129,10 @@ def build_grammar(dialect: str = "ar-v2") -> dict:
             },
             "number": {
                 "name": "constant.numeric.apy",
-                "match": r"(?<!\w)([٠-٩]+\.?[٠-٩]*|[0-9]+\.?[0-9]*([eE][+-]?[0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+|0[oO][0-7]+)(?!\w)",
+                "match": (
+                    r"(?<!\w)([٠-٩]+\.?[٠-٩]*|[0-9]+\.?[0-9]*([eE][+-]?[0-9]+)?"
+                    r"|0[xX][0-9a-fA-F]+|0[bB][01]+|0[oO][0-7]+)(?!\w)"
+                ),
             },
             "operator": {
                 "name": "keyword.operator.apy",
@@ -170,7 +178,10 @@ def main() -> None:
 
     grammar = build_grammar(args.dialect)
     if args.output is None:
-        out = Path(__file__).parent.parent / "editors" / "vscode" / "syntaxes" / "apy.tmLanguage.json"
+        out = (
+            Path(__file__).parent.parent
+            / "editors" / "vscode" / "syntaxes" / "apy.tmLanguage.json"
+        )
     else:
         out = args.output
     out.parent.mkdir(parents=True, exist_ok=True)
