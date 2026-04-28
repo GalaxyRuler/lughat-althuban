@@ -28,7 +28,7 @@ class Dialect:
 def load_dialect(name: str = "ar-v1", *, path: "Path | None" = None) -> Dialect:
     """Parse a dialect dictionary and return an immutable Dialect."""
     if path is None:
-        path = Path(__file__).parent.parent / "dictionaries" / f"{name}.md"
+        path = Path(__file__).parent / "dictionaries" / f"{name}.md"
 
     try:
         content = path.read_text(encoding="utf-8")

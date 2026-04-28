@@ -7,6 +7,75 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-04-28
+
+First public release on PyPI. Ships the complete Phase A + Phase B feature set.
+
+### Phase A — Core dialect (0.1.x, shipped internally)
+
+- **Arabic keyword transpiler** — tokenize-layer translation of `ar-v1` Arabic keywords to Python equivalents; handles f-strings, nested scopes, type annotations.
+- **Import hook** — `.apy` files importable via `import arabicpython` without a separate compilation step.
+- **REPL** (`ثعبان`) — interactive Arabic Python shell with translated tracebacks.
+- **Translated tracebacks** — `arabicpython.tracebacks` rewrites CPython error messages to Arabic; 100% coverage of 97 real CPython message templates (B-061).
+- **Dictionary `ar-v1`** — 200+ keyword/built-in/exception/method entries with normalization; shipped as package data.
+- **Dictionary `ar-v1.1`** — adds `async`/`await`/`match` keywords and a second spelling for `متزامن`.
+- **CLI** — `ثعبان run FILE.apy`, `ثعبان repl`, `ثعبان check FILE`, `ثعبان راجع` (linter), `ثعبان نسّق` (formatter).
+- **pytest plugin** — `pytest11` entry point; `.apy` test files collected and executed transparently.
+- **Jupyter kernel** — `arabicpython_kernel` package; install with `python -m arabicpython_kernel.install`.
+
+### Phase B — Standard library & third-party aliases (0.2.x → 0.3.0)
+
+Arabic module names that transparently proxy real modules via `arabicpython.aliases`.
+
+#### stdlib aliases
+
+- **B-030** `مسارات` (os/pathlib/sys), `نظام` (os), `مسار` (pathlib.Path), `وسيطات` (sys)
+- **B-031** `مجموعات` (collections), `تكرار` (itertools), `دوال_ترتيب_عالي` (functools)
+- **B-032** `تاريخ_ووقت` (datetime), `تقويم` (calendar), `وقت` (time)
+- **B-033** `ج_س_ن` (json), `ملفات_csv` (csv), `قاعده_بيانات` (sqlite3)
+- **B-034** `تعابير_نمطيه` (re), `نصوص` (textwrap/string)
+- **B-035** `رياضيات` (math), `احصاء` (statistics), `عشوائي` (random), `كسور` (fractions), `عشري` (decimal)
+- **B-036** `سجلات` (logging)
+- **B-037** `غير_متزامن` (asyncio)
+- **B-038** `ضغط` (gzip/zipfile), `بريد` (email/smtplib), `تشفير` (hashlib/hmac/secrets), `ترميز` (base64/codecs), `خيوط` (threading/concurrent.futures), `مقابس` (socket), `http_خادم` (http.server), `بيانات_ثنائيه` (struct/io), `اختبارات` (unittest)
+
+#### Third-party aliases
+
+- **B-010** `فلاسك` (flask) — 54 entries
+- **B-011** `واجهه_برمجيه_سريعه` (fastapi) — 47 entries
+- **B-012** `جانغو` (django) — 41 entries
+- **B-013** `قاعده_علائقيه` (sqlalchemy) — 49 entries
+- **B-014** `طلبات` (requests) — 36 entries
+- **B-015** `اختبار_عربي` / pytest plugin aliases
+- **B-016** `مصفوفات` (numpy) — 85 entries
+- **B-017** `بيانات` (pandas) — 92 entries
+- **B-018** `صور` (Pillow/PIL) — 38 entries
+- **B-057** `رسوم_احصائيه` (seaborn) — 38 entries
+- **B-058** `علوم_حسابيه` (scipy) — 17 entries
+- **B-059** `طلبات_غير_متزامنه` (aiohttp) — 22 entries
+
+#### Dictionary updates
+
+- **B-040** `ar-v1.1` — `async`, `await`, `match`, `case`, `type` soft keywords; alternate `متزامن` spelling.
+
+#### Tooling
+
+- **B-055** Formatter (`ثعبان نسّق`) — deterministic `.apy` source formatter.
+- **B-056** Linter (`ثعبان راجع`) — static analysis with codes W001–W004, E001, I001.
+
+#### Documentation
+
+- **B-060** Arabic wiki — 5 wiki pages: builtins, exceptions, stdlib-aliases, science-aliases, web-aliases.
+
+### Package metadata
+
+- Package renamed from `apython` → `lughat-althuban` for PyPI publication.
+- Entry-point script: `ثعبان` (Arabic for "snake").
+- Dictionary and alias TOML files shipped as package data (no source-tree dependency).
+- Requires Python ≥ 3.11.
+
+[0.3.0]: https://github.com/GalaxyRuler/lughat-althuban/releases/tag/v0.3.0
+
 ### Tooling & third-party aliases (B-053 through B-059)
 
 Test suite: **2386 passing, 21 skipped**.

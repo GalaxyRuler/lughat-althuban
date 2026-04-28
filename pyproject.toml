@@ -3,28 +3,41 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "apython"
-version = "0.0.1"
-description = "لغة الثعبان — a Python dialect with Arabic keywords, built-ins, and exceptions"
+name = "lughat-althuban"
+version = "0.3.0"
+description = "لغة الثعبان — Arabic-keyword Python dialect with stdlib & library aliases, tooling, and translated tracebacks"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-authors = [{ name = "apython contributors" }]
-keywords = ["python", "arabic", "dialect", "education", "transpiler"]
+authors = [{ name = "لغة الثعبان contributors" }]
+keywords = [
+    "python", "arabic", "dialect", "education", "transpiler",
+    "alias", "localization", "عربي", "لغة_برمجة",
+]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
     "License :: OSI Approved :: Apache Software License",
     "Natural Language :: Arabic",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Topic :: Education",
     "Topic :: Software Development :: Compilers",
     "Topic :: Software Development :: Interpreters",
+    "Topic :: Software Development :: Localization",
 ]
 dependencies = []
+
+[project.urls]
+Homepage       = "https://github.com/GalaxyRuler/lughat-althuban"
+Documentation  = "https://github.com/GalaxyRuler/lughat-althuban/tree/main/docs"
+Repository     = "https://github.com/GalaxyRuler/lughat-althuban"
+Changelog      = "https://github.com/GalaxyRuler/lughat-althuban/blob/main/CHANGELOG.md"
+"Bug Tracker"  = "https://github.com/GalaxyRuler/lughat-althuban/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -32,6 +45,7 @@ dev = [
     "pytest-cov>=5.0",
     "ruff>=0.6",
     "black>=24.0",
+    "pre-commit>=3.7",
     "requests>=2.32",
     "flask>=3.0",
     "numpy>=1.26",
@@ -49,8 +63,8 @@ kernel = [
     "jupyter_client>=8.6",
 ]
 all = [
-    "apython[dev]",
-    "apython[kernel]",
+    "lughat-althuban[dev]",
+    "lughat-althuban[kernel]",
 ]
 
 [project.scripts]
@@ -61,6 +75,11 @@ apy = "arabicpython.pytest_plugin"
 
 [tool.setuptools.packages.find]
 include = ["arabicpython*", "arabicpython_kernel*"]
+
+[tool.setuptools.package-data]
+"arabicpython.aliases"      = ["*.toml"]
+"arabicpython.dictionaries" = ["*.md"]
+"arabicpython_kernel"       = ["*.json"]
 
 [tool.ruff]
 line-length = 100
