@@ -46,7 +46,7 @@
 | B-054 | repl-readline-arabic-v1 | B (tooling) | — | deferred (sponsor) |
 | B-060 | tutorial-translation | B (docs) | — | merged |
 | B-061 | error-message-coverage | B (audit) | Claude | merged |
-| C-001 | pypi-release-v1 | C (foundation) | Claude | delivered |
+| C-001 | pypi-release-v1 | C (foundation) | Claude | merged |
 | C-002 | class-proxy-v1 | C (foundation) | — | drafted |
 | C-010 | aliases-matplotlib-v1 | C (data science) | — | drafted |
 | C-011 | aliases-scikit-learn-v1 | C (data science) | — | drafted |
