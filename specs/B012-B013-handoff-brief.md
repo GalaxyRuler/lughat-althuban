@@ -274,7 +274,7 @@ Cover these surfaces (suggested groupings for the TOML comments):
 
 ## B-013 scope — SQLAlchemy
 
-**Arabic import name**: `قاعده_علائقيه`  
+**Arabic import name**: `ألكيمي`  
 **Python module**: `sqlalchemy`  
 **Target**: `arabicpython/aliases/sqlalchemy.toml`
 
@@ -357,7 +357,7 @@ class TestDjangoModels:
 
 `test_stdlib_B012_B013_cross_consistency.py` must parametrize against ALL earlier
 module Arabic names (see the existing `test_stdlib_B016_B017_cross_consistency.py`
-for the exact pattern — copy it and add "دجانغو" and "قاعده_علائقيه" to `NEW_MODULES`
+for the exact pattern — copy it and add "دجانغو" and "ألكيمي" to `NEW_MODULES`
 and add all B-016/B-017 modules to `EARLIER_MODULES`).
 
 ---

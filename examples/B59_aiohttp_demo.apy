@@ -5,7 +5,7 @@
 # تأكد من تثبيت: pip install aiohttp
 
 استورد اتزامن
-استورد طلبات_غير_متزامنه كـ aiohttp_ar
+استورد أيو_هتب كـ aiohttp_ar
 
 URL_اختبار = "https://httpbin.org/get"
 URL_بيانات = "https://httpbin.org/json"

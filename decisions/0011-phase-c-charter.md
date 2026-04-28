@@ -162,7 +162,7 @@ Phase C is shippable (v0.3.0) when:
 
 > **An Arabic-speaking developer can `pip install lughat-althuban`, then write a complete REST API — with a database, background tasks, authentication, and Excel report export — entirely in Arabic, with Arabic method names on every object.**
 
-Concretely: a single `.apy` program that uses `واجهه_برمجيه` (FastAPI), `قاعده_وثائق` (pymongo), `مهام_خلفيه` (celery), `رموز_مصادقه` (PyJWT), and `جداول_اكسل` (openpyxl), with Arabic method names on all returned objects (e.g., `نتيجه.تجميع(...)`, `مستخدم.احفظ()`).
+Concretely: a single `.apy` program that uses `فاست_أبي` (FastAPI), `قاعده_وثائق` (pymongo), `مهام_خلفيه` (celery), `رموز_مصادقه` (PyJWT), and `جداول_اكسل` (openpyxl), with Arabic method names on all returned objects (e.g., `نتيجه.تجميع(...)`, `مستخدم.احفظ()`).
 
 This is measurable, production-relevant, and specifically requires ClassProxy (C-002) to work.
 

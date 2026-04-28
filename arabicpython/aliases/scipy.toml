@@ -11,7 +11,7 @@
 #   مجموع — builtins; مجموع_متراكم used for cumsum.
 
 [meta]
-arabic_name    = "علوم_حسابيه"
+arabic_name    = "سايباي"
 python_module  = "scipy"
 dict_version   = "ar-v1"
 schema_version = 1

@@ -19,7 +19,7 @@
 #   - حدث / احذف (asyncio/del) → using حدث_صفوف / احذف_صفوف for the SQL constructors
 
 [meta]
-arabic_name    = "قاعده_علائقيه"
+arabic_name    = "ألكيمي"
 python_module  = "sqlalchemy"
 dict_version   = "ar-v1"
 schema_version = 1

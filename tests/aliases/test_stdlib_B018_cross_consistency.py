@@ -28,7 +28,7 @@ def _load_keys(arabic_module_name: str) -> set[str]:
 EARLIER_MODULES = [
     "طلبات",
     "دجانغو",
-    "قاعده_علائقيه",
+    "ألكيمي",
     "اختبارات",
     "نمباي",
     "بانداس",

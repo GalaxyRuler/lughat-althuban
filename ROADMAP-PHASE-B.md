@@ -94,9 +94,9 @@ These ship in order of dependency. All are active targets — no sponsor gate.
 | B-054 | jupyter-kernel-v1 — `.apy` cells in Jupyter notebooks | — | L | merged | — | no |
 | B-055 | tooling-formatter — `ثعبان نسّق` source formatter | — | S | merged | — | **yes** |
 | B-056 | tooling-linter — `ثعبان راجع` static linter | — | S | merged | — | **yes** |
-| B-057 | aliases-seaborn-v1 — `رسوم_احصائيه` (38 entries) | B-001 | S | merged | — | **yes** |
-| B-058 | aliases-scipy-v1 — `علوم_حسابيه` (17 entries, submodule map) | B-001 | S | merged | — | **yes** |
-| B-059 | aliases-aiohttp-v1 — `طلبات_غير_متزامنه` (22 entries) | B-001 | S | merged | — | **yes** |
+| B-057 | aliases-seaborn-v1 — `سيبورن` (38 entries) | B-001 | S | merged | — | **yes** |
+| B-058 | aliases-scipy-v1 — `سايباي` (17 entries, submodule map) | B-001 | S | merged | — | **yes** |
+| B-059 | aliases-aiohttp-v1 — `أيو_هتب` (22 entries) | B-001 | S | merged | — | **yes** |
 
 **Pickup advice:** B-050 and B-051 are the smallest and most self-contained. B-052 is the prerequisite for editor support; claim it only with LSP experience.
 

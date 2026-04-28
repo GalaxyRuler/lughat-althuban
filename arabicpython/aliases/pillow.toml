@@ -17,7 +17,7 @@
 #     ta-marbuta (ة→ه), hamza-above-alef (أ/إ/آ→ا), alef-maqsura (ى→ي).
 
 [meta]
-arabic_name    = "صور"
+arabic_name    = "بيلو"
 python_module  = "PIL.Image"
 dict_version   = "ar-v1"
 schema_version = 1

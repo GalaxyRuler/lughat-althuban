@@ -1,7 +1,7 @@
 # arabicpython/aliases/fastapi.toml
 # B-011: Arabic aliases for the FastAPI web framework.
 #
-# Arabic import name : واجهه_برمجيه
+# Arabic import name : فاست_أبي
 # Python module      : fastapi
 #
 # Collision notes (terms that would have been obvious but are taken):
@@ -16,7 +16,7 @@
 #   استماره   already normalized (ة → ه)
 
 [meta]
-arabic_name    = "واجهه_برمجيه"
+arabic_name    = "فاست_أبي"
 python_module  = "fastapi"
 dict_version   = "ar-v1"
 schema_version = 1

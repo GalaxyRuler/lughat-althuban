@@ -11,61 +11,61 @@ seaborn = pytest.importorskip("seaborn", reason="seaborn not installed")
 
 
 @pytest.fixture(scope="module")
-def رسوم_احصائيه():
+def سيبورن():
     from arabicpython.aliases._finder import AliasFinder
 
     finder = AliasFinder(mappings_dir=ALIASES_DIR)
-    spec = finder.find_spec("رسوم_احصائيه", None, None)
-    assert spec is not None, "AliasFinder did not find 'رسوم_احصائيه'"
+    spec = finder.find_spec("سيبورن", None, None)
+    assert spec is not None, "AliasFinder did not find 'سيبورن'"
     proxy = spec.loader.create_module(spec)
     return proxy
 
 
 class TestSeabornAliasesExist:
-    def test_lineplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.خط_بياني is seaborn.lineplot
+    def test_lineplot(self, سيبورن):
+        assert سيبورن.خط_بياني is seaborn.lineplot
 
-    def test_scatterplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.مخطط_نقاط is seaborn.scatterplot
+    def test_scatterplot(self, سيبورن):
+        assert سيبورن.مخطط_نقاط is seaborn.scatterplot
 
-    def test_histplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.توزيع_بيانات is seaborn.histplot
+    def test_histplot(self, سيبورن):
+        assert سيبورن.توزيع_بيانات is seaborn.histplot
 
-    def test_kdeplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.كثافه_احتماليه is seaborn.kdeplot
+    def test_kdeplot(self, سيبورن):
+        assert سيبورن.كثافه_احتماليه is seaborn.kdeplot
 
-    def test_barplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.مخطط_شريطي is seaborn.barplot
+    def test_barplot(self, سيبورن):
+        assert سيبورن.مخطط_شريطي is seaborn.barplot
 
-    def test_boxplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.مخطط_صندوقي is seaborn.boxplot
+    def test_boxplot(self, سيبورن):
+        assert سيبورن.مخطط_صندوقي is seaborn.boxplot
 
-    def test_heatmap(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.خريطه_حراره is seaborn.heatmap
+    def test_heatmap(self, سيبورن):
+        assert سيبورن.خريطه_حراره is seaborn.heatmap
 
-    def test_pairplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.شبكه_زوجيه is seaborn.pairplot
+    def test_pairplot(self, سيبورن):
+        assert سيبورن.شبكه_زوجيه is seaborn.pairplot
 
-    def test_set_theme(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.ضبط_موضوع is seaborn.set_theme
+    def test_set_theme(self, سيبورن):
+        assert سيبورن.ضبط_موضوع is seaborn.set_theme
 
-    def test_set_style(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.ضبط_نمط is seaborn.set_style
+    def test_set_style(self, سيبورن):
+        assert سيبورن.ضبط_نمط is seaborn.set_style
 
-    def test_load_dataset(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.حمل_بيانات is seaborn.load_dataset
+    def test_load_dataset(self, سيبورن):
+        assert سيبورن.حمل_بيانات is seaborn.load_dataset
 
-    def test_color_palette(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.احضر_لوحه is seaborn.color_palette
+    def test_color_palette(self, سيبورن):
+        assert سيبورن.احضر_لوحه is seaborn.color_palette
 
-    def test_violinplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.مخطط_كمان is seaborn.violinplot
+    def test_violinplot(self, سيبورن):
+        assert سيبورن.مخطط_كمان is seaborn.violinplot
 
-    def test_relplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.شبكه_علاقات is seaborn.relplot
+    def test_relplot(self, سيبورن):
+        assert سيبورن.شبكه_علاقات is seaborn.relplot
 
-    def test_jointplot(self, رسوم_احصائيه):
-        assert رسوم_احصائيه.مخطط_مشترك is seaborn.jointplot
+    def test_jointplot(self, سيبورن):
+        assert سيبورن.مخطط_مشترك is seaborn.jointplot
 
 
 class TestSeabornTomlMeta:
@@ -76,7 +76,7 @@ class TestSeabornTomlMeta:
         with open(p, "rb") as f:
             data = tomllib.load(f)
         assert data["meta"]["python_module"] == "seaborn"
-        assert data["meta"]["arabic_name"] == "رسوم_احصائيه"
+        assert data["meta"]["arabic_name"] == "سيبورن"
 
     def test_entry_count(self):
         import tomllib

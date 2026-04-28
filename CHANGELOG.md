@@ -42,17 +42,17 @@ Arabic module names that transparently proxy real modules via `arabicpython.alia
 #### Third-party aliases
 
 - **B-010** `فلاسك` (flask) — 54 entries
-- **B-011** `واجهه_برمجيه_سريعه` (fastapi) — 47 entries
+- **B-011** `فاست_أبي_سريعه` (fastapi) — 47 entries
 - **B-012** `جانغو` (django) — 41 entries
-- **B-013** `قاعده_علائقيه` (sqlalchemy) — 49 entries
+- **B-013** `ألكيمي` (sqlalchemy) — 49 entries
 - **B-014** `طلبات` (requests) — 36 entries
 - **B-015** `اختبار_عربي` / pytest plugin aliases
 - **B-016** `مصفوفات` (numpy) — 85 entries
 - **B-017** `بيانات` (pandas) — 92 entries
 - **B-018** `صور` (Pillow/PIL) — 38 entries
-- **B-057** `رسوم_احصائيه` (seaborn) — 38 entries
-- **B-058** `علوم_حسابيه` (scipy) — 17 entries
-- **B-059** `طلبات_غير_متزامنه` (aiohttp) — 22 entries
+- **B-057** `سيبورن` (seaborn) — 38 entries
+- **B-058** `سايباي` (scipy) — 17 entries
+- **B-059** `أيو_هتب` (aiohttp) — 22 entries
 
 #### Dictionary updates
 
@@ -80,7 +80,7 @@ Arabic module names that transparently proxy real modules via `arabicpython.alia
 
 Test suite: **2386 passing, 21 skipped**.
 
-#### B-059 — aiohttp (`طلبات_غير_متزامنه`)
+#### B-059 — aiohttp (`أيو_هتب`)
 
 22 entries covering `ClientSession` (`جلسه_غير_متزامنه`), `ClientTimeout` (`مهله_عميل`),
 `TCPConnector`, `BasicAuth`, `FormData`, `StreamReader`, web-server helpers
@@ -88,7 +88,7 @@ Test suite: **2386 passing, 21 skipped**.
 `WebSocketResponse`, and all client error/exception classes.
 Demo: `examples/B59_aiohttp_demo.apy`.
 
-#### B-058 — scipy (`علوم_حسابيه`)
+#### B-058 — scipy (`سايباي`)
 
 17 entries mapping scipy's major submodule namespaces: `احصاء_متقدم` (stats),
 `تحسين` (optimize), `تكامل` (integrate), `جبر_خطي` (linalg), `استيفاء`
@@ -96,7 +96,7 @@ Demo: `examples/B59_aiohttp_demo.apy`.
 (sparse), `هندسه_فضائيه` (spatial), `دالات_خاصه` (special), `ثوابت` (constants).
 Demo: `examples/B58_scipy_demo.apy`.
 
-#### B-057 — seaborn (`رسوم_احصائيه`)
+#### B-057 — seaborn (`سيبورن`)
 
 38 entries: full coverage of relational (`خط_بياني`, `مخطط_نقاط`), distribution
 (`توزيع_بيانات`, `كثافه_احتماليه`, `توزيع_تراكمي`), categorical (`مخطط_شريطي`,

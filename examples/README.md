@@ -31,9 +31,9 @@
 | [B38_utilities_demo.apy](B38_utilities_demo.apy) | هاشلب، مجاري، مدير_سياق |
 | [B55_formatter_demo.apy](B55_formatter_demo.apy) | المنسّق التلقائي |
 | [B56_linter_demo.apy](B56_linter_demo.apy) | المدقّق |
-| [B57_seaborn_demo.apy](B57_seaborn_demo.apy) | رسوم_احصائيه (seaborn) |
-| [B58_scipy_demo.apy](B58_scipy_demo.apy) | علوم_حسابيه (scipy) |
-| [B59_aiohttp_demo.apy](B59_aiohttp_demo.apy) | طلبات_غير_متزامنه (aiohttp) |
+| [B57_seaborn_demo.apy](B57_seaborn_demo.apy) | سيبورن (seaborn) |
+| [B58_scipy_demo.apy](B58_scipy_demo.apy) | سايباي (scipy) |
+| [B59_aiohttp_demo.apy](B59_aiohttp_demo.apy) | أيو_هتب (aiohttp) |
 
 ## تطبيقات متكاملة (مجلد apps/)
 
@@ -89,9 +89,9 @@ Progressive `.apy` programs demonstrating the full feature surface of Phase A an
 | [B38_utilities_demo.apy](B38_utilities_demo.apy) | `هاشلب` (hashlib), `مجاري` (io), `مدير_سياق` (contextlib) |
 | [B55_formatter_demo.apy](B55_formatter_demo.apy) | Auto-formatter (`ثعبان نسّق`) |
 | [B56_linter_demo.apy](B56_linter_demo.apy) | Linter (`ثعبان راجع`) |
-| [B57_seaborn_demo.apy](B57_seaborn_demo.apy) | `رسوم_احصائيه` (seaborn) |
-| [B58_scipy_demo.apy](B58_scipy_demo.apy) | `علوم_حسابيه` (scipy) |
-| [B59_aiohttp_demo.apy](B59_aiohttp_demo.apy) | `طلبات_غير_متزامنه` (aiohttp) |
+| [B57_seaborn_demo.apy](B57_seaborn_demo.apy) | `سيبورن` (seaborn) |
+| [B58_scipy_demo.apy](B58_scipy_demo.apy) | `سايباي` (scipy) |
+| [B59_aiohttp_demo.apy](B59_aiohttp_demo.apy) | `أيو_هتب` (aiohttp) |
 
 ## Showcase apps (`apps/`)
 

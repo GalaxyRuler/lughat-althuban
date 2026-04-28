@@ -1,7 +1,7 @@
 # tests/aliases/test_stdlib_B012_B013_cross_consistency.py
 # B-012 / B-013 cross-consistency — django and sqlalchemy
 #
-# Verifies no Arabic name collisions between دجانغو / قاعده_علائقيه and all
+# Verifies no Arabic name collisions between دجانغو / ألكيمي and all
 # earlier B-batch modules (B-016/B-017 numpy/pandas, B-030..B-039 stdlib,
 # plus the SDK aliases flask, requests, sqlite3) — and that the two new
 # modules don't collide with each other.
@@ -77,7 +77,7 @@ EARLIER_MODULES = [
     "معرفات_فريده",
 ]
 
-NEW_MODULES = ["دجانغو", "قاعده_علائقيه"]
+NEW_MODULES = ["دجانغو", "ألكيمي"]
 
 
 @pytest.mark.parametrize(
@@ -93,8 +93,8 @@ def test_no_collision_with_earlier_batches(new_mod, earlier_mod):
 
 
 def test_no_collision_between_django_and_sqlalchemy():
-    """دجانغو and قاعده_علائقيه don't collide with each other."""
+    """دجانغو and ألكيمي don't collide with each other."""
     dj_keys = _load_keys("دجانغو")
-    sa_keys = _load_keys("قاعده_علائقيه")
+    sa_keys = _load_keys("ألكيمي")
     overlap = dj_keys & sa_keys
-    assert not overlap, f"Collision between دجانغو and قاعده_علائقيه: {overlap}"
+    assert not overlap, f"Collision between دجانغو and ألكيمي: {overlap}"

@@ -26,7 +26,7 @@ def _load_keys(arabic_module_name: str) -> set[str]:
 EARLIER_MODULES = [
     # B-010 / B-011 / B-012 / B-013
     "فلاسك",
-    "واجهه_برمجيه",  # FastAPI — normalized from واجهه_سريعه if needed
+    "فاست_أبي",  # FastAPI — normalized from واجهه_سريعه if needed
     "جانغو",
     "نماذج_جانغو",
     "قالب_بيانات",
@@ -85,9 +85,9 @@ EARLIER_MODULES = [
 ]
 
 NEW_MODULES = [
-    "رسوم_احصائيه",  # seaborn  B-057
-    "علوم_حسابيه",  # scipy    B-058
-    "طلبات_غير_متزامنه",  # aiohttp  B-059
+    "سيبورن",  # seaborn  B-057
+    "سايباي",  # scipy    B-058
+    "أيو_هتب",  # aiohttp  B-059
 ]
 
 
@@ -105,9 +105,9 @@ def test_no_collision_with_earlier_batches(new_mod, earlier_mod):
 @pytest.mark.parametrize(
     "mod_a,mod_b",
     [
-        ("رسوم_احصائيه", "علوم_حسابيه"),
-        ("رسوم_احصائيه", "طلبات_غير_متزامنه"),
-        ("علوم_حسابيه", "طلبات_غير_متزامنه"),
+        ("سيبورن", "سايباي"),
+        ("سيبورن", "أيو_هتب"),
+        ("سايباي", "أيو_هتب"),
     ],
 )
 def test_no_collision_among_new_modules(mod_a, mod_b):

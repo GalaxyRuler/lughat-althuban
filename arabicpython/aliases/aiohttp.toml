@@ -7,7 +7,7 @@
 #   جلسه — requests uses جلسه; aiohttp async session uses جلسه_غير_متزامنه.
 
 [meta]
-arabic_name    = "طلبات_غير_متزامنه"
+arabic_name    = "أيو_هتب"
 python_module  = "aiohttp"
 dict_version   = "ar-v1"
 schema_version = 1

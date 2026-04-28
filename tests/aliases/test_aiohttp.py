@@ -11,43 +11,43 @@ aiohttp = pytest.importorskip("aiohttp", reason="aiohttp not installed")
 
 
 @pytest.fixture(scope="module")
-def طلبات_غير_متزامنه():
+def أيو_هتب():
     from arabicpython.aliases._finder import AliasFinder
 
     finder = AliasFinder(mappings_dir=ALIASES_DIR)
-    spec = finder.find_spec("طلبات_غير_متزامنه", None, None)
-    assert spec is not None, "AliasFinder did not find 'طلبات_غير_متزامنه'"
+    spec = finder.find_spec("أيو_هتب", None, None)
+    assert spec is not None, "AliasFinder did not find 'أيو_هتب'"
     proxy = spec.loader.create_module(spec)
     return proxy
 
 
 class TestAiohttpAliasesExist:
-    def test_client_session(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.جلسه_غير_متزامنه is aiohttp.ClientSession
+    def test_client_session(self, أيو_هتب):
+        assert أيو_هتب.جلسه_غير_متزامنه is aiohttp.ClientSession
 
-    def test_client_error(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.خطا_عميل is aiohttp.ClientError
+    def test_client_error(self, أيو_هتب):
+        assert أيو_هتب.خطا_عميل is aiohttp.ClientError
 
-    def test_client_response_error(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.خطا_استجابه is aiohttp.ClientResponseError
+    def test_client_response_error(self, أيو_هتب):
+        assert أيو_هتب.خطا_استجابه is aiohttp.ClientResponseError
 
-    def test_client_connection_error(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.خطا_اتصال_غير_متزامن is aiohttp.ClientConnectionError
+    def test_client_connection_error(self, أيو_هتب):
+        assert أيو_هتب.خطا_اتصال_غير_متزامن is aiohttp.ClientConnectionError
 
-    def test_client_timeout(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.مهله_عميل is aiohttp.ClientTimeout
+    def test_client_timeout(self, أيو_هتب):
+        assert أيو_هتب.مهله_عميل is aiohttp.ClientTimeout
 
-    def test_tcp_connector(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.اعدادات_اتصال is aiohttp.TCPConnector
+    def test_tcp_connector(self, أيو_هتب):
+        assert أيو_هتب.اعدادات_اتصال is aiohttp.TCPConnector
 
-    def test_basic_auth(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.ترميز_عنوان is aiohttp.BasicAuth
+    def test_basic_auth(self, أيو_هتب):
+        assert أيو_هتب.ترميز_عنوان is aiohttp.BasicAuth
 
-    def test_form_data(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.بيانات_متعدده is aiohttp.FormData
+    def test_form_data(self, أيو_هتب):
+        assert أيو_هتب.بيانات_متعدده is aiohttp.FormData
 
-    def test_stream_reader(self, طلبات_غير_متزامنه):
-        assert طلبات_غير_متزامنه.قارئ_مجري is aiohttp.StreamReader
+    def test_stream_reader(self, أيو_هتب):
+        assert أيو_هتب.قارئ_مجري is aiohttp.StreamReader
 
 
 class TestAiohttpTomlMeta:
@@ -58,7 +58,7 @@ class TestAiohttpTomlMeta:
         with open(p, "rb") as f:
             data = tomllib.load(f)
         assert data["meta"]["python_module"] == "aiohttp"
-        assert data["meta"]["arabic_name"] == "طلبات_غير_متزامنه"
+        assert data["meta"]["arabic_name"] == "أيو_هتب"
 
     def test_entry_count(self):
         import tomllib

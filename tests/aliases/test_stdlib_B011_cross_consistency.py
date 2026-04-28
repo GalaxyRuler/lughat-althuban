@@ -1,7 +1,7 @@
 # tests/aliases/test_stdlib_B011_cross_consistency.py
-# B-011 cross-consistency — FastAPI (واجهه_برمجيه)
+# B-011 cross-consistency — FastAPI (فاست_أبي)
 #
-# Verifies no Arabic name collisions between واجهه_برمجيه and all earlier
+# Verifies no Arabic name collisions between فاست_أبي and all earlier
 # B-batch modules.
 
 import pathlib
@@ -25,7 +25,7 @@ def _load_keys(arabic_module_name: str) -> set[str]:
 EARLIER_MODULES = [
     "طلبات",
     "دجانغو",
-    "قاعده_علائقيه",
+    "ألكيمي",
     "اختبارات",
     "نمباي",
     "بانداس",
@@ -63,8 +63,8 @@ EARLIER_MODULES = [
 
 @pytest.mark.parametrize("earlier_mod", EARLIER_MODULES)
 def test_no_collision_with_earlier_batches(earlier_mod):
-    """واجهه_برمجيه shares no Arabic entry keys with any earlier batch module."""
-    fastapi_keys = _load_keys("واجهه_برمجيه")
+    """فاست_أبي shares no Arabic entry keys with any earlier batch module."""
+    fastapi_keys = _load_keys("فاست_أبي")
     earlier_keys = _load_keys(earlier_mod)
     overlap = fastapi_keys & earlier_keys
-    assert not overlap, f"Collision between واجهه_برمجيه and {earlier_mod}: {overlap}"
+    assert not overlap, f"Collision between فاست_أبي and {earlier_mod}: {overlap}"

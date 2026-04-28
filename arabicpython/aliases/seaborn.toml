@@ -7,7 +7,7 @@
 #   توزيع — statistics uses توزيع not directly; seaborn uses توزيع_بيانات.
 
 [meta]
-arabic_name    = "رسوم_احصائيه"
+arabic_name    = "سيبورن"
 python_module  = "seaborn"
 dict_version   = "ar-v1"
 schema_version = 1

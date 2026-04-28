@@ -1,7 +1,7 @@
 # arabicpython/aliases/pytest.toml
 # B-015: Arabic aliases for the pytest testing framework.
 #
-# Arabic import name : اختبارات
+# Arabic import name : بايتست
 # Python module      : pytest
 #
 # All Arabic keys must round-trip through normalize_identifier() unchanged.
@@ -15,7 +15,7 @@
 #
 # Design decisions:
 #   - pytest.mark is a MarkGenerator object; aliased as علامه. Sub-marks
-#     (mark.parametrize, mark.skip, etc.) are accessed as اختبارات.علامه.parametrize —
+#     (mark.parametrize, mark.skip, etc.) are accessed as بايتست.علامه.parametrize —
 #     the proxy returns the real MarkGenerator so dot-access continues in English.
 #     Full Arabic mark names are out of scope until a MarkProxy is added.
 #   - pytest.exit / pytest.fail / pytest.skip return sentinel objects, not plain
@@ -23,7 +23,7 @@
 #   - Internal / rarely-used types (HookRecorder, Stash, StashKey, etc.) omitted.
 
 [meta]
-arabic_name    = "اختبارات"
+arabic_name    = "بايتست"
 python_module  = "pytest"
 dict_version   = "ar-v1"
 schema_version = 1
@@ -44,7 +44,7 @@ maintainer     = "—"
 
 # ── Marks ────────────────────────────────────────────────────────────────────
 "علامه"              = "mark"           # علامة → علامه (ta-marbuta fold)
-                                        # sub-marks accessed as اختبارات.علامه.parametrize etc.
+                                        # sub-marks accessed as بايتست.علامه.parametrize etc.
 
 # ── Runner ───────────────────────────────────────────────────────────────────
 "اخرج_pytest"        = "exit"

@@ -12,8 +12,8 @@
 |-------------|--------|--------|
 | `نمباي` | `numpy` | الحوسبة العددية والمصفوفات متعددة الأبعاد |
 | `بانداس` | `pandas` | تحليل البيانات والجداول |
-| `رسوم_احصائيه` | `seaborn` | الرسوم البيانية الإحصائية |
-| `علوم_حسابيه` | `scipy` | الخوارزميات العلمية والرياضية |
+| `سيبورن` | `seaborn` | الرسوم البيانية الإحصائية |
+| `سايباي` | `scipy` | الخوارزميات العلمية والرياضية |
 | `صور` | `PIL.Image` | معالجة الصور (Pillow) |
 
 > **ملاحظة:** مكتبة matplotlib غير متاحة بأسماء عربية في المرحلة الحالية. استخدمها باسمها الإنجليزي أو عبر seaborn التي تعتمد عليها.
@@ -144,12 +144,12 @@
 
 ---
 
-## رسوم_احصائيه (`seaborn`)
+## سيبورن (`seaborn`)
 
 ### الاستيراد
 
 ```python
-استورد رسوم_احصائيه كـ رح
+استورد سيبورن كـ رح
 ```
 
 ### أنواع الرسوم
@@ -171,7 +171,7 @@
 ### مثال كامل
 
 ```python
-استورد رسوم_احصائيه كـ رح
+استورد سيبورن كـ رح
 استورد بانداس كـ بد
 استورد matplotlib.pyplot كـ plt
 
@@ -192,13 +192,13 @@ plt.show()
 
 ---
 
-## علوم_حسابيه (`scipy`)
+## سايباي (`scipy`)
 
 ### الاستيراد
 
 ```python
-استورد علوم_حسابيه كـ عح
-من علوم_حسابيه استورد علوم_حسابيه.stats كـ احصائيات_علميه
+استورد سايباي كـ عح
+من سايباي استورد سايباي.stats كـ احصائيات_علميه
 ```
 
 ### الوحدات الفرعية
@@ -286,8 +286,8 @@ t_stat, p_value = احص.ttest_ind(مجموعه_1, مجموعه_2)
 |---|---|---|
 | `نمباي` | `numpy` | N-dimensional arrays, linear algebra, FFT |
 | `بانداس` | `pandas` | DataFrames, CSV/Excel I/O, groupby |
-| `رسوم_احصائيه` | `seaborn` | Statistical visualisation on top of matplotlib |
-| `علوم_حسابيه` | `scipy` | Optimize, integrate, signal, stats |
+| `سيبورن` | `seaborn` | Statistical visualisation on top of matplotlib |
+| `سايباي` | `scipy` | Optimize, integrate, signal, stats |
 | `صور` | `PIL.Image` | Image open/save/resize (Pillow) |
 
 All imports use `استورد <arabic_name>`. Aliases are resolved by the alias runtime (B-001). These packages must be installed separately — they are not bundled with لغة الثعبان.
