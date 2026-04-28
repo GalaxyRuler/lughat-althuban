@@ -45,9 +45,7 @@ KEY_TERMS = [
 
 def _headings(path: pathlib.Path) -> list[str]:
     return [
-        line
-        for line in path.read_text(encoding="utf-8").splitlines()
-        if re.match(r"^#+\s", line)
+        line for line in path.read_text(encoding="utf-8").splitlines() if re.match(r"^#+\s", line)
     ]
 
 
@@ -111,8 +109,7 @@ class TestStructure:
         # Allow ±2 to accommodate Arabic-only bonus subsections or table-row
         # headings the implementer chose to drop.
         assert abs(ar - en) <= 2, (
-            f"English headings: {en}; Arabic headings: {ar}; "
-            f"difference exceeds tolerance"
+            f"English headings: {en}; Arabic headings: {ar}; " f"difference exceeds tolerance"
         )
 
 
@@ -170,9 +167,7 @@ def test_tutorial_code_block_runs(tmp_path, lineno, info, marker, code):
     if marker.startswith("requires:"):
         # e.g. requires: ar-v1.1
         required = marker.split(":", 1)[1].strip()
-        if required == "ar-v1.1" and not (
-            PROJECT_ROOT / "dictionaries" / "ar-v1.1.md"
-        ).exists():
+        if required == "ar-v1.1" and not (PROJECT_ROOT / "dictionaries" / "ar-v1.1.md").exists():
             pytest.skip(f"requires {required}, not yet shipped")
 
     apy_file = tmp_path / f"block_line_{lineno}.apy"
@@ -182,8 +177,7 @@ def test_tutorial_code_block_runs(tmp_path, lineno, info, marker, code):
     expected_error = "expected-error" in marker
     if expected_error:
         assert rc != 0, (
-            f"block at line {lineno} expected error, but exited cleanly. "
-            f"stdout={out!r}"
+            f"block at line {lineno} expected error, but exited cleanly. " f"stdout={out!r}"
         )
     else:
         assert rc == 0, (
