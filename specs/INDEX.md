@@ -44,8 +44,8 @@
 | B-052 | lsp-server-v1 | B (tooling) | — | deferred (sponsor) |
 | B-053 | linter-arabicpython-v1 | B (tooling) | — | deferred (sponsor) |
 | B-054 | repl-readline-arabic-v1 | B (tooling) | — | deferred (sponsor) |
-| B-060 | tutorial-translation | B (docs) | — | drafted |
-| B-061 | cookbook-translation | B (docs) | — | stub |
+| B-060 | tutorial-translation | B (docs) | — | merged |
+| B-061 | error-message-coverage | B (audit) | Claude | delivered |
 ## Legend
 
 - **Status**: `drafted` → `in-progress` → `delivered` → `reviewing` → `merged` | `blocked`

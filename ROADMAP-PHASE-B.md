@@ -1,6 +1,6 @@
 # Phase B Roadmap
 
-**Status as of 2026-04-28:** Phase A complete. Phase B substantially complete — all stdlib batches (B-030–B-039) merged, all top-10 SDK packets merged, traceback expansion (B-041) merged, full tooling layer merged (B-050–B-059 + VSCode/Jupyter/pytest-plugin), Arabic tutorial + cookbook (B-060/B-061) merged. Test suite: **2570 passing**. Remaining open work: error-message coverage audit (B-061-errormsg).
+**Status as of 2026-04-28:** Phase B **complete**. All packets merged — stdlib batches (B-030–B-039), top-10 SDK packets, traceback expansion (B-041), full tooling layer (B-050–B-059 + VSCode/Jupyter/pytest-plugin), Arabic tutorial + cookbook (B-060), error-message coverage audit (B-061, 97/97 messages translated). Test suite: **2570 passing**.
 
 This file is the **single visible map** of what Phase B contains, what's open for contribution, and what depends on what. To pick up work, see [CONTRIBUTING.md](CONTRIBUTING.md). To understand *why* Phase B is structured this way, see [decisions/0008-phase-b-charter.md](decisions/0008-phase-b-charter.md).
 
@@ -109,7 +109,7 @@ Open to non-code contributors. See [CONTRIBUTING.md §3c](CONTRIBUTING.md#3c--do
 | ID | Title | Depends on | Size | Status | Owner | First-pickup? |
 |---|---|---|---|---|---|---|
 | [B-060](specs/B-060-tutorial-translation.md) | tutorial-translation — Python tutorial chapters 1–10 in Arabic, with `.apy` examples | — | L (split into 10 sub-packets) | merged | — | **yes** (any chapter) |
-| B-061 | error-message-coverage — audit B-041 template coverage against real CPython messages; fill remaining gaps; produce coverage report | B-041 | S | drafted | — | **yes** |
+| B-061 | error-message-coverage — audit B-041 template coverage against real CPython messages; fill remaining gaps; produce coverage report | B-041 | S | merged | Claude | **yes** |
 
 ---
 
@@ -126,11 +126,9 @@ Open to non-code contributors. See [CONTRIBUTING.md §3c](CONTRIBUTING.md#3c--do
 
 ---
 
-## Where to start (decision tree)
+## Where to start
 
-- **I want the one remaining open packet** → claim B-061 (error-message coverage audit); size S, no code changes required, just audit + a report.
-- **I'm an Arabic linguist** → review translation tables in existing alias TOMLs, or propose a Phase C documentation packet.
-- **None of the above fits** → open a "Propose new packet" issue.
+Phase B is complete — all packets are merged. To propose new work, open a "Propose new packet" issue and tag it **Phase C**.
 
 ---
 

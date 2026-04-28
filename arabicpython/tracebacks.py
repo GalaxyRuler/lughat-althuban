@@ -107,6 +107,8 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     (re.compile(r"^division by zero$"), "القسمة على صفر"),
     (re.compile(r"^integer division or modulo by zero$"), "قسمة صحيحة أو باقي على صفر"),
     (re.compile(r"^float division by zero$"), "قسمة عشرية على صفر"),
+    (re.compile(r"^float modulo$"), "باقي قسمة عشرية على صفر"),
+    (re.compile(r"^complex division by zero$"), "قسمة عدد مركب على صفر"),
     (
         re.compile(r"^name '(?P<name>[^']+)' is not defined$"),
         "الاسم '{name}' غير معرّف",
@@ -152,6 +154,9 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     (re.compile(r"^list index out of range$"), "فهرس القائمة خارج النطاق"),
     (re.compile(r"^tuple index out of range$"), "فهرس الصف خارج النطاق"),
     (re.compile(r"^string index out of range$"), "فهرس النص خارج النطاق"),
+    (re.compile(r"^bytearray index out of range$"), "فهرس مصفوفة البايت خارج النطاق"),
+    (re.compile(r"^range object index out of range$"), "فهرس كائن النطاق خارج النطاق"),
+    (re.compile(r"^pop index out of range$"), "فهرس الإخراج خارج النطاق"),
     (re.compile(r"^pop from empty list$"), "إخراج من قائمة فارغة"),
     (re.compile(r"^pop from an empty (set|deque|dict)$"), "إخراج من {1} فارغ"),
     (
@@ -160,8 +165,20 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     ),
     (re.compile(r"^No module named '(?P<name>[^']+)'$"), "لا توجد وحدة باسم '{name}'"),
     (
+        re.compile(
+            r"^cannot import name '(?P<name>[^']+)' from partially initialized module "
+            r"'(?P<module>[^']+)'(?P<rest>.*)$"
+        ),
+        "لا يمكن استيراد الاسم '{name}' من الوحدة المُهيَّأة جزئياً '{module}'"
+        " (على الأرجح بسبب استيراد دائري)",
+    ),
+    (
         re.compile(r"^cannot import name '(?P<name>[^']+)' from '(?P<module>[^']+)'(?P<rest>.*)$"),
         "لا يمكن استيراد الاسم '{name}' من '{module}'{rest}",
+    ),
+    (
+        re.compile(r"^attempted relative import with no known parent package$"),
+        "محاولة استيراد نسبي دون وجود حزمة أصلية معروفة",
     ),
     (
         re.compile(
@@ -254,6 +271,37 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
         re.compile(r"^sequence item (?P<n>\d+): expected str instance, (?P<got>\w+) found$"),
         "عنصر المتسلسلة {n}: متوقع نص، وجد {got}",
     ),
+    (
+        re.compile(r"^(?P<func>[^(]+)\(\) got multiple values for argument '(?P<name>[^']+)'$"),
+        "{func}() استلمت قيماً متعددة للوسيط '{name}'",
+    ),
+    (
+        re.compile(r"^bad operand type for unary (?P<op>[^:]+): '(?P<type>[^']+)'$"),
+        "نوع معامل خاطئ للعملية الأحادية {op}: '{type}'",
+    ),
+    (
+        re.compile(r"^'(?P<type>[^']+)' object does not support item assignment$"),
+        "الكائن من نوع '{type}' لا يدعم تعيين العناصر",
+    ),
+    (
+        re.compile(r"^'(?P<type>[^']+)' object doesn't support item (?P<op>assignment|deletion)$"),
+        "الكائن من نوع '{type}' لا يدعم {op} العناصر",
+    ),
+    (
+        re.compile(r"^can't multiply sequence by non-int of type '(?P<type>[^']+)'$"),
+        "لا يمكن ضرب المتسلسلة بنوع غير صحيح '{type}'",
+    ),
+    (
+        re.compile(r"^expected str, bytes or os\.PathLike object, not (?P<type>\w+)$"),
+        "متوقع نص أو بايتات أو مسار، ليس '{type}'",
+    ),
+    (
+        re.compile(
+            r"^descriptor '(?P<desc>[^']+)' for '(?P<for_type>[^']+)' objects "
+            r"doesn't apply to a '(?P<got_type>[^']+)' object$"
+        ),
+        "الواصف '{desc}' لكائنات '{for_type}' لا ينطبق على كائن '{got_type}'",
+    ),
     # ── UnboundLocalError (Python 3.12+ message) ──────────────────────────────
     (
         re.compile(
@@ -270,6 +318,19 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
         ),
         "الكائن من نوع '{type}' لا يملك الخاصية '{attr}'. هل تقصد: '{sugg}'؟",
     ),
+    # ── AttributeError on module (no suggestion) ──────────────────────────────
+    (
+        re.compile(r"^module '(?P<module>[^']+)' has no attribute '(?P<attr>[^']+)'$"),
+        "الوحدة '{module}' لا تملك الخاصية '{attr}'",
+    ),
+    # ── AttributeError on module (with suggestion) ────────────────────────────
+    (
+        re.compile(
+            r"^module '(?P<module>[^']+)' has no attribute '(?P<attr>[^']+)'\. "
+            r"Did you mean: '(?P<sugg>[^']+)'\?$"
+        ),
+        "الوحدة '{module}' لا تملك الخاصية '{attr}'. هل تقصد: '{sugg}'؟",
+    ),
     # ── ValueError variants ───────────────────────────────────────────────────
     (
         re.compile(r"^too many values to unpack \(expected (?P<n>\d+)\)$"),
@@ -283,6 +344,21 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
         re.compile(r"^math domain error$"),
         "خطأ في نطاق الرياضيات",
     ),
+    (re.compile(r"^substring not found$"), "النص الفرعي غير موجود"),
+    (
+        re.compile(r"^list\.remove\(x\): x not found$"),
+        "list.remove(x): العنصر غير موجود في القائمة",
+    ),
+    (re.compile(r"^I/O operation on closed file\.$"), "عملية إدخال/إخراج على ملف مغلق"),
+    (re.compile(r"^Circular reference detected$"), "تم اكتشاف مرجع دائري"),
+    (re.compile(r"^empty separator$"), "الفاصل فارغ"),
+    (
+        re.compile(
+            r"^dictionary update sequence element #(?P<n>\d+) "
+            r"has length (?P<got>\d+); 2 is required$"
+        ),
+        "عنصر تسلسل تحديث القاموس رقم {n} له طول {got}؛ المطلوب 2",
+    ),
     # ── OverflowError ─────────────────────────────────────────────────────────
     (
         re.compile(r"^math range error$"),
@@ -291,6 +367,10 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
     (
         re.compile(r"^int too large to convert to float$"),
         "العدد الصحيح كبير جداً للتحويل إلى عشري",
+    ),
+    (
+        re.compile(r"^\(\d+, '(?P<msg>[^']+)'\)$"),
+        "خطأ عملية: {msg}",
     ),
     # ── RuntimeError variants ─────────────────────────────────────────────────
     (
@@ -301,7 +381,48 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
         re.compile(r"^coroutine already executing$"),
         "الكوروتين قيد التنفيذ بالفعل",
     ),
+    (
+        re.compile(r"^dictionary changed size during iteration$"),
+        "تغيّر حجم القاموس أثناء التكرار",
+    ),
+    (
+        re.compile(r"^[Ss]et changed size during iteration$"),
+        "تغيّر حجم المجموعة أثناء التكرار",
+    ),
+    (
+        re.compile(r"^asynchronous generator raised StopIteration$"),
+        "المولّد غير المتزامن أطلق ايقاف_التكرار",
+    ),
     # ── SyntaxError / IndentationError messages ───────────────────────────────
+    (re.compile(r"^invalid syntax$"), "صياغة غير صالحة"),
+    (
+        re.compile(r"^invalid syntax\. Perhaps you forgot a comma\?$"),
+        "صياغة غير صالحة. ربما نسيت فاصلة؟",
+    ),
+    (
+        re.compile(r"^unterminated string literal \(detected at line (?P<line>\d+)\)$"),
+        "نص حرفي غير منتهٍ (اكتُشف في السطر {line})",
+    ),
+    (re.compile(r"^EOL while scanning string literal$"), "نهاية السطر أثناء فحص نص حرفي"),
+    (re.compile(r"^unexpected EOF while parsing$"), "نهاية ملف غير متوقعة أثناء التحليل"),
+    (
+        re.compile(r"^unexpected character after line continuation character$"),
+        "حرف غير متوقع بعد حرف استمرار السطر",
+    ),
+    (
+        re.compile(r"^invalid character '(?P<char>[^']+)' \((?P<code>U\+[0-9A-Fa-f]+)\)$"),
+        "حرف غير صالح '{char}' ({code})",
+    ),
+    (
+        re.compile(
+            r"^Missing parentheses in call to '(?P<func>[^']+)'\." r" Did you mean (?P<sugg>.+)\?$"
+        ),
+        "أقواس مفقودة في استدعاء '{func}'. هل تقصد {sugg}؟",
+    ),
+    (
+        re.compile(r"^f-string expression part cannot include a backslash$"),
+        "جزء تعبير النص المنسق لا يمكن أن يحتوي على شرطة مائلة عكسية",
+    ),
     (
         re.compile(r"^expected an indented block(?P<rest>.*)$"),
         "متوقع كتلة مزاحة{rest}",
@@ -320,10 +441,9 @@ MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
         "الكوروتين أطلق ايقاف_التكرار",
     ),
     # ── Connection errors ─────────────────────────────────────────────────────
-    (
-        re.compile(r"^Connection refused$"),
-        "رُفض الاتصال",
-    ),
+    (re.compile(r"^Connection refused$"), "رُفض الاتصال"),
+    (re.compile(r"^Connection timed out$"), "انتهت مهلة الاتصال"),
+    (re.compile(r"^timed out$"), "انتهت المهلة"),
     (
         re.compile(r"^Connection reset by peer$"),
         "أعاد الطرف الآخر ضبط الاتصال",
