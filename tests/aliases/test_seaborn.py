@@ -13,6 +13,7 @@ seaborn = pytest.importorskip("seaborn", reason="seaborn not installed")
 @pytest.fixture(scope="module")
 def رسوم_احصائيه():
     from arabicpython.aliases._finder import AliasFinder
+
     finder = AliasFinder(mappings_dir=ALIASES_DIR)
     spec = finder.find_spec("رسوم_احصائيه", None, None)
     assert spec is not None, "AliasFinder did not find 'رسوم_احصائيه'"
@@ -70,6 +71,7 @@ class TestSeabornAliasesExist:
 class TestSeabornTomlMeta:
     def test_toml_parseable(self):
         import tomllib
+
         p = ALIASES_DIR / "seaborn.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)
@@ -78,6 +80,7 @@ class TestSeabornTomlMeta:
 
     def test_entry_count(self):
         import tomllib
+
         p = ALIASES_DIR / "seaborn.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)

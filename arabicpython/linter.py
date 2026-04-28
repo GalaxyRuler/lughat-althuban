@@ -10,6 +10,7 @@ Checks performed (all reported as Diagnostic namedtuples):
   E002  unrecognised keyword-like token (looks like Arabic but is not a keyword)
   I001  file has no top-level docstring / module comment
 """
+
 from __future__ import annotations
 
 import re
@@ -21,15 +22,39 @@ from typing import NamedTuple
 # ---------------------------------------------------------------------------
 
 _KEYWORDS_V2 = {
-    "إذا", "وإلا", "إلا_إذا", "إلا",
-    "بينما", "لكل", "في",
-    "دالة", "صنف", "إرجاع", "ناتج",
-    "حاول", "أخيرًا", "إثارة", "مع", "باسم",
-    "استيراد", "من",
-    "و", "أو", "ليس",
-    "مرر", "تابع", "اكسر", "احذف", "عالمي", "غير_محلي",
-    "لامدا", "تأكيد", "منتج",
-    "صحيح", "خطأ", "لا_شيء",
+    "إذا",
+    "وإلا",
+    "إلا_إذا",
+    "إلا",
+    "بينما",
+    "لكل",
+    "في",
+    "دالة",
+    "صنف",
+    "إرجاع",
+    "ناتج",
+    "حاول",
+    "أخيرًا",
+    "إثارة",
+    "مع",
+    "باسم",
+    "استيراد",
+    "من",
+    "و",
+    "أو",
+    "ليس",
+    "مرر",
+    "تابع",
+    "اكسر",
+    "احذف",
+    "عالمي",
+    "غير_محلي",
+    "لامدا",
+    "تأكيد",
+    "منتج",
+    "صحيح",
+    "خطأ",
+    "لا_شيء",
     # ar-v2 additions
     "يكون",
 }
@@ -50,8 +75,8 @@ MAX_LINE_LENGTH = 99
 
 class Diagnostic(NamedTuple):
     path: str
-    line: int   # 1-based
-    col: int    # 1-based
+    line: int  # 1-based
+    col: int  # 1-based
     code: str
     message: str
     severity: str  # "error" | "warning" | "info"
@@ -90,17 +115,30 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
         if stripped and not stripped.startswith("#"):
             break
     if not has_intro:
-        diags.append(Diagnostic(
-            path, 1, 1, "I001", "file has no top-level comment or docstring", "info",
-        ))
+        diags.append(
+            Diagnostic(
+                path,
+                1,
+                1,
+                "I001",
+                "file has no top-level comment or docstring",
+                "info",
+            )
+        )
 
     for lineno, raw_line in enumerate(lines, start=1):
         # W001: line length
         if len(raw_line) > MAX_LINE_LENGTH:
-            diags.append(Diagnostic(
-                path, lineno, MAX_LINE_LENGTH + 1, "W001",
-                f"line too long ({len(raw_line)} > {MAX_LINE_LENGTH} characters)", "warning",
-            ))
+            diags.append(
+                Diagnostic(
+                    path,
+                    lineno,
+                    MAX_LINE_LENGTH + 1,
+                    "W001",
+                    f"line too long ({len(raw_line)} > {MAX_LINE_LENGTH} characters)",
+                    "warning",
+                )
+            )
 
         # W002: trailing whitespace
         if raw_line != raw_line.rstrip():
@@ -109,9 +147,16 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
 
         # W003: tab indentation
         if raw_line.startswith("\t"):
-            diags.append(Diagnostic(
-                path, lineno, 1, "W003", "tab indentation (use 4 spaces)", "warning",
-            ))
+            diags.append(
+                Diagnostic(
+                    path,
+                    lineno,
+                    1,
+                    "W003",
+                    "tab indentation (use 4 spaces)",
+                    "warning",
+                )
+            )
 
         # Skip further token checks inside string literals (rough heuristic)
         stripped = raw_line.strip()
@@ -125,22 +170,32 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
 
             # E001: ar-v1-only keyword in ar-v2 file
             if is_v2 and token in _V1_ONLY_KEYWORDS:
-                diags.append(Diagnostic(
-                    path, lineno, col, "E001",
-                    f"ar-v1 keyword '{token}' not valid in ar-v2"
-                    " — use 'باسم' for 'as', 'يكون' for 'is'",
-                    "error",
-                ))
+                diags.append(
+                    Diagnostic(
+                        path,
+                        lineno,
+                        col,
+                        "E001",
+                        f"ar-v1 keyword '{token}' not valid in ar-v2"
+                        " — use 'باسم' for 'as', 'يكون' for 'is'",
+                        "error",
+                    )
+                )
 
             # W004: mixed Arabic/Latin identifier
             has_arabic = bool(re.search(r"[ء-ي]", token))
             has_latin = bool(re.search(r"[a-zA-Z]", token))
             if has_arabic and has_latin:
-                diags.append(Diagnostic(
-                    path, lineno, col, "W004",
-                    f"mixed Arabic/Latin identifier '{token}'",
-                    "warning",
-                ))
+                diags.append(
+                    Diagnostic(
+                        path,
+                        lineno,
+                        col,
+                        "W004",
+                        f"mixed Arabic/Latin identifier '{token}'",
+                        "warning",
+                    )
+                )
 
     return diags
 

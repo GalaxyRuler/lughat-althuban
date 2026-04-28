@@ -95,6 +95,7 @@ class TestDiagnosticStr:
 class TestCLI:
     def test_cli_clean_file(self, tmp_path):
         from arabicpython.linter import main
+
         p = tmp_path / "ok.apy"
         p.write_text("# ملف نظيف\nس = 1\n", encoding="utf-8")
         rc = main([str(p)])
@@ -102,11 +103,13 @@ class TestCLI:
 
     def test_cli_missing_file(self, tmp_path):
         from arabicpython.linter import main
+
         rc = main([str(tmp_path / "missing.apy")])
         assert rc == 1
 
     def test_cli_select(self, tmp_path, capsys):
         from arabicpython.linter import main
+
         p = tmp_path / "bad.apy"
         p.write_text("س = 1   \n", encoding="utf-8")
         main(["--select", "W002", str(p)])
@@ -115,6 +118,7 @@ class TestCLI:
 
     def test_cli_no_info_suppresses_i001(self, tmp_path, capsys):
         from arabicpython.linter import main
+
         p = tmp_path / "f.apy"
         p.write_text("س = 1\n", encoding="utf-8")
         main(["--no-info", str(p)])

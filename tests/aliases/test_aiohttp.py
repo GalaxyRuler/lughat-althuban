@@ -13,6 +13,7 @@ aiohttp = pytest.importorskip("aiohttp", reason="aiohttp not installed")
 @pytest.fixture(scope="module")
 def طلبات_غير_متزامنه():
     from arabicpython.aliases._finder import AliasFinder
+
     finder = AliasFinder(mappings_dir=ALIASES_DIR)
     spec = finder.find_spec("طلبات_غير_متزامنه", None, None)
     assert spec is not None, "AliasFinder did not find 'طلبات_غير_متزامنه'"
@@ -52,6 +53,7 @@ class TestAiohttpAliasesExist:
 class TestAiohttpTomlMeta:
     def test_toml_parseable(self):
         import tomllib
+
         p = ALIASES_DIR / "aiohttp.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)
@@ -60,6 +62,7 @@ class TestAiohttpTomlMeta:
 
     def test_entry_count(self):
         import tomllib
+
         p = ALIASES_DIR / "aiohttp.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)

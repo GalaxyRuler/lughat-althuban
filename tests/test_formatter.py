@@ -2,7 +2,6 @@
 # B-055: Formatter tests
 
 
-
 from arabicpython.formatter import format_file, format_source
 
 
@@ -111,6 +110,7 @@ class TestFormatterCLI:
         import io
 
         from arabicpython.formatter import main
+
         monkeypatch.setattr("sys.stdin", io.StringIO("#تعليق\n"))
         rc = main([])
         out = capsys.readouterr().out
@@ -119,6 +119,7 @@ class TestFormatterCLI:
 
     def test_cli_file(self, tmp_path):
         from arabicpython.formatter import main
+
         p = tmp_path / "f.apy"
         p.write_text("#تعليق\n", encoding="utf-8")
         rc = main([str(p)])
@@ -127,6 +128,7 @@ class TestFormatterCLI:
 
     def test_cli_check_exit1(self, tmp_path):
         from arabicpython.formatter import main
+
         p = tmp_path / "f.apy"
         p.write_text("#تعليق\n", encoding="utf-8")
         rc = main(["--check", str(p)])
@@ -134,6 +136,7 @@ class TestFormatterCLI:
 
     def test_cli_check_exit0_clean(self, tmp_path):
         from arabicpython.formatter import main
+
         p = tmp_path / "f.apy"
         p.write_text("# تعليق\n", encoding="utf-8")
         rc = main(["--check", str(p)])
@@ -141,5 +144,6 @@ class TestFormatterCLI:
 
     def test_cli_missing_file(self, tmp_path):
         from arabicpython.formatter import main
+
         rc = main([str(tmp_path / "missing.apy")])
         assert rc == 1

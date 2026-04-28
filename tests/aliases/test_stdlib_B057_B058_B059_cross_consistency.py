@@ -13,6 +13,7 @@ ALIASES_DIR = pathlib.Path(__file__).parent.parent.parent / "arabicpython" / "al
 
 def _load_keys(arabic_module_name: str) -> set[str]:
     from arabicpython.aliases._finder import AliasFinder
+
     finder = AliasFinder(mappings_dir=ALIASES_DIR)
     spec = finder.find_spec(arabic_module_name, None, None)
     if spec is None:
@@ -25,7 +26,7 @@ def _load_keys(arabic_module_name: str) -> set[str]:
 EARLIER_MODULES = [
     # B-010 / B-011 / B-012 / B-013
     "فلاسك",
-    "واجهه_برمجيه",       # FastAPI — normalized from واجهه_سريعه if needed
+    "واجهه_برمجيه",  # FastAPI — normalized from واجهه_سريعه if needed
     "جانغو",
     "نماذج_جانغو",
     "قالب_بيانات",
@@ -84,8 +85,8 @@ EARLIER_MODULES = [
 ]
 
 NEW_MODULES = [
-    "رسوم_احصائيه",   # seaborn  B-057
-    "علوم_حسابيه",    # scipy    B-058
+    "رسوم_احصائيه",  # seaborn  B-057
+    "علوم_حسابيه",  # scipy    B-058
     "طلبات_غير_متزامنه",  # aiohttp  B-059
 ]
 
@@ -98,9 +99,7 @@ def test_no_collision_with_earlier_batches(new_mod, earlier_mod):
     new_keys = _load_keys(new_mod)
     earlier_keys = _load_keys(earlier_mod)
     overlap = new_keys & earlier_keys
-    assert not overlap, (
-        f"Arabic key collision between {new_mod!r} and {earlier_mod!r}: {overlap}"
-    )
+    assert not overlap, f"Arabic key collision between {new_mod!r} and {earlier_mod!r}: {overlap}"
 
 
 @pytest.mark.parametrize(
@@ -115,6 +114,4 @@ def test_no_collision_among_new_modules(mod_a, mod_b):
     keys_a = _load_keys(mod_a)
     keys_b = _load_keys(mod_b)
     overlap = keys_a & keys_b
-    assert not overlap, (
-        f"Arabic key collision between {mod_a!r} and {mod_b!r}: {overlap}"
-    )
+    assert not overlap, f"Arabic key collision between {mod_a!r} and {mod_b!r}: {overlap}"

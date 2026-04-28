@@ -12,6 +12,7 @@ The kernel also:
   - Translates error tracebacks back to Arabic identifiers via the
     existing ``arabicpython.tracebacks`` mechanism.
 """
+
 from __future__ import annotations
 
 from typing import Any
@@ -20,6 +21,7 @@ from typing import Any
 # imported (and tested) without a full Jupyter installation.
 try:
     from ipykernel.ipkernel import IPythonKernel  # type: ignore
+
     _HAVE_IPYKERNEL = True
 except ImportError:  # pragma: no cover
     IPythonKernel = object  # type: ignore
@@ -30,15 +32,39 @@ from arabicpython.translate import translate
 
 # Arabic keywords offered as completions
 _ARABIC_KEYWORDS = [
-    "إذا", "وإلا", "إلا_إذا", "إلا",
-    "بينما", "لكل", "في",
-    "دالة", "صنف", "إرجاع", "ناتج",
-    "حاول", "أخيرًا", "إثارة", "مع", "باسم",
-    "استيراد", "من",
-    "و", "أو", "ليس",
-    "مرر", "تابع", "اكسر", "احذف", "عالمي", "غير_محلي",
-    "لامدا", "تأكيد", "منتج",
-    "صحيح", "خطأ", "لا_شيء",
+    "إذا",
+    "وإلا",
+    "إلا_إذا",
+    "إلا",
+    "بينما",
+    "لكل",
+    "في",
+    "دالة",
+    "صنف",
+    "إرجاع",
+    "ناتج",
+    "حاول",
+    "أخيرًا",
+    "إثارة",
+    "مع",
+    "باسم",
+    "استيراد",
+    "من",
+    "و",
+    "أو",
+    "ليس",
+    "مرر",
+    "تابع",
+    "اكسر",
+    "احذف",
+    "عالمي",
+    "غير_محلي",
+    "لامدا",
+    "تأكيد",
+    "منتج",
+    "صحيح",
+    "خطأ",
+    "لا_شيء",
 ]
 
 # Names of alias modules registered with AliasFinder
@@ -51,6 +77,7 @@ def _load_alias_names() -> list[str]:
         from pathlib import Path
 
         from arabicpython.aliases._finder import AliasFinder
+
         mappings_dir = Path(__file__).parent.parent / "arabicpython" / "aliases"
         finder = AliasFinder(mappings_dir=mappings_dir)
         return list(finder._mappings.keys())
@@ -80,6 +107,7 @@ class ArabicPythonKernel(IPythonKernel):  # type: ignore[misc]
         try:
             from arabicpython.aliases import install as install_aliases
             from arabicpython.import_hook import install as install_hook
+
             install_hook()
             install_aliases()
         except Exception:
@@ -142,12 +170,13 @@ class ArabicPythonKernel(IPythonKernel):  # type: ignore[misc]
         i = len(text_before) - 1
         while i >= 0 and (text_before[i].isalpha() or text_before[i] in "_"):
             i -= 1
-        token = text_before[i + 1:]
+        token = text_before[i + 1 :]
         if not token:
             return result
         norm = normalize_identifier(token)
         matches = [
-            kw for kw in (_ARABIC_KEYWORDS + _ALIAS_MODULE_NAMES)
+            kw
+            for kw in (_ARABIC_KEYWORDS + _ALIAS_MODULE_NAMES)
             if normalize_identifier(kw).startswith(norm)
         ]
         # Merge without duplicates

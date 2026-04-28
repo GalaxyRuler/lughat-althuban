@@ -10,6 +10,7 @@ Usage::
 This writes a ``kernel.json`` and optional logo into the Jupyter kernel
 data directory so the kernel appears in the JupyterLab / Notebook picker.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -34,8 +35,7 @@ def _install(prefix: str | None, sys_prefix: bool, user: bool) -> None:
         import jupyter_client  # type: ignore  # noqa: F401
     except ImportError:
         print(
-            "jupyter_client is not installed. "
-            "Install it with: pip install jupyter_client",
+            "jupyter_client is not installed. " "Install it with: pip install jupyter_client",
             file=sys.stderr,
         )
         sys.exit(1)

@@ -13,6 +13,7 @@ requests = pytest.importorskip("requests", reason="requests not installed")
 @pytest.fixture(scope="module")
 def طلبات():
     from arabicpython.aliases._finder import AliasFinder
+
     finder = AliasFinder(mappings_dir=ALIASES_DIR)
     spec = finder.find_spec("طلبات", None, None)
     assert spec is not None, "AliasFinder did not find 'طلبات'"
@@ -87,6 +88,7 @@ class TestUtilities:
 class TestTomlMeta:
     def test_toml_parseable(self):
         import tomllib
+
         p = ALIASES_DIR / "requests.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)
@@ -95,6 +97,7 @@ class TestTomlMeta:
 
     def test_entry_count(self):
         import tomllib
+
         p = ALIASES_DIR / "requests.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)

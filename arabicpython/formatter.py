@@ -9,6 +9,7 @@ Applies deterministic, opinionated formatting to Arabic Python source:
   - Add a space after '#' in comments (skip shebangs and '##' headers)
   - Ensure a space after ',' when not inside a string literal
 """
+
 from __future__ import annotations
 
 import re
@@ -23,7 +24,7 @@ def _normalise_indentation(lines: list[str]) -> list[str]:
     for line in lines:
         m = _INDENT_RE.match(line)
         indent = m.group(1)
-        rest = line[len(indent):]
+        rest = line[len(indent) :]
         indent = indent.replace("\t", "    ")
         result.append(indent + rest)
     return result

@@ -10,6 +10,7 @@ from pathlib import Path
 
 # ── helper ────────────────────────────────────────────────────────────────────
 
+
 def _run(args: list, cwd=None) -> tuple[int, str, str]:
     """Run pytest in a subprocess; return (returncode, stdout, stderr).
 
@@ -17,12 +18,16 @@ def _run(args: list, cwd=None) -> tuple[int, str, str]:
     """
     result = subprocess.run(
         [sys.executable, "-m", "pytest", *args, "--tb=short", "-q", "--no-header"],
-        capture_output=True, text=True, encoding="utf-8", cwd=cwd,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        cwd=cwd,
     )
     return result.returncode, result.stdout, result.stderr
 
 
 # ── discovery ─────────────────────────────────────────────────────────────────
+
 
 class TestDiscovery:
     def test_arabic_prefix_collected(self, tmp_path):
@@ -57,9 +62,7 @@ class TestDiscovery:
 
     def test_non_test_file_not_collected(self, tmp_path):
         """A plain .apy file without a test prefix is NOT collected."""
-        (tmp_path / "مكتبة.apy").write_text(
-            "دالة مساعد():\n    ارجع 42\n", encoding="utf-8"
-        )
+        (tmp_path / "مكتبة.apy").write_text("دالة مساعد():\n    ارجع 42\n", encoding="utf-8")
         rc, out, _ = _run([str(tmp_path)], cwd=tmp_path)
         # exit 5 = no tests collected
         assert rc == 5 or "no tests ran" in out or "collected 0" in out
@@ -85,6 +88,7 @@ class TestDiscovery:
 
 
 # ── failures ──────────────────────────────────────────────────────────────────
+
 
 class TestFailureReporting:
     def test_failing_assert_reported(self, tmp_path):
@@ -117,6 +121,7 @@ class TestFailureReporting:
 
 
 # ── Arabic language features ──────────────────────────────────────────────────
+
 
 class TestArabicFeatures:
     def test_import_in_apy_test(self, tmp_path):
@@ -240,10 +245,12 @@ class TestArabicFeatures:
 
 # ── pyproject entry point ─────────────────────────────────────────────────────
 
+
 class TestEntryPoint:
     def test_entry_point_in_pyproject(self):
         """The pytest11 entry point is declared in pyproject.toml."""
         import tomllib
+
         p = Path(__file__).parent.parent / "pyproject.toml"
         with open(p, "rb") as f:
             data = tomllib.load(f)

@@ -33,10 +33,12 @@ class TestPackageStructure:
     def test_init_imports_kernel_class(self):
         # Should define ArabicPythonKernel (may fail if ipykernel absent)
         import arabicpython_kernel
+
         assert hasattr(arabicpython_kernel, "ArabicPythonKernel")
 
     def test_version_defined(self):
         import arabicpython_kernel
+
         assert hasattr(arabicpython_kernel, "__version__")
 
 
@@ -66,8 +68,10 @@ class TestKernelAttributes:
 
             def do_complete(self, code, cursor_pos):
                 return {
-                    "matches": [], "cursor_start": cursor_pos,
-                    "cursor_end": cursor_pos, "status": "ok",
+                    "matches": [],
+                    "cursor_start": cursor_pos,
+                    "cursor_end": cursor_pos,
+                    "status": "ok",
                 }
 
             def _topic(self, name):
@@ -86,18 +90,22 @@ class TestKernelAttributes:
 
     def test_language_is_apy(self):
         from arabicpython_kernel.kernel import ArabicPythonKernel
+
         assert ArabicPythonKernel.language == "apy"
 
     def test_file_extension(self):
         from arabicpython_kernel.kernel import ArabicPythonKernel
+
         assert ArabicPythonKernel.language_info["file_extension"] == ".apy"
 
     def test_banner_contains_arabic(self):
         from arabicpython_kernel.kernel import ArabicPythonKernel
+
         assert "ثعبان" in ArabicPythonKernel.banner or "apython" in ArabicPythonKernel.banner
 
     def test_implementation_is_apython(self):
         from arabicpython_kernel.kernel import ArabicPythonKernel
+
         assert ArabicPythonKernel.implementation == "apython"
 
 
@@ -122,15 +130,24 @@ class TestDoExecuteTranslation:
             def __init__(self, **kwargs):
                 pass
 
-            def do_execute(self, code, silent, store_history=True,
-                           user_expressions=None, allow_stdin=False, **kw):
+            def do_execute(
+                self,
+                code,
+                silent,
+                store_history=True,
+                user_expressions=None,
+                allow_stdin=False,
+                **kw,
+            ):
                 _FakeKernel.last_code = code
                 return {"status": "ok", "execution_count": 1}
 
             def do_complete(self, code, cursor_pos):
                 return {
-                    "matches": [], "cursor_start": cursor_pos,
-                    "cursor_end": cursor_pos, "status": "ok",
+                    "matches": [],
+                    "cursor_start": cursor_pos,
+                    "cursor_end": cursor_pos,
+                    "status": "ok",
                 }
 
             def _topic(self, name):
@@ -145,6 +162,7 @@ class TestDoExecuteTranslation:
                 del sys.modules[k]
 
         from arabicpython_kernel.kernel import ArabicPythonKernel
+
         self.kernel = ArabicPythonKernel.__new__(ArabicPythonKernel)
         _FakeKernel.__init__(self.kernel)
         self._FakeKernel = _FakeKernel
@@ -201,6 +219,7 @@ class TestDoComplete:
                 del sys.modules[k]
 
         from arabicpython_kernel.kernel import ArabicPythonKernel
+
         self.kernel = ArabicPythonKernel.__new__(ArabicPythonKernel)
         _FakeKernel.__init__(self.kernel)
 
@@ -222,15 +241,18 @@ class TestDoComplete:
 class TestKernelJson:
     def test_kernel_json_has_argv(self):
         import arabicpython_kernel.__main__ as m
+
         kj = m.KERNEL_JSON
         assert "argv" in kj
         assert "{connection_file}" in kj["argv"]
 
     def test_kernel_json_language_apy(self):
         import arabicpython_kernel.__main__ as m
+
         assert m.KERNEL_JSON["language"] == "apy"
 
     def test_kernel_json_display_name_arabic(self):
         import arabicpython_kernel.__main__ as m
+
         name = m.KERNEL_JSON["display_name"]
         assert "apython" in name or "ثعبان" in name

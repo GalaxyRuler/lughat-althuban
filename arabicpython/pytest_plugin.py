@@ -30,17 +30,17 @@ _ARABIC_SUFFIXES = ("_اختبار",)
 
 # ── pytest hooks ─────────────────────────────────────────────────────────────
 
+
 def pytest_configure(config: pytest.Config) -> None:
     """Install the arabicpython .apy import hook and alias finder at collection startup."""
     import arabicpython
     import arabicpython.aliases
-    arabicpython.install()           # .apy file import hook
-    arabicpython.aliases.install()   # Arabic module name aliases (رياضيات → math, etc.)
+
+    arabicpython.install()  # .apy file import hook
+    arabicpython.aliases.install()  # Arabic module name aliases (رياضيات → math, etc.)
 
 
-def pytest_collect_file(
-    parent: pytest.Collector, file_path: Path
-) -> ApyModule | None:
+def pytest_collect_file(parent: pytest.Collector, file_path: Path) -> ApyModule | None:
     """Return an ApyModule collector for .apy files that match test naming."""
     if file_path.suffix != ".apy":
         return None
@@ -57,6 +57,7 @@ def pytest_collect_file(
 
 
 # ── collector ─────────────────────────────────────────────────────────────────
+
 
 class ApyModule(pytest.Module):
     """
@@ -80,9 +81,7 @@ class ApyModule(pytest.Module):
             ) from exc
 
         # Write translated source to a temp .py file for importlib
-        fd, temp_path = tempfile.mkstemp(
-            prefix=f"_apy_{self.path.stem}_", suffix=".py"
-        )
+        fd, temp_path = tempfile.mkstemp(prefix=f"_apy_{self.path.stem}_", suffix=".py")
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as fh:
                 fh.write(python_source)
