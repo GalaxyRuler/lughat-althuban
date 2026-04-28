@@ -46,14 +46,10 @@
 | B-054 | repl-readline-arabic-v1 | B (tooling) | — | deferred (sponsor) |
 | B-060 | tutorial-translation | B (docs) | — | drafted |
 | B-061 | cookbook-translation | B (docs) | — | stub |
-| B-070 | dialect-egyptian-v0-proposal | B (dialects, proposal) | — | proposed |
-| B-071 | dialect-loader-multiplexing-v2 | B (dialects, proposal) | — | proposed |
-| B-072 | dialect-precedence-rules-adr | B (dialects, proposal) | — | proposed |
-
 ## Legend
 
 - **Status**: `drafted` → `in-progress` → `delivered` → `reviewing` → `merged` | `blocked`
-- **Phase B extras**: `stub` (listed in roadmap, spec not yet written — see `B-HANDOFF-FOR-GEMINI.md`); `deferred (sponsor)` (spec written but implementation funding-gated per ADR 0008.B.6); `proposed` (dialect-related design docs that ship as text, not code).
+- **Phase B extras**: `stub` (listed in roadmap, spec not yet written — see `B-HANDOFF-FOR-GEMINI.md`); `deferred (sponsor)` (spec written but implementation funding-gated per ADR 0008.B.6).
 - **Owner**: the implementer assigned to the packet. Phase A used `Codex` for the early packets and switched to `Gemini 3.1 Pro` / `Gemini 3.1 Flash` partway through. `Claude` is the owner for planner-only work (dictionary curation, decision docs, spec authoring). Phase B packets are unclaimed at draft time; contributors claim via the `propose-claim` GitHub issue template.
 
 ## Phase B map

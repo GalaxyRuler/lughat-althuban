@@ -217,6 +217,31 @@ pytest tests/aliases/ -v                # اختبارات الأسماء الم
 
 ---
 
+## خطافات ما قبل الالتزام (Pre-commit Hooks)
+
+يستخدم المشروع [pre-commit](https://pre-commit.com/) لتشغيل **Black** و**ruff** تلقائياً قبل كل التزام (commit). هذا يمنع فشل اختبارات CI بسبب تنسيق الكود.
+
+**الإعداد (مرة واحدة فقط):**
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+بعد تنفيذ هذا الأمر، سيتم تلقائياً:
+- تنسيق الكود بـ **Black** قبل كل التزام
+- فحص الكود بـ **ruff** وإصلاح المشاكل البسيطة
+
+**التشغيل اليدوي على جميع الملفات:**
+
+```bash
+pre-commit run --all-files
+```
+
+**⚠️ مهم:** إذا أخفق pre-commit، راجع التغييرات التي أجراها ثم أعد `git add` و`git commit`.
+
+---
+
 ## إصلاح الأخطاء
 
 1. ابحث في القضايا (Issues) عن الخطأ.
@@ -270,7 +295,7 @@ Welcome! Contributions are accepted in Arabic or English.
 1. Create `arabicpython/aliases/mylib.toml` with `[meta]` and `[entries]` sections.
 2. Create `tests/aliases/test_mylib.py` using `pytest.importorskip("mylib")`.
 3. Add an example at `examples/BNNN_mylib_demo.apy`.
-4. Run `pytest tests/ -x -q` — all 2510+ tests must pass.
+4. Run `pytest tests/ -x -q` — all 2570+ tests must pass.
 5. Check cross-consistency: no Arabic key may appear in two different module TOMLs.
 
 ### Normalization rules (critical)
@@ -301,6 +326,25 @@ pytest tests/test_formatter.py -v   # formatter tests
 pytest tests/test_linter.py -v      # linter tests
 pytest tests/test_jupyter_kernel.py # kernel tests (ipykernel mocked)
 ```
+
+### Pre-commit hooks (required setup)
+
+The project uses [pre-commit](https://pre-commit.com/) to run **Black** and **ruff** before every commit. This prevents CI failures caused by formatting or lint issues.
+
+**One-time setup:**
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+After this, Black and ruff run automatically before every `git commit`. To run manually on all files:
+
+```bash
+pre-commit run --all-files
+```
+
+If pre-commit makes changes, `git add` those changes and re-commit.
 
 ### Commit message style
 
