@@ -46,12 +46,37 @@
 | B-054 | repl-readline-arabic-v1 | B (tooling) | — | deferred (sponsor) |
 | B-060 | tutorial-translation | B (docs) | — | merged |
 | B-061 | error-message-coverage | B (audit) | Claude | delivered |
+| C-001 | pypi-release-v1 | C (foundation) | — | drafted |
+| C-002 | class-proxy-v1 | C (foundation) | — | drafted |
+| C-010 | aliases-matplotlib-v1 | C (data science) | — | drafted |
+| C-011 | aliases-scikit-learn-v1 | C (data science) | — | drafted |
+| C-012 | aliases-pydantic-v1 | C (app foundation) | — | drafted |
+| C-013 | aliases-httpx-v1 | C (app foundation) | — | drafted |
+| C-014 | aliases-click-v1 | C (CLI) | — | drafted |
+| C-015 | aliases-rich-v1 | C (CLI) | — | drafted |
+| C-016 | aliases-redis-v1 | C (persistence) | — | drafted |
+| C-017 | aliases-celery-v1 | C (persistence) | — | drafted |
+| C-018 | aliases-pymongo-v1 | C (persistence) | — | drafted |
+| C-019 | aliases-asyncpg-v1 | C (persistence) | — | drafted |
+| C-020 | aliases-openpyxl-v1 | C (office) | — | drafted |
+| C-021 | aliases-python-docx-v1 | C (office) | — | drafted |
+| C-022 | aliases-python-dotenv-v1 | C (config) | — | drafted |
+| C-023 | aliases-pyyaml-v1 | C (config) | — | drafted |
+| C-024 | aliases-playwright-v1 | C (automation) | — | drafted |
+| C-025 | aliases-beautifulsoup4-v1 | C (automation) | — | drafted |
+| C-026 | aliases-pyjwt-v1 | C (auth) | — | drafted |
+| C-030 | dictionary-v2 | C (dictionary) | — | drafted |
+
 ## Legend
 
 - **Status**: `drafted` → `in-progress` → `delivered` → `reviewing` → `merged` | `blocked`
 - **Phase B extras**: `stub` (listed in roadmap, spec not yet written — see `B-HANDOFF-FOR-GEMINI.md`); `deferred (sponsor)` (spec written but implementation funding-gated per ADR 0008.B.6).
-- **Owner**: the implementer assigned to the packet. Phase A used `Codex` for the early packets and switched to `Gemini 3.1 Pro` / `Gemini 3.1 Flash` partway through. `Claude` is the owner for planner-only work (dictionary curation, decision docs, spec authoring). Phase B packets are unclaimed at draft time; contributors claim via the `propose-claim` GitHub issue template.
+- **Owner**: the implementer assigned to the packet. Phase A used `Codex` for the early packets and switched to `Gemini 3.1 Pro` / `Gemini 3.1 Flash` partway through. `Claude` is the owner for planner-only work (dictionary curation, decision docs, spec authoring). Phase B and C packets are unclaimed at draft time; contributors claim via the `propose-claim` GitHub issue template.
 
 ## Phase B map
 
 For Phase B's 28-packet roadmap with status, dependencies, and contributor onramps, see [`ROADMAP-PHASE-B.md`](../ROADMAP-PHASE-B.md) at the repo root and [`CONTRIBUTING.md`](../CONTRIBUTING.md). Six packets have full specs (B-001, B-002, B-010, B-030, B-040, B-060); the remaining 22 await fan-out per `B-HANDOFF-FOR-GEMINI.md`.
+
+## Phase C map
+
+For Phase C's 20-packet roadmap with status, dependencies, and contributor onramps, see [`ROADMAP-PHASE-C.md`](../ROADMAP-PHASE-C.md) at the repo root. The charter is at [`decisions/0011-phase-c-charter.md`](0011-phase-c-charter.md).
