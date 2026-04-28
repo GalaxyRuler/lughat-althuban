@@ -1,11 +1,9 @@
 # tests/test_formatter.py
 # B-055: Formatter tests
 
-from pathlib import Path
 
-import pytest
 
-from arabicpython.formatter import format_source, format_file
+from arabicpython.formatter import format_file, format_source
 
 
 class TestFormatSource:
@@ -66,7 +64,7 @@ class TestFormatSource:
         src = "أ = 1\n\n\nب = 2\n"
         result = format_source(src)
         # exactly 2 blank lines (3 newlines in a row) are kept
-        assert "أ = 1\n\n\nب = 2\n" == result
+        assert result == "أ = 1\n\n\nب = 2\n"
 
     def test_inline_comment_space(self):
         src = "س = 1  #تعليق\n"
@@ -111,6 +109,7 @@ class TestFormatFile:
 class TestFormatterCLI:
     def test_cli_stdin(self, capsys, monkeypatch):
         import io
+
         from arabicpython.formatter import main
         monkeypatch.setattr("sys.stdin", io.StringIO("#تعليق\n"))
         rc = main([])

@@ -14,8 +14,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -65,6 +63,7 @@ def _install(prefix: str | None, sys_prefix: bool, user: bool) -> None:
 def _run_kernel(connection_file: str) -> None:
     """Launch the kernel (called by Jupyter when it starts a kernel process)."""
     from ipykernel.kernelapp import IPKernelApp  # type: ignore
+
     from arabicpython_kernel.kernel import ArabicPythonKernel
 
     IPKernelApp.launch_instance(

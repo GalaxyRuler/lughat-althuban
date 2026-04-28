@@ -8,8 +8,6 @@ import sys
 import textwrap
 from pathlib import Path
 
-import pytest
-
 # ── helper ────────────────────────────────────────────────────────────────────
 
 def _run(args: list, cwd=None) -> tuple[int, str, str]:

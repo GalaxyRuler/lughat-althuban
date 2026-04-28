@@ -14,8 +14,6 @@ The kernel also:
 """
 from __future__ import annotations
 
-import sys
-import traceback
 from typing import Any
 
 # ipykernel is an optional dependency; guard import so the module can be
@@ -27,8 +25,8 @@ except ImportError:  # pragma: no cover
     IPythonKernel = object  # type: ignore
     _HAVE_IPYKERNEL = False
 
-from arabicpython.translate import translate
 from arabicpython.normalize import normalize_identifier
+from arabicpython.translate import translate
 
 # Arabic keywords offered as completions
 _ARABIC_KEYWORDS = [
@@ -50,8 +48,9 @@ _ALIAS_MODULE_NAMES: list[str] = []
 def _load_alias_names() -> list[str]:
     """Return the Arabic module names available via the alias system."""
     try:
-        from arabicpython.aliases._finder import AliasFinder
         from pathlib import Path
+
+        from arabicpython.aliases._finder import AliasFinder
         mappings_dir = Path(__file__).parent.parent / "arabicpython" / "aliases"
         finder = AliasFinder(mappings_dir=mappings_dir)
         return list(finder._mappings.keys())

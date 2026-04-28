@@ -15,12 +15,12 @@ Registration (pyproject.toml):
 
 from __future__ import annotations
 
+import contextlib
 import importlib.util
 import os
 import sys
 import tempfile
 from pathlib import Path
-from typing import Optional
 
 import pytest
 
@@ -40,7 +40,7 @@ def pytest_configure(config: pytest.Config) -> None:
 
 def pytest_collect_file(
     parent: pytest.Collector, file_path: Path
-) -> Optional["ApyModule"]:
+) -> ApyModule | None:
     """Return an ApyModule collector for .apy files that match test naming."""
     if file_path.suffix != ".apy":
         return None
@@ -108,9 +108,7 @@ class ApyModule(pytest.Module):
             spec.loader.exec_module(module)  # type: ignore[union-attr]
 
         finally:
-            try:
+            with contextlib.suppress(OSError):
                 os.unlink(temp_path)
-            except OSError:
-                pass
 
         return module

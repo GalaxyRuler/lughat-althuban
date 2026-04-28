@@ -57,7 +57,8 @@ class Diagnostic(NamedTuple):
     severity: str  # "error" | "warning" | "info"
 
     def __str__(self) -> str:
-        return f"{self.path}:{self.line}:{self.col}: {self.severity[0].upper()} [{self.code}] {self.message}"
+        sev = self.severity[0].upper()
+        return f"{self.path}:{self.line}:{self.col}: {sev} [{self.code}] {self.message}"
 
 
 # ---------------------------------------------------------------------------
@@ -89,7 +90,9 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
         if stripped and not stripped.startswith("#"):
             break
     if not has_intro:
-        diags.append(Diagnostic(path, 1, 1, "I001", "file has no top-level comment or docstring", "info"))
+        diags.append(Diagnostic(
+            path, 1, 1, "I001", "file has no top-level comment or docstring", "info",
+        ))
 
     for lineno, raw_line in enumerate(lines, start=1):
         # W001: line length
@@ -106,7 +109,9 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
 
         # W003: tab indentation
         if raw_line.startswith("\t"):
-            diags.append(Diagnostic(path, lineno, 1, "W003", "tab indentation (use 4 spaces)", "warning"))
+            diags.append(Diagnostic(
+                path, lineno, 1, "W003", "tab indentation (use 4 spaces)", "warning",
+            ))
 
         # Skip further token checks inside string literals (rough heuristic)
         stripped = raw_line.strip()
@@ -122,7 +127,8 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
             if is_v2 and token in _V1_ONLY_KEYWORDS:
                 diags.append(Diagnostic(
                     path, lineno, col, "E001",
-                    f"ar-v1 keyword '{token}' is not valid in ar-v2 — use 'باسم' for 'as', 'يكون' for 'is'",
+                    f"ar-v1 keyword '{token}' not valid in ar-v2"
+                    " — use 'باسم' for 'as', 'يكون' for 'is'",
                     "error",
                 ))
 
