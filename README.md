@@ -1,12 +1,14 @@
 <div dir="rtl">
 
-# لغة الثعبان — بايثون بالعربية
+# لغة الثعبان — بايثون بالعربية الكاملة
 
 [![الاختبارات](https://img.shields.io/badge/اختبارات-2510_نجاح-brightgreen)](tests/)
 [![بايثون](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
 [![الرخصة](https://img.shields.io/badge/رخصة-Apache--2.0-orange)](LICENSE)
 
-لهجة برمجية تكتب فيها **الكلمات المفتاحية والدوال المدمجة والاستثناءات والمكتبات** بالعربية الكاملة. ملفات `.apy` تُترجم إلى بايثون القياسي في وقت التحميل وتُنفَّذ بواسطة CPython — دون تشعيب للمترجم ودون تعديل على اللغة.
+لهجة برمجية تكتب فيها **الكلمات المفتاحية والدوال المدمجة والاستثناءات والمكتبات** بالعربية الكاملة. ملفات `.apy` تُترجم إلى بايثون القياسي في وقت التحميل وتُنفَّذ بواسطة CPython — دون تشعيب للمترجم ودون تعديل على اللغة الأصلية.
+
+**الحالة (2026-04-28)**: المرحلة أ مكتملة. المرحلة ب مكتملة إلى حدٍّ بعيد — **2,510 اختباراً ناجحاً** على Python 3.11–3.13 في Ubuntu وmacOS وWindows. 40+ وحدة عربية مُشحونة. منظومة أدوات متكاملة (منسّق + مدقّق + نواة Jupyter + امتداد VS Code).
 
 ---
 
@@ -53,32 +55,40 @@ pip install -e .
 pip install -e ".[dev]"
 ```
 
+يُثبَّت الأمر `ثعبان` تلقائياً. `ثعبان --help` و`ثعبان --version` يعملان كما هو متوقع.
+
 ---
 
 ## طرق التشغيل
 
 ```bash
-ثعبان ملف.apy              # تشغيل ملف
-ثعبان -c 'اطبع("مرحبا")'   # تنفيذ سطر مباشرةً
-ثعبان - < ملف.apy          # قراءة من المدخل القياسي
-ثعبان                       # البيئة التفاعلية REPL
-ثعبان نسّق ملف.apy          # تنسيق الملف تلقائياً
-ثعبان راجع ملف.apy          # فحص الجودة وإظهار التحذيرات
+ثعبان ملف.apy [مُعامِلات...]     # تشغيل ملف
+ثعبان -c 'اطبع("مرحبا")'         # تنفيذ سطر مباشرةً
+ثعبان - < ملف.apy                # قراءة من المدخل القياسي
+ثعبان                             # البيئة التفاعلية REPL
+ثعبان نسّق ملف.apy               # تنسيق الملف تلقائياً
+ثعبان راجع ملف.apy               # فحص الجودة وإظهار التحذيرات
 ```
+
+رموز الخروج: `0` نجاح، `1` خطأ في التشغيل أو الترجمة، `2` خطأ في الاستخدام.
 
 ---
 
-## الحالة الراهنة
+## استيراد وحدات `.apy`
 
-| البند | القيمة |
-|-------|--------|
-| الاختبارات | 🟢 **2510 نجاح** — 45 تجاوز (مكتبات اختيارية) |
-| وحدات قياسية عربية | 21 وحدة من stdlib |
-| مكتبات علمية وبيانات | numpy، pandas، matplotlib، seaborn، scipy، scikit-learn |
-| مكتبات ويب وشبكات | flask، requests، aiohttp، fastapi |
-| تعلم آلي | pytorch |
-| أدوات | مُنسِّق، مُدقِّق، نواة Jupyter |
-| بيئات CI | Ubuntu، macOS، Windows / Python 3.11–3.13 |
+```python
+# رئيسي.apy
+استورد مساعد
+مساعد.مرحبا("عالم")
+```
+
+```python
+# مساعد.apy
+دالة مرحبا(اسم):
+    اطبع(f"مرحبا يا {اسم}")
+```
+
+الحزم المختلطة `.py` / `.apy` تعمل — ملفات Python التي تستورد وحدات `.apy` ترى الأسماء المترجمة والمُطبَّعة.
 
 ---
 
@@ -95,136 +105,11 @@ $ ثعبان -c '1 / 0'
 
 ---
 
-## الوثائق بالعربية
+## الوحدات العربية — استيراد المكتبات بأسماء عربية
 
-| الوثيقة | الوصف |
-|---------|--------|
-| [دليل البدء الشامل](docs/ar/getting-started.md) | من "مرحبا بالعالم" إلى الاستيراد — خطوة بخطوة |
-| [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
-| [مرجع المكتبة القياسية](docs/ar/stdlib-reference.md) | جميع الوحدات القياسية العربية مع أمثلة |
-| [ويكي المشروع](docs/wiki/index.md) | دليل شامل: الكلمات المفتاحية، المكتبات، الأدوات، الأسئلة الشائعة |
-| [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
-| [خارطة الطريق](ROADMAP-PHASE-B.md) | الحزم القادمة وحالتها |
+### المكتبة القياسية (21 وحدة)
 
----
-
-## المرحلة (ب): مكتملة إلى حدٍّ بعيد
-
-المرحلة (أ) اكتملت. المرحلة (ب) أضافت منظومة متكاملة:
-
-- **نظام الأسماء المستعارة**: 40+ وحدة مع أسماء عربية
-- **طبقة الأدوات**: منسّق + مدقّق + نواة Jupyter + امتداد VS Code
-- **التوسعية**: إضافة مكتبة جديدة يعني كتابة ملف TOML واحد
-
-- **خارطة الطريق:** [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md)
-- **دليل المساهمة:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- **حزمة جيدة للبدء:** [`specs/B-002-phase-a-compat-suite.md`](specs/B-002-phase-a-compat-suite.md)
-
-</div>
-
----
-
-# لغة الثعبان — Arabic Python
-
-A Python dialect where **keywords, built-ins, exceptions, and popular libraries** are written in Arabic. `.apy` files are translated to standard Python at load time and executed by CPython — no interpreter fork, no language modification.
-
-**Status (2026-04-28)**: Phase A complete. Phase B substantially complete — **2,510 tests passing** across Python 3.11–3.13 on Ubuntu/macOS/Windows. 40+ alias modules shipped. Full tooling layer (formatter, linter, Jupyter kernel, VS Code extension).
-
-**License**: Apache-2.0.
-
----
-
-## Full example — data analysis entirely in Arabic
-
-```python
-# sales_analysis.apy
-استورد جداول_بيانات  كـ  جب        # pandas
-استورد حسابات_عددية كـ  عد        # numpy
-استورد رسوم_احصائيه كـ  رسم       # seaborn
-استورد رياضيات
-
-data = جب.قراءة_جيسون("sales.json")
-avg  = عد.متوسط(data["revenue"])
-اطبع(f"Average revenue: {رياضيات.تقريب(avg, 2)}")
-
-رسم.ضبط_موضوع("darkgrid")
-chart = رسم.خط_بياني(data=data, x="month", y="revenue")
-chart.figure.savefig("report.png")
-```
-
----
-
-## Install
-
-```bash
-git clone https://github.com/GalaxyRuler/lughat-althuban
-cd lughat-althuban
-pip install -e .
-```
-
-Requires Python 3.11+. Installs the `ثعبان` console script.
-
-For all optional library aliases:
-
-```bash
-pip install -e ".[dev]"
-```
-
----
-
-## Running code
-
-```bash
-ثعبان script.apy [args...]    # run a file
-ثعبان -c 'اطبع("مرحبا")'      # run an inline string
-ثعبان - < script.apy          # read from stdin
-ثعبان                          # interactive REPL
-ثعبان نسّق script.apy          # auto-format a file
-ثعبان راجع script.apy          # lint and report diagnostics
-```
-
-`ثعبان --help` and `ثعبان --version` work as expected. Exit codes: `0` success, `1` runtime/translate error, `2` usage error.
-
----
-
-## Importing `.apy` modules
-
-```python
-# main.apy
-استورد helper
-helper.مرحبا("عالم")
-```
-
-```python
-# helper.apy
-دالة مرحبا(اسم):
-    اطبع(f"مرحبا يا {اسم}")
-```
-
-Mixed `.py` / `.apy` packages work — Python files importing `.apy` modules see the translated, normalized identifier names.
-
----
-
-## Arabic tracebacks
-
-```bash
-$ ثعبان -c '1 / 0'
-تتبع_الأخطاء (المكدس الأحدث آخرا):
-  ملف "<string>", سطر 1, في <الوحدة>
-خطا_القسمه_على_صفر: القسمة على صفر
-```
-
-38 standard exception types and ~30 common interpreter messages translated.
-
----
-
-## Arabic alias modules
-
-Import Python's standard library and popular packages using Arabic names:
-
-### Standard library (21 modules)
-
-| Arabic name | Python module | Arabic name | Python module |
+| الاسم العربي | وحدة Python | الاسم العربي | وحدة Python |
 |---|---|---|---|
 | `نظام_تشغيل` | `os` | `رياضيات` | `math` |
 | `مسار_مكتبه` | `pathlib` | `احصاء` | `statistics` |
@@ -238,9 +123,9 @@ Import Python's standard library and popular packages using Arabic names:
 | `جيسون` | `json` | `تعابير_نمطيه` | `re` |
 | `ملفات_csv` | `csv` | | |
 
-### Science & data (6 packages)
+### علوم وبيانات (6 حزم)
 
-| Arabic name | Python package |
+| الاسم العربي | حزمة Python |
 |---|---|
 | `حسابات_عددية` | `numpy` |
 | `جداول_بيانات` | `pandas` |
@@ -249,44 +134,45 @@ Import Python's standard library and popular packages using Arabic names:
 | `علوم_حسابيه` | `scipy` |
 | `تعلم_آلي` | `scikit-learn` |
 
-### Web & async (4 packages)
+### ويب وشبكات (4 حزم)
 
-| Arabic name | Python package |
+| الاسم العربي | حزمة Python |
 |---|---|
 | `قارورة` | `flask` |
 | `طلبات` | `requests` |
 | `طلبات_غير_متزامنه` | `aiohttp` |
 | `واجهه_برمجيه` | `fastapi` |
 
-### Machine learning (1 package)
+### تعلم آلي (1 حزمة)
 
-| Arabic name | Python package |
+| الاسم العربي | حزمة Python |
 |---|---|
 | `مشعل` | `torch` |
 
 ---
 
-## Tooling layer (Phase B)
+## طبقة الأدوات
 
-| Tool | Command | Description |
+| الأداة | الأمر | الوصف |
 |---|---|---|
-| **Formatter** | `ثعبان نسّق file.apy` | Auto-format: indentation, spacing, comment style |
-| **Linter** | `ثعبان راجع file.apy` | Diagnostics: W001-W004, E001, I001 |
-| **Jupyter kernel** | `pip install -e ".[kernel]"` | Run `.apy` notebooks in Jupyter |
-| **VS Code extension** | `editors/vscode/` | Syntax highlighting for `.apy` files |
+| **المنسِّق** | `ثعبان نسّق ملف.apy` | تنسيق تلقائي: المسافات البادئة، والتباعد، وأسلوب التعليقات |
+| **المدقِّق** | `ثعبان راجع ملف.apy` | تشخيصات: W001–W004، E001، I001 |
+| **نواة Jupyter** | `pip install -e ".[kernel]"` | تشغيل دفاتر `.apy` في Jupyter |
+| **امتداد VS Code** | `editors/vscode/` | إبراز صياغي لملفات `.apy` |
+| **إضافة pytest** | مُدمجة تلقائياً | اكتشاف وتشغيل ملفات اختبار `.apy` |
 
 ---
 
-## Public Python API
+## واجهة برمجة Python
 
 ```python
 from arabicpython import (
-    install,                       # install the .apy import hook
+    install,                       # تثبيت خطاف استيراد .apy
     uninstall,
-    run_repl,                      # start the interactive REPL
-    install_excepthook,            # route uncaught exceptions through the translator
+    run_repl,                      # تشغيل البيئة التفاعلية REPL
+    install_excepthook,            # توجيه الاستثناءات غير الملتقطة للمترجم
     uninstall_excepthook,
-    format_translated_exception,   # format a (type, value, tb) triple as Arabic
+    format_translated_exception,   # تنسيق مجموعة (نوع، قيمة، تتبع) بالعربية
 )
 from arabicpython.formatter import format_source, format_file
 from arabicpython.linter import lint_source, Diagnostic
@@ -294,72 +180,143 @@ from arabicpython.linter import lint_source, Diagnostic
 
 ---
 
-## Project structure
+## هيكل المشروع
 
 ```
 lughat-althuban/
-├── arabicpython/              The transpiler package
-│   ├── aliases/               TOML alias mappings (40+ modules)
-│   ├── formatter.py           Auto-formatter
-│   └── linter.py              Linter / diagnostic engine
-├── arabicpython_kernel/       Jupyter kernel package
-├── editors/vscode/            VS Code extension
-├── tools/                     Grammar generator and dev utilities
-├── decisions/                 ADRs — architectural decisions
-├── dictionaries/              ar-v1 keyword/built-in reference
-├── specs/                     Spec packets for implementation
-├── tests/                     pytest suite (2510 passing, 45 skipped)
-├── examples/                  Runnable .apy programs
+├── arabicpython/              حزمة المحوِّل
+│   ├── aliases/               تعيينات TOML (40+ وحدة)
+│   ├── formatter.py           المنسِّق التلقائي
+│   └── linter.py              محرك التدقيق والتشخيص
+├── arabicpython_kernel/       حزمة نواة Jupyter
+├── editors/vscode/            امتداد VS Code
+├── tools/                     مولد القواعد النحوية وأدوات التطوير
+├── decisions/                 سجلات قرارات المعمارية (ADRs)
+├── dictionaries/              مرجع الكلمات المفتاحية ar-v1
+├── specs/                     حزم المواصفات للتنفيذ
+├── tests/                     مجموعة pytest (2510 نجاح، 45 تجاوز)
+├── examples/                  برامج .apy قابلة للتشغيل
 ├── docs/
-│   ├── ar/                    Arabic documentation
-│   └── wiki/                  Full reference wiki
-└── apps/                      Showcase applications
+│   ├── ar/                    الوثائق العربية
+│   └── wiki/                  ويكي المرجع الشامل
+└── apps/                      تطبيقات عرض متكاملة
 ```
 
 ---
 
-## Architecture
+## المعمارية
 
-Source goes through `pretokenize` (Arabic numerals → ASCII, punctuation aliasing, bidi-control rejection) → Python's `tokenize` → a NAME-rewriter consulting the canonical Arabic→Python dictionary → `untokenize` → `compile` → `exec`. No AST rewrite, no CPython fork. The same pipeline backs every entry surface (CLI, REPL, import hook).
+المصدر يمر عبر `pretokenize` (الأرقام العربية ← ASCII، ترميز علامات الترقيم، رفض محارف bidi) ← `tokenize` الخاصة ببايثون ← معيد كتابة NAME يستشير القاموس العربي↔Python القانوني ← `untokenize` ← `compile` ← `exec`. لا إعادة كتابة لشجرة AST، ولا تشعيب لـ CPython. نفس الأنبوب يدعم كل نقاط الدخول (CLI، REPL، خطاف الاستيراد).
 
-Key decisions: [`decisions/0001-architecture.md`](decisions/0001-architecture.md) | [`decisions/0004-normalization-policy.md`](decisions/0004-normalization-policy.md)
+قرارات رئيسية: [`decisions/0001-architecture.md`](decisions/0001-architecture.md) | [`decisions/0004-normalization-policy.md`](decisions/0004-normalization-policy.md)
 
-**Normalization rules**: `أ/إ/آ → ا`, final `ة → ه`, final `ى → ي`. All TOML keys must survive `normalize_identifier()`.
-
----
-
-## Development model
-
-- **Planner (Claude)**: writes ADRs, curates dictionaries, authors spec packets, reviews diffs.
-- **Implementer**: reads packets in `specs/NNNN-*.md`, writes code, runs tests.
-
-Every implementation unit is a self-contained spec packet. See [`specs/0000-template.md`](specs/0000-template.md) and [`specs/INDEX.md`](specs/INDEX.md).
+**قواعد التطبيع**: `أ/إ/آ → ا`، `ة → ه` (في النهاية)، `ى → ي` (في النهاية). جميع مفاتيح TOML يجب أن تجتاز `normalize_identifier()`.
 
 ---
 
-## Known limitations
+## نموذج التطوير
 
-- **`from . import x` in package `__init__.apy`** — workaround: `import pkg.sub as sub`.
-- **Cross-language attribute access from `.py` to `.apy`** must use the ADR-0004-normalized identifier form (e.g., `module.قيمه`, not `module.قيمة`).
+- **المخطط (Claude)**: يكتب سجلات القرارات، يُنسِّق القواميس، يُؤلِّف حزم المواصفات، يراجع التغييرات.
+- **المنفِّذ**: يقرأ الحزم في `specs/NNNN-*.md`، يكتب الكود، يُشغِّل الاختبارات.
+
+كل وحدة عمل هي حزمة مواصفات مكتفية بنفسها. انظر [`specs/0000-template.md`](specs/0000-template.md) و[`specs/INDEX.md`](specs/INDEX.md).
 
 ---
 
-## Roadmap
+## القيود المعروفة
 
-| Phase | Content | Status |
+- **`from . import x` في `__init__.apy` داخل حزمة** — الحل البديل: `import pkg.sub as sub`.
+- **الوصول إلى السمات من `.py` إلى `.apy`** يجب أن يستخدم شكل المعرِّف المُطبَّع وفق ADR-0004 (مثل `module.قيمه` لا `module.قيمة`).
+
+---
+
+## خارطة الطريق
+
+| المرحلة | المحتوى | الحالة |
 |---|---|---|
-| 0 | Design decisions (8 ADRs) | ✅ complete |
-| A | Core dialect: pretokenize, normalize, translate, CLI, REPL, import hook, tracebacks | ✅ complete |
-| B | Ecosystem: 40+ alias modules, formatter, linter, Jupyter kernel, VS Code, tutorial, cookbook | 🟡 **substantially complete — contributors welcome** |
-| C | Advanced: package manager integration, LSP server, web playground | 📋 planned |
+| 0 | قرارات التصميم (8 سجلات ADR) | ✅ مكتملة |
+| أ | اللهجة الأساسية: التجهيز المسبق، التطبيع، الترجمة، CLI، REPL، خطاف الاستيراد، رسائل الخطأ | ✅ مكتملة |
+| ب | النظام البيئي: 40+ وحدة عربية، منسِّق، مدقِّق، نواة Jupyter، VS Code، دليل تعليمي | 🟡 **مكتملة إلى حدٍّ بعيد — المساهمون مرحب بهم** |
+| ج | متقدم: خادم LSP، ملعب ويب، تكامل مدير الحزم | 📋 مخطط لها |
 
-See [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+انظر [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
+
+## الوثائق
+
+| الوثيقة | الوصف |
+|---------|--------|
+| [دليل البدء الشامل](docs/ar/getting-started.md) | من "مرحبا بالعالم" إلى الاستيراد — خطوة بخطوة |
+| [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
+| [مرجع المكتبة القياسية](docs/ar/stdlib-reference.md) | جميع الوحدات القياسية العربية مع أمثلة |
+| [ويكي المشروع](docs/wiki/index.md) | دليل شامل: الكلمات المفتاحية، المكتبات، الأدوات، الأسئلة الشائعة |
+| [دليل المساهمة](CONTRIBUTING.md) | كيفية إضافة وحدات ومساهمات الكود |
+| [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
+| [خارطة الطريق](ROADMAP-PHASE-B.md) | الحزم القادمة وحالتها |
+
+---
+
+## الإقرارات والشكر
+
+- **zhpy** (gasolin، 2014) — لهجة بايثون الصينية القائمة على التجزئة المعجمية التي يعتمد هذا المشروع معمارياً عليها.
+- **قلب لـ Ramsey Nasser** — النقد الذي يأخذه هذا المشروع بجدية.
+- **Hedy** — دليل على نجاح التعليم متعدد اللغات والمتدرج في النحو على نطاق واسع.
+- **السوار / مجمع اللغة العربية (KSAA)** — واجهة برمجية للمعجم العربي تُستخدم في أبحاث المصطلحات.
+
+</div>
+
+---
+
+# لغة الثعبان — Arabic Python (English summary)
+
+> **The primary documentation above is in Arabic — the language this project is built for.**
+> Below is a concise English reference for contributors and readers not yet fluent in Arabic.
+
+A Python dialect where **keywords, built-ins, exceptions, and popular libraries** are all written in Arabic. `.apy` files are translated to standard Python at import time and executed by CPython — no interpreter fork, no language modification.
+
+**Status (2026-04-28)**: Phase A complete. Phase B substantially complete — **2,510 tests passing** across Python 3.11–3.13 on Ubuntu / macOS / Windows.
+
+**License**: Apache-2.0.
+
+---
+
+## Install
+
+```bash
+git clone https://github.com/GalaxyRuler/lughat-althuban
+cd lughat-althuban
+pip install -e .          # installs the ثعبان console script
+pip install -e ".[dev]"   # all optional library aliases
+```
+
+---
+
+## Run
+
+```bash
+ثعبان script.apy          # run a file
+ثعبان -c 'اطبع("مرحبا")'  # inline snippet
+ثعبان                      # interactive REPL
+ثعبان نسّق script.apy      # auto-format
+ثعبان راجع script.apy      # lint
+```
+
+---
+
+## Key facts
+
+- 38 Arabic exception names · ~30 translated interpreter messages
+- 21 stdlib alias modules · 6 science/data · 4 web · 1 ML (40+ total)
+- Formatter · Linter · Jupyter kernel · VS Code extension · pytest plugin — all ship in this repo
+- Normalization: `أ/إ/آ → ا`, final `ة → ه`, final `ى → ي`
+
+---
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Arabic commit messages are preferred. Every unit of work is a self-contained spec packet in `specs/`.
 
 ## Acknowledgements
 
-- **zhpy** (gasolin, 2014) — the tokenize-based Chinese Python dialect this project is architecturally modeled on.
-- **Ramsey Nasser's قلب (Qalb)** — the critique this project takes seriously.
-- **Hedy** — proof that gradual-syntax, multilingual Python-like education works at scale.
-- **Siwar / KSAA** — Arabic lexicon API used for terminology research.
+zhpy (2014) · قلب by Ramsey Nasser · Hedy · Siwar/KSAA Arabic lexicon API.
