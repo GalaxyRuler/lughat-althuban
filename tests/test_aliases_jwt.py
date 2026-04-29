@@ -1,8 +1,8 @@
+import datetime as _dt
 import importlib
 import pathlib
 import sys
 import tomllib
-import datetime as _dt
 from datetime import datetime, timedelta
 
 import pytest
