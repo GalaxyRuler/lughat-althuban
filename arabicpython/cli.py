@@ -3,28 +3,11 @@
 import argparse
 import contextlib
 import os
-import re
 import sys
 import types
 
 from arabicpython import __version__
-from arabicpython.translate import translate
-
-# Regex for the per-file dictionary directive.
-# Matches: # arabicpython: dict=<version>   (in any of the first 5 lines)
-_DIRECTIVE_RE = re.compile(r"#\s*arabicpython\s*:\s*dict\s*=\s*(\S+)")
-
-
-def _parse_file_directive(source: str) -> "str | None":
-    """Return the dict version named by the first per-file directive, or None.
-
-    Scans only the first five lines so a shebang on line 1 doesn't block it.
-    """
-    for line in source.splitlines()[:5]:
-        m = _DIRECTIVE_RE.search(line)
-        if m:
-            return m.group(1)
-    return None
+from arabicpython.translate import _parse_file_directive, translate
 
 
 def _configure_utf8_streams() -> None:
@@ -106,7 +89,7 @@ def main(argv: "list[str] | None" = None) -> int:
         metavar="VERSION",
         default=None,
         help="dictionary version to use (e.g. ar-v1.1, ar-v2). "
-        "Overrides any per-file '# arabicpython: dict=' directive.",
+        "Overrides any per-file '# apython: dict=' directive.",
     )
     parser.add_argument("-c", dest="code", metavar="CODE")
     parser.add_argument("file", nargs="?", metavar="FILE")

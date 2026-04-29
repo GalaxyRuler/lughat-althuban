@@ -6,7 +6,7 @@ Checks performed (all reported as Diagnostic namedtuples):
   W002  trailing whitespace
   W003  tab indentation (use spaces)
   W004  mixed Arabic/Latin in a single identifier token
-  E001  ar-v1-only keyword used when file declares ar-v2 (كـ / هو)
+  E001  ar-v1-only keyword used when file declares ar-v2
   E002  unrecognised keyword-like token (looks like Arabic but is not a keyword)
   I001  file has no top-level docstring / module comment
 """
@@ -17,6 +17,8 @@ import re
 from pathlib import Path
 from typing import NamedTuple
 
+from arabicpython.normalize import normalize_identifier
+
 # ---------------------------------------------------------------------------
 # Known keyword sets
 # ---------------------------------------------------------------------------
@@ -26,7 +28,7 @@ _KEYWORDS_V2 = {
     "وإلا",
     "إلا_إذا",
     "إلا",
-    "بينما",
+    "طالما",
     "لكل",
     "في",
     "دالة",
@@ -59,11 +61,15 @@ _KEYWORDS_V2 = {
     "يكون",
 }
 
-_V1_ONLY_KEYWORDS = {"كـ", "هو"}  # removed in ar-v2
+_V1_ONLY_KEYWORDS = {
+    normalize_identifier("كـ"): "باسم",
+    normalize_identifier("بوصفه"): "باسم",
+    normalize_identifier("هو"): "يكون",
+}
 
 _ARABIC_RE = re.compile(r"[ء-ي]+")
 _IDENTIFIER_RE = re.compile(r"[ء-يa-zA-Z_][ء-يa-zA-Z_٠-٩0-9]*")
-_DIRECTIVE_RE = re.compile(r"#\s*arabicpython\s*:\s*dict\s*=\s*(\S+)")
+_DIRECTIVE_RE = re.compile(r"#\s*(?:arabicpython|apython)\s*:\s*dict\s*=\s*(\S+)")
 
 MAX_LINE_LENGTH = 99
 
@@ -169,15 +175,16 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
             col = m.start() + 1
 
             # E001: ar-v1-only keyword in ar-v2 file
-            if is_v2 and token in _V1_ONLY_KEYWORDS:
+            normalized = normalize_identifier(token)
+            if is_v2 and normalized in _V1_ONLY_KEYWORDS:
+                replacement = _V1_ONLY_KEYWORDS[normalized]
                 diags.append(
                     Diagnostic(
                         path,
                         lineno,
                         col,
                         "E001",
-                        f"ar-v1 keyword '{token}' not valid in ar-v2"
-                        " — use 'باسم' for 'as', 'يكون' for 'is'",
+                        f"الكلمة '{token}' غير معرّفة في ar-v2؛ استخدم '{replacement}'",
                         "error",
                     )
                 )

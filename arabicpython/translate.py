@@ -1,6 +1,7 @@
 """Translate apython source to Python source."""
 
 import io
+import re
 import sys
 import tokenize
 from typing import TYPE_CHECKING
@@ -12,6 +13,18 @@ from arabicpython.pretokenize import pretokenize
 
 if TYPE_CHECKING:
     from arabicpython.dialect import Dialect
+
+
+_DIRECTIVE_RE = re.compile(r"#\s*(?:arabicpython|apython)\s*:\s*dict\s*=\s*(\S+)")
+
+
+def _parse_file_directive(source: str) -> "str | None":
+    """Return the dict version named by the first per-file directive, or None."""
+    for line in source.splitlines()[:5]:
+        m = _DIRECTIVE_RE.search(line)
+        if m:
+            return m.group(1)
+    return None
 
 
 def translate(
@@ -44,7 +57,8 @@ def translate(
         dialect: optional pre-loaded Dialect to use.  Mutually exclusive with
             dict_version — if both are supplied a ValueError is raised.
         dict_version: name of the dictionary to load (e.g. ``"ar-v1.1"``).
-            When omitted and dialect is None, defaults to ``"ar-v2"``.
+            When omitted and dialect is None, a per-file ``# apython: dict=...``
+            directive is honored; otherwise defaults to ``"ar-v1"``.
 
     Returns:
         Python source text suitable for compile(src, path, "exec").
@@ -62,7 +76,8 @@ def translate(
             "translate(): supply at most one of 'dialect' and 'dict_version', not both"
         )
     if dialect is None:
-        dialect = load_dialect(dict_version if dict_version is not None else "ar-v2")
+        effective_dict = dict_version or _parse_file_directive(source) or "ar-v2"
+        dialect = load_dialect(effective_dict)
 
     # Fast path: pure ASCII source has no Arabic keywords or identifiers to
     # translate.  Skip the entire pipeline and return the source unchanged.

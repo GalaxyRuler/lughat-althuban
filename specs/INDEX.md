@@ -64,8 +64,8 @@
 | C-023 | aliases-pyyaml-v1 | C (config) | — | delivered |
 | C-024 | aliases-playwright-v1 | C (automation) | — | drafted |
 | C-025 | aliases-beautifulsoup4-v1 | C (automation) | — | drafted |
-| C-026 | aliases-pyjwt-v1 | C (auth) | — | drafted |
-| C-030 | dictionary-v2 | C (dictionary) | — | drafted |
+| C-026 | aliases-pyjwt-v1 | C (auth) | — | delivered |
+| C-030 | dictionary-v2 | C (dictionary) | — | delivered |
 
 ## Legend
 

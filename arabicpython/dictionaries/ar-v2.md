@@ -1,35 +1,23 @@
 # Arabic dialect dictionary — ar-v2.0
+<!-- ar-v2: opt-in via `# apython: dict=ar-v2` file header -->
 
 **Status**: active (ar-v2.0)
-**Released**: 2026-04-25 per ADR 0009
+**Released**: 2026-04-29 per ADR 0011 § C.4 (Phase C ar-v2 opt-in dictionary)
 **Supersedes**: ar-v1 (dictionaries/ar-v1.md, locked 2026-04-19)
-**Governance**: changes to existing entries require a new ADR (see ADR 0003).
-
----
-
-## Changes from ar-v1
-
-| Python | ar-v1 canonical | ar-v2 canonical | Reason |
-|---|---|---|---|
-| `as` | `كـ` | `باسم` | `كـ` normalizes to single char `ك`; loop vars named `ك` silently mistranslate. `باسم` ("by name of") is natural in `import X as Y` and `with X as Y`. |
-| `is` | `هو` | `يكون` | `هو` is the third-person masculine pronoun; learners cannot name a variable `هو` without a SyntaxError. `يكون` ("is / to be") is the listed alternate and reads naturally in `x يكون None`. |
-| `RecursionError` | `خطأ_تكرار_ذاتي` | `خطأ_عودية` | `عودية` is the established CS term for "recursion" (KSAA Siwar confirmed); preferred over the verbose self-repetition compound. |
-| `BlockingIOError` | *(absent)* | `خطأ_إدخال_إخراج_حاجب` | Common OSError subclass in async code; added from exceptions-ar-v1.md. |
-| `IsADirectoryError` | *(absent)* | `خطأ_هذا_مجلد` | Common OSError subclass in file-handling; added from exceptions-ar-v1.md. |
-| `NotADirectoryError` | *(absent)* | `خطأ_ليس_مجلدا` | Common OSError subclass in file-handling; added from exceptions-ar-v1.md. |
-
-All other entries are unchanged from ar-v1.
+**Governance**: changes to existing entries require a new ADR (see ADR 0003). This dictionary changes exactly four ar-v1 keyword spellings; all other entries carry forward unchanged.
 
 ---
 
 ## Reading this file
 
 - **Python**: the Python symbol this entry translates.
-- **Canonical**: the single Arabic word or underscored phrase the dialect accepts.
+- **Canonical**: the single Arabic word or underscored phrase the dialect accepts in v2.
 - **Alternates considered**: other Arabic words that are defensible; documented for transparency, **not accepted at runtime**.
 - **Rationale**: why this canonical was chosen.
 
-Every canonical entry is shown in its **natural visible form** — the spelling a learner would type and that appears in IDE tooltips and error messages. The ADR 0004 normalizer folds hamza variants (`أ`/`إ`/`آ` → `ا`), ta-marbuta (`ة` → `ه`), harakat, and tatweel on both the dictionary entry and the user's identifier at lookup time. Multi-word translations use underscore `_` rather than space.
+Every canonical entry is shown in its **natural visible form** — the spelling a learner would type and that appears in IDE tooltips and error messages. The ADR 0004 normalizer folds hamza variants (`أ`/`إ`/`آ` → `ا`), ta-marbuta (`ة` → `ه`), harakat, and tatweel on both the dictionary entry and the user's identifier at lookup time, so `خطأ` and `خطا` resolve to the same key at runtime. Where a rationale note references the stored (normalized) form, it is marked explicitly.
+
+Multi-word translations use underscore `_` rather than space, because Python tokenizes space as a token boundary. Dotted method names are written with a leading `.` in this file for clarity but are stored without the dot in the machine-readable dictionary.
 
 ---
 
@@ -38,7 +26,7 @@ Every canonical entry is shown in its **natural visible form** — the spelling 
 | Python | Canonical | Alternates | Rationale |
 |---|---|---|---|
 | `and` | و | — | MSA conjunction "and". |
-| `as` | باسم | كـ | "by the name of"; natural in `import X as Y` and `with X as Y`. Replaces ar-v1's `كـ` which normalized to single-char `ك`. |
+| `as` | باسم | كـ | "By the name of"; natural in `import X as Y` and `with X as Y`. |
 | `assert` | أكد | تحقق | MSA "affirm/assert". |
 | `async` | غير_متزامن | لاتزامني | MSA "non-synchronous"; composed for clarity. |
 | `await` | انتظر | — | MSA "wait". |
@@ -57,7 +45,7 @@ Every canonical entry is shown in its **natural visible form** — the spelling 
 | `if` | إذا | لو، إذا | MSA conditional "if". |
 | `import` | استورد | اجلب، ادرج | MSA "import". |
 | `in` | في | — | MSA preposition "in". |
-| `is` | يكون | هو | MSA "is / to be"; imperfect form reads naturally in `x يكون None`. Replaces ar-v1's `هو` (pronoun "he/it") which blocked learners from using `هو` as a variable name. |
+| `is` | يكون | هو | MSA "is / to be"; less ambiguous than the pronoun `هو`. |
 | `lambda` | لامدا | دالة_مجهولة | Transliteration; standard in Arabic mathematics for lambda. |
 | `nonlocal` | غير_محلي | — | Composed MSA. |
 | `not` | ليس | لا | MSA negation; ليس reads as a formal "not". |
@@ -174,7 +162,6 @@ Type-constructor duplicates (also function and type, but listed once above): `bo
 | `AssertionError` | خطأ_تأكيد | — | Composed. |
 | `AttributeError` | خطأ_صفة | — | Composed. |
 | `BaseException` | استثناء_أساسي | — | Composed. |
-| `BlockingIOError` | خطأ_إدخال_إخراج_حاجب | — | OSError subclass; common in async code. Added in ar-v2. |
 | `ConnectionError` | خطأ_اتصال | — | Composed. |
 | `EOFError` | خطأ_نهاية_ملف | — | Composed. |
 | `Exception` | استثناء_عام | استثناء | "general exception"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_أساسي`. |
@@ -186,19 +173,17 @@ Type-constructor duplicates (also function and type, but listed once above): `bo
 | `IndentationError` | خطأ_إزاحة | — | Composed. |
 | `IndexError` | خطأ_فهرس | — | Composed. |
 | `IOError` | خطأ_إدخال_إخراج | — | Composed. |
-| `IsADirectoryError` | خطأ_هذا_مجلد | — | OSError subclass; common in file-handling. Added in ar-v2. |
 | `KeyboardInterrupt` | مقاطعة | — | MSA "interruption"; simplest form. |
 | `KeyError` | خطأ_مفتاح | — | Composed. |
 | `LookupError` | خطأ_بحث | — | Composed. |
 | `MemoryError` | خطأ_ذاكرة | — | Composed. |
 | `ModuleNotFoundError` | خطأ_وحدة_مفقودة | — | Composed. |
 | `NameError` | خطأ_اسم | — | Composed. |
-| `NotADirectoryError` | خطأ_ليس_مجلدا | — | OSError subclass; common in file-handling. Added in ar-v2. |
 | `NotImplementedError` | خطأ_غير_منفذ | — | Composed. |
 | `OSError` | خطأ_نظام | — | Composed. |
 | `OverflowError` | خطأ_فائض | — | Composed. |
 | `PermissionError` | خطأ_صلاحية | — | Composed. |
-| `RecursionError` | خطأ_عودية | خطأ_تكرار_ذاتي | `عودية` is the KSAA-confirmed CS term for recursion; replaces ar-v1's verbose compound. |
+| `RecursionError` | خطأ_تكرار_ذاتي | — | Composed. |
 | `RuntimeError` | خطأ_تشغيل | — | Composed. |
 | `StopIteration` | انتهاء_التكرار | — | Composed. |
 | `SyntaxError` | خطأ_صياغة | — | Composed. |
@@ -288,20 +273,6 @@ Methods are stored without the leading dot in the machine-readable dictionary. T
 | `.clear` | امسح | — | MSA "clear/erase". |
 | `.copy` | انسخ | — | MSA "copy". |
 
-### Machine-learning estimator methods (Category C — B-020)
-
-Added in v2.0 (B-020 scikit-learn packet). These method names appear on all
-scikit-learn estimators and are stable across the sklearn API.
-
-| Python | Canonical | Alternates | Rationale |
-|---|---|---|---|
-| `.fit` | لائم | — | MSA "calibrate/fit". |
-| `.predict` | تنبا | — | MSA "predict/foretell". |
-| `.transform` | حول_بيانات | — | Compound; `حول` alone reserved for future use. |
-| `.fit_transform` | لائم_وحول | — | Composed from `.fit` + `.transform`. |
-| `.score` | قيم_نموذج | — | `قيم` alone maps to `eval`; compound is safe. |
-| `.predict_proba` | احتمالات_التنبا | — | "prediction probabilities". |
-
 ---
 
 ## Collision audit
@@ -311,100 +282,54 @@ The following canonicals appear in more than one section and must resolve to the
 | Arabic | Maps to (Python) | Notes |
 |---|---|---|
 | نسق | `format` (function and `.format` method) | Same target — safe. |
-| رمز | `chr` (function) and `.encode` (method) | **Conflict**. Resolution: `chr` keeps رمز; `.encode` uses `رمز_بايتات`. |
-| قيم | `eval` (function) and `.values` (method) | **Conflict**. Resolution: `eval` keeps قيم; `.values` renamed to `قيم_القاموس`. |
+| رمز | `chr` (function) and `.encode` (method) | **Conflict**. Since both are NAME tokens, the token-level rewrite cannot distinguish them. Resolution: `chr` keeps رمز; `.encode` uses رمّز (with shadda). But shadda is stripped by normalizer. **Decision**: rename `.encode` to `رمز_بايتات` in v1. Documented here; will verify during Packet 1.2. |
+| قيم | `eval` (function) and `.values` (method) | **Conflict**. Resolution: `eval` keeps قيم; `.values` renamed to `قيم_القاموس`. Applied below. |
 | اجلب | `.get` (method) and `getattr` (function) | `getattr` uses اجلب_صفة already; `.get` uses اجلب. Safe. |
+| عين_صفة | `setattr` (function) only | Safe. |
 | نوع | `type` (function/soft-keyword) | Intentional merge. |
-| صف | `tuple` (type) and `filter` (function) | **Conflict**. Resolution: `filter` renamed to `فلتر`. |
+| صف | `tuple` (type) and `filter` (function) | **Conflict**. Resolution: `filter` renamed to `فلتر`. Applied below. |
+
+### Resolutions applied
+
+The three collisions above are resolved **inline in the tables** — `filter`, `.encode`, and `.values` now use their resolved canonicals (`فلتر`, `رمز_بايتات`, `قيم_القاموس`) in their respective sections. The rejected forms (`صف`, `رمز`, `قيم`) are listed as alternates for the audit trail.
+
+The loader reads only the tables; this audit section is historical documentation.
 
 ---
 
 ## Counts
 
 These match what `dialect.load_dialect("ar-v2")` reports at runtime
-(`names: 148, attributes: 42, total: 190`).
+(`names: 145, attributes: 42, total: 187`).
 
-- Hard keywords: 32
+- Hard keywords: 32 (Python 3.13's `keyword.kwlist` minus `True`/`False`/`None`, which live in *Literals* below)
 - Soft keywords: 4 (`match`, `case`, `type`, `_`)
 - Literals: 3 (`True`, `False`, `None`)
 - Built-in types: 15
-- Built-in functions: 52
-- Built-in exceptions: 43 (+3 from ar-v1's 40: BlockingIOError, IsADirectoryError, NotADirectoryError)
-- Subtotal (names): **148** (ar-v1 was 145; +3 exceptions; `type` dedup same as before)
-- Methods (attributes): 42 (unchanged from ar-v1)
-- Syntactic abbreviations: 23 (7 escape sequences, 3 numeric prefixes, 13 string type combos)
-- **Total entries: 213**
+- Built-in functions: 52 (unique; excludes type-constructor duplicates; includes `breakpoint` added in v1.1)
+- Built-in exceptions: 40
+- Subtotal (names): **145** — sums to 146 by section, minus 1 for the `type` soft-keyword / `type` built-in-type dedup (both map to `نوع`, stored once in `dialect.names`)
+- Methods (attributes): 42 (29 original + 7 new string methods + 5 new set methods + 1 new dict method)
+- **Total entries: 187**
 
-## 11. Syntactic abbreviations (escape sequences, literal prefixes)
+*Note: dict `.pop` is not counted as a new attribute — it resolves via the existing `انتزع → pop` mapping shared with list `.pop`.*
 
-Implemented in pretokenize (translates to ASCII before tokenization).
-
-### Escape sequences
-
-Used in string literals; translated during preprocessing.
-
-| Arabic | ASCII | Use | Mnemonic |
-|--------|-------|-----|----------|
-| `\س` | `\n` | newline | س = س-طر (line) |
-| `\ج` | `\t` | tab | ج = ج-دول (indent/table) |
-| `\ر` | `\r` | carriage return | ر = ر-جوع (return) |
-| `\م` | `\b` | backspace | م = م-سح (erase) |
-| `\ف` | `\f` | form feed | ف = ف-اصلة (page) |
-| `\ع` | `\v` | vertical tab | ع = ع-مودي (vertical) |
-| `\ن` | `\a` | alert/bell | ن = ن-غمة (beep/alert) |
-
-Example: `اطبع("مرحبا\سشكرا")` → `print("مرحبا\nشكرا")`
-
-### Numeric literal prefixes
-
-| Arabic | ASCII | Base | Mnemonic |
-|--------|-------|------|----------|
-| `0س` | `0x` | hexadecimal | س = س-ِتَّة عشر (sixteen) |
-| `0ث` | `0b` | binary | ث = ث-نائي (binary) |
-| `0ذ` | `0o` | octal | ذ = ذو ثمانية (eight) |
-
-Example: `ن = 0سFF` → `n = 0xFF` (255 in hex)
-
-### String type prefixes
-
-| Arabic | ASCII | Meaning |
-|--------|-------|---------|
-| `ت"..."` | `f"..."` | format string (ت = ت-نسيق) |
-| `ب"..."` | `b"..."` | bytes literal (ب = ب-ايت) |
-| `خ"..."` | `r"..."` | raw string (خ = خ-ام) |
-| `ي"..."` | `u"..."` | unicode string (ي = ي-ونيكود) |
-
-Two-letter combinations for combined modifiers:
-
-| Arabic | ASCII | Meaning |
-|--------|-------|---------|
-| `خت"..."` | `rf"..."` | raw format string |
-| `تخ"..."` | `fr"..."` | format raw string |
-| `خب"..."` | `rb"..."` | raw bytes |
-| `بخ"..."` | `br"..."` | bytes raw |
-
-Example: `مسار = خ"\n\t"` → `path = r"\n\t"` (backslash-n-backslash-t literal)
-
-Example: `رسالة = ت"اسم={اسم}"` → `message = f"name={name}"` (f-string interpolation)
-
----
-
-## Known omissions (carried from ar-v1)
+## Known omissions
 
 - `yield from` — compound keyword, needs multi-token handling.
 - `async for`, `async with` — compounds.
+- `pattern matching` class patterns — limited use in beginner code.
 - `aiter`, `anext` — async iterator builtins (3.10+); deferred to Phase B.
 - Dunder methods (`__init__`, `__str__`, etc.) — Phase B aliasing concern.
 - `self`, `cls` — naming conventions, not syntax.
-- Set methods `.issubset`, `.issuperset`, `.symmetric_difference` — advanced; deferred to ar-v3.
-- String methods `.encode`, `.format_map`, `.maketrans`, `.translate` — advanced; deferred to ar-v3.
-- Method grammar inconsistency (D5 from REVIEW-2026-04-19.md) — deferred to ar-v3.
-- Definite-article inconsistency in exception names (D6 from REVIEW-2026-04-19.md) — deferred to ar-v3.
+- Stdlib module-level functions (`os.path.join`, `math.sqrt`, etc.) — Phase B.
+- Set methods `.issubset`, `.issuperset`, `.symmetric_difference` — advanced; deferred to a future dictionary.
+- String methods `.encode`, `.format_map`, `.maketrans`, `.translate` — advanced; deferred to a future dictionary.
 
 ## References
 
-- ar-v1 REVIEW findings (dictionaries/REVIEW-2026-04-19.md): Category D items D1 (`is`) and D2 (`as`) addressed here.
-- Exception cross-file audit (dictionaries/AUDIT-exceptions-cross-file-2026-04-20.md): 3 coverage gaps closed.
-- Hedy Arabic translations: https://hedy.org/
+- Hedy Arabic translations (source for many canonical choices): https://hedy.org/
 - Python 3.13 `keyword.kwlist`: https://docs.python.org/3/library/keyword.html
-- ADR 0003 (governance), ADR 0004 (normalization), ADR 0009 (ar-v2 charter).
+- Python Built-in Functions: https://docs.python.org/3/library/functions.html
+- Python Built-in Exceptions: https://docs.python.org/3/library/exceptions.html
+- ADR 0003 (governance), ADR 0004 (normalization).

@@ -480,7 +480,7 @@ def test_custom_dialect_used(tmp_path):
 
 
 def test_default_dialect_translates_keywords():
-    # Defaults to ar-v2; verify core keywords translate correctly
+    # Defaults to ar-v1; verify core keywords translate correctly
     res = translate("إذا x: pass\n")
     assert "if " in res
 

@@ -106,7 +106,7 @@ To claim a packet: open a "Claim a packet" issue (template in `.github/ISSUE_TEM
 
 | ID | Title | Depends on | Size | Status | Owner | First-pickup? |
 |---|---|---|---|---|---|---|
-| C-030 | dictionary-v2 — `ar-v2.md` opt-in: 4 revised keywords (`باسم` for `as`, `تجاوز` for `pass`, `بينما` for `while`, `يكون` for `is`); backward-compatible via ADR 0010 versioning | C-001 | S | drafted | — | **yes** (Arabic linguists) |
+| C-030 | dictionary-v2 — `ar-v2.md` opt-in: 4 revised keywords (`باسم` for `as`, `تجاوز` for `pass`, `بينما` for `while`, `يكون` for `is`); backward-compatible via ADR 0010 versioning | C-001 | S | delivered | — | **yes** (Arabic linguists) |
 
 ---
 
