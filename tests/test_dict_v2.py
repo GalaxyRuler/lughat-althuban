@@ -10,7 +10,6 @@ from arabicpython.linter import lint_source
 from arabicpython.normalize import normalize_identifier
 from arabicpython.translate import translate
 
-
 AR_V2_PROGRAM = """# apython: dict=ar-v2
 عدد = 0
 بينما عدد < 2:
@@ -101,11 +100,7 @@ def test_load_dialect_ar_v2_returns_revised_mapping_only():
 def test_import_hook_honors_ar_v2_file_directive(tmp_path):
     module_path = tmp_path / "uses_ar_v2.apy"
     module_path.write_text(
-        "# apython: dict=ar-v2\n"
-        "عدد = 0\n"
-        "بينما عدد < 1:\n"
-        "    عدد += 1\n"
-        "نتيجة = عدد\n",
+        "# apython: dict=ar-v2\n" "عدد = 0\n" "بينما عدد < 1:\n" "    عدد += 1\n" "نتيجة = عدد\n",
         encoding="utf-8",
     )
 
