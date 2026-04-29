@@ -141,6 +141,8 @@ _EXCLUDED = {
     "B58_scipy_demo.apy",  # requires scipy + numpy; floating-point output varies
     "B59_aiohttp_demo.apy",  # makes live HTTP calls; requires @pytest.mark.network
     "اختبار_نموذجي.apy",  # pytest test file — requires pytest context to run
+    "C14_click_demo.apy",  # interactive CLI — prompts for input, no stable snapshot
+    "C15_rich_demo.apy",  # rich terminal output — contains ANSI escape codes
 }
 
 _EXAMPLE_PARAMS = sorted(p for p in EXAMPLES_DIR.glob("*.apy") if p.name not in _EXCLUDED)
