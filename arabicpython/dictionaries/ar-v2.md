@@ -50,11 +50,11 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `nonlocal` | غير_محلي | — | Composed MSA. |
 | `not` | ليس | لا | MSA negation; ليس reads as a formal "not". |
 | `or` | أو | — | MSA disjunction "or". |
-| `pass` | تجاوز | مرر | MSA "skip/bypass"; natural for an empty block. |
+| `pass` | مرر | تجاوز | MSA "pass through". |
 | `raise` | ارفع | اطلق | MSA "raise"; matches Python's metaphor. |
 | `return` | ارجع | أرجع، اعد | MSA "return/go back"; without hamza variants for normalizer idempotency. |
 | `try` | حاول | جرب | MSA "try/attempt". |
-| `while` | بينما | طالما | MSA "while"; preferred in loop contexts. |
+| `while` | طالما | بينما | MSA "as long as". |
 | `with` | مع | — | MSA "with". |
 | `yield` | سلم | انتج | MSA "hand over"; semantically closer to generator `yield` than "produce". |
 

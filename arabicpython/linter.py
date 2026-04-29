@@ -28,7 +28,7 @@ _KEYWORDS_V2 = {
     "وإلا",
     "إلا_إذا",
     "إلا",
-    "بينما",
+    "طالما",
     "لكل",
     "في",
     "دالة",
@@ -45,7 +45,7 @@ _KEYWORDS_V2 = {
     "و",
     "أو",
     "ليس",
-    "تجاوز",
+    "مرر",
     "تابع",
     "اكسر",
     "احذف",
@@ -64,8 +64,6 @@ _KEYWORDS_V2 = {
 _V1_ONLY_KEYWORDS = {
     normalize_identifier("كـ"): "باسم",
     normalize_identifier("بوصفه"): "باسم",
-    normalize_identifier("مرر"): "تجاوز",
-    normalize_identifier("طالما"): "بينما",
     normalize_identifier("هو"): "يكون",
 }
 

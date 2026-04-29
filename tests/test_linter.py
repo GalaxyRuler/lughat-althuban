@@ -58,13 +58,12 @@ class TestV1KeywordE001:
         src = "# apython: dict=ar-v2\nمع الملف كـ م:\n    تجاوز\n"
         assert "E001" in codes(lint_source(src))
 
-    def test_all_v1_changed_keywords_in_v2_file_flagged(self):
-        src = "# apython: dict=ar-v2\nكـ\nمرر\nطالما صحيح:\n    تجاوز\nهو = 1\n"
+    def test_all_v1_only_keywords_in_v2_file_flagged(self):
+        # ar-v2 replaces كـ→باسم and هو→يكون; pass/while unchanged
+        src = "# apython: dict=ar-v2\nكـ = 1\nهو = 2\n"
         e001 = [d for d in lint_source(src) if d.code == "E001"]
         assert [d.message for d in e001] == [
             "الكلمة 'كـ' غير معرّفة في ar-v2؛ استخدم 'باسم'",
-            "الكلمة 'مرر' غير معرّفة في ar-v2؛ استخدم 'تجاوز'",
-            "الكلمة 'طالما' غير معرّفة في ar-v2؛ استخدم 'بينما'",
             "الكلمة 'هو' غير معرّفة في ar-v2؛ استخدم 'يكون'",
         ]
 

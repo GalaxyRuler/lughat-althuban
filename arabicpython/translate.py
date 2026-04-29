@@ -17,15 +17,6 @@ if TYPE_CHECKING:
 
 _DIRECTIVE_RE = re.compile(r"#\s*(?:arabicpython|apython)\s*:\s*dict\s*=\s*(\S+)")
 
-_AR_V2_REPLACED_KEYWORDS = {
-    normalize_identifier("كـ"): "باسم",
-    normalize_identifier("بوصفه"): "باسم",
-    normalize_identifier("مرر"): "تجاوز",
-    normalize_identifier("طالما"): "بينما",
-    normalize_identifier("هو"): "يكون",
-}
-
-
 def _parse_file_directive(source: str) -> "str | None":
     """Return the dict version named by the first per-file directive, or None."""
     for line in source.splitlines()[:5]:
@@ -33,21 +24,6 @@ def _parse_file_directive(source: str) -> "str | None":
         if m:
             return m.group(1)
     return None
-
-
-def _raise_replaced_keyword_error(token: tokenize.TokenInfo, replacement: str) -> None:
-    message = f"الكلمة '{token.string}' غير معرّفة في ar-v2؛ استخدم '{replacement}'"
-    raise SyntaxError(
-        message,
-        (
-            None,
-            token.start[0],
-            token.start[1] + 1,
-            token.line,
-            token.end[0],
-            token.end[1] + 1,
-        ),
-    )
 
 
 def translate(
@@ -99,7 +75,7 @@ def translate(
             "translate(): supply at most one of 'dialect' and 'dict_version', not both"
         )
     if dialect is None:
-        effective_dict = dict_version or _parse_file_directive(source) or "ar-v1"
+        effective_dict = dict_version or _parse_file_directive(source) or "ar-v2"
         dialect = load_dialect(effective_dict)
 
     # Fast path: pure ASCII source has no Arabic keywords or identifiers to
@@ -173,9 +149,6 @@ def translate(
         if tok.type == tokenize.NAME:
             is_attr = last_significant_type == tokenize.OP and last_significant_string == "."
             key = normalize_identifier(tok.string)
-
-            if dialect.name == "ar-v2" and key in _AR_V2_REPLACED_KEYWORDS:
-                _raise_replaced_keyword_error(tok, _AR_V2_REPLACED_KEYWORDS[key])
 
             # Keywords translate even after '.' only in `from . import` context
             # (token before the dot was `from`/`من`).  In normal attribute access
