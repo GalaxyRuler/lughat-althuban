@@ -8,10 +8,8 @@
 #
 # Curation notes (ADR 0003):
 #   - MSA over dialect throughout.
-#   - Response *instance* attributes (status_code, text, json, …) are NOT listed
-#     here because ModuleProxy covers module-level names only. A future "class
-#     proxy" packet will add instance-level aliases. The demo (B01_http.apy)
-#     accesses response.status_code in English to document this limitation.
+#   - Response *instance* attributes (status_code, text, json, …) live in
+#     [attributes] so ClassProxy can expose them when wrapping response objects.
 #   - "رأس" (head) is stored as "راس" because normalize_identifier folds
 #     hamza-above (أ → ا).
 #   - Words ending in ta-marbuta (ة) are stored with heh (ه) because
@@ -91,3 +89,13 @@ maintainer   = "—"
 "قاموس_بحث"         = "structures.LookupDict"
 "قاموس_غير_حساس"    = "structures.CaseInsensitiveDict"  # case-insensitive header dict
 "وعاء_كوكيز"        = "cookies.RequestsCookieJar"
+
+[attributes]
+"ارفع_للحاله"       = "raise_for_status"
+"بيانات_json"       = "json"
+"ترويسات"           = "headers"
+"رابط"              = "url"
+"رمز_الحاله"        = "status_code"
+"محتوي"             = "content"
+"ناجح"              = "ok"
+"نص"                = "text"

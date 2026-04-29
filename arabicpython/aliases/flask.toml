@@ -6,8 +6,8 @@
 # Sorted by section, then alphabetically by Python attribute name within each section.
 #
 # Architecture note (B-010):
-#   proxy_classes = ["Flask", "Blueprint"] causes ModuleProxy to wrap
-#   those classes in a ClassFactory. Calling `فلاسك.فلاسك(__name__)`
+#   proxy_classes causes ModuleProxy to wrap Flask/Blueprint classes in a
+#   ClassFactory. Calling `فلاسك.فلاسك(__name__)`
 #   returns an InstanceProxy so that Arabic method names work on the app:
 #
 #     @تطبيق.طريق('/')          ≡  @app.route('/')
@@ -18,6 +18,8 @@
 #
 #   Module-level entries (request, jsonify, …) are accessed on the
 #   module proxy: فلاسك.طلب, فلاسك.حول_json(…), etc.
+#   Request/Response instances can additionally use Arabic attributes from
+#   [attributes], e.g. فلاسك.طلب.طريقه ≡ flask.request.method.
 #
 # Cross-consistency notes:
 #   - flask.g → "عام" ("general/global"); different from sys/os contexts.
@@ -92,3 +94,17 @@ proxy_classes  = ["Flask", "Blueprint"]
 "نهايه_الطلب"           = "Flask.teardown_request"
 "عميل_تجريبي"           = "Flask.test_client"
 "سياق_تجريبي"           = "Flask.test_request_context"
+
+[attributes]
+"اجلب_json"              = "get_json"
+"بيانات"                 = "data"
+"بيانات_json"            = "json"
+"ترويسات"                = "headers"
+"رابط"                   = "url"
+"رمز_الحاله"             = "status_code"
+"طريقه"                  = "method"
+"كوكيز"                  = "cookies"
+"ملفات"                  = "files"
+"مسار"                   = "path"
+"نموذج"                  = "form"
+"وسيطات_الطلب"           = "args"

@@ -2,13 +2,18 @@
 
 Architecture
 ------------
-Three public classes are defined here:
+Four public classes are defined here:
 
 ModuleProxy
     Wraps a Python *module*. Created by AliasFinder; the object a user
     receives after ``استورد فلاسك``. Arabic keys are looked up in the
     mapping dict; unrecognised Arabic raises AttributeError + DeprecationWarning;
     ASCII names fall through to the underlying module.
+
+ClassProxy
+    Wraps a Python *object instance* resolved from a module-level alias, such as
+    ``flask.request``. Arabic instance attributes are looked up in the mapping's
+    ``attributes`` table; unknown names fall through to the real object.
 
 ClassFactory
     Wraps a Python *class* that appears in the mapping's ``proxy_classes`` list.
@@ -43,6 +48,184 @@ _ARABIC_RANGES: tuple[tuple[str, str], ...] = (
 def _is_arabic_looking(name: str) -> bool:
     """Return True if *name* contains at least one Arabic-script character."""
     return any(lo <= ch <= hi for ch in name for lo, hi in _ARABIC_RANGES)
+
+
+def _is_dunder(name: str) -> bool:
+    """Return True for Python's double-underscore protocol names."""
+    return len(name) > 4 and name.startswith("__") and name.endswith("__")
+
+
+def _is_class_object(value: Any) -> bool:
+    """Return True when *value* is a class, tolerating context-bound proxies."""
+    try:
+        return isinstance(value, type)
+    except Exception:
+        return False
+
+
+def _instance_class_name(value: Any) -> str:
+    """Return the best class name for *value*, honoring transparent local proxies."""
+    try:
+        return value.__class__.__name__
+    except Exception:
+        return type(value).__name__
+
+
+def _module_class_names(
+    wrapped: types.ModuleType,
+    mapping: dict[str, str],
+    proxy_classes: frozenset[str],
+) -> frozenset[str]:
+    """Return class names whose module-level instances may receive ClassProxy."""
+    class_names = set(proxy_classes)
+    for python_attr in mapping.values():
+        if "." in python_attr:
+            continue
+        try:
+            value = getattr(wrapped, python_attr)
+        except Exception:
+            continue
+        if _is_class_object(value):
+            class_names.add(getattr(value, "__name__", python_attr))
+    return frozenset(class_names)
+
+
+# ---------------------------------------------------------------------------
+# ClassProxy
+# ---------------------------------------------------------------------------
+
+
+class ClassProxy:
+    """Wrap an object instance and expose curated Arabic attribute names.
+
+    ``ClassProxy`` is deliberately small: explicit Arabic names are translated
+    through the ``attributes`` table, and everything else falls through to the
+    wrapped object. Common runtime protocols are forwarded so the proxy behaves
+    like the original object in normal use.
+    """
+
+    __slots__ = ("_wrapped", "_attributes")
+
+    def __init__(self, obj: Any, attributes: types.MappingProxyType | dict[str, str]) -> None:
+        object.__setattr__(self, "_wrapped", obj)
+        object.__setattr__(self, "_attributes", types.MappingProxyType(dict(attributes)))
+
+    def _resolve_attr_name(self, name: str) -> str:
+        if _is_dunder(name):
+            return name
+        attributes: types.MappingProxyType[str, str] = object.__getattribute__(self, "_attributes")
+        return attributes.get(name, name)
+
+    @staticmethod
+    def _unwrap_other(other: Any) -> Any:
+        if type(other) is ClassProxy:
+            return object.__getattribute__(other, "_wrapped")
+        return other
+
+    def __getattr__(self, name: str) -> Any:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return getattr(obj, self._resolve_attr_name(name))
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name in ClassProxy.__slots__:
+            object.__setattr__(self, name, value)
+            return
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        setattr(obj, self._resolve_attr_name(name), value)
+
+    def __delattr__(self, name: str) -> None:
+        if name in ClassProxy.__slots__:
+            object.__delattr__(self, name)
+            return
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        delattr(obj, self._resolve_attr_name(name))
+
+    def __dir__(self) -> list[str]:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        attributes: types.MappingProxyType[str, str] = object.__getattribute__(self, "_attributes")
+        return sorted(set(attributes.keys()) | set(dir(obj)))
+
+    def __repr__(self) -> str:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return repr(obj)
+
+    def __str__(self) -> str:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return str(obj)
+
+    def __bool__(self) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return bool(obj)
+
+    def __len__(self) -> int:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return len(obj)
+
+    def __iter__(self) -> Any:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return iter(obj)
+
+    def __next__(self) -> Any:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return next(obj)
+
+    def __contains__(self, item: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return item in obj
+
+    def __getitem__(self, key: Any) -> Any:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj[key]
+
+    def __setitem__(self, key: Any, value: Any) -> None:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        obj[key] = value
+
+    def __delitem__(self, key: Any) -> None:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        del obj[key]
+
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj(*args, **kwargs)
+
+    def __eq__(self, other: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj == self._unwrap_other(other)
+
+    def __ne__(self, other: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj != self._unwrap_other(other)
+
+    def __lt__(self, other: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj < self._unwrap_other(other)
+
+    def __le__(self, other: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj <= self._unwrap_other(other)
+
+    def __gt__(self, other: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj > self._unwrap_other(other)
+
+    def __ge__(self, other: Any) -> bool:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj >= self._unwrap_other(other)
+
+    def __hash__(self) -> int:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return hash(obj)
+
+    def __reduce_ex__(self, protocol: int) -> Any:
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj.__reduce_ex__(protocol)
+
+    @property
+    def __class__(self):  # type: ignore[override]
+        """Return the wrapped object's class so ``isinstance`` stays transparent."""
+        obj: Any = object.__getattribute__(self, "_wrapped")
+        return obj.__class__
 
 
 # ---------------------------------------------------------------------------
@@ -211,13 +394,20 @@ class ModuleProxy:
         wrapped: types.ModuleType,
         mapping: dict[str, str],
         *,
+        attributes: dict[str, str] | None = None,
         arabic_name: str,
-        proxy_classes: frozenset = frozenset(),
+        proxy_classes: frozenset[str] = frozenset(),
     ) -> None:
         object.__setattr__(self, "_wrapped", wrapped)
         object.__setattr__(self, "_mapping", types.MappingProxyType(dict(mapping)))
+        object.__setattr__(self, "_attributes", types.MappingProxyType(dict(attributes or {})))
         object.__setattr__(self, "_arabic_name", arabic_name)
         object.__setattr__(self, "_proxy_classes", proxy_classes)
+        object.__setattr__(
+            self,
+            "_class_proxy_classes",
+            _module_class_names(wrapped, mapping, proxy_classes),
+        )
 
     # ------------------------------------------------------------------
     # Attribute access
@@ -227,7 +417,9 @@ class ModuleProxy:
         mapping: types.MappingProxyType[str, str] = object.__getattribute__(self, "_mapping")
         wrapped: types.ModuleType = object.__getattribute__(self, "_wrapped")
         arabic_name: str = object.__getattribute__(self, "_arabic_name")
-        proxy_classes: frozenset = object.__getattribute__(self, "_proxy_classes")
+        proxy_classes: frozenset[str] = object.__getattribute__(self, "_proxy_classes")
+        class_proxy_classes: frozenset[str] = object.__getattribute__(self, "_class_proxy_classes")
+        attributes: types.MappingProxyType[str, str] = object.__getattribute__(self, "_attributes")
 
         if name in mapping:
             python_attr = mapping[name]
@@ -249,8 +441,14 @@ class ModuleProxy:
                 result = getattr(wrapped, python_attr)
 
             # If this is a proxy class, wrap it in a ClassFactory
-            if isinstance(result, type) and python_attr in proxy_classes:
+            if (
+                _is_class_object(result)
+                and getattr(result, "__name__", python_attr) in proxy_classes
+            ):
                 return ClassFactory(result, mapping, proxy_classes=proxy_classes)
+
+            if attributes and _instance_class_name(result) in class_proxy_classes:
+                return ClassProxy(result, attributes)
 
             return result
 

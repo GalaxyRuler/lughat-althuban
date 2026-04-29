@@ -47,12 +47,12 @@
 | B-060 | tutorial-translation | B (docs) | — | merged |
 | B-061 | error-message-coverage | B (audit) | Claude | merged |
 | C-001 | pypi-release-v1 | C (foundation) | Claude | merged |
-| C-002 | class-proxy-v1 | C (foundation) | — | drafted |
+| C-002 | class-proxy-v1 | C (foundation) | Claude | merged |
 | C-010 | aliases-matplotlib-v1 | C (data science) | — | drafted |
 | C-011 | aliases-scikit-learn-v1 | C (data science) | — | drafted |
 | C-012 | aliases-pydantic-v1 | C (app foundation) | — | drafted |
 | C-013 | aliases-httpx-v1 | C (app foundation) | — | drafted |
-| C-014 | aliases-click-v1 | C (CLI) | — | drafted |
+| C-014 | aliases-click-v1 | C (CLI) | Claude | merged |
 | C-015 | aliases-rich-v1 | C (CLI) | — | drafted |
 | C-016 | aliases-redis-v1 | C (persistence) | — | drafted |
 | C-017 | aliases-celery-v1 | C (persistence) | — | drafted |

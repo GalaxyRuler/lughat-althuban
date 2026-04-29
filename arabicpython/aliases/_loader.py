@@ -30,8 +30,9 @@ class AliasMapping:
     python_module: str  # e.g. "requests" — the wrapped stdlib/third-party module
     dict_version: str  # e.g. "ar-v1" — tracks ADR 0003 dictionary versioning
     entries: dict[str, str]  # Arabic attribute → Python attribute name
+    attributes: dict[str, str]  # Arabic instance attribute → Python instance attribute
     source_path: Path  # for error messages
-    proxy_classes: frozenset  # class names whose *instances* get wrapped in InstanceProxy
+    proxy_classes: frozenset[str]  # class names whose *instances* get proxied
 
 
 def _resolve_dotted_attr(obj: Any, dotted_name: str) -> Any:
@@ -63,6 +64,47 @@ def _resolve_dotted_attr(obj: Any, dotted_name: str) -> Any:
             else:
                 raise
     return result
+
+
+def _validate_alias_table(
+    table: Any,
+    *,
+    toml_path: Path,
+    section_name: str,
+) -> dict[str, str]:
+    """Validate one Arabic→Python TOML table and return a plain dict."""
+    if not isinstance(table, dict):
+        raise AliasMappingError(f"{toml_path}: [{section_name}] must be a TOML table")
+
+    validated: dict[str, str] = {}
+    for arabic_key, python_attr in table.items():
+        if not isinstance(python_attr, str):
+            raise AliasMappingError(
+                f"{toml_path}: [{section_name}] value for {arabic_key!r} must be "
+                f"a string, got {type(python_attr).__name__!r}"
+            )
+
+        normalized = normalize_identifier(arabic_key)
+        if normalized != arabic_key:
+            raise AliasMappingError(
+                f"{toml_path}: Arabic key {arabic_key!r} does not round-trip through "
+                f"normalize_identifier() — got {normalized!r}. "
+                f"Store the normalized form as the key."
+            )
+
+        validated[arabic_key] = python_attr
+
+    seen_python: dict[str, str] = {}  # python_attr → first arabic_key that claimed it
+    for arabic_key, python_attr in validated.items():
+        if python_attr in seen_python:
+            raise AliasMappingError(
+                f"{toml_path}: Python attribute {python_attr!r} is claimed by two Arabic "
+                f"keys: {seen_python[python_attr]!r} and {arabic_key!r}. "
+                f"Each Python name may appear at most once in the mapping."
+            )
+        seen_python[python_attr] = arabic_key
+
+    return validated
 
 
 def load_mapping(toml_path: Path) -> AliasMapping:
@@ -120,7 +162,7 @@ def load_mapping(toml_path: Path) -> AliasMapping:
             f"{toml_path}: [meta].proxy_classes must be a list of strings, "
             f"got {proxy_classes_raw!r}"
         )
-    proxy_classes: frozenset = frozenset(proxy_classes_raw)
+    proxy_classes: frozenset[str] = frozenset(proxy_classes_raw)
 
     # ------------------------------------------------------------------ #
     # 3. Validate [entries]
@@ -129,29 +171,17 @@ def load_mapping(toml_path: Path) -> AliasMapping:
     if entries_raw is None:
         raise AliasMappingError(f"{toml_path}: missing [entries] section")
 
-    if not isinstance(entries_raw, dict):
-        raise AliasMappingError(f"{toml_path}: [entries] must be a TOML table")
+    entries = _validate_alias_table(entries_raw, toml_path=toml_path, section_name="entries")
 
-    # 3a. Arabic key normalization round-trip
-    for arabic_key in entries_raw:
-        normalized = normalize_identifier(arabic_key)
-        if normalized != arabic_key:
-            raise AliasMappingError(
-                f"{toml_path}: Arabic key {arabic_key!r} does not round-trip through "
-                f"normalize_identifier() — got {normalized!r}. "
-                f"Store the normalized form as the key."
-            )
-
-    # 3b. No duplicate Python values (two Arabic synonyms → same Python name)
-    seen_python: dict[str, str] = {}  # python_attr → first arabic_key that claimed it
-    for arabic_key, python_attr in entries_raw.items():
-        if python_attr in seen_python:
-            raise AliasMappingError(
-                f"{toml_path}: Python attribute {python_attr!r} is claimed by two Arabic "
-                f"keys: {seen_python[python_attr]!r} and {arabic_key!r}. "
-                f"Each Python name may appear at most once in the mapping."
-            )
-        seen_python[python_attr] = arabic_key
+    # ------------------------------------------------------------------ #
+    # 3c. Validate optional [attributes]
+    # ------------------------------------------------------------------ #
+    attributes_raw = raw.get("attributes", {})
+    attributes = _validate_alias_table(
+        attributes_raw,
+        toml_path=toml_path,
+        section_name="attributes",
+    )
 
     # ------------------------------------------------------------------ #
     # 4. Import the target module
@@ -171,7 +201,7 @@ def load_mapping(toml_path: Path) -> AliasMapping:
     #    versions while gracefully degrading on older interpreters.
     # ------------------------------------------------------------------ #
     validated_entries: dict[str, str] = {}
-    for arabic_key, python_attr in entries_raw.items():
+    for arabic_key, python_attr in entries.items():
         try:
             _resolve_dotted_attr(module, python_attr)
             validated_entries[arabic_key] = python_attr
@@ -205,6 +235,7 @@ def load_mapping(toml_path: Path) -> AliasMapping:
         python_module=python_module,
         dict_version=dict_version,
         entries=validated_entries,
+        attributes=attributes,
         source_path=toml_path,
         proxy_classes=proxy_classes,
     )

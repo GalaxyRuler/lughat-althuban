@@ -1,0 +1,76 @@
+# arabicpython/aliases/click.toml
+# C-014: Arabic aliases for the Click CLI framework.
+#
+# Maps Arabic names to commonly used `click` decorators, classes, parameter
+# types, helpers, and exceptions.
+#
+# Compatibility notes:
+#   - Click 8.x does not expose Exit at top level, so it is mapped through
+#     exceptions.Exit.
+#   - Click exposes make_context as Command.make_context, not as a module-level
+#     function.
+#   - get_terminal_size was removed from Click's top-level API; the alias uses
+#     Click's imported os module helper path so it still resolves on Click 8.x.
+
+[meta]
+arabic_name    = "كليك"
+python_module  = "click"
+dict_version   = "ar-v1"
+schema_version = 1
+
+[entries]
+# Decorators
+"امر"                  = "command"
+"مجموعه"               = "group"
+"خيار"                 = "option"
+"معامل"                = "argument"
+"مرر_السياق"           = "pass_context"
+"مرر_الكائن"           = "pass_obj"
+"اصنع_مزخرف_تمرير"    = "make_pass_decorator"
+"خيار_الاصدار"         = "version_option"
+"خيار_المساعده"        = "help_option"
+
+# Core classes
+"امر_اساسي"            = "BaseCommand"
+"صنف_امر"              = "Command"
+"صنف_مجموعه"           = "Group"
+"صنف_معامل"            = "Argument"
+"صنف_خيار"             = "Option"
+"سياق"                 = "Context"
+"معامل_اساسي"          = "Parameter"
+
+# Parameter types
+"نص"                   = "STRING"
+"عدد_صحيح"             = "INT"
+"عدد_عشري"             = "FLOAT"
+"منطقي"                = "BOOL"
+"معرف_uuid"            = "UUID"
+"ملف"                  = "File"
+"مسار"                 = "Path"
+"اختيار"               = "Choice"
+"مدي_صحيح"             = "IntRange"
+"مدي_عشري"             = "FloatRange"
+"تاريخ_وقت"            = "DateTime"
+"صف_انواع"             = "Tuple"
+
+# Functions
+"format"               = "termui.style"  # bridge for .apy: كليك.نسق rewrites to كليك.format
+"اطبع"                 = "echo"
+"نسق"                  = "style"
+"اطبع_ملون"            = "secho"
+"اسال"                 = "prompt"
+"اكد"                  = "confirm"
+"توقف_مؤقت"            = "pause"
+"امسح"                 = "clear"
+"حجم_الطرفيه"          = "utils.os.get_terminal_size"
+"نسق_اسم_ملف"          = "format_filename"
+"افتح_ملف"             = "open_file"
+"السياق_الحالي"        = "get_current_context"
+"انشئ_سياق"            = "Command.make_context"
+
+# Exceptions
+"خطا_نقر"              = "ClickException"
+"خطا_استخدام"          = "UsageError"
+"خطا_معامل"            = "BadParameter"
+"اجهاض"                = "Abort"
+"خروج"                 = "exceptions.Exit"

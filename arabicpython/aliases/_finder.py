@@ -25,6 +25,7 @@ class AliasLoader(importlib.abc.Loader):
         return ModuleProxy(
             real_module,
             self._mapping.entries,
+            attributes=self._mapping.attributes,
             arabic_name=self._mapping.arabic_name,
             proxy_classes=self._mapping.proxy_classes,
         )

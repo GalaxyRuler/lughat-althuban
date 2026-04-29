@@ -20,7 +20,9 @@ uninstall()
 load_mapping(path)
     Parse and validate one ``.toml`` alias file. Returns ``AliasMapping``.
 ModuleProxy
-    The wrapper class (created by the finder; not for direct use).
+    The module wrapper class (created by the finder; not for direct use).
+ClassProxy
+    The instance wrapper class used for curated Arabic object attributes.
 AliasFinder
     The ``sys.meta_path`` finder.
 AliasMapping
@@ -35,11 +37,12 @@ import sys
 
 from arabicpython.aliases._finder import AliasFinder
 from arabicpython.aliases._loader import AliasMapping, AliasMappingError, load_mapping
-from arabicpython.aliases._proxy import ModuleProxy
+from arabicpython.aliases._proxy import ClassProxy, ModuleProxy
 
 __all__ = [
     "install",
     "uninstall",
+    "ClassProxy",
     "ModuleProxy",
     "AliasFinder",
     "AliasMapping",
