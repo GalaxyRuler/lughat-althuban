@@ -1,0 +1,83 @@
+# arabicpython/aliases/redis.toml
+# C-016: Arabic aliases for redis-py clients, pools, pub/sub, pipelines, and errors.
+
+[meta]
+arabic_name    = "مخزن_سريع"
+python_module  = "redis"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+proxy_classes  = ["Redis"]
+
+[entries]
+# ── Core clients and connection pools ────────────────────────────────────────
+"اتصال"                 = "Connection"
+"اتصال_ssl"             = "SSLConnection"
+"اتصال_مقبس_يونكس"      = "UnixDomainSocketConnection"
+"انشئ_من_رابط"          = "from_url"
+"حارس"                  = "sentinel.Sentinel"
+"رديس"                  = "Redis"
+"رديس_صارم"             = "StrictRedis"
+"رديس_غير_متزامن"       = "asyncio.Redis"
+"مجمع_اتصالات"          = "ConnectionPool"
+"مجمع_اتصالات_مانع"     = "BlockingConnectionPool"
+"مجمع_غير_متزامن"       = "asyncio.ConnectionPool"
+
+# ── Submodules ───────────────────────────────────────────────────────────────
+"استثناءات"             = "exceptions"
+"ادوات"                 = "utils"
+"اقفال"                 = "lock"
+"اتصالات"               = "connection"
+"عميل_نمطي"             = "client"
+"غير_متزامن"            = "asyncio"
+
+# ── Redis instance methods (ClassFactory → InstanceProxy) ───────────────────
+"احصل_مفتاح"            = "Redis.get"
+"احذف_مفاتيح"           = "Redis.delete"
+"ادفع_يسار"             = "Redis.lpush"
+"اقرا_اشترك"            = "Redis.pubsub"
+"انبوب"                 = "Redis.pipeline"
+"انقص"                  = "Redis.decr"
+"انشر_رساله"            = "Redis.publish"
+"انتهي"                 = "Redis.expire"
+"سجل_نص_lua"            = "Redis.register_script"
+"عين_مفتاح"             = "Redis.set"
+"عين_قاموس"             = "Redis.hset"
+"قفل"                   = "Redis.lock"
+"مفاتيح"                = "Redis.keys"
+"هل_يوجد"               = "Redis.exists"
+"زد"                    = "Redis.incr"
+
+# ── Pipeline/PubSub/Lock classes ────────────────────────────────────────────
+"قفل_رديس"              = "lock.Lock"
+"ناشر_مشترك"            = "client.PubSub"
+"خط_انابيب"             = "client.Pipeline"
+
+# ── Exceptions ───────────────────────────────────────────────────────────────
+"خطا_اتصال"             = "ConnectionError"
+"خطا_استجابه"           = "ResponseError"
+"خطا_بيانات"            = "DataError"
+"خطا_رديس"              = "RedisError"
+"خطا_ساعه"              = "WatchError"
+"خطا_ناشر_مشترك"        = "PubSubError"
+"خطا_مصادقه"            = "AuthenticationError"
+"خطا_مهله"              = "TimeoutError"
+"خطا_قفل"               = "lock.LockError"
+
+[attributes]
+# Redis client instance attributes for explicit ClassProxy use.
+"احصل"                  = "get"
+"احذف"                  = "delete"
+"ادفع_يسار"             = "lpush"
+"اشترك"                 = "subscribe"
+"انبوب"                 = "pipeline"
+"انقص"                  = "decr"
+"انشر"                  = "publish"
+"انتهي"                 = "expire"
+"سجل_نص_lua"            = "register_script"
+"عين"                   = "set"
+"عين_قاموس"             = "hset"
+"قفل"                   = "lock"
+"مفاتيح"                = "keys"
+"هل_يوجد"               = "exists"
+"زد"                    = "incr"

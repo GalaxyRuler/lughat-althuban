@@ -51,11 +51,11 @@
 | C-010 | aliases-matplotlib-v1 | C (data science) | — | delivered |
 | C-011 | aliases-scikit-learn-v1 | C (data science) | — | delivered |
 | C-012 | aliases-pydantic-v1 | C (app foundation) | — | delivered |
-| C-013 | aliases-httpx-v1 | C (app foundation) | — | drafted |
+| C-013 | aliases-httpx-v1 | C (app foundation) | — | delivered |
 | C-014 | aliases-click-v1 | C (CLI) | Claude | merged |
 | C-015 | aliases-rich-v1 | C (CLI) | — | delivered |
-| C-016 | aliases-redis-v1 | C (persistence) | — | drafted |
-| C-017 | aliases-celery-v1 | C (persistence) | — | drafted |
+| C-016 | aliases-redis-v1 | C (persistence) | — | delivered |
+| C-017 | aliases-celery-v1 | C (persistence) | — | delivered |
 | C-018 | aliases-pymongo-v1 | C (persistence) | — | drafted |
 | C-019 | aliases-asyncpg-v1 | C (persistence) | — | drafted |
 | C-020 | aliases-openpyxl-v1 | C (office) | — | drafted |

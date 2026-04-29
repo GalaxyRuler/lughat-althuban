@@ -146,6 +146,9 @@ _EXCLUDED = {
     "C10_matplotlib_demo.apy",  # requires optional matplotlib dependency
     "C11_sklearn_demo.apy",  # requires optional scikit-learn dependency
     "C12_pydantic_demo.apy",  # requires optional pydantic dependency
+    "C13_httpx_demo.apy",  # requires optional httpx dependency
+    "C16_redis_demo.apy",  # requires optional redis dependency; no live server
+    "C17_celery_demo.apy",  # requires optional celery dependency; eager task runtime
     "C22_dotenv_demo.apy",  # reads .env file from disk — environment-dependent output
     "C26_jwt_demo.apy",  # requires alias finder installed; covered by test_aliases_jwt.py
 }

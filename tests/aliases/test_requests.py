@@ -85,6 +85,33 @@ class TestUtilities:
         assert طلبات.محولات is requests.adapters
 
 
+class TestRequestsClassProxy:
+    def test_response_attributes(self, طلبات):
+        from arabicpython.aliases import ClassProxy, load_mapping
+
+        mapping = load_mapping(ALIASES_DIR / "requests.toml")
+        response = requests.Response()
+        response.status_code = 202
+        response._content = b"accepted"
+        response.url = "https://example.test/accepted"
+        proxy = ClassProxy(response, mapping.attributes)
+
+        assert proxy.رمز_الحاله == 202
+        assert proxy.نص == "accepted"
+        assert proxy.رابط == "https://example.test/accepted"
+
+    def test_session_attributes(self, طلبات):
+        from arabicpython.aliases import ClassProxy, load_mapping
+
+        mapping = load_mapping(ALIASES_DIR / "requests.toml")
+        session = requests.Session()
+        proxy = ClassProxy(session, mapping.attributes)
+
+        assert proxy.احصل_جلسه == session.get
+        assert proxy.نشر_جلسه == session.post
+        assert proxy.اغلق_جلسه == session.close
+
+
 class TestTomlMeta:
     def test_toml_parseable(self):
         import tomllib
