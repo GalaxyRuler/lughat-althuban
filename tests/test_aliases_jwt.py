@@ -2,7 +2,8 @@ import importlib
 import pathlib
 import sys
 import tomllib
-from datetime import datetime, timedelta, timezone
+import datetime as _dt
+from datetime import datetime, timedelta
 
 import pytest
 
@@ -77,7 +78,7 @@ def test_expired_signature_error_alias(جي_دبليو_تي_proxy):
     token = جي_دبليو_تي_proxy.شفر(
         {
             "sub": "expired",
-            "exp": datetime.now(timezone.utc) - timedelta(seconds=1),
+            "exp": datetime.now(_dt.UTC) - timedelta(seconds=1),
         },
         secret,
         algorithm="HS256",
