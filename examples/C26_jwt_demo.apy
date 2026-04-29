@@ -1,0 +1,37 @@
+# C26_jwt_demo.apy — C-026 demo: PyJWT via Arabic aliases
+
+استورد datetime
+استورد جي_دبليو_تي
+
+
+سر = "c26-demo-secret-key-with-at-least-32-bytes"
+بيانات = {
+    "sub": "user-123",
+    "اسم": "ليلى",
+}
+
+رمز = جي_دبليو_تي.شفّر(بيانات, سر, algorithm="HS256")
+مفكوك = جي_دبليو_تي.فكّ_التشفير(رمز, سر, algorithms=["HS256"])
+ترويسه = جي_دبليو_تي.اجلب_الراس_دون_تحقق(رمز)
+
+اكد مفكوك["sub"] == "user-123"
+اكد مفكوك["اسم"] == "ليلى"
+اكد ترويسه["alg"] == "HS256"
+
+اطبع("JWT round-trip ok")
+اطبع(مفكوك["اسم"])
+
+رمز_منتهي = جي_دبليو_تي.شفّر(
+    {
+        "sub": "expired",
+        "exp": datetime.datetime.now(datetime.timezone.utc)
+        - datetime.timedelta(seconds=1),
+    },
+    سر,
+    algorithm="HS256",
+)
+
+حاول:
+    جي_دبليو_تي.فكّ_التشفير(رمز_منتهي, سر, algorithms=["HS256"])
+استثناء جي_دبليو_تي.خطا_رمز_منتهي:
+    اطبع("expired token handled")
