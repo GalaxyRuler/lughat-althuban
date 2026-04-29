@@ -1,14 +1,11 @@
 import importlib
 import sys
 
-import pytest
-
 from arabicpython.cli import main
 from arabicpython.dialect import load_dialect
 from arabicpython.import_hook import install
 from arabicpython.linter import lint_source
 from arabicpython.normalize import normalize_identifier
-from arabicpython.translate import translate
 
 # ar-v2 uses باسم (as) and يكون (is); طالما / مرر unchanged from ar-v1
 AR_V2_PROGRAM = """# apython: dict=ar-v2
@@ -87,11 +84,7 @@ def test_load_dialect_ar_v2_returns_revised_mapping():
 def test_import_hook_honors_ar_v2_file_directive(tmp_path):
     module_path = tmp_path / "uses_ar_v2.apy"
     module_path.write_text(
-        "# apython: dict=ar-v2\n"
-        "عدد = 0\n"
-        "طالما عدد < 1:\n"
-        "    عدد += 1\n"
-        "نتيجة = عدد\n",
+        "# apython: dict=ar-v2\n" "عدد = 0\n" "طالما عدد < 1:\n" "    عدد += 1\n" "نتيجة = عدد\n",
         encoding="utf-8",
     )
 

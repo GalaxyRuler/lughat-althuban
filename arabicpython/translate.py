@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 
 _DIRECTIVE_RE = re.compile(r"#\s*(?:arabicpython|apython)\s*:\s*dict\s*=\s*(\S+)")
 
+
 def _parse_file_directive(source: str) -> "str | None":
     """Return the dict version named by the first per-file directive, or None."""
     for line in source.splitlines()[:5]:
