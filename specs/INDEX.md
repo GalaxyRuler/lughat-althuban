@@ -53,7 +53,7 @@
 | C-012 | aliases-pydantic-v1 | C (app foundation) | — | drafted |
 | C-013 | aliases-httpx-v1 | C (app foundation) | — | drafted |
 | C-014 | aliases-click-v1 | C (CLI) | Claude | merged |
-| C-015 | aliases-rich-v1 | C (CLI) | — | drafted |
+| C-015 | aliases-rich-v1 | C (CLI) | — | delivered |
 | C-016 | aliases-redis-v1 | C (persistence) | — | drafted |
 | C-017 | aliases-celery-v1 | C (persistence) | — | drafted |
 | C-018 | aliases-pymongo-v1 | C (persistence) | — | drafted |

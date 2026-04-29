@@ -1,0 +1,62 @@
+# arabicpython/aliases/rich.toml
+# C-015: Arabic aliases for the Rich terminal rendering library.
+#
+# Rich keeps most public classes in submodules, so entries use dotted paths
+# through the top-level `rich` package where needed.
+
+[meta]
+arabic_name    = "ريتش"
+python_module  = "rich"
+dict_version   = "ar-v1"
+schema_version = 1
+
+[entries]
+# Console helpers
+"وحده_التحكم"          = "console.Console"
+"اطبع"                 = "print"
+"افحص"                 = "inspect"
+
+# Tables and box styles
+"جدول"                 = "table.Table"
+"عمود"                 = "table.Column"
+"صندوق"                = "box"
+
+# Progress
+"تقدم"                 = "progress.Progress"
+"تتبع"                 = "progress.track"
+"معرف_مهمه"            = "progress.TaskID"
+"عمود_الشريط"          = "progress.BarColumn"
+"عمود_النص"            = "progress.TextColumn"
+"عمود_الوقت_المنقضي"  = "progress.TimeElapsedColumn"
+
+# Layout/renderables
+"لوحه"                 = "panel.Panel"
+"مجموعه"               = "console.Group"
+"فاصل"                 = "rule.Rule"
+"حشو"                  = "padding.Padding"
+"محاذاه"               = "align.Align"
+
+# Rich renderers
+"نص_تنسيق"             = "markdown.Markdown"
+"بناء_جمله"            = "syntax.Syntax"
+"جميل"                 = "pretty.Pretty"
+"جيسون"                = "json.JSON"
+"دوار"                 = "spinner.Spinner"
+"مباشر"                = "live.Live"
+
+# Text styling
+"نص_منسق"              = "text.Text"
+"نمط"                  = "style.Style"
+"لون"                  = "color.Color"
+
+# Tree
+"شجره"                 = "tree.Tree"
+"اضف"                  = "tree.Tree.add"
+
+# Logging
+"معالج_ريتش"           = "logging.RichHandler"
+
+# Prompting and status
+"مطالبه"               = "prompt.Prompt"
+"تاكيد"                = "prompt.Confirm"
+"حاله"                 = "status.Status"
