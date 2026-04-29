@@ -1,0 +1,75 @@
+# arabicpython/aliases/sklearn.toml
+# C-011: Arabic aliases for scikit-learn's common machine-learning surface.
+
+[meta]
+arabic_name    = "تعلم_آلي"
+python_module  = "sklearn"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+# ── Datasets and splitting ───────────────────────────────────────────────────
+"حمل_ايرس"              = "datasets.load_iris"
+"حمل_ارقام"             = "datasets.load_digits"
+"اصنع_تصنيف"            = "datasets.make_classification"
+"اصنع_انحدار"           = "datasets.make_regression"
+"قسم_تدريب_اختبار"      = "model_selection.train_test_split"
+"تحقق_متقاطع"           = "model_selection.cross_val_score"
+"طيه_k"                 = "model_selection.KFold"
+"بحث_شبكي"              = "model_selection.GridSearchCV"
+"بحث_عشوائي"            = "model_selection.RandomizedSearchCV"
+
+# ── Pipelines and preprocessing ──────────────────────────────────────────────
+"خط_انابيب"             = "pipeline.Pipeline"
+"اصنع_خط_انابيب"        = "pipeline.make_pipeline"
+"مقياس_معياري"          = "preprocessing.StandardScaler"
+"مقياس_ادني_اعلي"       = "preprocessing.MinMaxScaler"
+"مرمز_واحد"             = "preprocessing.OneHotEncoder"
+"مرمز_وسوم"             = "preprocessing.LabelEncoder"
+"ميزات_متعدده"          = "preprocessing.PolynomialFeatures"
+"معوض_بسيط"             = "impute.SimpleImputer"
+
+# ── Estimators ───────────────────────────────────────────────────────────────
+"انحدار_خطي"            = "linear_model.LinearRegression"
+"انحدار_لوجستي"         = "linear_model.LogisticRegression"
+"انحدار_ريدج"           = "linear_model.Ridge"
+"انحدار_لاسو"           = "linear_model.Lasso"
+"غابه_عشوائيه_مصنف"     = "ensemble.RandomForestClassifier"
+"غابه_عشوائيه_منحدر"    = "ensemble.RandomForestRegressor"
+"تعزيز_متدرج_مصنف"      = "ensemble.GradientBoostingClassifier"
+"شجره_قرار_مصنف"        = "tree.DecisionTreeClassifier"
+"شجره_قرار_منحدر"       = "tree.DecisionTreeRegressor"
+"اله_دعم_مصنف"          = "svm.SVC"
+"اله_دعم_منحدر"         = "svm.SVR"
+"جيران_مصنف"            = "neighbors.KNeighborsClassifier"
+"جيران_منحدر"           = "neighbors.KNeighborsRegressor"
+"بايز_غاوسي"            = "naive_bayes.GaussianNB"
+
+# ── Unsupervised learning ────────────────────────────────────────────────────
+"تجميع_k"               = "cluster.KMeans"
+"تجميع_dbscan"          = "cluster.DBSCAN"
+"تحليل_pca"             = "decomposition.PCA"
+
+# ── Metrics ──────────────────────────────────────────────────────────────────
+"دقه"                   = "metrics.accuracy_score"
+"تقرير_تصنيف"           = "metrics.classification_report"
+"مصفوفه_التباس"         = "metrics.confusion_matrix"
+"خطا_تربيعي_متوسط"      = "metrics.mean_squared_error"
+"خطا_مطلق_متوسط"        = "metrics.mean_absolute_error"
+"معامل_r2"              = "metrics.r2_score"
+"مساحه_roc"             = "metrics.roc_auc_score"
+
+[attributes]
+# Estimator and pipeline instance methods for explicit ClassProxy use.
+"تنبا"                  = "predict"
+"تنبا_احتمال"           = "predict_proba"
+"درب"                   = "fit"
+"درجه"                  = "score"
+"حول"                   = "transform"
+"درب_حول"               = "fit_transform"
+"معاملات"               = "coef_"
+"اعتراض"                = "intercept_"
+"اصناف"                 = "classes_"
+"مراكز"                 = "cluster_centers_"
+"خطوات"                 = "steps"

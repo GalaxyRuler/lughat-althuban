@@ -1,0 +1,90 @@
+# arabicpython/aliases/matplotlib.toml
+# C-010: Arabic aliases for matplotlib's plotting surface.
+#
+# The canonical module stays `matplotlib` so backend/configuration helpers are
+# available before pyplot is imported. Most plotting calls use dotted paths
+# through matplotlib.pyplot.
+
+[meta]
+arabic_name    = "رسوم_بيانيه"
+python_module  = "matplotlib"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+# ── Core modules/classes ─────────────────────────────────────────────────────
+"بايبلوت"               = "pyplot"
+"شكل"                   = "figure.Figure"
+"محاور"                 = "axes.Axes"
+"اعدادات"               = "rcParams"
+"استخدم_خلفيه"          = "use"
+"اضبط_rc"               = "rc"
+"سياق_rc"               = "rc_context"
+
+# ── Figure creation/lifecycle ────────────────────────────────────────────────
+"انشئ_شكل"              = "pyplot.figure"
+"شكل_ومحاور"            = "pyplot.subplots"
+"محاور_فرعيه"           = "pyplot.subplot"
+"احفظ_شكل"              = "pyplot.savefig"
+"اعرض"                  = "pyplot.show"
+"اغلق"                  = "pyplot.close"
+"امسح_شكل"              = "pyplot.clf"
+"امسح_محاور"            = "pyplot.cla"
+"تخطيط_محكم"            = "pyplot.tight_layout"
+
+# ── Plot types ────────────────────────────────────────────────────────────────
+"ارسم"                  = "pyplot.plot"
+"نثر"                   = "pyplot.scatter"
+"اعمده"                 = "pyplot.bar"
+"اعمده_افقيه"           = "pyplot.barh"
+"مدرج"                  = "pyplot.hist"
+"صندوقي"                = "pyplot.boxplot"
+"صوره"                  = "pyplot.imshow"
+"كفاف"                  = "pyplot.contour"
+"كفاف_مملوء"            = "pyplot.contourf"
+"ملون"                  = "pyplot.pcolormesh"
+"خط_راسي"               = "pyplot.axvline"
+"خط_افقي"               = "pyplot.axhline"
+"ملا"                   = "pyplot.fill"
+"ملا_بين"               = "pyplot.fill_between"
+"خطا_عمودي"             = "pyplot.errorbar"
+
+# ── Labels/axes ──────────────────────────────────────────────────────────────
+"عنوان"                 = "pyplot.title"
+"وسم_س"                 = "pyplot.xlabel"
+"وسم_ص"                 = "pyplot.ylabel"
+"حدود_س"                = "pyplot.xlim"
+"حدود_ص"                = "pyplot.ylim"
+"تدريجات_س"             = "pyplot.xticks"
+"تدريجات_ص"             = "pyplot.yticks"
+"مقياس_س"               = "pyplot.xscale"
+"مقياس_ص"               = "pyplot.yscale"
+"شبكه"                  = "pyplot.grid"
+"وسيله_ايضاح"           = "pyplot.legend"
+"لون_شريطي"             = "pyplot.colorbar"
+
+# ── Style and colors ─────────────────────────────────────────────────────────
+"نمط_استعمال"           = "pyplot.style.use"
+"احضر_خريطه_الوان"      = "pyplot.get_cmap"
+"لون_الي_hex"           = "colors.to_hex"
+"لون_الي_rgba"          = "colors.to_rgba"
+"خريطه_لون_خطيه"        = "colors.LinearSegmentedColormap"
+"طبع_لون"               = "colors.Normalize"
+
+[attributes]
+# Figure/Axes-oriented names for explicit ClassProxy use.
+"احفظ"                  = "savefig"
+"اضف_محور"              = "add_subplot"
+"ارسم"                  = "plot"
+"اعمده"                 = "bar"
+"تدريج_س"               = "set_xticks"
+"تدريج_ص"               = "set_yticks"
+"حد_س"                  = "set_xlim"
+"حد_ص"                  = "set_ylim"
+"شبكه"                  = "grid"
+"عنوان"                 = "set_title"
+"نثر"                   = "scatter"
+"وسم_س"                 = "set_xlabel"
+"وسم_ص"                 = "set_ylabel"
+"وسيله_ايضاح"           = "legend"

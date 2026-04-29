@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import textwrap
@@ -10,18 +11,29 @@ from pathlib import Path
 
 # ── helper ────────────────────────────────────────────────────────────────────
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 
 def _run(args: list, cwd=None) -> tuple[int, str, str]:
     """Run pytest in a subprocess; return (returncode, stdout, stderr).
 
     The plugin is auto-loaded via the pytest11 entry point — no -p needed.
     """
+    env = os.environ.copy()
+    existing_pp = env.get("PYTHONPATH", "")
+    project_root_str = str(PROJECT_ROOT)
+    if project_root_str not in existing_pp.split(os.pathsep):
+        env["PYTHONPATH"] = (
+            project_root_str + os.pathsep + existing_pp if existing_pp else project_root_str
+        )
+
     result = subprocess.run(
         [sys.executable, "-m", "pytest", *args, "--tb=short", "-q", "--no-header"],
         capture_output=True,
         text=True,
         encoding="utf-8",
         cwd=cwd,
+        env=env,
     )
     return result.returncode, result.stdout, result.stderr
 
