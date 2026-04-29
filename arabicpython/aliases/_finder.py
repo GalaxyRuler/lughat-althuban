@@ -11,6 +11,7 @@ from pathlib import Path
 
 from arabicpython.aliases._loader import AliasMapping, AliasMappingError, load_mapping
 from arabicpython.aliases._proxy import ModuleProxy
+from arabicpython.normalize import normalize_identifier
 
 
 class AliasLoader(importlib.abc.Loader):
@@ -66,16 +67,22 @@ class AliasFinder(importlib.abc.MetaPathFinder):
 
     def _load_all_mappings(self) -> None:
         """(Re-)read every ``*.toml`` in *mappings_dir* and build the lookup table."""
-        loaded: dict[str, AliasMapping] = {}
+        exact: dict[str, AliasMapping] = {}
         for toml_file in sorted(self._mappings_dir.glob("*.toml")):
             try:
                 mapping = load_mapping(toml_file)
-                loaded[mapping.arabic_name] = mapping
+                exact[mapping.arabic_name] = mapping
             except AliasMappingError:
                 # Don't crash the import system if one TOML is broken at startup.
                 # The broken file is simply ignored; its error surfaces in tests
                 # when load_mapping() is called directly.
                 pass
+
+        loaded = dict(exact)
+        for arabic_name, mapping in exact.items():
+            normalized_name = normalize_identifier(arabic_name)
+            if normalized_name != arabic_name and normalized_name not in loaded:
+                loaded[normalized_name] = mapping
         self._arabic_to_mapping = loaded
 
     # ------------------------------------------------------------------

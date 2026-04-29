@@ -1,0 +1,23 @@
+# arabicpython/aliases/dotenv.toml
+# C-022: Arabic aliases for python-dotenv.
+#
+# Arabic import name : دوت_إنف
+# Python module      : dotenv
+#
+# Normalization reminders:
+#   عيّن_مفتاح → عين_مفتاح (shadda is removed)
+
+[meta]
+arabic_name    = "دوت_إنف"
+python_module  = "dotenv"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+"حمل_البيئه"       = "load_dotenv"
+"قيم_البيئه"       = "dotenv_values"
+"اجلب_مفتاح"       = "get_key"
+"عين_مفتاح"        = "set_key"
+"احذف_مفتاح"       = "unset_key"
+"ابحث_عن_بيئه"     = "find_dotenv"
