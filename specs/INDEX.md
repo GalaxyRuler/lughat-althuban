@@ -60,7 +60,7 @@
 | C-019 | aliases-asyncpg-v1 | C (persistence) | — | drafted |
 | C-020 | aliases-openpyxl-v1 | C (office) | — | drafted |
 | C-021 | aliases-python-docx-v1 | C (office) | — | drafted |
-| C-022 | aliases-python-dotenv-v1 | C (config) | — | drafted |
+| C-022 | aliases-python-dotenv-v1 | C (config) | — | delivered |
 | C-023 | aliases-pyyaml-v1 | C (config) | — | delivered |
 | C-024 | aliases-playwright-v1 | C (automation) | — | drafted |
 | C-025 | aliases-beautifulsoup4-v1 | C (automation) | — | drafted |

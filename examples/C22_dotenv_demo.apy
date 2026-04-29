@@ -1,0 +1,20 @@
+# C22_dotenv_demo.apy — C-022 demo: python-dotenv via Arabic aliases
+#
+# Shows both:
+#   1. حمل_البيئه + نظام_تشغيل.متغيرات_البيئه
+#   2. قيم_البيئه returning a dict-like mapping
+
+استورد نظام_تشغيل
+استورد pathlib
+استورد tempfile
+استورد دوت_إنف
+
+مع tempfile.TemporaryDirectory() باسم مجلد:
+    مسار_env = pathlib.Path(مجلد) / ".env"
+    مسار_env.write_text("C22_GREETING=مرحبا من dotenv\n", encoding="utf-8")
+
+    دوت_إنف.حمل_البيئه(مسار_env, override=صحيح)
+    اطبع("os.environ:", نظام_تشغيل.متغيرات_البيئه["C22_GREETING"])
+
+    بيانات_بيئه = دوت_إنف.قيم_البيئه(مسار_env)
+    اطبع("dotenv_values:", بيانات_بيئه["C22_GREETING"])
