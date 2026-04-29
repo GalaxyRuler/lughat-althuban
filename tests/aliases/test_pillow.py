@@ -30,7 +30,7 @@ def بيلو():
 
 class TestCoreFunctions:
     def test_open_alias(self, بيلو):
-        assert بيلو.افتح_بيلوه is Image.open
+        assert بيلو.افتح_صوره is Image.open
 
     def test_new_alias(self, بيلو):
         assert بيلو.جديد is Image.new
@@ -62,10 +62,10 @@ class TestCoreFunctions:
 
 class TestImageClass:
     def test_image_class_alias(self, بيلو):
-        assert بيلو.فئه_البيلوه is Image.Image
+        assert بيلو.فئه_الصوره is Image.Image
 
     def test_image_class_is_type(self, بيلو):
-        assert isinstance(بيلو.فئه_البيلوه, type)
+        assert isinstance(بيلو.فئه_الصوره, type)
 
 
 # ── Resampling constants ──────────────────────────────────────────────────────
@@ -116,13 +116,13 @@ class TestTransposeConstants:
 
 class TestExceptions:
     def test_unidentified_image_error_alias(self, بيلو):
-        assert بيلو.خطا_بيلوه_مجهوله is Image.UnidentifiedImageError
+        assert بيلو.خطا_صوره_مجهوله is Image.UnidentifiedImageError
 
     def test_decompression_bomb_error_alias(self, بيلو):
         assert بيلو.خطا_ضغط_انفجاري is Image.DecompressionBombError
 
     def test_errors_are_exceptions(self, بيلو):
-        assert issubclass(بيلو.خطا_بيلوه_مجهوله, Exception)
+        assert issubclass(بيلو.خطا_صوره_مجهوله, Exception)
         assert issubclass(بيلو.خطا_ضغط_انفجاري, Exception)
 
 
@@ -133,7 +133,7 @@ class TestFunctional:
     def test_new_creates_image(self, بيلو):
         """جديد creates a blank PIL.Image.Image instance."""
         img = بيلو.جديد("RGB", (100, 100), color=(255, 0, 0))
-        assert isinstance(img, بيلو.فئه_البيلوه)
+        assert isinstance(img, بيلو.فئه_الصوره)
         assert img.size == (100, 100)
         assert img.mode == "RGB"
 
@@ -145,7 +145,7 @@ class TestFunctional:
         arr = np.zeros((50, 50, 3), dtype=np.uint8)
         arr[:, :, 0] = 128  # red channel
         img = بيلو.من_مصفوفه(arr)
-        assert isinstance(img, بيلو.فئه_البيلوه)
+        assert isinstance(img, بيلو.فئه_الصوره)
         assert img.size == (50, 50)
 
     def test_blend_produces_image(self, بيلو):
@@ -153,7 +153,7 @@ class TestFunctional:
         a = بيلو.جديد("RGB", (10, 10), color=(0, 0, 0))
         b = بيلو.جديد("RGB", (10, 10), color=(255, 255, 255))
         blended = بيلو.امزج(a, b, alpha=0.5)
-        assert isinstance(blended, بيلو.فئه_البيلوه)
+        assert isinstance(blended, بيلو.فئه_الصوره)
         px = blended.getpixel((0, 0))
         assert px == (127, 127, 127)
 
@@ -179,8 +179,8 @@ class TestFunctional:
         assert len(values) == 6
 
     def test_unidentified_image_error_raised(self, بيلو, tmp_path):
-        """خطا_بيلوه_مجهوله is raised when opening a non-image file."""
+        """خطا_صوره_مجهوله is raised when opening a non-image file."""
         bad = tmp_path / "not_an_image.jpg"
         bad.write_bytes(b"this is not an image")
-        with pytest.raises(بيلو.خطا_بيلوه_مجهوله):
-            بيلو.افتح_بيلوه(str(bad))
+        with pytest.raises(بيلو.خطا_صوره_مجهوله):
+            بيلو.افتح_صوره(str(bad))
