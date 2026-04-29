@@ -125,7 +125,4 @@ def test_dotenv_demo_runs(clean_import_state, capsys):
     path = EXAMPLES_DIR / "C22_dotenv_demo.apy"
     assert main([str(path)]) == 0
     out, _ = capsys.readouterr()
-    assert out == (
-        "os.environ: مرحبا من dotenv\n"
-        "dotenv_values: مرحبا من dotenv\n"
-    )
+    assert out == ("os.environ: مرحبا من dotenv\n" "dotenv_values: مرحبا من dotenv\n")
