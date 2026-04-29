@@ -297,9 +297,7 @@ class TestSqlaFunctional:
         with Session() as s:
             s.add_all([User(name="a"), User(name="b"), User(name="c")])
             s.commit()
-            stmt = ألكيمي.اختر_من(User).where(
-                ألكيمي.افتراق(User.name == "a", User.name == "c")
-            )
+            stmt = ألكيمي.اختر_من(User).where(ألكيمي.افتراق(User.name == "a", User.name == "c"))
             names = sorted(r.name for r in s.execute(stmt).scalars())
             assert names == ["a", "c"]
 
@@ -324,9 +322,7 @@ class TestSqlaFunctional:
             stmt = ألكيمي.احذف_صفوف(User).where(User.name == "z")
             s.execute(stmt)
             s.commit()
-            count = s.execute(
-                ألكيمي.اختر_من(ألكيمي.داله_sql.count()).select_from(User)
-            ).scalar()
+            count = s.execute(ألكيمي.اختر_من(ألكيمي.داله_sql.count()).select_from(User)).scalar()
             assert count == 0
 
     def test_text_construct(self, ألكيمي):
