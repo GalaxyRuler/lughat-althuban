@@ -55,8 +55,18 @@ class TestMixedIdentifierW004:
 
 class TestV1KeywordE001:
     def test_v1_keyword_in_v2_file_flagged(self):
-        src = "# arabicpython: dict=ar-v2\nمع الملف كـ م:\n    مرر\n"
+        src = "# apython: dict=ar-v2\nمع الملف كـ م:\n    تجاوز\n"
         assert "E001" in codes(lint_source(src))
+
+    def test_all_v1_changed_keywords_in_v2_file_flagged(self):
+        src = "# apython: dict=ar-v2\nكـ\nمرر\nطالما صحيح:\n    تجاوز\nهو = 1\n"
+        e001 = [d for d in lint_source(src) if d.code == "E001"]
+        assert [d.message for d in e001] == [
+            "الكلمة 'كـ' غير معرّفة في ar-v2؛ استخدم 'باسم'",
+            "الكلمة 'مرر' غير معرّفة في ar-v2؛ استخدم 'تجاوز'",
+            "الكلمة 'طالما' غير معرّفة في ar-v2؛ استخدم 'بينما'",
+            "الكلمة 'هو' غير معرّفة في ar-v2؛ استخدم 'يكون'",
+        ]
 
     def test_v1_keyword_in_no_directive_file_not_flagged(self):
         # Without a directive we don't know the version — don't flag
@@ -64,7 +74,7 @@ class TestV1KeywordE001:
         assert "E001" not in codes(lint_source(src))
 
     def test_v2_keyword_baasm_ok(self):
-        src = "# arabicpython: dict=ar-v2\nمع الملف باسم م:\n    مرر\n"
+        src = "# apython: dict=ar-v2\nمع الملف باسم م:\n    تجاوز\n"
         assert "E001" not in codes(lint_source(src))
 
 

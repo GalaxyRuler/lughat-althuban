@@ -14,7 +14,7 @@ from arabicpython.translate import translate
 # Magic number for .apy bytecode cache files.  Increment whenever the
 # translation pipeline changes in a way that invalidates cached bytecode.
 # Format: b"APY" + 1-byte version.
-_CACHE_MAGIC = b"APY\x01"
+_CACHE_MAGIC = b"APY\x02"
 _CACHE_MAGIC_LEN = 4
 # Header: magic(4) + source_mtime_ns(8) + source_size(8) = 20 bytes
 _HEADER_LEN = 20

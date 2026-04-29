@@ -1,6 +1,7 @@
 """Translate apython source to Python source."""
 
 import io
+import re
 import sys
 import tokenize
 from typing import TYPE_CHECKING
@@ -12,6 +13,41 @@ from arabicpython.pretokenize import pretokenize
 
 if TYPE_CHECKING:
     from arabicpython.dialect import Dialect
+
+
+_DIRECTIVE_RE = re.compile(r"#\s*(?:arabicpython|apython)\s*:\s*dict\s*=\s*(\S+)")
+
+_AR_V2_REPLACED_KEYWORDS = {
+    normalize_identifier("كـ"): "باسم",
+    normalize_identifier("بوصفه"): "باسم",
+    normalize_identifier("مرر"): "تجاوز",
+    normalize_identifier("طالما"): "بينما",
+    normalize_identifier("هو"): "يكون",
+}
+
+
+def _parse_file_directive(source: str) -> "str | None":
+    """Return the dict version named by the first per-file directive, or None."""
+    for line in source.splitlines()[:5]:
+        m = _DIRECTIVE_RE.search(line)
+        if m:
+            return m.group(1)
+    return None
+
+
+def _raise_replaced_keyword_error(token: tokenize.TokenInfo, replacement: str) -> None:
+    message = f"الكلمة '{token.string}' غير معرّفة في ar-v2؛ استخدم '{replacement}'"
+    raise SyntaxError(
+        message,
+        (
+            None,
+            token.start[0],
+            token.start[1] + 1,
+            token.line,
+            token.end[0],
+            token.end[1] + 1,
+        ),
+    )
 
 
 def translate(
@@ -44,7 +80,8 @@ def translate(
         dialect: optional pre-loaded Dialect to use.  Mutually exclusive with
             dict_version — if both are supplied a ValueError is raised.
         dict_version: name of the dictionary to load (e.g. ``"ar-v1.1"``).
-            When omitted and dialect is None, defaults to ``"ar-v2"``.
+            When omitted and dialect is None, a per-file ``# apython: dict=...``
+            directive is honored; otherwise defaults to ``"ar-v1"``.
 
     Returns:
         Python source text suitable for compile(src, path, "exec").
@@ -62,7 +99,8 @@ def translate(
             "translate(): supply at most one of 'dialect' and 'dict_version', not both"
         )
     if dialect is None:
-        dialect = load_dialect(dict_version if dict_version is not None else "ar-v2")
+        effective_dict = dict_version or _parse_file_directive(source) or "ar-v1"
+        dialect = load_dialect(effective_dict)
 
     # Fast path: pure ASCII source has no Arabic keywords or identifiers to
     # translate.  Skip the entire pipeline and return the source unchanged.
@@ -135,6 +173,9 @@ def translate(
         if tok.type == tokenize.NAME:
             is_attr = last_significant_type == tokenize.OP and last_significant_string == "."
             key = normalize_identifier(tok.string)
+
+            if dialect.name == "ar-v2" and key in _AR_V2_REPLACED_KEYWORDS:
+                _raise_replaced_keyword_error(tok, _AR_V2_REPLACED_KEYWORDS[key])
 
             # Keywords translate even after '.' only in `from . import` context
             # (token before the dot was `from`/`من`).  In normal attribute access
