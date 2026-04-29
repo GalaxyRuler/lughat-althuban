@@ -1,0 +1,17 @@
+# C10_matplotlib_demo.apy — C-010 demo: Matplotlib plots via Arabic aliases
+
+استورد رسوم_بيانيه
+
+
+رسوم_بيانيه.استخدم_خلفيه("Agg")
+
+شكل, محور = رسوم_بيانيه.شكل_ومحاور(figsize=(4, 3))
+محور.plot([1, 2, 3, 4], [1, 4, 9, 16], marker="o", label="مربعات")
+محور.set_title("نمو تربيعي")
+محور.set_xlabel("س")
+محور.set_ylabel("ص")
+محور.grid(True)
+محور.legend()
+
+رسوم_بيانيه.اغلق(شكل)
+اطبع("matplotlib plot ok")

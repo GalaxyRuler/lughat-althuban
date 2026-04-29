@@ -143,6 +143,9 @@ _EXCLUDED = {
     "اختبار_نموذجي.apy",  # pytest test file — requires pytest context to run
     "C14_click_demo.apy",  # interactive CLI — prompts for input, no stable snapshot
     "C15_rich_demo.apy",  # rich terminal output — contains ANSI escape codes
+    "C10_matplotlib_demo.apy",  # requires optional matplotlib dependency
+    "C11_sklearn_demo.apy",  # requires optional scikit-learn dependency
+    "C12_pydantic_demo.apy",  # requires optional pydantic dependency
     "C22_dotenv_demo.apy",  # reads .env file from disk — environment-dependent output
     "C26_jwt_demo.apy",  # requires alias finder installed; covered by test_aliases_jwt.py
 }
