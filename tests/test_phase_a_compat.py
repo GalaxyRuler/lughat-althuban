@@ -149,7 +149,13 @@ _EXCLUDED = {
     "C13_httpx_demo.apy",  # requires optional httpx dependency
     "C16_redis_demo.apy",  # requires optional redis dependency; no live server
     "C17_celery_demo.apy",  # requires optional celery dependency; eager task runtime
+    "C18_pymongo_demo.apy",  # requires optional pymongo dependency; no live server
+    "C19_asyncpg_demo.apy",  # requires optional asyncpg dependency; no live server
+    "C20_openpyxl_demo.apy",  # requires optional openpyxl dependency
+    "C21_docx_demo.apy",  # requires optional python-docx dependency
     "C22_dotenv_demo.apy",  # reads .env file from disk — environment-dependent output
+    "C24_playwright_demo.apy",  # requires optional playwright dependency; no browser launch
+    "C25_bs4_demo.apy",  # requires optional beautifulsoup4 dependency
     "C26_jwt_demo.apy",  # requires alias finder installed; covered by test_aliases_jwt.py
 }
 

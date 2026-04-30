@@ -56,14 +56,14 @@
 | C-015 | aliases-rich-v1 | C (CLI) | — | delivered |
 | C-016 | aliases-redis-v1 | C (persistence) | — | delivered |
 | C-017 | aliases-celery-v1 | C (persistence) | — | delivered |
-| C-018 | aliases-pymongo-v1 | C (persistence) | — | drafted |
-| C-019 | aliases-asyncpg-v1 | C (persistence) | — | drafted |
-| C-020 | aliases-openpyxl-v1 | C (office) | — | drafted |
-| C-021 | aliases-python-docx-v1 | C (office) | — | drafted |
+| C-018 | aliases-pymongo-v1 | C (persistence) | — | delivered |
+| C-019 | aliases-asyncpg-v1 | C (persistence) | — | delivered |
+| C-020 | aliases-openpyxl-v1 | C (office) | — | delivered |
+| C-021 | aliases-python-docx-v1 | C (office) | — | delivered |
 | C-022 | aliases-python-dotenv-v1 | C (config) | — | delivered |
 | C-023 | aliases-pyyaml-v1 | C (config) | — | delivered |
-| C-024 | aliases-playwright-v1 | C (automation) | — | drafted |
-| C-025 | aliases-beautifulsoup4-v1 | C (automation) | — | drafted |
+| C-024 | aliases-playwright-v1 | C (automation) | — | delivered |
+| C-025 | aliases-beautifulsoup4-v1 | C (automation) | — | delivered |
 | C-026 | aliases-pyjwt-v1 | C (auth) | — | delivered |
 | C-030 | dictionary-v2 | C (dictionary) | — | delivered |
 

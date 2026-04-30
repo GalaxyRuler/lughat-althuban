@@ -1,0 +1,14 @@
+# C18_pymongo_demo.apy — C-018 demo: PyMongo aliases without opening a connection
+
+استورد قاعده_وثائق
+
+
+عميل = قاعده_وثائق.عميل_مونجو("mongodb://localhost:27017", connect=False)
+قاعده = عميل.احصل_قاعده_بيانات("demo")
+مجموعه = قاعده.get_collection("items")
+
+اطبع("pymongo database:", قاعده.name)
+اطبع("pymongo collection:", مجموعه.name)
+اطبع("pymongo cursor class:", قاعده_وثائق.مؤشر.__name__)
+
+عميل.اغلق_عميل()

@@ -1,0 +1,8 @@
+# C24_playwright_demo.apy — C-024 demo: Playwright async API symbols without browser launch
+
+استورد متصفح_الي
+
+
+اطبع("playwright entry:", متصفح_الي.شغل_غير_متزامن.__name__)
+اطبع("playwright page class:", متصفح_الي.صفحه.__name__)
+اطبع("playwright locator class:", متصفح_الي.محدد.__name__)
