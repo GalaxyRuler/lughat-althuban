@@ -46,7 +46,7 @@ class TestCoreApp:
         assert hasattr(app, "get")
         assert hasattr(app, "post")
         assert hasattr(app, "include_router")
-        assert callable(app.احصل)
+        assert callable(app.احصل_مسار)
         assert callable(app.انشر)
         assert callable(app.ضم_موجه)
 

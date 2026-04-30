@@ -71,7 +71,7 @@ def test_c040_demo_exposes_arabic_methods_on_all_five_libraries(clean_import_sta
 
     app = demo.تطبيق
     assert callable(app.انشر)
-    assert callable(app.احصل)
+    assert callable(app.احصل_مسار)
     assert callable(app.ضم_موجه)
 
     celery_app = demo.تطبيق_مهام

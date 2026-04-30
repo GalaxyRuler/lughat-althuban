@@ -10,6 +10,7 @@
 #   استجابه_* → django    (use رد_* prefix for FastAPI responses)
 #   اعد_توجيه → django    (use رد_توجيه)
 #   وسيط      → statistics (use برمجيات_وسيطه)
+#   احصل      → requests   (use احصل_مسار for FastAPI route decorators)
 #
 # Normalization reminders:
 #   يعتمد_على → يعتمد_علي (final ى → ي)
@@ -30,7 +31,7 @@ proxy_classes  = ["FastAPI", "APIRouter"]
 
 # ── FastAPI app methods (ClassFactory → InstanceProxy) ───────────────────────
 "اضف_برمجيات_وسيطه"   = "FastAPI.add_middleware"
-"احصل"                 = "FastAPI.get"
+"احصل_مسار"            = "FastAPI.get"
 "ضم_موجه"              = "FastAPI.include_router"
 "انشر"                 = "FastAPI.post"
 
