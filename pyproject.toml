@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lughat-althuban"
-version = "0.3.0"
+version = "0.3.1"
 description = "لغة الثعبان — Arabic-keyword Python dialect with stdlib & library aliases, tooling, and translated tracebacks"
 readme = "README.md"
 requires-python = ">=3.11"
