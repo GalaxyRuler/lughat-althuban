@@ -7,7 +7,7 @@ python_module  = "celery"
 dict_version   = "ar-v1"
 schema_version = 1
 maintainer     = "—"
-proxy_classes  = ["Celery"]
+proxy_classes  = ["Celery", "Task"]
 
 [entries]
 # ── App and task primitives ──────────────────────────────────────────────────
@@ -28,9 +28,15 @@ proxy_classes  = ["Celery"]
 "اعداد_من_كائن"         = "Celery.config_from_object"
 "اكتشف_مهام"            = "Celery.autodiscover_tasks"
 "ارسل_مهمه"             = "Celery.send_task"
+"التكوين"               = "Celery.conf"
 "تحكم_تطبيق"            = "Celery.control"
+"توقيع_مهمه"            = "Celery.signature"
 "عرف_مهمه"              = "Celery.task"
 "مهام_مسجله"            = "Celery.tasks"
+
+# ── Task instance methods (ClassFactory → InstanceProxy) ─────────────────────
+"اجل_مهمه"              = "Task.delay"
+"طبق_غير_متزامن_مهمه"  = "Task.apply_async"
 
 # ── Results, beat, and scheduling ────────────────────────────────────────────
 "جدول_ضربات"            = "beat.Scheduler"
@@ -62,5 +68,10 @@ proxy_classes  = ["Celery"]
 "ارسل_مهمه"             = "send_task"
 "التكوين"               = "conf"
 "تحكم"                  = "control"
+"توقيع_مهمه"            = "signature"
 "عرف_مهمه"              = "task"
 "مهام"                  = "tasks"
+"اجل"                   = "delay"
+"طبق_غير_متزامن"        = "apply_async"
+"احصل_نتيجه"            = "get"
+"جاهز"                  = "ready"

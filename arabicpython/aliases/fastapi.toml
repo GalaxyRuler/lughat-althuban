@@ -21,11 +21,26 @@ python_module  = "fastapi"
 dict_version   = "ar-v1"
 schema_version = 1
 maintainer     = "—"
+proxy_classes  = ["FastAPI", "APIRouter"]
 
 [entries]
 # ── Core application & routing ────────────────────────────────────────────────
 "تطبيق_سريع"          = "FastAPI"
 "موجه_api"             = "APIRouter"
+
+# ── FastAPI app methods (ClassFactory → InstanceProxy) ───────────────────────
+"اضف_برمجيات_وسيطه"   = "FastAPI.add_middleware"
+"احصل"                 = "FastAPI.get"
+"ضم_موجه"              = "FastAPI.include_router"
+"انشر"                 = "FastAPI.post"
+
+# ── APIRouter methods (ClassFactory → InstanceProxy) ─────────────────────────
+"احصل_موجه"            = "APIRouter.get"
+"ضم_موجه_فرعي"         = "APIRouter.include_router"
+"انشر_موجه"            = "APIRouter.post"
+
+# ── Testing ──────────────────────────────────────────────────────────────────
+"عميل_اختبار"          = "testclient.TestClient"
 
 # ── Parameter functions ───────────────────────────────────────────────────────
 "استعلام"              = "Query"
@@ -74,3 +89,12 @@ maintainer     = "—"
 "رموز_الحاله_http"     = "status"
 "امان_fastapi"         = "security"
 "برمجيات_وسيطه"        = "middleware"
+
+[attributes]
+"اضف_برمجيات_وسيطه"   = "add_middleware"
+"احصل"                 = "get"
+"المحتوي"              = "content"
+"انشر"                 = "post"
+"حموله_json"           = "json"
+"رمز_الحاله"           = "status_code"
+"ضم_موجه"              = "include_router"

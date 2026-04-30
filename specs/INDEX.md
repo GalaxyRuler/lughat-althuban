@@ -66,6 +66,7 @@
 | C-025 | aliases-beautifulsoup4-v1 | C (automation) | — | delivered |
 | C-026 | aliases-pyjwt-v1 | C (auth) | — | delivered |
 | C-030 | dictionary-v2 | C (dictionary) | — | delivered |
+| C-040 | integration-demo-v1 | C (validation) | — | delivered |
 
 ## Legend
 

@@ -157,6 +157,7 @@ _EXCLUDED = {
     "C24_playwright_demo.apy",  # requires optional playwright dependency; no browser launch
     "C25_bs4_demo.apy",  # requires optional beautifulsoup4 dependency
     "C26_jwt_demo.apy",  # requires alias finder installed; covered by test_aliases_jwt.py
+    "C40_full_stack_demo.apy",  # has its own integration test; not snapshot-stable
 }
 
 _EXAMPLE_PARAMS = sorted(p for p in EXAMPLES_DIR.glob("*.apy") if p.name not in _EXCLUDED)
