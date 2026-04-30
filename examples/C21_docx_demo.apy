@@ -1,0 +1,12 @@
+# C21_docx_demo.apy — C-021 demo: python-docx aliases in memory
+
+استورد مستندات_وورد
+
+
+مستند = مستندات_وورد.مستند()
+فقره = مستند.add_paragraph("مرحبا")
+تشغيل = فقره.add_run(" من وورد")
+تشغيل.bold = صحيح
+
+اطبع("docx paragraphs:", len(مستند.paragraphs))
+اطبع("docx text:", مستند.paragraphs[0].text)

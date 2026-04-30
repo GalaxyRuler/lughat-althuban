@@ -1,0 +1,14 @@
+# C20_openpyxl_demo.apy — C-020 demo: openpyxl aliases in memory
+
+استورد جداول_اكسل
+
+
+مصنف = جداول_اكسل.مصنف()
+ورقه = مصنف.ورقه_نشطه
+ورقه.title = "scores"
+ورقه.append(["name", "score"])
+ورقه.append(["ليلى", 95])
+
+اطبع("openpyxl sheet:", ورقه.title)
+اطبع("openpyxl rows:", ورقه.max_row)
+اطبع("openpyxl B2:", ورقه["B2"].value)

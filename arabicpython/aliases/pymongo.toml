@@ -1,0 +1,93 @@
+# arabicpython/aliases/pymongo.toml
+# C-018: Arabic aliases for PyMongo clients, collections, cursors, and errors.
+
+[meta]
+arabic_name    = "قاعده_وثائق"
+python_module  = "pymongo"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+proxy_classes  = ["MongoClient"]
+
+[entries]
+# Core client and document database classes
+"عميل_مونجو"             = "MongoClient"
+"قاعده_بيانات"           = "database.Database"
+"مجموعه"                 = "collection.Collection"
+"مؤشر"                   = "cursor.Cursor"
+"مؤشر_اوامر"             = "command_cursor.CommandCursor"
+"تفضيل_قراءه"            = "read_preferences.ReadPreference"
+"اهتمام_كتابه"           = "write_concern.WriteConcern"
+"اهتمام_قراءه"           = "read_concern.ReadConcern"
+"جلسه_عميل"              = "client_session.ClientSession"
+
+# Constants and write operation helpers
+"اتجاه_تصاعدي"           = "ASCENDING"
+"اتجاه_تنازلي"           = "DESCENDING"
+"فهرس_نصي"               = "TEXT"
+"فهرس_مجزا"              = "HASHED"
+"مستند_ارجاع"            = "ReturnDocument"
+"نموذج_فهرس"             = "IndexModel"
+"ادراج_واحد"             = "InsertOne"
+"تحديث_واحد"             = "UpdateOne"
+"تحديث_كثير"             = "UpdateMany"
+"استبدال_واحد"           = "ReplaceOne"
+"حذف_واحد"               = "DeleteOne"
+"حذف_كثير"               = "DeleteMany"
+
+# Result classes
+"نتيجه_ادراج_واحد"       = "results.InsertOneResult"
+"نتيجه_ادراج_كثير"       = "results.InsertManyResult"
+"نتيجه_تحديث"            = "results.UpdateResult"
+"نتيجه_حذف"              = "results.DeleteResult"
+"نتيجه_كتابه_دفعه"       = "results.BulkWriteResult"
+
+# Utilities
+"حلل_uri"                = "uri_parser.parse_uri"
+"مستمع_اوامر"            = "monitoring.CommandListener"
+"مستمع_خادم"             = "monitoring.ServerListener"
+
+# MongoClient instance methods (ClassFactory -> InstanceProxy)
+"احصل_قاعده_بيانات"      = "MongoClient.get_database"
+"اسقط_قاعده_بيانات"      = "MongoClient.drop_database"
+"اسماء_قواعد_بيانات"     = "MongoClient.list_database_names"
+"اغلق_عميل"              = "MongoClient.close"
+"معلومات_خادم"           = "MongoClient.server_info"
+"ابدا_جلسه"              = "MongoClient.start_session"
+
+# Exceptions
+"خطا_بايمونجو"           = "errors.PyMongoError"
+"خطا_اتصال"              = "errors.ConnectionFailure"
+"خطا_اختيار_خادم"        = "errors.ServerSelectionTimeoutError"
+"خطا_عمليه"              = "errors.OperationFailure"
+"خطا_مفتاح_مكرر"         = "errors.DuplicateKeyError"
+"خطا_كتابه_دفعه"         = "errors.BulkWriteError"
+"خطا_اعداد"              = "errors.ConfigurationError"
+"خطا_uri"                = "errors.InvalidURI"
+"خطا_كتابه"              = "errors.WriteError"
+"خطا_اهتمام_كتابه"       = "errors.WriteConcernError"
+
+[attributes]
+# MongoClient, Collection, and Cursor attributes for explicit ClassProxy use.
+"احصل_قاعده"             = "get_database"
+"اغلق"                   = "close"
+"اسماء_قواعد"            = "list_database_names"
+"احصل_مجموعه"            = "get_collection"
+"ادخل_واحد"              = "insert_one"
+"ادخل_كثير"              = "insert_many"
+"ابحث"                   = "find"
+"ابحث_واحد"              = "find_one"
+"استبدل_واحد"            = "replace_one"
+"حدث_واحد"               = "update_one"
+"حدث_كثير"               = "update_many"
+"احذف_واحد"              = "delete_one"
+"احذف_كثير"              = "delete_many"
+"عدد_مستندات"            = "count_documents"
+"اجمع"                   = "aggregate"
+"انشئ_فهرس"              = "create_index"
+"اسقط"                   = "drop"
+"رتب"                    = "sort"
+"حدد"                    = "limit"
+"تخطي"                   = "skip"
+"التالي"                 = "next"
+"الي_قائمه"              = "to_list"

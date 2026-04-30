@@ -1,0 +1,8 @@
+# C19_asyncpg_demo.apy — C-019 demo: asyncpg aliases without opening a connection
+
+استورد قاعده_بوست
+
+
+اطبع("asyncpg connect alias:", قاعده_بوست.اتصل.__name__)
+اطبع("asyncpg pool class:", قاعده_بوست.مجمع.__name__)
+اطبع("asyncpg record class:", قاعده_بوست.سجل.__name__)

@@ -1,0 +1,14 @@
+# C25_bs4_demo.apy — C-025 demo: Beautiful Soup aliases
+
+استورد تحليل_ويب
+
+
+حساء = تحليل_ويب.حساء_جميل(
+    "<html><body><h1>مرحبا</h1><a href='/docs'>docs</a></body></html>",
+    "html.parser",
+)
+عنوان = حساء.ابحث_حساء("h1")
+روابط = حساء.حدد_حساء("a")
+
+اطبع("bs4 title:", عنوان.get_text())
+اطبع("bs4 links:", len(روابط))

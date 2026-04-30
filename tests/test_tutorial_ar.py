@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import pathlib
 import re
+import sys
 
 import pytest
 
@@ -28,6 +29,7 @@ TUTORIAL_EN = PROJECT_ROOT / "docs" / "getting-started-ar.md"
 GLOSSARY = PROJECT_ROOT / "docs" / "tutorial-ar-glossary.md"
 EXCERPTS_DIR = PROJECT_ROOT / "examples" / "B60_tutorial_excerpts"
 DICTIONARY_AR_V1 = PROJECT_ROOT / "dictionaries" / "ar-v1.md"
+TUTORIAL_BLOCK_TIMEOUT = 30.0 if sys.platform == "win32" else 10.0
 
 KEY_TERMS = [
     "decorator",
@@ -173,7 +175,7 @@ def test_tutorial_code_block_runs(tmp_path, lineno, info, marker, code):
     apy_file = tmp_path / f"block_line_{lineno}.apy"
     apy_file.write_text(code, encoding="utf-8")
 
-    rc, out, err = run_apy_program(apy_file, timeout=10.0)
+    rc, out, err = run_apy_program(apy_file, timeout=TUTORIAL_BLOCK_TIMEOUT)
     expected_error = "expected-error" in marker
     if expected_error:
         assert rc != 0, (
