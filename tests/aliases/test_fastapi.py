@@ -32,21 +32,30 @@ def فاست_أبي():
 
 class TestCoreApp:
     def test_fastapi_class_alias(self, فاست_أبي):
-        assert فاست_أبي.تطبيق_سريع is fa.FastAPI
+        from arabicpython.aliases._proxy import ClassFactory
+
+        assert isinstance(فاست_أبي.تطبيق_سريع, ClassFactory)
 
     def test_api_router_alias(self, فاست_أبي):
-        assert فاست_أبي.موجه_api is fa.APIRouter
+        from arabicpython.aliases._proxy import ClassFactory
+
+        assert isinstance(فاست_أبي.موجه_api, ClassFactory)
 
     def test_fastapi_instantiable(self, فاست_أبي):
         app = فاست_أبي.تطبيق_سريع()
         assert hasattr(app, "get")
         assert hasattr(app, "post")
         assert hasattr(app, "include_router")
+        assert callable(app.احصل_مسار)
+        assert callable(app.انشر)
+        assert callable(app.ضم_موجه)
 
     def test_router_instantiable(self, فاست_أبي):
         router = فاست_أبي.موجه_api()
         assert hasattr(router, "get")
         assert hasattr(router, "post")
+        assert callable(router.احصل_موجه)
+        assert callable(router.انشر_موجه)
 
 
 # ── Parameter functions ───────────────────────────────────────────────────────

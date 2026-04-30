@@ -28,7 +28,7 @@ class TestCeleryCore:
         from arabicpython.aliases._proxy import ClassFactory
 
         assert isinstance(مهام_خلفيه.تطبيق_سيلري, ClassFactory)
-        assert مهام_خلفيه.مهمه is celery.Task
+        assert isinstance(مهام_خلفيه.مهمه, ClassFactory)
         assert مهام_خلفيه.مهمه_مشتركه is celery.shared_task
 
     def test_canvas_aliases(self, مهام_خلفيه):
@@ -61,16 +61,20 @@ class TestCeleryFunctional:
             broker="memory://",
             backend="cache+memory://",
         )
-        app.conf.task_always_eager = True
-        app.conf.task_store_eager_result = True
+        app.التكوين.update(task_always_eager=True, task_store_eager_result=True)
 
         @app.عرف_مهمه
         def add(x: int, y: int) -> int:
             return x + y
 
-        result = add.delay(2, 3)
+        from arabicpython.aliases import ClassProxy, load_mapping
 
-        assert result.result == 5
+        mapping = load_mapping(ALIASES_DIR / "celery.toml")
+        task = ClassProxy(add, mapping.attributes)
+        result = ClassProxy(task.اجل(2, 3), mapping.attributes)
+
+        assert result.جاهز()
+        assert result.احصل_نتيجه() == 5
         assert app.مهام_مسجله is object.__getattribute__(app, "_wrapped").tasks
 
     def test_attributes_work_with_class_proxy(self):
@@ -83,6 +87,7 @@ class TestCeleryFunctional:
         assert proxy.عرف_مهمه == app.task
         assert proxy.ارسل_مهمه == app.send_task
         assert proxy.التكوين is app.conf
+        assert proxy.توقيع_مهمه == app.signature
 
 
 class TestCeleryTomlMeta:
