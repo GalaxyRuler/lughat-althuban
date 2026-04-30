@@ -188,7 +188,7 @@ def load_mapping(toml_path: Path) -> AliasMapping:
     # ------------------------------------------------------------------ #
     try:
         module = importlib.import_module(python_module)
-    except ImportError as exc:
+    except (ImportError, RuntimeError) as exc:
         raise AliasMappingError(
             f"{toml_path}: Python module {python_module!r} is not importable: {exc}"
         ) from exc

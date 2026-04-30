@@ -244,6 +244,32 @@ def test_loader_error_missing_module() -> None:
         load_mapping(path)
 
 
+def test_loader_error_runtime_import_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """RuntimeError during import is treated like an unavailable optional dependency."""
+    module_path = tmp_path / "needs_optional_dep.py"
+    module_path.write_text('raise RuntimeError("optional dependency missing")\n', encoding="utf-8")
+    monkeypatch.syspath_prepend(str(tmp_path))
+
+    toml = """\
+[meta]
+arabic_name   = "اختياري"
+python_module = "needs_optional_dep"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"شيء" = "thing"
+"""
+    p = tmp_path / "runtime_import_error.toml"
+    p.write_text(toml, encoding="utf-8")
+
+    with pytest.raises(AliasMappingError, match="not importable"):
+        load_mapping(p)
+
+
 def test_loader_error_duplicate_python_value() -> None:
     """load_mapping on duplicate_arabic.toml raises AliasMappingError listing both Arabic keys."""
     path = FIXTURES_DIR / "duplicate_arabic.toml"
