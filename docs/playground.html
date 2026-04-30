@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ملعب لغة الثعبان — Python بالعربية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --surface2:  #21262d;
+      --border:    #30363d;
+      --text:      #e6edf3;
+      --muted:     #8b949e;
+      --accent:    #388bfd;
+      --accent-h:  #58a6ff;
+      --green:     #3fb950;
+      --red:       #f85149;
+      --yellow:    #e3b341;
+      --radius:    8px;
+      --mono:      'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+    }
+
+    html, body { height: 100%; background: var(--bg); color: var(--text); }
+    body {
+      font-family: 'Cairo', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-shrink: 0;
+      height: 60px;
+    }
+    .header-brand { display: flex; align-items: center; gap: 0.6rem; }
+    .header-brand .snake { font-size: 1.5rem; }
+    .header-brand h1 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .header-brand span { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
+    .header-links { display: flex; gap: 0.5rem; align-items: center; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .badge:hover { color: var(--text); border-color: var(--accent); }
+    .badge.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .badge.primary:hover { background: var(--accent-h); border-color: var(--accent-h); }
+
+    /* ── STATUS BAR ── */
+    #status-bar {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.35rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+      min-height: 32px;
+    }
+    #status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    #status-dot.ready  { background: var(--green); }
+    #status-dot.error  { background: var(--red); }
+    #status-dot.busy   { background: var(--yellow); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    #status-text { flex: 1; }
+
+    /* ── MAIN LAYOUT ── */
+    .main-wrap {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* ── EXAMPLES SIDEBAR ── */
+    #examples-panel {
+      width: 200px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #examples-panel h2 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 0.75rem 1rem 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .example-list { display: flex; flex-direction: column; gap: 2px; padding: 0 0.5rem 0.5rem; overflow-y: auto; }
+    .example-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 0.45rem 0.7rem;
+      color: var(--muted);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .example-btn:hover, .example-btn.active {
+      background: var(--surface2);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .example-btn .ex-tag {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--accent);
+      margin-bottom: 1px;
+      font-weight: 600;
+    }
+    .example-btn[data-tier="1"] .ex-tag { color: var(--green); }
+    .example-btn[data-tier="2"] .ex-tag { color: var(--yellow); }
+    .example-btn[data-tier="3"] .ex-tag { color: var(--red); }
+    .examples-section-header {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 0.6rem 0.7rem 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-top: 1px solid var(--border);
+      margin-top: 0.25rem;
+    }
+    .examples-section-header:first-child { border-top: none; margin-top: 0; }
+
+    /* ── EDITOR PANEL ── */
+    #editor-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      border-left: 1px solid var(--border);
+    }
+    .panel-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .panel-header h3 { font-size: 0.82rem; font-weight: 600; color: var(--muted); }
+    #run-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.35rem 1rem;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+    #run-btn:hover:not(:disabled) { background: var(--accent-h); }
+    #run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    #run-btn kbd {
+      font-size: 0.7rem;
+      background: rgba(255,255,255,0.15);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    #editor {
+      flex: 1;
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+      outline: none;
+      resize: none;
+      padding: 1rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      direction: rtl;
+      unicode-bidi: bidi-override;
+      tab-size: 4;
+      white-space: pre;
+      overflow-wrap: normal;
+      overflow-x: auto;
+    }
+    #editor::placeholder { color: var(--muted); opacity: 0.6; }
+
+    /* ── OUTPUT PANEL ── */
+    #output-panel {
+      width: 38%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+      min-width: 0;
+    }
+    #output {
+      flex: 1;
+      background: #010409;
+      padding: 1rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--green);
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      /* Force RTL + right-align across ALL lines so the layout is
+         consistent regardless of whether a line starts with numbers,
+         Arabic, or English. Within each line, the bidi algorithm still
+         renders numbers LTR and Arabic RTL in their natural positions. */
+      direction: rtl;
+      text-align: right;
+    }
+    #output.empty    { color: var(--muted); font-style: italic; }
+    #output.err      { color: var(--red); }
+    #output.has-warn { color: var(--yellow); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 0.5rem 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      flex-shrink: 0;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── LOADING OVERLAY ── */
+    #loading-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      z-index: 100;
+      transition: opacity 0.4s;
+    }
+    #loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .loader-snake { font-size: 4rem; animation: bounce 1.2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .loader-text { font-size: 1.1rem; color: var(--muted); text-align: center; }
+    .loader-bar {
+      width: 260px;
+      height: 3px;
+      background: var(--surface2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader-bar-inner {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      animation: barSlide 1.8s ease-in-out infinite;
+    }
+    @keyframes barSlide {
+      0%   { width: 0%; margin-right: 100%; }
+      40%  { width: 60%; margin-right: 0%; }
+      60%  { width: 60%; margin-right: 0%; }
+      100% { width: 0%; margin-right: 100%; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      #examples-panel { display: none; }
+      #output-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+      .main-wrap { flex-direction: column; }
+      #editor-panel { border-left: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Embedded Python source files (no JS escaping issues) ── -->
+
+<script type="text/plain" id="src-init">
+__version__ = "0.4.0"
+</script>
+
+<script type="text/plain" id="src-normalize">
+"""Identifier normalization for Arabic Python."""
+from __future__ import annotations
+import unicodedata
+
+TATWEEL = "ـ"
+SUPERSCRIPT_ALEF = "ٰ"
+ALEF_MAKSURA = "ى"
+YEH = "ي"
+TA_MARBUTA = "ة"
+HEH = "ه"
+
+HARAKAT = frozenset(chr(codepoint) for codepoint in range(0x064B, 0x0660)) | frozenset(
+    {SUPERSCRIPT_ALEF}
+)
+HAMZA_FOLD_TRANSLATION = str.maketrans(
+    {
+        "آ": "ا",
+        "أ": "ا",
+        "إ": "ا",
+    }
+)
+
+def normalize_identifier(s: str, *, strict: bool = False) -> str:
+    if s.isascii():
+        return s
+    normalized = unicodedata.normalize("NFKC", s)
+    if strict:
+        return normalized
+    stripped = "".join(ch for ch in normalized if ch != TATWEEL and ch not in HARAKAT)
+    folded = stripped.translate(HAMZA_FOLD_TRANSLATION)
+    if not folded:
+        return folded
+    if folded[-1] == ALEF_MAKSURA:
+        return folded[:-1] + YEH
+    if folded[-1] == TA_MARBUTA:
+        return folded[:-1] + HEH
+    return folded
+</script>
+
+<script type="text/plain" id="src-pretokenize">
+"""Pre-process Arabic Python source for Python's tokenizer."""
+import re
+import unicodedata
+
+_BIDI_CONTROLS = frozenset(
+    "؜‎‏‪‫‬‭‮⁦⁧⁨⁩"
+)
+_ASCII_DIGITS = frozenset("0123456789")
+_ARABIC_INDIC_DIGITS = frozenset("٠١٢٣٤٥٦٧٨٩")
+_EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷۸۹")
+_ALL_DIGITS = _ASCII_DIGITS | _ARABIC_INDIC_DIGITS | _EASTERN_ARABIC_INDIC_DIGITS
+
+_PRETOKENIZE_TRIGGER = re.compile(r"[٠-٩۰-۹،؛؟؜‎‏‪-‮⁦-⁩]")
+
+_ARABIC_ESCAPE = {"س": "n", "ج": "t", "ر": "r", "م": "b", "ف": "f", "ع": "v", "ن": "a"}
+_ARABIC_NUM_PREFIX = {"س": "x", "ث": "b", "ذ": "o"}
+_ARABIC_STR_PREFIX = {"ت": "f", "ب": "b", "خ": "r", "ي": "u"}
+_ARABIC_STR_PREFIX_2 = {"خت": "rf", "تخ": "fr", "خب": "rb", "بخ": "br"}
+_ARABIC_STR_PREFIX_CHARS = frozenset("تبخي")
+
+_STR_PREFIX_TRIGGER = re.compile(r"(?:خت|تخ|خب|بخ|[تبخي])['\"]")
+_ESCAPE_TRIGGER = re.compile(r"\\[سجرمفعن]")
+_NUM_PREFIX_TRIGGER = re.compile(r"0[سثذ]")
+
+_PUNCTUATION_TRANSLATE = str.maketrans(
+    {"٠":"0","١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9",
+     "۰":"0","۱":"1","۲":"2","۳":"3","۴":"4","۵":"5","۶":"6","۷":"7","۸":"8","۹":"9",
+     "،": ",", "؛": ";", "؟": "?"}
+)
+
+
+def pretokenize(source: str) -> str:
+    if (
+        not _PRETOKENIZE_TRIGGER.search(source)
+        and not _STR_PREFIX_TRIGGER.search(source)
+        and not _ESCAPE_TRIGGER.search(source)
+        and not _NUM_PREFIX_TRIGGER.search(source)
+    ):
+        return source
+
+    state = "DEFAULT"
+    out = []
+    line = 1
+    col = 0
+    i = 0
+    n = len(source)
+    escape_next = False
+
+    while i < n:
+        ch = source[i]
+
+        if escape_next:
+            out.append(_ARABIC_ESCAPE.get(ch, ch))
+            escape_next = False
+            if ch == "\n":
+                line += 1; col = 0
+            else:
+                col += 1
+            i += 1
+            continue
+
+        if state == "DEFAULT":
+            if ch in _BIDI_CONTROLS:
+                name = unicodedata.name(ch, "UNKNOWN")
+                code = f"U+{ord(ch):04X}"
+                raise SyntaxError(
+                    f"bidi control character {code} ({name}) is not allowed outside "
+                    f"string literals at line {line}, column {col}."
+                )
+
+            if ch == "#":
+                state = "COMMENT"
+                out.append(ch); col += 1; i += 1
+                continue
+
+            if ch in _ARABIC_STR_PREFIX_CHARS and i + 1 < n:
+                two = source[i: i + 2]
+                if two in _ARABIC_STR_PREFIX_2 and i + 2 < n and source[i + 2] in ("'", '"'):
+                    out.append(_ARABIC_STR_PREFIX_2[two])
+                    col += 2; i += 2; ch = source[i]
+                elif source[i + 1] in ("'", '"'):
+                    out.append(_ARABIC_STR_PREFIX[ch])
+                    col += 1; i += 1; ch = source[i]
+
+            if ch in ("'", '"'):
+                if source[i: i + 3] == "'''":
+                    state = "STRING_TSQ"; out.append("'''"); col += 3; i += 3; continue
+                elif source[i: i + 3] == '"""':
+                    state = "STRING_TDQ"; out.append('"""'); col += 3; i += 3; continue
+                else:
+                    state = "STRING_SQ" if ch == "'" else "STRING_DQ"
+                    out.append(ch); col += 1; i += 1; continue
+
+            if ch == "0" and i + 1 < n and source[i + 1] in _ARABIC_NUM_PREFIX:
+                out.append("0"); out.append(_ARABIC_NUM_PREFIX[source[i + 1]])
+                col += 2; i += 2; continue
+
+            if ch in _ALL_DIGITS:
+                start_i = i
+                while i < n and source[i] in _ALL_DIGITS:
+                    i += 1
+                run = source[start_i:i]
+                sys_names = []
+                if any(c in _ASCII_DIGITS for c in run): sys_names.append("ASCII")
+                if any(c in _ARABIC_INDIC_DIGITS for c in run): sys_names.append("Arabic-Indic")
+                if any(c in _EASTERN_ARABIC_INDIC_DIGITS for c in run): sys_names.append("Eastern Arabic-Indic")
+                if len(sys_names) > 1:
+                    raise SyntaxError(
+                        f"mixed digit systems in numeric literal at line {line}, column {col}"
+                    )
+                out.append(run.translate(_PUNCTUATION_TRANSLATE))
+                col += len(run); continue
+
+            out.append(ch.translate(_PUNCTUATION_TRANSLATE))
+            if ch == "\n":
+                line += 1; col = 0
+            else:
+                col += 1
+            i += 1; continue
+
+        elif state == "COMMENT":
+            if ch in _BIDI_CONTROLS:
+                raise SyntaxError(f"bidi control character in comment at line {line}, column {col}")
+            out.append(ch.translate(_PUNCTUATION_TRANSLATE))
+            if ch == "\n":
+                state = "DEFAULT"; line += 1; col = 0
+            else:
+                col += 1
+            i += 1; continue
+
+        elif state.startswith("STRING_"):
+            out.append(ch)
+            if ch == "\\":
+                escape_next = True; col += 1; i += 1; continue
+            if state == "STRING_SQ" and ch == "'":
+                state = "DEFAULT"
+            elif state == "STRING_DQ" and ch == '"':
+                state = "DEFAULT"
+            elif state == "STRING_TSQ" and ch == "'":
+                if source[i: i + 3] == "'''":
+                    out.append("''"); col += 3; i += 3; state = "DEFAULT"; continue
+            elif state == "STRING_TDQ" and ch == '"' and source[i: i + 3] == '"""':
+                out.append('""'); col += 3; i += 3; state = "DEFAULT"; continue
+            if ch == "\n":
+                line += 1; col = 0
+            else:
+                col += 1
+            i += 1
+
+    return "".join(out)
+</script>
+
+<script type="text/plain" id="src-fstring311">
+"""F-string interior rewriter for Python 3.11."""
+import io
+import tokenize
+from arabicpython.normalize import normalize_identifier
+
+
+def rewrite_fstring_literal(literal: str, dialect, *, strict: bool = False) -> str:
+    prefix, quote, body = _split_literal(literal)
+    if "f" not in prefix.lower():
+        return literal
+    new_body = _rewrite_fstring_body(body, dialect, strict=strict)
+    return prefix + quote + new_body + quote
+
+
+def _split_literal(literal):
+    first_quote_idx = -1
+    for i, ch in enumerate(literal):
+        if ch in ("'", '"'):
+            first_quote_idx = i; break
+    if first_quote_idx == -1:
+        return "", "", literal
+    prefix = literal[:first_quote_idx]
+    rest = literal[first_quote_idx:]
+    if rest.startswith('"""') or rest.startswith("'''"):
+        quote = rest[:3]; body = rest[3:-3]
+    else:
+        quote = rest[0]; body = rest[1:-1]
+    return prefix, quote, body
+
+
+def _rewrite_fstring_body(body, dialect, *, strict):
+    new_body = []
+    i = 0; n = len(body)
+    while i < n:
+        if body[i] == "{":
+            if i + 1 < n and body[i + 1] == "{":
+                new_body.append("{{"); i += 2; continue
+            expr_start = i + 1; i += 1; depth = 0; expr_end = -1
+            while i < n:
+                ch = body[i]
+                if ch in "([{": depth += 1; i += 1
+                elif ch in ")]}":
+                    if depth == 0:
+                        if ch == "}":
+                            if expr_end == -1: expr_end = i
+                            expr_src = body[expr_start:expr_end]
+                            rewritten = _rewrite_expr(expr_src, dialect, strict=strict)
+                            tail = body[expr_end:i]
+                            if ":" in tail:
+                                ci = tail.find(":")
+                                tail = tail[:ci + 1] + _rewrite_fstring_body(tail[ci + 1:], dialect, strict=strict)
+                            new_body.append("{" + rewritten + tail + "}"); i += 1; break
+                        depth -= 1; i += 1
+                    else: depth -= 1; i += 1
+                elif depth == 0 and expr_end == -1:
+                    if ch in "!=:": expr_end = i; i += 1
+                    else: i += 1
+                else: i += 1
+        elif body[i] == "}":
+            if i + 1 < n and body[i + 1] == "}":
+                new_body.append("}}"); i += 2; continue
+            new_body.append(body[i]); i += 1
+        else:
+            new_body.append(body[i]); i += 1
+    return "".join(new_body)
+
+
+def _rewrite_expr(expr_src, dialect, *, strict):
+    if not expr_src.strip():
+        return expr_src
+    wrapped = "_ = (" + expr_src + ")\n"
+    try:
+        tokens = list(tokenize.tokenize(io.BytesIO(wrapped.encode("utf-8")).readline))
+    except Exception:
+        return expr_src
+    new_tokens = []
+    last_type = None; last_str = None
+    for tok in tokens:
+        is_sig = tok.type not in (tokenize.NL, tokenize.NEWLINE, tokenize.INDENT,
+                                   tokenize.DEDENT, tokenize.COMMENT,
+                                   tokenize.ENCODING, tokenize.ENDMARKER)
+        if tok.type == tokenize.NAME:
+            if tok.string == "_" and tok.start == (1, 0):
+                new_tokens.append(tok)
+            else:
+                is_attr = last_type == tokenize.OP and last_str == "."
+                key = normalize_identifier(tok.string, strict=strict)
+                if is_attr and key in dialect.attributes:
+                    ns = dialect.attributes[key]
+                elif not is_attr and key in dialect.names:
+                    ns = dialect.names[key]
+                else:
+                    ns = key
+                if ns != tok.string:
+                    new_tokens.append(tokenize.TokenInfo(tokenize.NAME, ns, tok.start, tok.end, tok.line))
+                else:
+                    new_tokens.append(tok)
+        else:
+            new_tokens.append(tok)
+        if is_sig:
+            last_type = tok.type; last_str = tok.string
+    try:
+        result = tokenize.untokenize(new_tokens)
+        if isinstance(result, bytes): result = result.decode("utf-8")
+        if result.startswith("﻿"): result = result[1:]
+        sp = result.find("("); ep = result.rfind(")")
+        return result[sp + 1:ep]
+    except Exception:
+        return expr_src
+</script>
+
+<script type="text/plain" id="src-dialect">
+import functools
+import re
+import types
+from collections.abc import Mapping
+from dataclasses import dataclass
+from pathlib import Path
+from arabicpython.normalize import normalize_identifier
+
+
+class DialectError(ValueError):
+    pass
+
+
+@dataclass(frozen=True)
+class Dialect:
+    name: str
+    names: Mapping[str, str]
+    attributes: Mapping[str, str]
+    reverse_names: Mapping[str, str]
+    reverse_attributes: Mapping[str, str]
+    categories: Mapping[str, str]
+
+
+@functools.lru_cache(maxsize=8)
+def load_dialect(name: str = "ar-v2", *, path=None) -> Dialect:
+    if path is None:
+        path = Path(__file__).parent / "dictionaries" / f"{name}.md"
+    content = path.read_text(encoding="utf-8")
+
+    names: dict[str, str] = {}
+    attributes: dict[str, str] = {}
+    reverse_names: dict[str, str] = {}
+    reverse_attributes: dict[str, str] = {}
+    categories: dict[str, str] = {}
+    current_category = None
+
+    for i, line in enumerate(content.splitlines(), start=1):
+        stripped = line.strip()
+        if stripped.startswith("## 1.") or stripped.startswith("### Soft"):
+            current_category = "keyword"; continue
+        elif stripped.startswith("## 2."): current_category = "literal"; continue
+        elif stripped.startswith("## 3."): current_category = "type"; continue
+        elif stripped.startswith("## 4."): current_category = "function"; continue
+        elif stripped.startswith("## 5."): current_category = "exception"; continue
+        elif stripped.startswith("## 6."): current_category = "method"; continue
+        elif stripped.startswith("## "): current_category = "IGNORED"; continue
+
+        if not (stripped.startswith("|") and stripped.endswith("|")): continue
+        if current_category == "IGNORED": continue
+
+        cells = [c.strip() for c in stripped.strip("|").split("|")]
+        if len(cells) >= 2 and (set(cells[0]) <= {"-"} or (cells[0] == "Python" and cells[1] == "Canonical")):
+            continue
+        if len(cells) != 4: continue
+        if current_category is None: continue
+
+        python_cell = cells[0]
+        canonical = cells[1]
+        m = re.match(r"^`([^`]+)`$", python_cell)
+        if not m or not canonical: continue
+        python_symbol = m.group(1)
+        is_method = python_symbol.startswith(".")
+        if is_method: python_symbol = python_symbol[1:]
+        normalized = normalize_identifier(canonical)
+        target_map = attributes if current_category == "method" else names
+        reverse_map = reverse_attributes if current_category == "method" else reverse_names
+        if normalized not in target_map:
+            target_map[normalized] = python_symbol
+        if python_symbol not in reverse_map:
+            reverse_map[python_symbol] = canonical
+        if normalized not in categories:
+            categories[normalized] = current_category
+
+    return Dialect(
+        name=name,
+        names=types.MappingProxyType(names),
+        attributes=types.MappingProxyType(attributes),
+        reverse_names=types.MappingProxyType(reverse_names),
+        reverse_attributes=types.MappingProxyType(reverse_attributes),
+        categories=types.MappingProxyType(categories),
+    )
+</script>
+
+<script type="text/plain" id="src-translate">
+"""Translate apython source to Python source."""
+import io
+import re
+import sys
+import tokenize
+from arabicpython._fstring_311 import rewrite_fstring_literal
+from arabicpython.dialect import load_dialect
+from arabicpython.normalize import normalize_identifier
+from arabicpython.pretokenize import pretokenize
+
+_DIRECTIVE_RE = re.compile(r"#\s*(?:arabicpython|apython)\s*:\s*dict\s*=\s*(\S+)")
+
+
+def _parse_file_directive(source):
+    for line in source.splitlines()[:5]:
+        m = _DIRECTIVE_RE.search(line)
+        if m: return m.group(1)
+    return None
+
+
+def translate(source: str, *, dialect=None, dict_version=None) -> str:
+    if dialect is not None and dict_version is not None:
+        raise ValueError("supply at most one of 'dialect' and 'dict_version'")
+    if dialect is None:
+        effective_dict = dict_version or _parse_file_directive(source) or "ar-v2"
+        dialect = load_dialect(effective_dict)
+    if source.isascii():
+        return source
+    intermediate = pretokenize(source)
+    _had_bom = intermediate.startswith("﻿")
+    if _had_bom:
+        intermediate = intermediate[1:]
+    try:
+        tokens_gen = tokenize.tokenize(io.BytesIO(intermediate.encode("utf-8")).readline)
+        tokens = list(tokens_gen)
+    except tokenize.TokenError as e:
+        msg, loc = e.args
+        raise SyntaxError(msg, ("<string>", loc[0], loc[1], "", loc[0], loc[1])) from e
+
+    for tok in tokens:
+        if tok.type == tokenize.ERRORTOKEN:
+            raise SyntaxError(f"tokenization error near {tok.string!r}",
+                              ("<string>", tok.start[0], tok.start[1], tok.line, tok.start[0], tok.start[1]))
+
+    _line_starts = [0]
+    for _idx, _ch in enumerate(intermediate):
+        if _ch == "\n": _line_starts.append(_idx + 1)
+
+    def _abs(row, col): return _line_starts[row - 1] + col
+
+    last_significant_type = None
+    last_significant_string = None
+    before_dot_string = None
+    changes = []
+
+    for tok in tokens:
+        is_significant = tok.type not in (tokenize.NL, tokenize.NEWLINE, tokenize.INDENT,
+                                           tokenize.DEDENT, tokenize.COMMENT,
+                                           tokenize.ENCODING, tokenize.ENDMARKER)
+        if tok.type == tokenize.NAME:
+            is_attr = last_significant_type == tokenize.OP and last_significant_string == "."
+            key = normalize_identifier(tok.string)
+            _bds_key = normalize_identifier(before_dot_string) if before_dot_string else ""
+            is_from_keyword = _bds_key in dialect.names and dialect.names[_bds_key] == "from"
+            is_relative_import_ctx = is_attr and (is_from_keyword or before_dot_string == "from")
+            if (not is_attr or is_relative_import_ctx) and key in dialect.names:
+                new_string = dialect.names[key]
+            elif is_attr and key in dialect.attributes:
+                new_string = dialect.attributes[key]
+            else:
+                new_string = key
+            if new_string != tok.string:
+                changes.append((_abs(*tok.start), _abs(*tok.end), new_string))
+        elif tok.type == tokenize.STRING and sys.version_info < (3, 12):
+            new_literal = rewrite_fstring_literal(tok.string, dialect)
+            if new_literal != tok.string:
+                changes.append((_abs(*tok.start), _abs(*tok.end), new_literal))
+        if is_significant:
+            if tok.type == tokenize.OP and tok.string == ".":
+                before_dot_string = last_significant_string
+            last_significant_type = tok.type
+            last_significant_string = tok.string
+
+    if not changes:
+        return intermediate
+    parts = []
+    prev_end = len(intermediate)
+    for cs, ce, replacement in reversed(changes):
+        parts.append(intermediate[ce:prev_end])
+        parts.append(replacement)
+        prev_end = cs
+    parts.append(intermediate[:prev_end])
+    return "".join(reversed(parts))
+</script>
+
+<!-- The dictionary file content (backticks pass through fine here) -->
+<script type="text/plain" id="src-ar-v2-md">
+# Arabic dialect dictionary — ar-v2.0
+
+## 1. Control-flow keywords
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `and` | و | — | MSA conjunction "and". |
+| `as` | باسم | كـ | — |
+| `assert` | أكد | تحقق | — |
+| `async` | غير_متزامن | لاتزامني | — |
+| `await` | انتظر | — | — |
+| `break` | اكسر | توقف | — |
+| `class` | صنف | فئة | — |
+| `continue` | استمر | تابع | — |
+| `def` | دالة | عرف | — |
+| `del` | احذف | امسح | — |
+| `elif` | وإلا_إذا | وإذا | — |
+| `else` | وإلا | والا | — |
+| `except` | استثناء | التقط | — |
+| `finally` | أخيرا | نهاية | — |
+| `for` | لكل | من_أجل | — |
+| `from` | من | — | — |
+| `global` | عام | عالمي | — |
+| `if` | إذا | لو | — |
+| `import` | استورد | اجلب | — |
+| `in` | في | — | — |
+| `is` | يكون | هو | — |
+| `lambda` | لامدا | دالة_مجهولة | — |
+| `nonlocal` | غير_محلي | — | — |
+| `not` | ليس | لا | — |
+| `or` | أو | — | — |
+| `pass` | مرر | تجاوز | — |
+| `raise` | ارفع | اطلق | — |
+| `return` | ارجع | أرجع | — |
+| `try` | حاول | جرب | — |
+| `while` | طالما | بينما | — |
+| `with` | مع | — | — |
+| `yield` | سلم | انتج | — |
+
+### Soft keywords
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `match` | طابق | — | — |
+| `case` | حالة | — | — |
+| `type` | نوع | — | — |
+| `_` | _ | — | — |
+
+## 2. Literal keywords
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `False` | خطأ | باطل | — |
+| `None` | لاشيء | عدم | — |
+| `True` | صحيح | حق | — |
+
+## 3. Built-in types
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `bool` | منطقي | — | — |
+| `bytearray` | مصفوفة_بايتات | — | — |
+| `bytes` | بايتات | ثنائيات | — |
+| `complex` | عدد_مركب | — | — |
+| `dict` | قاموس | — | — |
+| `float` | عدد_عشري | عشري | — |
+| `frozenset` | مجموعة_ثابتة | — | — |
+| `int` | عدد_صحيح | صحيح | — |
+| `list` | قائمة | — | — |
+| `object` | كائن | شيء | — |
+| `range` | نطاق | مدى | — |
+| `set` | مجموعة | — | — |
+| `str` | نص | سلسلة | — |
+| `tuple` | صف | طقم | — |
+| `type` | نوع | — | — |
+
+## 4. Built-in functions
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `abs` | مطلق | — | — |
+| `all` | كل | — | — |
+| `any` | أي | — | — |
+| `ascii` | أيسكي | — | — |
+| `bin` | ثنائي | — | — |
+| `breakpoint` | نقطة_توقف | — | — |
+| `callable` | قابل_للاستدعاء | — | — |
+| `chr` | رمز | حرف | — |
+| `classmethod` | تابع_صنف | — | — |
+| `compile` | ترجم | جمع | — |
+| `delattr` | احذف_صفة | — | — |
+| `dir` | محتويات | — | — |
+| `divmod` | قسمة_باقي | — | — |
+| `enumerate` | رقم | عدد_متسلسل | — |
+| `eval` | قيم | — | — |
+| `exec` | نفذ | — | — |
+| `filter` | فلتر | — | — |
+| `format` | نسق | — | — |
+| `getattr` | اجلب_صفة | — | — |
+| `globals` | متغيرات_عامة | — | — |
+| `hasattr` | يملك_صفة | — | — |
+| `hash` | بصمة | تجزئة | — |
+| `help` | مساعدة | ساعد | — |
+| `hex` | ست_عشري | — | — |
+| `id` | معرف | — | — |
+| `input` | ادخل | اقرا | — |
+| `isinstance` | من_نوع | — | — |
+| `issubclass` | صنف_فرعي | — | — |
+| `iter` | كرر | — | — |
+| `len` | طول | — | — |
+| `locals` | متغيرات_محلية | — | — |
+| `map` | طبق | — | — |
+| `max` | الأكبر | أكبر | — |
+| `min` | الأصغر | أصغر | — |
+| `next` | التالي | — | — |
+| `oct` | ثماني | — | — |
+| `open` | افتح | — | — |
+| `ord` | قيمة_رمز | — | — |
+| `pow` | أس | — | — |
+| `print` | اطبع | — | — |
+| `property` | خاصية | — | — |
+| `repr` | تمثيل | — | — |
+| `reversed` | معكوس | — | — |
+| `round` | قرب | دور | — |
+| `setattr` | عين_صفة | — | — |
+| `slice` | شريحة | — | — |
+| `sorted` | مرتب | — | — |
+| `staticmethod` | تابع_ثابت | — | — |
+| `sum` | مجموع | — | — |
+| `super` | الأصل | الأب | — |
+| `vars` | متغيرات | — | — |
+| `zip` | ازدوج | دمج | — |
+
+## 5. Built-in exceptions
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `ArithmeticError` | خطأ_حسابي | — | — |
+| `AssertionError` | خطأ_تأكيد | — | — |
+| `AttributeError` | خطأ_صفة | — | — |
+| `BaseException` | استثناء_أساسي | — | — |
+| `ConnectionError` | خطأ_اتصال | — | — |
+| `EOFError` | خطأ_نهاية_ملف | — | — |
+| `Exception` | استثناء_عام | استثناء | — |
+| `FileExistsError` | خطأ_ملف_موجود | — | — |
+| `FileNotFoundError` | خطأ_ملف_مفقود | — | — |
+| `FloatingPointError` | خطأ_عشري | — | — |
+| `GeneratorExit` | خروج_مولد | — | — |
+| `ImportError` | خطأ_استيراد | — | — |
+| `IndentationError` | خطأ_إزاحة | — | — |
+| `IndexError` | خطأ_فهرس | — | — |
+| `IOError` | خطأ_إدخال_إخراج | — | — |
+| `KeyboardInterrupt` | مقاطعة | — | — |
+| `KeyError` | خطأ_مفتاح | — | — |
+| `LookupError` | خطأ_بحث | — | — |
+| `MemoryError` | خطأ_ذاكرة | — | — |
+| `ModuleNotFoundError` | خطأ_وحدة_مفقودة | — | — |
+| `NameError` | خطأ_اسم | — | — |
+| `NotImplementedError` | خطأ_غير_منفذ | — | — |
+| `OSError` | خطأ_نظام | — | — |
+| `OverflowError` | خطأ_فائض | — | — |
+| `PermissionError` | خطأ_صلاحية | — | — |
+| `RecursionError` | خطأ_تكرار_ذاتي | — | — |
+| `RuntimeError` | خطأ_تشغيل | — | — |
+| `StopIteration` | انتهاء_التكرار | — | — |
+| `SyntaxError` | خطأ_صياغة | — | — |
+| `SystemError` | خطأ_نظام_داخلي | — | — |
+| `SystemExit` | خروج_نظام | — | — |
+| `TabError` | خطأ_جدولة | — | — |
+| `TimeoutError` | خطأ_انتهاء_وقت | — | — |
+| `TypeError` | خطأ_نوع | — | — |
+| `UnicodeDecodeError` | خطأ_فك_يونيكود | — | — |
+| `UnicodeEncodeError` | خطأ_ترميز_يونيكود | — | — |
+| `UnicodeError` | خطأ_يونيكود | — | — |
+| `ValueError` | خطأ_قيمة | — | — |
+| `Warning` | تحذير | — | — |
+| `ZeroDivisionError` | خطأ_قسمة_صفر | — | — |
+
+## 6. Common methods on built-in types
+
+### String methods
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `.count` | عد | — | — |
+| `.decode` | فك_رمز | — | — |
+| `.encode` | رمز_بايتات | — | — |
+| `.endswith` | ينتهي_بـ | — | — |
+| `.find` | ابحث | — | — |
+| `.format` | نسق | — | — |
+| `.join` | اجمع | — | — |
+| `.lower` | صغير | — | — |
+| `.replace` | استبدل | — | — |
+| `.split` | قسم | — | — |
+| `.startswith` | يبدأ_بـ | — | — |
+| `.capitalize` | كبر_الأول | — | — |
+| `.center` | توسط | — | — |
+| `.ljust` | ضبط_يسار | — | — |
+| `.rjust` | ضبط_يمين | — | — |
+| `.strip` | جرد | — | — |
+| `.swapcase` | عكس_الحالة | — | — |
+| `.title` | عنوان | — | — |
+| `.upper` | كبير | — | — |
+| `.zfill` | مل_بأصفار | — | — |
+
+### List methods
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `.append` | اضف | الحق | — |
+| `.extend` | مدد | — | — |
+| `.index` | موقع | — | — |
+| `.insert` | ادرج | — | — |
+| `.pop` | انتزع | — | — |
+| `.remove` | ازل | — | — |
+| `.reverse` | اعكس | — | — |
+| `.sort` | رتب | — | — |
+
+### Dict methods
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `.get` | اجلب | — | — |
+| `.items` | عناصر | — | — |
+| `.keys` | مفاتيح | — | — |
+| `.popitem` | انتزع_زوج | — | — |
+| `.setdefault` | عين_افتراضي | — | — |
+| `.update` | حدث | — | — |
+| `.values` | قيم_القاموس | — | — |
+
+### Set methods
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `.add` | ضم | — | — |
+| `.difference` | فرق | — | — |
+| `.discard` | أسقط | — | — |
+| `.intersection` | تقاطع | — | — |
+| `.union` | اتحاد | — | — |
+
+### Generic methods
+
+| Python | Canonical | Alternates | Rationale |
+|---|---|---|---|
+| `.clear` | امسح | — | — |
+| `.copy` | انسخ | — | — |
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  HTML                                                           -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div id="loading-overlay">
+  <div class="loader-snake">🐍</div>
+  <div class="loader-text" id="loading-text">جارٍ تحميل المحرّك…</div>
+  <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+</div>
+
+<header>
+  <div class="header-brand">
+    <span class="snake">🐍</span>
+    <h1>لغة الثعبان <span>— ملعب تفاعلي</span></h1>
+  </div>
+  <div class="header-links">
+    <a class="badge" href="https://github.com/GalaxyRuler/lughat-althuban" target="_blank" rel="noopener">
+      ⭐ GitHub
+    </a>
+    <a class="badge primary" href="https://github.com/GalaxyRuler/lughat-althuban#installation" target="_blank" rel="noopener">
+      pip install
+    </a>
+  </div>
+</header>
+
+<div id="status-bar">
+  <div id="status-dot"></div>
+  <span id="status-text">جارٍ تحميل Pyodide…</span>
+</div>
+
+<div class="main-wrap">
+  <!-- Examples sidebar -->
+  <aside id="examples-panel">
+    <h2>أمثلة</h2>
+    <div class="example-list" id="example-list"></div>
+  </aside>
+
+  <!-- Editor -->
+  <div id="editor-panel">
+    <div class="panel-header">
+      <h3>📝 المحرّر</h3>
+      <button id="run-btn" disabled>
+        ▶ تشغيل <kbd>Ctrl+Enter</kbd>
+      </button>
+    </div>
+    <textarea
+      id="editor"
+      spellcheck="false"
+      autocorrect="off"
+      autocapitalize="off"
+      placeholder="اكتب كودك هنا…"
+    ></textarea>
+  </div>
+
+  <!-- Output -->
+  <div id="output-panel">
+    <div class="panel-header">
+      <h3>📟 الناتج</h3>
+      <button
+        class="badge"
+        id="clear-btn"
+        style="cursor:pointer;font-family:Cairo,sans-serif;"
+      >مسح</button>
+    </div>
+    <pre id="output" class="empty">الناتج سيظهر هنا بعد التشغيل…</pre>
+  </div>
+</div>
+
+<footer>
+  مشغَّل بـ <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a> ·
+  المحرّك: <a href="https://github.com/GalaxyRuler/lughat-althuban" target="_blank" rel="noopener">لغة الثعبان v0.4.0</a> ·
+  Python كاملة في المتصفح — لا تثبيت مطلوب
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+//  Examples
+// ─────────────────────────────────────────────────────────────────
+const EXAMPLES = [
+  // ═══════════════ المبتدئ ═══════════════
+  {
+    tier: 1, tag: "مبتدئ", title: "مرحبا بالعالم",
+    code: `اطبع("مرحبا بالعالم!")
+اطبع("أهلاً بك في لغة الثعبان 🐍")
+اطبع("Python بالعربية الكاملة")`
+  },
+  {
+    tier: 1, tag: "مبتدئ", title: "متغيرات وحساب",
+    code: `الطول = ١٠
+العرض = ٥
+المساحة = الطول * العرض
+المحيط = ٢ * (الطول + العرض)
+
+اطبع("الطول:", الطول)
+اطبع("العرض:", العرض)
+اطبع("المساحة:", المساحة)
+اطبع("المحيط:", المحيط)`
+  },
+  {
+    tier: 1, tag: "مبتدئ", title: "شرط بسيط",
+    code: `العمر = ١٨
+
+اذا العمر >= ١٨:
+    اطبع("بالغ — يحق لك التصويت ✓")
+والا:
+    اطبع("قاصر — لم يحن الوقت بعد")
+
+اطبع("عمرك:", العمر، "سنة")`
+  },
+  {
+    tier: 1, tag: "مبتدئ", title: "العد التنازلي",
+    code: `اطبع("العد التنازلي للإطلاق:")
+اطبع()
+
+لكل ثانية في معكوس(نطاق(١، ٦)):
+    اطبع("  ", ثانية)
+
+اطبع()
+اطبع("🚀 انطلق!")`
+  },
+  {
+    tier: 1, tag: "مبتدئ", title: "قائمة فواكه",
+    code: `الفواكه = ["تفاح"، "موز"، "برتقال"، "عنب"، "مانجو"]
+
+اطبع("قائمة الفواكه:")
+لكل فاكهة في الفواكه:
+    اطبع("  -", فاكهة)
+
+اطبع()
+اطبع("عدد الفواكه:", طول(الفواكه))
+اطبع("الأولى:", الفواكه[٠])
+اطبع("الأخيرة:", الفواكه[-١])`
+  },
+  {
+    tier: 1, tag: "مبتدئ", title: "جدول الضرب",
+    code: `الرقم = ٧
+
+اطبع("جدول الضرب لـ", الرقم)
+اطبع("─" * ٢٠)
+
+لكل ي في نطاق(١، ١١):
+    حاصل = الرقم * ي
+    اطبع(" ", الرقم، "×", ي، "=", حاصل)`
+  },
+
+  // ═══════════════ المتوسط ═══════════════
+  {
+    tier: 2, tag: "متوسط", title: "دالة بسيطة",
+    code: `دالة مرحبا(اسم):
+    ارجع "مرحبا يا " + اسم
+
+اطبع(مرحبا("فاطمة"))
+اطبع(مرحبا("محمد"))
+اطبع(مرحبا("علي"))
+اطبع(مرحبا("نور"))`
+  },
+  {
+    tier: 2, tag: "متوسط", title: "متوسط الدرجات",
+    code: `الدرجات = [٨٥، ٩٢، ٧٨، ٩٥، ٨٨، ٧٦، ٩٠]
+
+المجموع = مجموع(الدرجات)
+العدد = طول(الدرجات)
+المتوسط = المجموع / العدد
+
+اطبع("الدرجات:", الدرجات)
+اطبع("المجموع:", المجموع)
+اطبع("العدد:", العدد)
+اطبع("المتوسط:", المتوسط)
+اطبع("الأعلى:", الاكبر(الدرجات))
+اطبع("الأدنى:", الاصغر(الدرجات))`
+  },
+  {
+    tier: 2, tag: "متوسط", title: "القاموس",
+    code: `الطالب = {
+    "اسم": "أحمد"،
+    "عمر": ٢٠،
+    "تخصص": "علوم حاسوب"،
+    "معدل": ٤.٧
+}
+
+اطبع("معلومات الطالب:")
+اطبع("─" * ٢٥)
+لكل المفتاح في الطالب:
+    اطبع(" ", المفتاح، ":", الطالب[المفتاح])`
+  },
+  {
+    tier: 2, tag: "متوسط", title: "فيز-باز",
+    code: `# لعبة الأرقام الكلاسيكية
+لكل عدد في نطاق(١، ١٦):
+    اذا عدد % ١٥ == ٠:
+        اطبع("فيز-باز")
+    والا_اذا عدد % ٣ == ٠:
+        اطبع("فيز")
+    والا_اذا عدد % ٥ == ٠:
+        اطبع("باز")
+    والا:
+        اطبع(عدد)`
+  },
+  {
+    tier: 2, tag: "متوسط", title: "معالجة الأخطاء",
+    code: `دالة قسمة_آمنة(أ، ب):
+    حاول:
+        ارجع أ / ب
+    استثناء خطا_قسمة_صفر:
+        ارجع "خطأ: لا يمكن القسمة على صفر"
+
+اطبع("١٠ ÷ ٢ =", قسمة_آمنة(١٠، ٢))
+اطبع("٢٠ ÷ ٤ =", قسمة_آمنة(٢٠، ٤))
+اطبع("١٥ ÷ ٠ =", قسمة_آمنة(١٥، ٠))
+اطبع("١٠٠ ÷ ٥ =", قسمة_آمنة(١٠٠، ٥))`
+  },
+  {
+    tier: 2, tag: "متوسط", title: "مدركات القائمة",
+    code: `# مربعات الأعداد من ١ إلى ١٠
+المربعات = [س * س لكل س في نطاق(١، ١١)]
+اطبع("المربعات:", المربعات)
+
+# الأعداد الزوجية من ١ إلى ٢٠
+الزوجية = [ع لكل ع في نطاق(١، ٢١) اذا ع % ٢ == ٠]
+اطبع("الزوجية:", الزوجية)
+
+# مجموع المربعات
+اطبع("مجموع المربعات:", مجموع(المربعات))`
+  },
+
+  // ═══════════════ المتقدم ═══════════════
+  {
+    tier: 3, tag: "متقدم", title: "فيبوناتشي",
+    code: `دالة فيبوناتشي(ن):
+    اذا ن <= ١:
+        ارجع ن
+    ارجع فيبوناتشي(ن-١) + فيبوناتشي(ن-٢)
+
+اطبع("متتالية فيبوناتشي:")
+اطبع("─" * ٢٥)
+لكل ي في نطاق(١٠):
+    اطبع(ت"  العنصر رقم {ي} = {فيبوناتشي(ي)}")`
+  },
+  {
+    tier: 3, tag: "متقدم", title: "صنف وكائن",
+    code: `صنف حيوان:
+    دالة __init__(ذات، اسم، صوت):
+        ذات.اسم = اسم
+        ذات.صوت = صوت
+
+    دالة ينطق(ذات):
+        اطبع(ذات.اسم، "يقول:", ذات.صوت)
+
+قطة = حيوان("قطة"، "مياو 🐱")
+كلب = حيوان("كلب"، "هاو 🐶")
+بقرة = حيوان("بقرة"، "موه 🐮")
+
+اطبع("صوت الحيوانات:")
+اطبع("─" * ٢٠)
+لكل ح في [قطة، كلب، بقرة]:
+    ح.ينطق()`
+  },
+  {
+    tier: 3, tag: "متقدم", title: "الميراث",
+    code: `صنف شكل:
+    دالة __init__(ذات، اسم):
+        ذات.اسم = اسم
+
+صنف مربع(شكل):
+    دالة __init__(ذات، ضلع):
+        الاصل().__init__("مربع")
+        ذات.الضلع = ضلع
+
+    دالة المساحة(ذات):
+        ارجع ذات.الضلع ** ٢
+
+صنف دائرة(شكل):
+    دالة __init__(ذات، نصف_قطر):
+        الاصل().__init__("دائرة")
+        ذات.نصف_قطر = نصف_قطر
+
+    دالة المساحة(ذات):
+        ارجع ٣.١٤١٦ * ذات.نصف_قطر ** ٢
+
+أشكال = [مربع(٤)، دائرة(٣)]
+اطبع("حساب المساحات:")
+اطبع("─" * ٢٥)
+لكل ش في أشكال:
+    اطبع(" ", ش.اسم، "→ المساحة:", ش.المساحة())`
+  },
+  {
+    tier: 3, tag: "متقدم", title: "فرز فقاعي",
+    code: `دالة فرز_فقاعي(الارقام):
+    ن = طول(الارقام)
+    لكل ي في نطاق(ن):
+        لكل ج في نطاق(٠، ن - ي - ١):
+            اذا الارقام[ج] > الارقام[ج + ١]:
+                الارقام[ج]، الارقام[ج + ١] = الارقام[ج + ١]، الارقام[ج]
+    ارجع الارقام
+
+ارقام = [٦٤، ٢٥، ١٢، ٢٢، ١١، ٩٠، ٤٢]
+اطبع("قبل الفرز:", ارقام)
+
+المفروزة = فرز_فقاعي(ارقام.انسخ())
+اطبع("بعد الفرز:", المفروزة)`
+  },
+  {
+    tier: 3, tag: "متقدم", title: "الأعداد الأولية",
+    code: `دالة عدد_اولي(ن):
+    اذا ن < ٢:
+        ارجع خطأ
+    لكل ي في نطاق(٢، ن):
+        اذا ن % ي == ٠:
+            ارجع خطأ
+    ارجع صحيح
+
+اطبع("الأعداد الأولية حتى ٣٠:")
+الاوليات = []
+لكل ع في نطاق(٢، ٣١):
+    اذا عدد_اولي(ع):
+        الاوليات.اضف(ع)
+
+اطبع(الاوليات)
+اطبع("العدد الكلي:", طول(الاوليات))`
+  },
+  {
+    tier: 3, tag: "متقدم", title: "آلة حاسبة",
+    code: `دالة احسب(أ، ب، عملية):
+    اذا عملية == "+":
+        ارجع أ + ب
+    والا_اذا عملية == "-":
+        ارجع أ - ب
+    والا_اذا عملية == "*":
+        ارجع أ * ب
+    والا_اذا عملية == "/":
+        اذا ب == ٠:
+            ارجع "خطأ: القسمة على صفر"
+        ارجع أ / ب
+    والا:
+        ارجع "عملية غير معروفة"
+
+اطبع("١٠ + ٥ =", احسب(١٠، ٥، "+"))
+اطبع("١٠ - ٥ =", احسب(١٠، ٥، "-"))
+اطبع("١٠ × ٥ =", احسب(١٠، ٥، "*"))
+اطبع("١٠ ÷ ٥ =", احسب(١٠، ٥، "/"))
+اطبع("١٠ ÷ ٠ =", احسب(١٠، ٠، "/"))`
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────
+//  DOM refs
+// ─────────────────────────────────────────────────────────────────
+const editorEl  = document.getElementById("editor");
+const outputEl  = document.getElementById("output");
+const runBtn    = document.getElementById("run-btn");
+const clearBtn  = document.getElementById("clear-btn");
+const statusDot = document.getElementById("status-dot");
+const statusTxt = document.getElementById("status-text");
+const overlay   = document.getElementById("loading-overlay");
+const loadingTxt= document.getElementById("loading-text");
+const exList    = document.getElementById("example-list");
+
+// ─────────────────────────────────────────────────────────────────
+//  Populate examples sidebar
+// ─────────────────────────────────────────────────────────────────
+let activeExBtn = null;
+const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم" };
+let lastTier = null;
+
+EXAMPLES.forEach((ex, idx) => {
+  // Insert a section header when the tier changes
+  if (ex.tier !== lastTier) {
+    const header = document.createElement("div");
+    header.className = "examples-section-header";
+    header.textContent = TIER_HEADERS[ex.tier] || "";
+    exList.appendChild(header);
+    lastTier = ex.tier;
+  }
+
+  const btn = document.createElement("button");
+  btn.className = "example-btn";
+  btn.dataset.tier = ex.tier;
+  btn.innerHTML = `<span class="ex-tag">${ex.tag}</span>${ex.title}`;
+  btn.addEventListener("click", () => {
+    editorEl.value = ex.code;
+    if (activeExBtn) activeExBtn.classList.remove("active");
+    btn.classList.add("active");
+    activeExBtn = btn;
+    editorEl.focus();
+  });
+  exList.appendChild(btn);
+  if (idx === 0) btn.click(); // load first example by default
+});
+
+// ─────────────────────────────────────────────────────────────────
+//  Status helpers
+// ─────────────────────────────────────────────────────────────────
+function setStatus(state, text) {
+  statusDot.className = state;
+  statusTxt.textContent = text;
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  Pyodide init — write source files to virtual filesystem
+// ─────────────────────────────────────────────────────────────────
+function getEmbedded(id) {
+  return document.getElementById(id).textContent;
+}
+
+let pyodide = null;
+
+async function initPyodide() {
+  setStatus("busy", "جارٍ تحميل Pyodide…");
+  loadingTxt.textContent = "جارٍ تحميل بيئة Python…";
+
+  pyodide = await loadPyodide();
+
+  loadingTxt.textContent = "جارٍ تهيئة محرّك لغة الثعبان…";
+  setStatus("busy", "جارٍ تهيئة المحرّك…");
+
+  // Write arabicpython package to Pyodide virtual FS
+  pyodide.FS.mkdir("/arabicpython");
+  pyodide.FS.mkdir("/arabicpython/dictionaries");
+
+  const files = {
+    "/arabicpython/__init__.py":                  getEmbedded("src-init"),
+    "/arabicpython/normalize.py":                 getEmbedded("src-normalize"),
+    "/arabicpython/pretokenize.py":               getEmbedded("src-pretokenize"),
+    "/arabicpython/_fstring_311.py":              getEmbedded("src-fstring311"),
+    "/arabicpython/dialect.py":                   getEmbedded("src-dialect"),
+    "/arabicpython/translate.py":                 getEmbedded("src-translate"),
+    "/arabicpython/dictionaries/ar-v2.md":        getEmbedded("src-ar-v2-md"),
+    "/arabicpython/dictionaries/__init__.py":     "",
+  };
+
+  for (const [path, content] of Object.entries(files)) {
+    pyodide.FS.writeFile(path, content, { encoding: "utf8" });
+  }
+
+  // Ensure the package root is on sys.path
+  await pyodide.runPythonAsync(`
+import sys
+if "/" not in sys.path:
+    sys.path.insert(0, "/")
+# Smoke-test import
+from arabicpython.translate import translate as _translate
+from arabicpython.dialect import load_dialect
+# Pre-warm the dialect cache
+load_dialect("ar-v2")
+`);
+
+  // Done
+  overlay.classList.add("hidden");
+  runBtn.disabled = false;
+  setStatus("ready", "جاهز للتشغيل — Ctrl+Enter أو زر تشغيل");
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  Run code
+// ─────────────────────────────────────────────────────────────────
+async function runCode() {
+  if (!pyodide || runBtn.disabled) return;
+  const source = editorEl.value.trim();
+  if (!source) {
+    outputEl.className = "empty";
+    outputEl.textContent = "لا يوجد كود للتشغيل…";
+    return;
+  }
+
+  runBtn.disabled = true;
+  setStatus("busy", "جارٍ التشغيل…");
+  outputEl.className = "";
+  outputEl.textContent = "";
+
+  // Pass source to Python via a global
+  pyodide.globals.set("_playground_source", source);
+
+  try {
+    const result = await pyodide.runPythonAsync(`
+import sys, io, traceback
+from arabicpython.translate import translate as _translate
+
+# Map ASCII digits → Arabic-Indic so the displayed output reads naturally
+# in Arabic. Applies to stdout AND stderr (so traceback line numbers,
+# error messages, etc. all show ٠-٩ instead of 0-9).
+_ARABIC_DIGIT_MAP = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
+
+_out = io.StringIO()
+_err = io.StringIO()
+
+try:
+    _translated = _translate(_playground_source)
+    _code = compile(_translated, '<ملعب>', 'exec')
+    _old_stdout = sys.stdout
+    _old_stderr = sys.stderr
+    sys.stdout = _out
+    sys.stderr = _err
+    exec(_code, {"__name__": "__main__"})
+except SyntaxError as e:
+    _err.write("خطأ في الصياغة")
+    if e.lineno:
+        _err.write(f" (السطر {e.lineno})")
+    _err.write(f": {e.msg}\\n")
+    if e.text and e.text.strip():
+        _err.write(f"  {e.text.rstrip()}\\n")
+except Exception as e:
+    _err.write(traceback.format_exc())
+finally:
+    try:
+        sys.stdout = _old_stdout
+        sys.stderr = _old_stderr
+    except NameError:
+        pass
+
+(_out.getvalue().translate(_ARABIC_DIGIT_MAP),
+ _err.getvalue().translate(_ARABIC_DIGIT_MAP))
+`);
+
+    // result is a Python tuple — convert to JS
+    const [stdout, stderr] = result.toJs ? result.toJs() : result;
+    result.destroy && result.destroy();
+
+    if (stderr) {
+      outputEl.className = "err";
+      outputEl.textContent = stderr;
+      setStatus("error", "انتهى التشغيل بخطأ");
+    } else if (stdout) {
+      outputEl.className = "";
+      outputEl.textContent = stdout;
+      setStatus("ready", "انتهى التشغيل بنجاح ✓");
+    } else {
+      outputEl.className = "empty";
+      outputEl.textContent = "(لا ناتج — البرنامج انتهى دون طباعة)";
+      setStatus("ready", "انتهى التشغيل بنجاح ✓");
+    }
+  } catch (err) {
+    outputEl.className = "err";
+    outputEl.textContent = `خطأ غير متوقع:\n${err.message}`;
+    setStatus("error", "خطأ غير متوقع");
+  } finally {
+    runBtn.disabled = false;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  Event listeners
+// ─────────────────────────────────────────────────────────────────
+runBtn.addEventListener("click", runCode);
+clearBtn.addEventListener("click", () => {
+  outputEl.className = "empty";
+  outputEl.textContent = "الناتج سيظهر هنا بعد التشغيل…";
+});
+
+// Ctrl+Enter or Cmd+Enter to run
+editorEl.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    runCode();
+  }
+  // Tab inserts 4 spaces (respects RTL code indentation)
+  if (e.key === "Tab") {
+    e.preventDefault();
+    const start = editorEl.selectionStart;
+    const end   = editorEl.selectionEnd;
+    editorEl.value = editorEl.value.substring(0, start) + "    " + editorEl.value.substring(end);
+    editorEl.selectionStart = editorEl.selectionEnd = start + 4;
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────
+//  Boot
+// ─────────────────────────────────────────────────────────────────
+initPyodide().catch((err) => {
+  overlay.classList.add("hidden");
+  setStatus("error", "فشل تحميل Pyodide — تحقق من الاتصال بالإنترنت");
+  outputEl.className = "err";
+  outputEl.textContent = `فشل تحميل المحرّك:\n${err.message}`;
+});
+</script>
+</body>
+</html>
