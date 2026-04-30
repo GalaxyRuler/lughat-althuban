@@ -39,9 +39,6 @@ proxy_classes  = ["FastAPI", "APIRouter"]
 "ضم_موجه_فرعي"         = "APIRouter.include_router"
 "انشر_موجه"            = "APIRouter.post"
 
-# ── Testing ──────────────────────────────────────────────────────────────────
-"عميل_اختبار"          = "testclient.TestClient"
-
 # ── Parameter functions ───────────────────────────────────────────────────────
 "استعلام"              = "Query"
 "مسار_معامل"           = "Path"

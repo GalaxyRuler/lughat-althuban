@@ -12,6 +12,7 @@ pytest.importorskip("celery", reason="celery not installed")
 pytest.importorskip("jwt", reason="PyJWT not installed")
 pytest.importorskip("openpyxl", reason="openpyxl not installed")
 pytest.importorskip("mongomock", reason="mongomock not installed")
+pytest.importorskip("httpx", reason="httpx not installed")
 
 from tests.test_phase_a_compat import PROJECT_ROOT, run_apy_program
 
