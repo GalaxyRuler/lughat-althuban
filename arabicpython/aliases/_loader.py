@@ -107,13 +107,17 @@ def _validate_alias_table(
     return validated
 
 
-def load_mapping(toml_path: Path) -> AliasMapping:
+def load_mapping(toml_path: Path, *, validate_target: bool = True) -> AliasMapping:
     """Parse and validate one alias TOML file.
 
     Parameters
     ----------
     toml_path:
         Absolute path to a ``*.toml`` alias mapping file.
+    validate_target:
+        When true, import the target Python module and verify mapped names.
+        ``AliasFinder`` uses ``False`` so installing Arabic aliases stays cheap
+        and does not import optional third-party dependencies until use.
 
     Returns
     -------
@@ -183,12 +187,23 @@ def load_mapping(toml_path: Path) -> AliasMapping:
         section_name="attributes",
     )
 
+    if not validate_target:
+        return AliasMapping(
+            arabic_name=arabic_name,
+            python_module=python_module,
+            dict_version=dict_version,
+            entries=entries,
+            attributes=attributes,
+            source_path=toml_path,
+            proxy_classes=proxy_classes,
+        )
+
     # ------------------------------------------------------------------ #
     # 4. Import the target module
     # ------------------------------------------------------------------ #
     try:
         module = importlib.import_module(python_module)
-    except ImportError as exc:
+    except (ImportError, RuntimeError) as exc:
         raise AliasMappingError(
             f"{toml_path}: Python module {python_module!r} is not importable: {exc}"
         ) from exc

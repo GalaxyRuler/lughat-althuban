@@ -220,6 +220,65 @@ def test_finder_silently_skips_broken_toml(tmp_path: Path) -> None:
     assert finder._arabic_to_mapping == {}
 
 
+def test_finder_skips_missing_target_module(tmp_path: Path) -> None:
+    """AliasFinder should skip aliases whose target module is not installed."""
+    toml_content = """\
+[meta]
+arabic_name   = "اختياري"
+python_module = "definitely_missing_alias_target_xyz"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"شيء" = "thing"
+"""
+    (tmp_path / "missing_target.toml").write_text(toml_content, encoding="utf-8")
+
+    finder = AliasFinder(mappings_dir=tmp_path)
+
+    assert finder._arabic_to_mapping == {}
+
+
+def test_finder_does_not_import_target_module_during_registration(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """AliasFinder registration stays cheap by deferring target imports until use."""
+    module_path = tmp_path / "optional_target.py"
+    module_path.write_text(
+        "import pathlib\n"
+        "pathlib.Path(__file__).with_name('imported.txt').write_text('yes', encoding='utf-8')\n"
+        "thing = object()\n",
+        encoding="utf-8",
+    )
+    monkeypatch.syspath_prepend(str(tmp_path))
+
+    toml_content = """\
+[meta]
+arabic_name   = "اختياري"
+python_module = "optional_target"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"شيء" = "thing"
+"""
+    (tmp_path / "optional_target.toml").write_text(toml_content, encoding="utf-8")
+
+    finder = AliasFinder(mappings_dir=tmp_path)
+
+    assert "اختياري" in finder._arabic_to_mapping
+    assert "optional_target" not in sys.modules
+    assert not (tmp_path / "imported.txt").exists()
+
+    spec = finder.find_spec("اختياري")
+    assert spec is not None
+    spec.loader.create_module(spec)
+
+    assert (tmp_path / "imported.txt").exists()
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Loader / load_mapping — 7 tests
 # ─────────────────────────────────────────────────────────────────────────────
@@ -242,6 +301,32 @@ def test_loader_error_missing_module() -> None:
     path = FIXTURES_DIR / "missing_module.toml"
     with pytest.raises(AliasMappingError, match="not importable"):
         load_mapping(path)
+
+
+def test_loader_error_runtime_import_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """RuntimeError during import is treated like an unavailable optional dependency."""
+    module_path = tmp_path / "needs_optional_dep.py"
+    module_path.write_text('raise RuntimeError("optional dependency missing")\n', encoding="utf-8")
+    monkeypatch.syspath_prepend(str(tmp_path))
+
+    toml = """\
+[meta]
+arabic_name   = "اختياري"
+python_module = "needs_optional_dep"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"شيء" = "thing"
+"""
+    p = tmp_path / "runtime_import_error.toml"
+    p.write_text(toml, encoding="utf-8")
+
+    with pytest.raises(AliasMappingError, match="not importable"):
+        load_mapping(p)
 
 
 def test_loader_error_duplicate_python_value() -> None:

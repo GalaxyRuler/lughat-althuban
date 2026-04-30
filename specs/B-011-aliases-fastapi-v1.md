@@ -97,6 +97,7 @@ proxy_classes  = ["FastAPI", "APIRouter"]
 "حموله_json"           = "json"
 "رمز_الحاله"           = "status_code"
 "ضم_موجه"              = "include_router"
+"ترويسات"              = "headers"
 
 Note: `احصل_مسار` is the FastAPI app-level GET route decorator. The shorter
 `احصل` entry belongs to `طلبات.get` and remains available as a generic

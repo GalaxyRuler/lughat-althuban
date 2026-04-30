@@ -15,9 +15,12 @@ Phase C's charter defines completion in §C.5 as a measurable full-stack outcome
 
 - `examples/C40_full_stack_demo.apy`
 - `tests/test_c040_integration.py`
+- `arabicpython/aliases/alias_runtime.toml`
 - `arabicpython/aliases/celery.toml`
 - `arabicpython/aliases/fastapi.toml`
+- `arabicpython/aliases/fastapi_testclient.toml`
 - `arabicpython/aliases/jwt.toml`
+- `arabicpython/aliases/mongomock.toml`
 - `pyproject.toml`
 - `tests/test_phase_a_compat.py`
 - `specs/INDEX.md`

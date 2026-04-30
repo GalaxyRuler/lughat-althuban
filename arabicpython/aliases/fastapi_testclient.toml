@@ -1,0 +1,11 @@
+# C-040: Optional FastAPI TestClient alias for integration demos.
+
+[meta]
+arabic_name    = "عميل_اختبار_فاست"
+python_module  = "fastapi.testclient"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+"عميل_اختبار" = "TestClient"
