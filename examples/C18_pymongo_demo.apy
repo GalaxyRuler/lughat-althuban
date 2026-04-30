@@ -1,14 +1,25 @@
-# C18_pymongo_demo.apy — C-018 demo: PyMongo aliases without opening a connection
+# C18_pymongo_demo.apy — C-018 demo: PyMongo via Arabic aliases
+#
+# MongoClient is in pymongo.toml's proxy_classes, so its instance methods
+# (احصل_قاعده_بيانات, اسماء_قواعد_بيانات, اغلق_عميل) are exposed as Arabic
+# identifiers. Database / Collection / Cursor objects returned from those
+# methods are vanilla pymongo objects; tests/aliases/test_pymongo.py shows
+# the ClassProxy wrap pattern to access Arabic method names on them.
 
 استورد قاعده_وثائق
 
 
+# Module-level alias use
+عمليه_ادراج = قاعده_وثائق.ادراج_واحد({"name": "Layla"})
+
+# MongoClient is auto-proxied — Arabic method names work directly
 عميل = قاعده_وثائق.عميل_مونجو("mongodb://localhost:27017", connect=False)
 قاعده = عميل.احصل_قاعده_بيانات("demo")
-مجموعه = قاعده.get_collection("items")
+مجموعه = قاعده.get_collection("items")  # vanilla Database — see header note
 
+اطبع("pymongo InsertOne:", قاعده_وثائق.ادراج_واحد.__name__)
+اطبع("pymongo cursor class:", قاعده_وثائق.مؤشر.__name__)
 اطبع("pymongo database:", قاعده.name)
 اطبع("pymongo collection:", مجموعه.name)
-اطبع("pymongo cursor class:", قاعده_وثائق.مؤشر.__name__)
 
 عميل.اغلق_عميل()

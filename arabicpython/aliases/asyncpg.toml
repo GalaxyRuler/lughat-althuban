@@ -14,7 +14,7 @@ maintainer     = "—"
 "انشئ_مجمع"              = "create_pool"
 "اتصال"                  = "Connection"
 "مجمع"                   = "Pool"
-"سجل"                    = "Record"
+"سجل_قاعده"              = "Record"     # disambiguates from logging.Logger
 "معامله"                 = "transaction.Transaction"
 
 # Top-level errors

@@ -1,12 +1,24 @@
-# C21_docx_demo.apy — C-021 demo: python-docx aliases in memory
+# C21_docx_demo.apy — C-021 demo: python-docx via Arabic aliases
+#
+# python-docx exposes `Document` as a factory function (not a class), so
+# proxy_classes auto-wrapping does not apply. Instance methods like
+# add_paragraph remain in English here. tests/aliases/test_docx.py shows
+# how to wrap returned objects with ClassProxy to use the Arabic method
+# names (اضف_فقره, اضف_تشغيل, ...) listed in docx.toml [attributes].
 
 استورد مستندات_وورد
 
 
-مستند = مستندات_وورد.مستند()
+# Module-level alias use — class and helper lookup
+نوع_مستند = مستندات_وورد.مستند            # docx.Document factory
+بوصات = مستندات_وورد.بوصات                  # docx.shared.Inches helper
+
+مستند = نوع_مستند()
 فقره = مستند.add_paragraph("مرحبا")
 تشغيل = فقره.add_run(" من وورد")
 تشغيل.bold = صحيح
 
+اطبع("docx Document factory:", نوع_مستند.__name__)
+اطبع("docx Inches helper:", بوصات.__name__)
 اطبع("docx paragraphs:", len(مستند.paragraphs))
 اطبع("docx text:", مستند.paragraphs[0].text)
