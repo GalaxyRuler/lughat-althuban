@@ -1,0 +1,100 @@
+# arabicpython/aliases/httpx.toml
+# C-013: Arabic aliases for HTTPX's sync and async HTTP client surface.
+
+[meta]
+arabic_name    = "طلبات_حديثه"
+python_module  = "httpx"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+proxy_classes  = ["Client", "AsyncClient"]
+
+[entries]
+# ── Top-level request helpers ────────────────────────────────────────────────
+"احذف"                  = "delete"
+"احصل"                  = "get"
+"اطلب"                  = "request"
+"خيارات"                = "options"
+"راس"                   = "head"
+"دفق"                   = "stream"
+"ضع"                    = "put"
+"عدل"                   = "patch"
+"نشر"                   = "post"
+
+# ── Core classes ─────────────────────────────────────────────────────────────
+"استجابه"               = "Response"
+"ترويسات"               = "Headers"
+"حدود"                  = "Limits"
+"رابط_url"              = "URL"
+"عميل"                  = "Client"
+"عميل_غير_متزامن"       = "AsyncClient"
+"كوكيز"                 = "Cookies"
+"مهله"                  = "Timeout"
+"معاملات_استعلام"       = "QueryParams"
+"ناقل_وهمي"             = "MockTransport"
+"طلب"                   = "Request"
+
+# ── Authentication ───────────────────────────────────────────────────────────
+"مصادقه"                = "Auth"
+"مصادقه_اساسيه"         = "BasicAuth"
+"مصادقه_هضم"            = "DigestAuth"
+
+# ── Status and utility structures ────────────────────────────────────────────
+"رموز_الحاله"           = "codes"
+
+# ── Client instance methods (ClassFactory → InstanceProxy) ───────────────────
+"احذف_عميل"             = "Client.delete"
+"احصل_عميل"             = "Client.get"
+"اغلق_عميل"             = "Client.close"
+"ارسل_عميل"             = "Client.send"
+"اطلب_عميل"             = "Client.request"
+"خيارات_عميل"           = "Client.options"
+"دفق_عميل"              = "Client.stream"
+"راس_عميل"              = "Client.head"
+"ضع_عميل"               = "Client.put"
+"عدل_عميل"              = "Client.patch"
+"نشر_عميل"              = "Client.post"
+
+# ── AsyncClient instance methods (resolved without opening connections) ─────
+"احذف_عميل_غير_متزامن"  = "AsyncClient.delete"
+"احصل_عميل_غير_متزامن"  = "AsyncClient.get"
+"اغلق_عميل_غير_متزامن"  = "AsyncClient.aclose"
+"ارسل_عميل_غير_متزامن"  = "AsyncClient.send"
+"اطلب_عميل_غير_متزامن"  = "AsyncClient.request"
+"خيارات_عميل_غير_متزامن" = "AsyncClient.options"
+"دفق_عميل_غير_متزامن"   = "AsyncClient.stream"
+"راس_عميل_غير_متزامن"   = "AsyncClient.head"
+"ضع_عميل_غير_متزامن"    = "AsyncClient.put"
+"عدل_عميل_غير_متزامن"   = "AsyncClient.patch"
+"نشر_عميل_غير_متزامن"   = "AsyncClient.post"
+
+# ── Exceptions ───────────────────────────────────────────────────────────────
+"خطا_http"              = "HTTPError"
+"خطا_اتصال"             = "ConnectError"
+"خطا_اتصال_مهله"        = "ConnectTimeout"
+"خطا_بروتوكول"          = "ProtocolError"
+"خطا_حاله_http"         = "HTTPStatusError"
+"خطا_رابط"              = "InvalidURL"
+"خطا_شبكه"              = "NetworkError"
+"خطا_طلب"               = "RequestError"
+"خطا_قراءه"             = "ReadTimeout"
+"خطا_كتابه"             = "WriteTimeout"
+"خطا_كثير_تحويلات"      = "TooManyRedirects"
+"خطا_مجمع"              = "PoolTimeout"
+"خطا_مهله"              = "TimeoutException"
+"خطا_وكيل"              = "ProxyError"
+
+[attributes]
+# Request/Response/Client attributes for explicit ClassProxy use.
+"اغلق"                  = "close"
+"ارفع_للحاله"           = "raise_for_status"
+"ارسال"                 = "send"
+"اقرا"                  = "read"
+"الطلب"                 = "request"
+"بيانات_json"           = "json"
+"ترويسات"               = "headers"
+"رابط"                  = "url"
+"رمز_الحاله"            = "status_code"
+"طريقه"                 = "method"
+"محتوي"                 = "content"
+"نص"                    = "text"

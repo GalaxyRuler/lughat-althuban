@@ -1,0 +1,21 @@
+# C17_celery_demo.apy — C-017 demo: Celery eager task via Arabic aliases
+
+استورد مهام_خلفيه
+
+
+تطبيق = مهام_خلفيه.تطبيق_سيلري(
+    "demo",
+    broker="memory://",
+    backend="cache+memory://",
+)
+تطبيق.conf.task_always_eager = صحيح
+تطبيق.conf.task_store_eager_result = صحيح
+
+
+@تطبيق.عرف_مهمه
+دالة اجمع(س, ص):
+    ارجع س + ص
+
+
+نتيجه = اجمع.delay(2, 3)
+اطبع("celery eager result:", نتيجه.result)

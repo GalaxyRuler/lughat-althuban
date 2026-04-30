@@ -1,0 +1,66 @@
+# arabicpython/aliases/celery.toml
+# C-017: Arabic aliases for Celery apps, tasks, canvas primitives, beat, and errors.
+
+[meta]
+arabic_name    = "مهام_خلفيه"
+python_module  = "celery"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+proxy_classes  = ["Celery"]
+
+[entries]
+# ── App and task primitives ──────────────────────────────────────────────────
+"التطبيق_الحالي"        = "current_app"
+"المهمه_الحاليه"        = "current_task"
+"تطبيق_سيلري"           = "Celery"
+"مهمه"                  = "Task"
+"مهمه_مشتركه"           = "shared_task"
+
+# ── Canvas primitives ────────────────────────────────────────────────────────
+"ربما_توقيع"            = "maybe_signature"
+"سلسله"                 = "chain"
+"مجموعة_مهام"           = "group"
+"وتر"                   = "chord"
+"توقيع"                 = "signature"
+
+# ── App instance methods/properties (ClassFactory → InstanceProxy) ───────────
+"اعداد_من_كائن"         = "Celery.config_from_object"
+"اكتشف_مهام"            = "Celery.autodiscover_tasks"
+"ارسل_مهمه"             = "Celery.send_task"
+"تحكم_تطبيق"            = "Celery.control"
+"عرف_مهمه"              = "Celery.task"
+"مهام_مسجله"            = "Celery.tasks"
+
+# ── Results, beat, and scheduling ────────────────────────────────────────────
+"جدول_ضربات"            = "beat.Scheduler"
+"جدوله"                 = "schedules.schedule"
+"جدوله_cron"            = "schedules.crontab"
+"خطوه_بدء_ايقاف"        = "bootsteps.StartStopStep"
+"نتيجه_غير_متزامنه"     = "result.AsyncResult"
+"نتيجه_مجموعه"          = "result.GroupResult"
+
+# ── Utilities/state/signals ──────────────────────────────────────────────────
+"اشارات"                = "signals"
+"حالات"                 = "states"
+"معرف_uuid"             = "uuid"
+
+# ── Exceptions ───────────────────────────────────────────────────────────────
+"ارفض"                  = "exceptions.Reject"
+"اعد_المحاوله"          = "exceptions.Retry"
+"تجاهل"                 = "exceptions.Ignore"
+"خطا_سيلري"             = "exceptions.CeleryError"
+"خطا_مهمه"              = "exceptions.TaskError"
+"خطا_مهله_ناعم"         = "exceptions.SoftTimeLimitExceeded"
+"خطا_مهله_صلب"          = "exceptions.TimeLimitExceeded"
+"غير_مسجل"              = "exceptions.NotRegistered"
+
+[attributes]
+# Celery app/task attributes for explicit ClassProxy use.
+"اعداد_من_كائن"         = "config_from_object"
+"اكتشف_مهام"            = "autodiscover_tasks"
+"ارسل_مهمه"             = "send_task"
+"التكوين"               = "conf"
+"تحكم"                  = "control"
+"عرف_مهمه"              = "task"
+"مهام"                  = "tasks"

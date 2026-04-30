@@ -1,0 +1,21 @@
+# C13_httpx_demo.apy — C-013 demo: HTTPX via Arabic aliases without live HTTP
+
+استورد طلبات_حديثه
+
+
+دالة معالج(طلب):
+    ارجع طلبات_حديثه.استجابه(
+        200,
+        json={"ok": صحيح, "path": str(طلب.url.path)},
+        request=طلب,
+    )
+
+
+ناقل = طلبات_حديثه.ناقل_وهمي(معالج)
+عميل = طلبات_حديثه.عميل(transport=ناقل, base_url="https://example.test")
+استجابه = عميل.احصل_عميل("/ping")
+
+اطبع("httpx status:", استجابه.status_code)
+اطبع("httpx json:", استجابه.json())
+
+عميل.اغلق_عميل()

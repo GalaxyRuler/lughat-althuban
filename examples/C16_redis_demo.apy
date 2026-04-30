@@ -1,0 +1,10 @@
+# C16_redis_demo.apy — C-016 demo: Redis aliases without opening a connection
+
+استورد مخزن_سريع
+
+
+عميل = مخزن_سريع.رديس(host="localhost", port=6379, db=0)
+
+اطبع("redis client ready")
+اطبع("pipeline method:", عميل.انبوب.__name__)
+اطبع("pubsub method:", عميل.اقرا_اشترك.__name__)
