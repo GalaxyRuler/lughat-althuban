@@ -1,0 +1,11 @@
+# C-040: Optional mongomock alias for in-process MongoDB demos/tests.
+
+[meta]
+arabic_name    = "مونجو_وهمي"
+python_module  = "mongomock"
+dict_version   = "ar-v1"
+schema_version = 1
+maintainer     = "—"
+
+[entries]
+"عميل_مونجو_وهمي" = "MongoClient"

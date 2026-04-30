@@ -96,3 +96,4 @@ proxy_classes  = ["FastAPI", "APIRouter"]
 "حموله_json"           = "json"
 "رمز_الحاله"           = "status_code"
 "ضم_موجه"              = "include_router"
+"ترويسات"              = "headers"

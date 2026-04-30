@@ -73,6 +73,8 @@ def test_c040_demo_exposes_arabic_methods_on_all_five_libraries(clean_import_sta
     assert callable(app.انشر)
     assert callable(app.احصل_مسار)
     assert callable(app.ضم_موجه)
+    assert demo.صفات_فاست["ترويسات"] == "headers"
+    assert demo.عميل_اختبار_فاست.عميل_اختبار.__name__ == "TestClient"
 
     celery_app = demo.تطبيق_مهام
     assert callable(celery_app.ارسل_مهمه)
@@ -85,6 +87,7 @@ def test_c040_demo_exposes_arabic_methods_on_all_five_libraries(clean_import_sta
 
     mongo_client = demo.عميل_مونجو
     assert callable(mongo_client.احصل_قاعده_بيانات)
+    assert demo.مونجو_وهمي.عميل_مونجو_وهمي.__name__ == "MongoClient"
     collection = demo.مجموعه_تقارير
     assert callable(collection.ادخل_واحد)
     assert callable(collection.اجمع)
