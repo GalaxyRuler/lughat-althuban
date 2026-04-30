@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - FastAPI application GET route decorators use `احصل_مسار` for `FastAPI.get`,
   keeping the existing `طلبات.احصل` entry collision-free while preserving
   generic returned-object `.احصل` attributes for wrapped objects.
+- Added `اسماء_بديله`, an Arabic alias module for the internal alias runtime
+  helpers used by C-040, including `وكيل_صنف` and `حمل_خريطه`.
 - C-040 keeps the full-stack `.apy` demo Arabic-first by adding optional aliases
   for FastAPI `TestClient` and `mongomock`, plus `ترويسات` for FastAPI request
   and client header objects.

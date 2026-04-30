@@ -32,6 +32,7 @@ def clean_import_state():
         "جي_دبليو_تي",
         "جداول_اكسل",
         "مجاري",
+        "اسماء_بديله",
     ):
         sys.modules.pop(name, None)
 
@@ -45,6 +46,7 @@ def clean_import_state():
         "جي_دبليو_تي",
         "جداول_اكسل",
         "مجاري",
+        "اسماء_بديله",
     ):
         sys.modules.pop(name, None)
     sys.meta_path[:] = original_meta_path
@@ -68,6 +70,9 @@ def test_c040_demo_exposes_arabic_methods_on_all_five_libraries(clean_import_sta
     sys.path.insert(0, str(EXAMPLES_DIR))
 
     demo = importlib.import_module("C40_full_stack_demo")
+
+    assert demo.وكيل_صنف is demo.اسماء_بديله.وكيل_صنف
+    assert demo.حمل_خريطه is demo.اسماء_بديله.حمل_خريطه
 
     app = demo.تطبيق
     assert callable(app.انشر)
