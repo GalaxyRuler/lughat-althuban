@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- FastAPI application GET route decorators use `احصل_مسار` for `FastAPI.get`,
+  keeping the existing `طلبات.احصل` entry collision-free while preserving
+  generic returned-object `.احصل` attributes for wrapped objects.
+
 ## [0.3.0] — 2026-04-28
 
 First public release on PyPI. Ships the complete Phase A + Phase B feature set.

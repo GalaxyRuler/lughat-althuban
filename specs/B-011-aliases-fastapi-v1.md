@@ -29,62 +29,79 @@ Ship the Arabic alias mapping for FastAPI, including support for async route han
 ### `arabicpython/aliases/fastapi.toml`
 
 [meta]
-arabic_name = "فاست_أبي"
-python_module = "fastapi"
-dict_version = "ar-v1.1"
+arabic_name    = "فاست_أبي"
+python_module  = "fastapi"
+dict_version   = "ar-v1"
 schema_version = 1
+proxy_classes  = ["FastAPI", "APIRouter"]
 
 [entries]
-"فاست_أبي" = "FastAPI"
-"راوتر" = "APIRouter"
-"طلب" = "Request"
-"استجابة" = "Response"
-"خطأ_http" = "HTTPException"
-"حالة" = "status"
-"يعتمد" = "Depends"
-"استعلام" = "Query"
-"مسار_رابط" = "Path"
-"محتوى" = "Body"
-"رأس" = "Header"
-"كوكيز" = "Cookie"
-"ملف" = "File"
-"ملف_مرفوع" = "UploadFile"
-"نموذج_إدخال" = "Form"
-"مهام_خلفية" = "BackgroundTasks"
-"ملفات_ثابتة" = "StaticFiles"
-"استجابة_html" = "HTMLResponse"
-"استجابة_جسون" = "JSONResponse"
-"استجابة_نصية" = "PlainTextResponse"
-"استجابة_توجيه" = "RedirectResponse"
-"استجابة_بث" = "StreamingResponse"
-"استجابة_ملف" = "FileResponse"
-"عميل_اختبار" = "TestClient"
-"ويب_سوكت" = "WebSocket"
-"انقطاع_ويب_سوكت" = "WebSocketDisconnect"
-"أمن" = "Security"
-"أوث2_كلمة_سر" = "OAuth2PasswordBearer"
-"نموذج_أوث2" = "OAuth2PasswordRequestForm"
-"حماية_أساسية" = "HTTPBasic"
-"حماية_توكن" = "HTTPBearer"
-"نطاقات_أمنية" = "SecurityScopes"
+"تطبيق_سريع"          = "FastAPI"
+"موجه_api"             = "APIRouter"
 
-# Starlette re-exports often used
-"قوالب_جينجا" = "Jinja2Templates"
+"اضف_برمجيات_وسيطه"   = "FastAPI.add_middleware"
+"احصل_مسار"            = "FastAPI.get"
+"ضم_موجه"              = "FastAPI.include_router"
+"انشر"                 = "FastAPI.post"
 
-# Common status codes (often accessed via fastapi.status)
-# These would be on the status object, but if we map them at module level:
-# status.HTTP_200_OK -> ?
-# For now, focusing on module-level.
+"احصل_موجه"            = "APIRouter.get"
+"ضم_موجه_فرعي"         = "APIRouter.include_router"
+"انشر_موجه"            = "APIRouter.post"
 
-# Count: ~35. Adding more to reach floor 40.
-"واجهة_تطبيق" = "FastAPI"
-"رابط" = "APIRouter"
-"معلمات" = "Query"
-"مرفق" = "File"
-"تحميل" = "UploadFile"
-"خلفية" = "BackgroundTasks"
-"توجيه" = "RedirectResponse"
-"سوكت" = "WebSocket"
+"استعلام"              = "Query"
+"مسار_معامل"           = "Path"
+"جسم"                  = "Body"
+"استماره"              = "Form"
+"ترويسه"               = "Header"
+"كوكي"                 = "Cookie"
+"ملف"                  = "File"
+"ملف_مرفوع"            = "UploadFile"
+
+"يعتمد_علي"            = "Depends"
+"امان"                 = "Security"
+
+"استثناء_http"         = "HTTPException"
+"طلب_http"             = "Request"
+"رد_http"              = "Response"
+"مهام_خلفيه"           = "BackgroundTasks"
+
+"وصله_ويب"             = "WebSocket"
+"قطع_وصله_ويب"         = "WebSocketDisconnect"
+"استثناء_وصله_ويب"     = "WebSocketException"
+
+"رد_json"              = "responses.JSONResponse"
+"رد_html"              = "responses.HTMLResponse"
+"رد_نص"                = "responses.PlainTextResponse"
+"رد_تدفق"              = "responses.StreamingResponse"
+"رد_ملف"               = "responses.FileResponse"
+"رد_توجيه"             = "responses.RedirectResponse"
+
+"مفتاح_api_راس"        = "security.APIKeyHeader"
+"مفتاح_api_استعلام"    = "security.APIKeyQuery"
+"مفتاح_api_كوكي"       = "security.APIKeyCookie"
+"حامل_oauth2"          = "security.OAuth2PasswordBearer"
+"نموذج_oauth2"         = "security.OAuth2PasswordRequestForm"
+"http_اساسي"           = "security.HTTPBasic"
+"http_حامل"            = "security.HTTPBearer"
+
+"استجابات"             = "responses"
+"رموز_الحاله_http"     = "status"
+"امان_fastapi"         = "security"
+"برمجيات_وسيطه"        = "middleware"
+
+[attributes]
+"اضف_برمجيات_وسيطه"   = "add_middleware"
+"احصل"                 = "get"
+"المحتوي"              = "content"
+"انشر"                 = "post"
+"حموله_json"           = "json"
+"رمز_الحاله"           = "status_code"
+"ضم_موجه"              = "include_router"
+
+Note: `احصل_مسار` is the FastAPI app-level GET route decorator. The shorter
+`احصل` entry belongs to `طلبات.get` and remains available as a generic
+returned-object attribute alias for wrapped objects whose Python method is
+named `get`.
 
 ### `examples/B11_fastapi_hello.apy`
 
@@ -92,13 +109,13 @@ schema_version = 1
 # arabicpython: dict=ar-v1.1
 استورد فاست_أبي
 
-تطبيق = فاست_أبي.فاست_أبي()
+تطبيق = فاست_أبي.تطبيق_سريع()
 
-@تطبيق.get("/")
+@تطبيق.احصل_مسار("/")
 متزامن دالة الرئيسيه():
     ارجع {"رسالة": "مرحبا بك في فاست أبي العربي"}
 
-@تطبيق.get("/سلام/{اسم}")
+@تطبيق.احصل_مسار("/سلام/{اسم}")
 متزامن دالة سلام_على(اسم: نص):
     ارجع {"رسالة": f"السلام عليكم يا {اسم}"}
 
@@ -110,7 +127,10 @@ schema_version = 1
 ## Implementation constraints
 
 - **Cite B-010 as structural prior.** This packet follows the same deliverable structure and naming conventions.
-- **Method-on-instance limitation:** Like B-010, this packet only maps module-level attributes. Methods on instances (e.g., `app.get`, `app.post`) remain in English in this version. The implementer should document this in the README-ar.md.
+- **Instance methods:** `FastAPI` and `APIRouter` are listed in
+  `proxy_classes`, so returned application/router objects expose curated Arabic
+  method names. Use `احصل_مسار` for `FastAPI.get` to avoid the existing
+  `طلبات.احصل` module-entry collision; use `احصل_موجه` for `APIRouter.get`.
 - **Acceptance checklist must include Phase A compat assertion.**
 - **Ensure all Arabic names round-trip through `normalize_identifier`.**
 

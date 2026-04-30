@@ -9,6 +9,7 @@ Phase C's charter defines completion in §C.5 as a measurable full-stack outcome
 - The demo imports and composes `مهام_خلفيه` (celery) in eager mode.
 - The demo imports and composes `جي_دبليو_تي` (PyJWT) for bearer-token authentication.
 - The demo imports and composes `جداول_اكسل` (openpyxl) to return in-memory `.xlsx` bytes.
+- `فاست_أبي` exposes FastAPI application route methods through `proxy_classes`, including `تطبيق.احصل_مسار(...)` for `FastAPI.get`; the more general `احصل` name stays reserved for existing `طلبات.get` entry compatibility and for `[attributes]` wrapping of returned objects.
 
 ## Files Delivered
 
