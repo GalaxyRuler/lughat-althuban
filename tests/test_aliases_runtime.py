@@ -220,6 +220,65 @@ def test_finder_silently_skips_broken_toml(tmp_path: Path) -> None:
     assert finder._arabic_to_mapping == {}
 
 
+def test_finder_skips_missing_target_module(tmp_path: Path) -> None:
+    """AliasFinder should skip aliases whose target module is not installed."""
+    toml_content = """\
+[meta]
+arabic_name   = "اختياري"
+python_module = "definitely_missing_alias_target_xyz"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"شيء" = "thing"
+"""
+    (tmp_path / "missing_target.toml").write_text(toml_content, encoding="utf-8")
+
+    finder = AliasFinder(mappings_dir=tmp_path)
+
+    assert finder._arabic_to_mapping == {}
+
+
+def test_finder_does_not_import_target_module_during_registration(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """AliasFinder registration stays cheap by deferring target imports until use."""
+    module_path = tmp_path / "optional_target.py"
+    module_path.write_text(
+        "import pathlib\n"
+        "pathlib.Path(__file__).with_name('imported.txt').write_text('yes', encoding='utf-8')\n"
+        "thing = object()\n",
+        encoding="utf-8",
+    )
+    monkeypatch.syspath_prepend(str(tmp_path))
+
+    toml_content = """\
+[meta]
+arabic_name   = "اختياري"
+python_module = "optional_target"
+dict_version  = "ar-v1"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"شيء" = "thing"
+"""
+    (tmp_path / "optional_target.toml").write_text(toml_content, encoding="utf-8")
+
+    finder = AliasFinder(mappings_dir=tmp_path)
+
+    assert "اختياري" in finder._arabic_to_mapping
+    assert "optional_target" not in sys.modules
+    assert not (tmp_path / "imported.txt").exists()
+
+    spec = finder.find_spec("اختياري")
+    assert spec is not None
+    spec.loader.create_module(spec)
+
+    assert (tmp_path / "imported.txt").exists()
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Loader / load_mapping — 7 tests
 # ─────────────────────────────────────────────────────────────────────────────

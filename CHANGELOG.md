@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   generic returned-object `.احصل` attributes for wrapped objects.
 - Added `اسماء_بديله`, an Arabic alias module for the internal alias runtime
   helpers used by C-040, including `وكيل_صنف` and `حمل_خريطه`.
+- Made alias registration lazy about target imports, so installing Arabic
+  aliases no longer imports optional third-party libraries during app startup.
 - C-040 keeps the full-stack `.apy` demo Arabic-first by adding optional aliases
   for FastAPI `TestClient` and `mongomock`, plus `ترويسات` for FastAPI request
   and client header objects.

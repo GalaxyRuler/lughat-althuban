@@ -14,6 +14,14 @@ from arabicpython.aliases._proxy import ModuleProxy
 from arabicpython.normalize import normalize_identifier
 
 
+def _module_spec_exists(module_name: str) -> bool:
+    """Return whether *module_name* appears importable without executing it."""
+    try:
+        return importlib.util.find_spec(module_name) is not None
+    except (ImportError, RuntimeError, AttributeError, ValueError):
+        return False
+
+
 class AliasLoader(importlib.abc.Loader):
     """Loader that materialises a ModuleProxy for one registered Arabic alias."""
 
@@ -70,12 +78,14 @@ class AliasFinder(importlib.abc.MetaPathFinder):
         exact: dict[str, AliasMapping] = {}
         for toml_file in sorted(self._mappings_dir.glob("*.toml")):
             try:
-                mapping = load_mapping(toml_file)
+                mapping = load_mapping(toml_file, validate_target=False)
+                if not _module_spec_exists(mapping.python_module):
+                    continue
                 exact[mapping.arabic_name] = mapping
             except AliasMappingError:
                 # Don't crash the import system if one TOML is broken at startup.
-                # The broken file is simply ignored; its error surfaces in tests
-                # when load_mapping() is called directly.
+                # The broken file is simply ignored; deeper target validation
+                # surfaces in tests when load_mapping() is called directly.
                 pass
 
         loaded = dict(exact)
