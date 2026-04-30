@@ -30,7 +30,7 @@ class TestBeautifulSoupCore:
         assert isinstance(تحليل_ويب.حساء_جميل, ClassFactory)
         assert isinstance(تحليل_ويب.وسم, ClassFactory)
         assert تحليل_ويب.نص_ملاحي is bs4.NavigableString
-        assert تحليل_ويب.تعليق is bs4.Comment
+        assert تحليل_ويب.تعليق_html is bs4.Comment
         assert تحليل_ويب.مصفاه_حساء is bs4.SoupStrainer
         assert تحليل_ويب.خطا_ميزهه is bs4.FeatureNotFound
 

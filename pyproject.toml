@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lughat-althuban"
-version = "0.3.1"
+version = "0.4.0"
 description = "لغة الثعبان — Arabic-keyword Python dialect with stdlib & library aliases, tooling, and translated tracebacks"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -62,9 +62,31 @@ kernel = [
     "ipykernel>=6.29",
     "jupyter_client>=8.6",
 ]
+aliases = [
+    # Phase C optional alias targets — install to exercise the C-series tests
+    # locally and to use the corresponding Arabic alias modules at runtime.
+    "PyJWT>=2.8",
+    "click>=8.1",
+    "rich>=13.7",
+    "python-dotenv>=1.0",
+    "PyYAML>=6.0",
+    "matplotlib>=3.8",
+    "scikit-learn>=1.4",
+    "pydantic>=2.0",
+    "httpx>=0.27",
+    "redis>=5.0",
+    "celery>=5.3",
+    "pymongo>=4.6",
+    "asyncpg>=0.29",
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+    "playwright>=1.44",
+    "beautifulsoup4>=4.12",
+]
 all = [
     "lughat-althuban[dev]",
     "lughat-althuban[kernel]",
+    "lughat-althuban[aliases]",
 ]
 
 [project.scripts]

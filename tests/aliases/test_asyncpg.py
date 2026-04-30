@@ -29,7 +29,7 @@ class TestAsyncpgCore:
         assert قاعده_بوست.انشئ_مجمع is asyncpg.create_pool
         assert قاعده_بوست.اتصال is asyncpg.Connection
         assert قاعده_بوست.مجمع is asyncpg.Pool
-        assert قاعده_بوست.سجل is asyncpg.Record
+        assert قاعده_بوست.سجل_قاعده is asyncpg.Record
 
     def test_exceptions(self, قاعده_بوست):
         import asyncpg.exceptions

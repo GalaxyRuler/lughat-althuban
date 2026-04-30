@@ -10,7 +10,7 @@ Phase B adds library aliases: Arabic module names that transparently proxy
 third-party and stdlib modules via ``arabicpython.aliases``.
 """
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 from arabicpython.aliases import install as install_aliases  # noqa: E402,F401
 from arabicpython.aliases import uninstall as uninstall_aliases  # noqa: E402,F401
