@@ -117,10 +117,25 @@ def render_glossary(entries_by_dialect: dict[str, list[dict]]) -> str:
 
 def render_alias_index() -> str:
     data = _load_toml(LEXICON_DIR / "libraries.toml")
+    grouped = _libraries_by_group(data)
+    lines = [
+        "# فهرس الأسماء العربية للمكتبات",
+        "",
+        "هذا الفهرس مولد من `lexicon/libraries.toml` وملفات `arabicpython/aliases/*.toml`.",
+        "",
+    ]
+    lines.extend(_render_library_tables(grouped, heading_level=2))
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def _libraries_by_group(data: dict) -> dict[str, list[dict]]:
     grouped: dict[str, list[dict]] = defaultdict(list)
     for library in data.get("library", []):
         grouped[library.get("group", "third_party")].append(library)
+    return dict(grouped)
 
+
+def _render_library_tables(grouped: dict[str, list[dict]], *, heading_level: int) -> list[str]:
     group_titles = {
         "stdlib": "المكتبة القياسية",
         "web": "الويب",
@@ -130,16 +145,12 @@ def render_alias_index() -> str:
         "media": "الوسائط",
         "third_party": "حزم أخرى",
     }
-    lines = [
-        "# فهرس الأسماء العربية للمكتبات",
-        "",
-        "هذا الفهرس مولد من `lexicon/libraries.toml` وملفات `arabicpython/aliases/*.toml`.",
-        "",
-    ]
+    lines: list[str] = []
+    marker = "#" * heading_level
     for group in sorted(grouped):
         lines.extend(
             [
-                f"## {group_titles.get(group, group)}",
+                f"{marker} {group_titles.get(group, group)}",
                 "",
                 "| العربية | وحدة Python | ملف الخريطة |",
                 "|---|---|---|",
@@ -151,6 +162,52 @@ def render_alias_index() -> str:
                 f"`arabicpython/aliases/{library['alias_file']}` |"
             )
         lines.append("")
+    return lines
+
+
+def render_unified_lexicon(entries_by_dialect: dict[str, list[dict]]) -> str:
+    entries = entries_by_dialect["ar-v2"]
+    libraries = _libraries_by_group(_load_toml(LEXICON_DIR / "libraries.toml"))
+    lines = [
+        "# المعجم العربي الموحد",
+        "",
+        "هذا الملف هو المرجع العلني الواحد للمصطلحات البرمجية العربية في لغة الثعبان.",
+        "يولد من `lexicon/core.toml` و`lexicon/libraries.toml`، "
+        "وتبقى الصفحات المتخصصة مثل `glossary.md` و`aliases-index.md` و`stdlib-reference.md` "
+        "واجهات مشتقة للتصفح السريع وليست مصادر مستقلة.",
+        "",
+        "## المصطلحات الأساسية",
+        "",
+        "| الرمز في Python | العربية المعتمدة | النوع | بدائل موثقة |",
+        "|---|---|---|---|",
+    ]
+    for entry in entries:
+        lines.append(
+            f"| `{entry['python']}` | {entry['canonical']} | "
+            f"{CATEGORY_AR.get(entry['category'], entry['category'])} | "
+            f"{_format_alternates(entry.get('alternates', []))} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## أسماء المكتبات والوحدات",
+            "",
+            "الأسماء التالية هي الأسماء العربية المعتمدة للاستيراد عبر نظام الأسماء المستعارة.",
+            "",
+        ]
+    )
+    lines.extend(_render_library_tables(libraries, heading_level=3))
+    lines.extend(
+        [
+            "## صفحات مشتقة",
+            "",
+            "- [مسرد المصطلحات الأساسي](glossary.md)",
+            "- [فهرس أسماء المكتبات](aliases-index.md)",
+            "- [مرجع المكتبة القياسية](stdlib-reference.md)",
+            "",
+        ]
+    )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -190,6 +247,9 @@ def generate(*, check: bool = False) -> int:
         DOCS_AR / "glossary.md", render_glossary(entries_by_dialect), check=check
     )
     changed |= _write_or_check(DOCS_AR / "aliases-index.md", render_alias_index(), check=check)
+    changed |= _write_or_check(
+        DOCS_AR / "lexicon.md", render_unified_lexicon(entries_by_dialect), check=check
+    )
 
     if check and changed:
         return 1

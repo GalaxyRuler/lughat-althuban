@@ -8,9 +8,26 @@
       name="description"
       content="الصفحة الرئيسية لوثائق لغة الثعبان: لهجة Python عربية أولى مع كلمات مفتاحية ودوال ومكتبات وأدوات عربية."
     />
+    <meta name="theme-color" content="#f7f5ef" />
+    <script>
+      (() => {
+        let stored = null;
+        try {
+          stored = localStorage.getItem("lughat-althuban-theme");
+        } catch {
+          stored = null;
+        }
+        if (stored !== "dark" && stored !== "light") {
+          stored = null;
+        }
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = stored || (systemDark ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --bg: #f7f5ef;
         --ink: #1f2933;
         --muted: #5d6775;
@@ -19,6 +36,45 @@
         --accent: #0f766e;
         --accent-strong: #0b5751;
         --code: #eef5f2;
+        --shadow: rgba(31, 41, 51, 0.08);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #101615;
+          --ink: #edf4f2;
+          --muted: #b2c2bd;
+          --line: #31423e;
+          --panel: #17211f;
+          --accent: #2dd4bf;
+          --accent-strong: #7ddfd4;
+          --code: #0c211d;
+          --shadow: rgba(0, 0, 0, 0.24);
+        }
+      }
+
+      :root[data-theme="dark"] {
+        --bg: #101615;
+        --ink: #edf4f2;
+        --muted: #b2c2bd;
+        --line: #31423e;
+        --panel: #17211f;
+        --accent: #2dd4bf;
+        --accent-strong: #7ddfd4;
+        --code: #0c211d;
+        --shadow: rgba(0, 0, 0, 0.24);
+      }
+
+      :root[data-theme="light"] {
+        --bg: #f7f5ef;
+        --ink: #1f2933;
+        --muted: #5d6775;
+        --line: #d7d2c4;
+        --panel: #ffffff;
+        --accent: #0f766e;
+        --accent-strong: #0b5751;
+        --code: #eef5f2;
+        --shadow: rgba(31, 41, 51, 0.08);
       }
 
       * {
@@ -52,7 +108,40 @@
       }
 
       header {
-        padding: 56px 0 24px;
+        padding: 28px 0 24px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 34px;
+      }
+
+      .brand {
+        color: var(--accent-strong);
+        font-weight: 700;
+      }
+
+      .theme-toggle {
+        min-height: 40px;
+        padding: 7px 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 1px 12px var(--shadow);
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+      }
+
+      .theme-toggle:focus-visible,
+      .button:focus-visible,
+      .card:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
       }
 
       .eyebrow {
@@ -90,7 +179,7 @@
         border: 1px solid var(--accent);
         border-radius: 8px;
         background: var(--accent);
-        color: #ffffff;
+        color: var(--bg);
         font-weight: 700;
         text-decoration: none;
       }
@@ -122,6 +211,7 @@
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--panel);
+        box-shadow: 0 1px 12px var(--shadow);
       }
 
       .card h3 {
@@ -165,6 +255,12 @@
   </head>
   <body>
     <header>
+      <div class="topbar">
+        <span class="brand">لغة الثعبان</span>
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+          الوضع الداكن
+        </button>
+      </div>
       <p class="eyebrow">لغة الثعبان</p>
       <h1>بايثون بالعربية</h1>
       <p class="lead">
@@ -192,17 +288,13 @@
             <h3>دليل البدء</h3>
             <p>خطوات التثبيت وتشغيل أول برنامج عربي.</p>
           </a>
-          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/glossary.md">
-            <h3>المعجم العربي</h3>
-            <p>مرجع المصطلحات والكلمات المفتاحية والأسماء القياسية.</p>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/lexicon.md">
+            <h3>المعجم العربي الموحد</h3>
+            <p>الكلمات المفتاحية والدوال والاستثناءات والمكتبات في مرجع واحد.</p>
           </a>
-          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/stdlib-reference.md">
-            <h3>مرجع المكتبة القياسية</h3>
-            <p>أسماء الوحدات القياسية العربية وأمثلة استخدامها.</p>
-          </a>
-          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/aliases-index.md">
-            <h3>فهرس الأسماء المستعارة</h3>
-            <p>المكتبات القياسية والشائعة المربوطة بأسماء عربية.</p>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/naming-policy.md">
+            <h3>سياسات اللغة</h3>
+            <p>قواعد تسمية المصطلحات والأسماء المستعارة والاستثناءات.</p>
           </a>
           <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/normalization-and-bidi.md">
             <h3>التطبيع والسلامة النصية</h3>
@@ -211,6 +303,10 @@
           <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/troubleshooting.md">
             <h3>استكشاف المشكلات</h3>
             <p>حلول سريعة لمشكلات التثبيت والترميز وتشغيل الأدوات.</p>
+          </a>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/wiki/index.md">
+            <h3>ويكي المشروع</h3>
+            <p>مراجع تفصيلية للأدوات والبنية والأسئلة الشائعة.</p>
           </a>
         </div>
       </section>
@@ -233,5 +329,31 @@
         عبر GitHub Pages.
       </p>
     </footer>
+    <script>
+      (() => {
+        const storageKey = "lughat-althuban-theme";
+        const toggle = document.getElementById("theme-toggle");
+        const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+        function setTheme(theme) {
+          document.documentElement.dataset.theme = theme;
+          try {
+            localStorage.setItem(storageKey, theme);
+          } catch {
+            /* المتصفح قد يمنع التخزين المحلي في بعض الأوضاع الخاصة. */
+          }
+          toggle.setAttribute("aria-pressed", String(theme === "dark"));
+          toggle.textContent = theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن";
+          metaTheme.setAttribute("content", theme === "dark" ? "#101615" : "#f7f5ef");
+        }
+
+        setTheme(document.documentElement.dataset.theme || "light");
+
+        toggle.addEventListener("click", () => {
+          const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+          setTheme(nextTheme);
+        });
+      })();
+    </script>
   </body>
 </html>
