@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>لغة الثعبان | بايثون بالعربية</title>
+    <meta
+      name="description"
+      content="الصفحة الرئيسية لوثائق لغة الثعبان: لهجة Python عربية أولى مع كلمات مفتاحية ودوال ومكتبات وأدوات عربية."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f5ef;
+        --ink: #1f2933;
+        --muted: #5d6775;
+        --line: #d7d2c4;
+        --panel: #ffffff;
+        --accent: #0f766e;
+        --accent-strong: #0b5751;
+        --code: #eef5f2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Tahoma,
+          "Noto Sans Arabic",
+          "Segoe UI",
+          Arial,
+          sans-serif;
+        line-height: 1.8;
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      a {
+        color: var(--accent-strong);
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.2em;
+      }
+
+      header,
+      main,
+      footer {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 56px 0 24px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--accent-strong);
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 6vw, 4.25rem);
+        line-height: 1.15;
+      }
+
+      .lead {
+        max-width: 760px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 1.15rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 8px 16px;
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        background: var(--accent);
+        color: #ffffff;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--accent-strong);
+      }
+
+      section {
+        padding: 28px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 1.45rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        min-height: 100%;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      pre {
+        margin: 0;
+        padding: 16px;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--code);
+        direction: ltr;
+        text-align: left;
+      }
+
+      code {
+        font-family:
+          "Cascadia Mono",
+          Consolas,
+          monospace;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0 1.3rem 0 0;
+      }
+
+      footer {
+        padding: 28px 0 44px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="eyebrow">لغة الثعبان</p>
+      <h1>بايثون بالعربية</h1>
+      <p class="lead">
+        لهجة عربية أولى فوق CPython تتيح كتابة ملفات
+        <code>.apy</code>
+        بكلمات مفتاحية ودوال مدمجة واستثناءات وأسماء مكتبات عربية.
+      </p>
+      <div class="actions">
+        <a class="button" href="playground.html">افتح الملعب</a>
+        <a class="button secondary" href="https://github.com/GalaxyRuler/lughat-althuban">المستودع على GitHub</a>
+      </div>
+    </header>
+
+    <main>
+      <section aria-labelledby="quick-start">
+        <h2 id="quick-start">بداية سريعة</h2>
+        <pre><code>python -m pip install lughat-althuban
+ثعبان -c "اطبع('مرحبا بالعالم')"</code></pre>
+      </section>
+
+      <section aria-labelledby="docs">
+        <h2 id="docs">الوثائق</h2>
+        <div class="grid">
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/getting-started.md">
+            <h3>دليل البدء</h3>
+            <p>خطوات التثبيت وتشغيل أول برنامج عربي.</p>
+          </a>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/glossary.md">
+            <h3>المعجم العربي</h3>
+            <p>مرجع المصطلحات والكلمات المفتاحية والأسماء القياسية.</p>
+          </a>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/stdlib-reference.md">
+            <h3>مرجع المكتبة القياسية</h3>
+            <p>أسماء الوحدات القياسية العربية وأمثلة استخدامها.</p>
+          </a>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/aliases-index.md">
+            <h3>فهرس الأسماء المستعارة</h3>
+            <p>المكتبات القياسية والشائعة المربوطة بأسماء عربية.</p>
+          </a>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/normalization-and-bidi.md">
+            <h3>التطبيع والسلامة النصية</h3>
+            <p>قواعد الهمزات والتشكيل واتجاه النص والمحارف الخفية.</p>
+          </a>
+          <a class="card" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/troubleshooting.md">
+            <h3>استكشاف المشكلات</h3>
+            <p>حلول سريعة لمشكلات التثبيت والترميز وتشغيل الأدوات.</p>
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="tools">
+        <h2 id="tools">الأدوات</h2>
+        <ul>
+          <li><code>ثعبان</code> لتشغيل ملفات <code>.apy</code> والسطر المباشر.</li>
+          <li><code>ثعبان نسّق</code> لتنسيق الشفرة العربية.</li>
+          <li><code>ثعبان راجع</code> لفحص الأسلوب والتنبيهات.</li>
+          <li>نواة Jupyter وإضافة VS Code لتجربة تحرير عربية أفضل.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        هذه الصفحة تُنشر من مجلد
+        <code>docs/</code>
+        عبر GitHub Pages.
+      </p>
+    </footer>
+  </body>
+</html>
