@@ -90,9 +90,8 @@
 ## روابط هامة
 
 - [دليل البدء الشامل](getting-started.md)
-- [مرجع المكتبة القياسية](stdlib-reference.md)
-- [معجم البرمجة العربي](glossary.md)
-- [فهرس أسماء المكتبات](aliases-index.md)
+- [المعجم العربي الموحد](lexicon.md)
+- ملاحق مشتقة: [مسرد المصطلحات الأساسي](glossary.md)، [مرجع المكتبة القياسية](stdlib-reference.md)، [فهرس أسماء المكتبات](aliases-index.md)
 - [سياسة التسمية العربية](naming-policy.md)
 - [سياسة أسماء المكتبات](alias-policy.md)
 - [سياسة الاستثناءات](exception-policy.md)
