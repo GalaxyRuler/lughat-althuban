@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Roadmap and contributor documentation now mark Phase C as complete and
+  Phase D as the active roadmap.
+
 ## [0.4.0] — 2026-05-01
 
 ### Added

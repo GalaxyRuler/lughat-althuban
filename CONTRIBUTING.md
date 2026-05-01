@@ -39,14 +39,14 @@
 الأعمال الكبيرة ما زالت تُوثَّق في **حزمة مواصفات** (Spec Packet) بالشكل التالي:
 
 ```
-specs/C-NNN-اسم-الحزمة.md           ← المواصفة
-specs/C-NNN-اسم-الحزمة.delivery.md  ← ملاحظات التسليم
+specs/D-NNN-اسم-الحزمة.md           ← المواصفة
+specs/D-NNN-اسم-الحزمة.delivery.md  ← ملاحظات التسليم
 ```
 
 **خطوات المساهم:**
 
 1. **راجع المعجم** في `lexicon/` قبل اختيار أي اسم عربي جديد.
-2. **اختر عملاً مفتوحاً** من القضايا أو [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md)، أو افتح قضية تقترح التغيير.
+2. **اختر عملاً مفتوحاً** من القضايا أو [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md)، أو افتح قضية تقترح التغيير.
 3. **أنشئ فرعاً** باسم واضح مثل `feature/اسم-قصير` أو `fix/اسم-قصير`.
 4. **نفذ التغيير** مع اختبارات ووثائق وأمثلة عند الحاجة.
 5. **شغّل التحقق**: `pytest`، و`ruff check .`، و`black --check .`، و`python tools/validate_lexicon.py`، و`python tools/generate_lexicon_outputs.py --check`.
@@ -357,4 +357,5 @@ Examples:
 - [`specs/0000-template.md`](specs/0000-template.md) — packet template
 - [`specs/INDEX.md`](specs/INDEX.md) — packet ledger
 - [`decisions/0004-normalization-policy.md`](decisions/0004-normalization-policy.md) — normalization rules
-- [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) — current roadmap and polish work
+- [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) — current roadmap and polish work
+- [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) — historical Phase C packet map

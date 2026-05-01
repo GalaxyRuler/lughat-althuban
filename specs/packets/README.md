@@ -1,9 +1,12 @@
 # Implementation Packets
 
-Ready-to-use prompts for Codex, Gemini, or any contributor to implement Phase C packets.
+Ready-to-use prompts for Codex, Gemini, or any contributor. The files currently in this directory are historical Phase C packets; Phase D is tracked in [`../../ROADMAP-PHASE-D.md`](../../ROADMAP-PHASE-D.md) and [`../../decisions/0012-phase-d-charter.md`](../../decisions/0012-phase-d-charter.md).
+
 Each file is self-contained — paste it directly as a prompt with no extra context needed.
 
 ## Dependency order
+
+Phase C is complete. The dependency order below is preserved for archaeology and release-history review.
 
 ```
 C-002 (ClassProxy)          ← implement first; blocks 9 packets

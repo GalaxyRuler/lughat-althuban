@@ -63,7 +63,7 @@ kernel = [
     "jupyter_client>=8.6",
 ]
 aliases = [
-    # Phase C optional alias targets — install to exercise the C-series tests
+    # Optional alias targets shipped so far — install to exercise the alias tests
     # locally and to use the corresponding Arabic alias modules at runtime.
     "PyJWT>=2.8",
     "click>=8.1",
