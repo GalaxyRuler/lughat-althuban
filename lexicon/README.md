@@ -42,4 +42,3 @@ check normalized collisions before a release.
 python tools/generate_lexicon_outputs.py --check
 python tools/validate_lexicon.py
 ```
-

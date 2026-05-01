@@ -361,4 +361,3 @@ python_module = "yaml"
 arabic_name = "يامل"
 alias_file = "yaml.toml"
 group = "third_party"
-

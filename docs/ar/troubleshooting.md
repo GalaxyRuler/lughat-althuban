@@ -36,4 +36,3 @@ python -m pip show lughat-althuban
 ```
 
 </div>
-

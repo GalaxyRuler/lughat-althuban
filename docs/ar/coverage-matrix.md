@@ -16,4 +16,3 @@
 | الأمثلة | `examples/` | `tests/test_examples.py` |
 
 </div>
-

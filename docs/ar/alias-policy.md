@@ -17,4 +17,3 @@
 انظر الفهرس المولد: [aliases-index.md](aliases-index.md).
 
 </div>
-

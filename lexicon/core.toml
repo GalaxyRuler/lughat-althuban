@@ -4596,4 +4596,3 @@ python = ".predict_proba"
 canonical = "احتمالات_التنبا"
 alternates = []
 rationale = "\"prediction probabilities\"."
-
