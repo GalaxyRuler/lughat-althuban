@@ -1,8 +1,8 @@
 # tests/aliases/test_stdlib_B011_cross_consistency.py
 # B-011 cross-consistency — FastAPI (فاست_أبي)
 #
-# Verifies no Arabic name collisions between فاست_أبي and all earlier
-# B-batch modules.
+# Verifies no Arabic name collisions between فاست_أبي and all shipped earlier
+# alias modules.
 
 import pathlib
 
@@ -26,10 +26,10 @@ EARLIER_MODULES = [
     "طلبات",
     "دجانغو",
     "ألكيمي",
-    "اختبارات",
+    "بايتست",
     "نمباي",
     "بانداس",
-    "صور",
+    "بيلو",
     "نظام_تشغيل",
     "مسار_مكتبه",
     "نظام",

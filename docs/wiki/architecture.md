@@ -140,7 +140,7 @@ lughat-althuban/
 ├── dictionaries/           # ar-v1.md (مصدر القاموس)
 ├── decisions/              # 8 ADRs
 ├── specs/                  # حزم التنفيذ
-└── tests/                  # pytest (2510 اختبار)
+└── tests/                  # pytest
 ```
 
 </div>

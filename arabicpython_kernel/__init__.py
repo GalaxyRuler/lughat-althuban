@@ -1,5 +1,5 @@
 """arabicpython_kernel
-B-054: Jupyter kernel for the apython Arabic Python dialect.
+B-054: Jupyter kernel for لغة الثعبان.
 
 Provides the ``ArabicPythonKernel`` class which extends IPython's
 ``IPythonKernel``, transparently translating .apy source to Python
@@ -7,10 +7,10 @@ before execution.
 
 Installation::
 
-    pip install arabicpython[kernel]
+    pip install lughat-althuban[kernel]
     python -m arabicpython_kernel install
 
-Then select "لغة الثعبان (apython)" in the Jupyter kernel picker.
+Then select "لغة الثعبان" in the Jupyter kernel picker.
 """
 
 from arabicpython_kernel.kernel import ArabicPythonKernel

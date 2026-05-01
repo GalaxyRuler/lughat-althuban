@@ -2,13 +2,13 @@
 
 # لغة الثعبان — بايثون بالعربية الكاملة
 
-[![الاختبارات](https://img.shields.io/badge/اختبارات-2510_نجاح-brightgreen)](tests/)
+[![CI](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml/badge.svg)](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml)
 [![بايثون](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
 [![الرخصة](https://img.shields.io/badge/رخصة-Apache--2.0-orange)](LICENSE)
 
 لهجة برمجية تكتب فيها **الكلمات المفتاحية والدوال المدمجة والاستثناءات والمكتبات** بالعربية الكاملة. ملفات `.apy` تُترجم إلى بايثون القياسي في وقت التحميل وتُنفَّذ بواسطة CPython — دون تشعيب للمترجم ودون تعديل على اللغة الأصلية.
 
-**الحالة (2026-05-01)**: المرحلة أ مكتملة. المرحلة ب مكتملة إلى حدٍّ بعيد — أكثر من **2700 اختبار ناجح** على Python 3.11–3.13 في Ubuntu وmacOS وWindows. 40+ وحدة عربية مُشحونة. منظومة أدوات متكاملة (منسّق + مدقّق + نواة Jupyter + امتداد VS Code).
+**الحالة (2026-05-01)**: الإصدار `0.4.0` يضم اللهجة الأساسية، معجماً عربياً موحداً، 40+ وحدة ومكتبة بأسماء عربية، ومنظومة أدوات متكاملة: CLI، REPL، منسّق، مدقّق، نواة Jupyter، امتداد VS Code، وملعب GitHub Pages.
 
 ---
 
@@ -71,20 +71,20 @@ $ ثعبان -c '1 / 0'
 | الوثيقة | الوصف |
 |---------|--------|
 | [دليل البدء الشامل](docs/ar/getting-started.md) | من "مرحبا بالعالم" إلى الاستيراد — خطوة بخطوة |
-| [دليل البدء الموسَّع](docs/tutorial-ar.md) | الموازي العربي للدليل الإنجليزي مع مسرد المصطلحات (B-060) |
-| [كتاب الوصفات العربي](docs/cookbook-ar.md) | عشر وصفات قصيرة قائمة بذاتها مع مسرد مصطلحات (B-061) |
+| [المعجم العربي الموحد](docs/ar/lexicon.md) | الكلمات المفتاحية والدوال والاستثناءات وأسماء المكتبات في مرجع واحد |
+| [كتاب الوصفات العربي](docs/ar/cookbook.md) | وصفات عملية قابلة للتشغيل |
 | [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
-| [الأمثلة التعليمية](examples/README-ar.md) | شرح الأمثلة السبعة التصاعدية |
-| [سجل التغييرات](docs/ar/CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
-| [قاموس الكلمات المفتاحية](dictionaries/ar-v1.md) | المرجع الكامل لكل الكلمات المفتاحية والدوال |
+| [الأمثلة التعليمية](examples/README.md) | فهرس الأمثلة الأساسية والمتقدمة |
+| [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
+| [قاموس وقت التشغيل](dictionaries/ar-v2.md) | الأثر المولّد من المعجم الموحد للقاموس الافتراضي |
 
-## المرحلة (ب): مفتوحة للمساهمات
+## حالة المشروع
 
-اكتملت المرحلة (أ). المرحلة (ب) تضيف أسماء عربية لمكتبات بايثون الشهيرة (فلاسك، نمباي، وغيرها)، وتغطي المكتبة القياسية، وتحدّث القاموس بكلمات `async` و`match`. يوجد ٢٨ حزمة تنفيذية، ست منها مكتوبة بالكامل والباقي بانتظار من يكتب مواصفاتها.
+اكتملت المرحلتان أ وب، ومعظم عمل المرحلة ج موجود في الفرع الرئيسي: النشر على PyPI، القاموس `ar-v2`، أسماء مكتبات المرحلة ج، المعجم الموحد، وأدوات المطور. المساهمات الجديدة يجب أن تبدأ من [المعجم العربي الموحد](lexicon/README.md) عند إضافة مصطلح أو اسم مكتبة، ثم تضيف الاختبارات والوثائق المناسبة.
 
-- **خارطة الطريق:** [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md)
+- **خارطة الطريق:** [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md)
 - **دليل المساهمة:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- **حزمة جيدة للبدء:** [`specs/B-002-phase-a-compat-suite.md`](specs/B-002-phase-a-compat-suite.md)
+- **قائمة المواصفات:** [`specs/INDEX.md`](specs/INDEX.md)
 
 </div>
 
@@ -217,7 +217,7 @@ lughat-althuban/
 ├── decisions/                 سجلات قرارات المعمارية (ADRs)
 ├── dictionaries/              مرجع الكلمات المفتاحية ar-v1
 ├── specs/                     حزم المواصفات للتنفيذ
-├── tests/                     مجموعة pytest (أكثر من 2700 نجاح)
+├── tests/                     مجموعة pytest
 ├── examples/                  برامج .apy قابلة للتشغيل
 ├── docs/
 │   ├── ar/                    الوثائق العربية
@@ -259,10 +259,10 @@ lughat-althuban/
 |---|---|---|
 | 0 | قرارات التصميم (8 سجلات ADR) | ✅ مكتملة |
 | أ | اللهجة الأساسية: التجهيز المسبق، التطبيع، الترجمة، CLI، REPL، خطاف الاستيراد، رسائل الخطأ | ✅ مكتملة |
-| ب | النظام البيئي: 40+ وحدة عربية، منسِّق، مدقِّق، نواة Jupyter، VS Code، دليل تعليمي | 🟡 **مكتملة إلى حدٍّ بعيد — المساهمون مرحب بهم** |
-| ج | متقدم: خادم LSP، ملعب ويب، تكامل مدير الحزم | 📋 مخطط لها |
+| ب | النظام البيئي: 40+ وحدة عربية، منسِّق، مدقِّق، نواة Jupyter، VS Code، دليل تعليمي | ✅ مكتملة |
+| ج | معجم موحد، نشر PyPI، مكتبات تطبيقية، ملعب ويب، وتكاملات متقدمة | 🟡 قيد الصقل |
 
-انظر [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
+انظر [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
@@ -272,14 +272,13 @@ lughat-althuban/
 |---------|--------|
 | [دليل البدء الشامل](docs/ar/getting-started.md) | من "مرحبا بالعالم" إلى الاستيراد — خطوة بخطوة |
 | [المعجم العربي الموحد](docs/ar/lexicon.md) | الكلمات المفتاحية والدوال والاستثناءات وأسماء المكتبات في مرجع واحد |
-| [دليل البدء الموسَّع](docs/tutorial-ar.md) | شرح تفصيلي كامل مع أمثلة وتسلسل هندسي (B-060) |
-| [كتاب الوصفات](docs/cookbook-ar.md) | عشر وصفات قائمة بذاتها قابلة للتشغيل المباشر |
-| [مسرد المصطلحات](docs/tutorial-ar-glossary.md) | 35+ مصطلح حاسوبي بتعريفات عربية فصيحة |
+| [كتاب الوصفات](docs/ar/cookbook.md) | وصفات قائمة بذاتها قابلة للتشغيل المباشر |
+| [مسرد المصطلحات](docs/ar/glossary.md) | مصطلحات مولدة من المعجم الموحد |
 | [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
 | [ويكي المشروع](docs/wiki/index.md) | دليل شامل: الكلمات المفتاحية، المكتبات، الأدوات، الأسئلة الشائعة |
 | [دليل المساهمة](CONTRIBUTING.md) | كيفية إضافة وحدات ومساهمات الكود |
 | [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
-| [خارطة الطريق](ROADMAP-PHASE-B.md) | الحزم القادمة وحالتها |
+| [خارطة الطريق](ROADMAP-PHASE-C.md) | حالة المرحلة الحالية وما بقي للصقل |
 
 ---
 
@@ -301,7 +300,7 @@ lughat-althuban/
 
 A Python dialect where **keywords, built-ins, exceptions, and popular libraries** are all written in Arabic. `.apy` files are translated to standard Python at import time and executed by CPython — no interpreter fork, no language modification.
 
-**Status (2026-04-28)**: Phase A complete. Phase B substantially complete — **2,510 tests passing** across Python 3.11–3.13 on Ubuntu / macOS / Windows.
+**Status (2026-05-01)**: `0.4.0` includes the core dialect, canonical Arabic lexicon, 40+ Arabic library aliases, Arabic diagnostics, formatter, linter, Jupyter kernel, VS Code extension, and GitHub Pages docs.
 
 **License**: Apache-2.0.
 
@@ -332,7 +331,7 @@ pip install -e ".[dev]"   # all optional library aliases
 
 ## Key facts
 
-- 38 Arabic exception names · ~30 translated interpreter messages
+- 38 Arabic exception names · translated common interpreter messages
 - 21 stdlib alias modules · 6 science/data · 4 web · 1 ML (40+ total)
 - Formatter · Linter · Jupyter kernel · VS Code extension · pytest plugin — all ship in this repo
 - Normalization: `أ/إ/آ → ا`, final `ة → ه`, final `ى → ي`
@@ -341,7 +340,7 @@ pip install -e ".[dev]"   # all optional library aliases
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). Arabic commit messages are preferred. Every unit of work is a self-contained spec packet in `specs/`.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Arabic commit messages are preferred. Larger work should include a spec packet or a clear issue, and any new Arabic term should start in `lexicon/`.
 
 ## Acknowledgements
 

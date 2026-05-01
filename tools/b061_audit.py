@@ -5,6 +5,9 @@ Collects misses (untranslated messages) and reports coverage.
 
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 sys.path.insert(0, ".")
 from arabicpython.tracebacks import translate_exception_message
 

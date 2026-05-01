@@ -34,7 +34,7 @@ dependencies = []
 
 [project.urls]
 Homepage       = "https://github.com/GalaxyRuler/lughat-althuban"
-Documentation  = "https://github.com/GalaxyRuler/lughat-althuban/tree/main/docs"
+Documentation  = "https://galaxyruler.github.io/lughat-althuban/"
 Repository     = "https://github.com/GalaxyRuler/lughat-althuban"
 Changelog      = "https://github.com/GalaxyRuler/lughat-althuban/blob/main/CHANGELOG.md"
 "Bug Tracker"  = "https://github.com/GalaxyRuler/lughat-althuban/issues"
