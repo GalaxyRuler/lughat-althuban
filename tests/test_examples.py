@@ -4,6 +4,7 @@ import subprocess
 import sys
 
 from arabicpython.cli import main
+from arabicpython.translate import translate
 
 
 def test_01_hello_runs(capsys):
@@ -108,6 +109,18 @@ def test_examples_readme_exists_and_lists_all_examples():
     ]
     for f in filenames:
         assert f in content, f"README.md does not mention {f}"
+
+
+def test_optional_advanced_examples_compile_under_ar_v2():
+    repo_root = pathlib.Path(__file__).parents[1]
+    examples_dir = repo_root / "examples"
+    for filename in [
+        "B57_seaborn_demo.apy",
+        "B58_scipy_demo.apy",
+        "B59_aiohttp_demo.apy",
+    ]:
+        source = (examples_dir / filename).read_text(encoding="utf-8")
+        compile(translate(source), str(examples_dir / filename), "exec")
 
 
 def test_old_hello_apy_removed():

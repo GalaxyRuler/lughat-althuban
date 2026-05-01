@@ -16,40 +16,40 @@
 ├── مقاطعه            ← KeyboardInterrupt
 ├── خروج_مولد         ← GeneratorExit
 └── استثناء_عام       ← Exception
-    ├── خطا_حسابي     ← ArithmeticError
-    │   ├── خطا_عشري  ← FloatingPointError
-    │   ├── خطا_فائض  ← OverflowError
-    │   └── خطا_قسمه_صفر ← ZeroDivisionError
-    ├── خطا_صفه       ← AttributeError
-    ├── خطا_استيراد   ← ImportError
-    │   └── خطا_وحده_مفقوده ← ModuleNotFoundError
-    ├── خطا_بحث       ← LookupError
-    │   ├── خطا_فهرس  ← IndexError
-    │   └── خطا_مفتاح ← KeyError
-    ├── خطا_ذاكره     ← MemoryError
-    ├── خطا_اسم       ← NameError
-    │   └── خطا_متغير_غير_معرف ← UnboundLocalError
-    ├── خطا_نظام      ← OSError  (= IOError)
-    │   ├── خطا_ملف_موجود ← FileExistsError
-    │   ├── خطا_ملف_مفقود ← FileNotFoundError
-    │   ├── خطا_انقطاع ← BrokenPipeError
-    │   ├── خطا_صلاحيه ← PermissionError
-    │   ├── خطا_انتهاء_وقت ← TimeoutError
-    │   └── خطا_اتصال ← ConnectionError
-    ├── خطا_تشغيل     ← RuntimeError
-    │   ├── خطا_تكرار_ذاتي ← RecursionError
-    │   └── خطا_غير_منفذ ← NotImplementedError
-    ├── خطا_صياغه     ← SyntaxError
-    │   ├── خطا_ازاحه ← IndentationError
-    │   └── خطا_جدوله ← TabError
-    ├── خطا_نوع       ← TypeError
-    ├── خطا_يونيكود   ← UnicodeError
-    │   ├── خطا_فك_يونيكود ← UnicodeDecodeError
-    │   ├── خطا_ترميز_يونيكود ← UnicodeEncodeError
-    │   └── خطا_ترجمه_يونيكود ← UnicodeTranslateError
-    ├── خطا_قيمه      ← ValueError
-    ├── خطا_نهايه_ملف ← EOFError
-    ├── خطا_نظام_داخلي ← SystemError
+    ├── خطأ_حسابي     ← ArithmeticError
+    │   ├── خطأ_عشري  ← FloatingPointError
+    │   ├── خطأ_فائض  ← OverflowError
+    │   └── خطأ_قسمة_صفر ← ZeroDivisionError
+    ├── خطأ_صفه       ← AttributeError
+    ├── خطأ_استيراد   ← ImportError
+    │   └── خطأ_وحده_مفقوده ← ModuleNotFoundError
+    ├── خطأ_بحث       ← LookupError
+    │   ├── خطأ_فهرس  ← IndexError
+    │   └── خطأ_مفتاح ← KeyError
+    ├── خطأ_ذاكره     ← MemoryError
+    ├── خطأ_اسم       ← NameError
+    │   └── خطأ_متغير_غير_معرف ← UnboundLocalError
+    ├── خطأ_نظام      ← OSError  (= IOError)
+    │   ├── خطأ_ملف_موجود ← FileExistsError
+    │   ├── خطأ_ملف_مفقود ← FileNotFoundError
+    │   ├── خطأ_انقطاع ← BrokenPipeError
+    │   ├── خطأ_صلاحيه ← PermissionError
+    │   ├── خطأ_انتهاء_وقت ← TimeoutError
+    │   └── خطأ_اتصال ← ConnectionError
+    ├── خطأ_تشغيل     ← RuntimeError
+    │   ├── خطأ_عودية ← RecursionError
+    │   └── خطأ_غير_منفذ ← NotImplementedError
+    ├── خطأ_صياغه     ← SyntaxError
+    │   ├── خطأ_ازاحه ← IndentationError
+    │   └── خطأ_جدولة ← TabError
+    ├── خطأ_نوع       ← TypeError
+    ├── خطأ_يونيكود   ← UnicodeError
+    │   ├── خطأ_فك_يونيكود ← UnicodeDecodeError
+    │   ├── خطأ_ترميز_يونيكود ← UnicodeEncodeError
+    │   └── خطأ_ترجمه_يونيكود ← UnicodeTranslateError
+    ├── خطأ_قيمة      ← ValueError
+    ├── خطأ_نهايه_ملف ← EOFError
+    ├── خطأ_نظام_داخلي ← SystemError
     ├── انتهاء_التكرار ← StopIteration
     ├── انتهاء_التكرار_غير_المتزامن ← StopAsyncIteration
     └── تحذير         ← Warning
@@ -67,60 +67,60 @@
 |--------|---------|--------|
 | `BaseException` | `استثناء_أساسي` | جذر هرمية الاستثناءات |
 | `Exception` | `استثناء_عام` | الاستثناء العام القابل للالتقاط |
-| `ArithmeticError` | `خطا_حسابي` | أساس أخطاء الحساب |
-| `AssertionError` | `خطا_تاكيد` | فشل جملة `تحقق` |
-| `AttributeError` | `خطا_صفه` | وصف خاصية غير موجودة |
-| `BlockingIOError` | `خطا_ادخال_اخراج_محجوب` | عملية I/O محجوبة |
-| `BrokenPipeError` | `خطا_انبوب_مكسور` | الكتابة على أنبوب مغلق |
-| `BufferError` | `خطا_مخزن` | خطأ في المخزن المؤقت |
-| `ChildProcessError` | `خطا_عمليه_فرعيه` | فشل عملية فرعية |
-| `ConnectionAbortedError` | `خطا_اتصال_منقطع` | اتصال مُقطع |
-| `ConnectionError` | `خطا_اتصال` | أساس أخطاء الاتصال |
-| `ConnectionRefusedError` | `خطا_اتصال_مرفوض` | اتصال مرفوض |
-| `ConnectionResetError` | `خطا_اتصال_مُعاد_ضبطه` | اتصال مُعاد ضبطه |
-| `EOFError` | `خطا_نهايه_ملف` | قراءة ما بعد نهاية الملف |
-| `EnvironmentError` | `خطا_بيئه` | مرادف OSError |
-| `FileExistsError` | `خطا_ملف_موجود` | إنشاء ملف موجود مسبقاً |
-| `FileNotFoundError` | `خطا_ملف_مفقود` | الملف غير موجود |
-| `FloatingPointError` | `خطا_عشري` | خطأ في الأعداد العشرية |
+| `ArithmeticError` | `خطأ_حسابي` | أساس أخطاء الحساب |
+| `AssertionError` | `خطأ_تاكيد` | فشل جملة `تحقق` |
+| `AttributeError` | `خطأ_صفه` | وصف خاصية غير موجودة |
+| `BlockingIOError` | `خطأ_ادخال_اخراج_محجوب` | عملية I/O محجوبة |
+| `BrokenPipeError` | `خطأ_انبوب_مكسور` | الكتابة على أنبوب مغلق |
+| `BufferError` | `خطأ_مخزن` | خطأ في المخزن المؤقت |
+| `ChildProcessError` | `خطأ_عمليه_فرعيه` | فشل عملية فرعية |
+| `ConnectionAbortedError` | `خطأ_اتصال_منقطع` | اتصال مُقطع |
+| `ConnectionError` | `خطأ_اتصال` | أساس أخطاء الاتصال |
+| `ConnectionRefusedError` | `خطأ_اتصال_مرفوض` | اتصال مرفوض |
+| `ConnectionResetError` | `خطأ_اتصال_مُعاد_ضبطه` | اتصال مُعاد ضبطه |
+| `EOFError` | `خطأ_نهايه_ملف` | قراءة ما بعد نهاية الملف |
+| `EnvironmentError` | `خطأ_بيئه` | مرادف OSError |
+| `FileExistsError` | `خطأ_ملف_موجود` | إنشاء ملف موجود مسبقاً |
+| `FileNotFoundError` | `خطأ_ملف_مفقود` | الملف غير موجود |
+| `FloatingPointError` | `خطأ_عشري` | خطأ في الأعداد العشرية |
 | `GeneratorExit` | `خروج_مولد` | إغلاق المولد |
-| `IOError` | `خطا_نظام` | مرادف OSError |
-| `ImportError` | `خطا_استيراد` | فشل الاستيراد |
-| `IndentationError` | `خطا_ازاحه` | خطأ في المسافة البادئة |
-| `IndexError` | `خطا_فهرس` | الفهرس خارج النطاق |
-| `InterruptedError` | `خطا_مقاطعه` | استدعاء نظام مُقاطَع |
-| `IsADirectoryError` | `خطا_هذا_مجلد` | طُلب ملف لكنه مجلد |
-| `KeyError` | `خطا_مفتاح` | المفتاح غير موجود في القاموس |
+| `IOError` | `خطأ_نظام` | مرادف OSError |
+| `ImportError` | `خطأ_استيراد` | فشل الاستيراد |
+| `IndentationError` | `خطأ_ازاحه` | خطأ في المسافة البادئة |
+| `IndexError` | `خطأ_فهرس` | الفهرس خارج النطاق |
+| `InterruptedError` | `خطأ_مقاطعه` | استدعاء نظام مُقاطَع |
+| `IsADirectoryError` | `خطأ_هذا_مجلد` | طُلب ملف لكنه مجلد |
+| `KeyError` | `خطأ_مفتاح` | المفتاح غير موجود في القاموس |
 | `KeyboardInterrupt` | `مقاطعه` | Ctrl+C |
-| `LookupError` | `خطا_بحث` | أساس أخطاء البحث |
-| `MemoryError` | `خطا_ذاكره` | نفاد الذاكرة |
-| `ModuleNotFoundError` | `خطا_وحده_مفقوده` | الوحدة غير موجودة |
-| `NameError` | `خطا_اسم` | اسم غير معرَّف |
-| `NotADirectoryError` | `خطا_ليس_مجلدا` | مجلد مطلوب لكن المسار ملف |
-| `NotImplementedError` | `خطا_غير_منفذ` | دالة مجردة غير مُنفَّذة |
-| `OSError` | `خطا_نظام` | خطأ نظام التشغيل |
-| `OverflowError` | `خطا_فائض` | الرقم أكبر مما يمكن تمثيله |
-| `PermissionError` | `خطا_صلاحيه` | صلاحيات غير كافية |
-| `ProcessLookupError` | `خطا_بحث_عمليه` | العملية غير موجودة |
-| `RecursionError` | `خطا_تكرار_ذاتي` | تجاوز حد العودية |
-| `ReferenceError` | `خطا_مرجع` | مرجع ضعيف إلى كائن محذوف |
-| `RuntimeError` | `خطا_تشغيل` | خطأ عام أثناء التشغيل |
+| `LookupError` | `خطأ_بحث` | أساس أخطاء البحث |
+| `MemoryError` | `خطأ_ذاكره` | نفاد الذاكرة |
+| `ModuleNotFoundError` | `خطأ_وحده_مفقوده` | الوحدة غير موجودة |
+| `NameError` | `خطأ_اسم` | اسم غير معرَّف |
+| `NotADirectoryError` | `خطأ_ليس_مجلدا` | مجلد مطلوب لكن المسار ملف |
+| `NotImplementedError` | `خطأ_غير_منفذ` | دالة مجردة غير مُنفَّذة |
+| `OSError` | `خطأ_نظام` | خطأ نظام التشغيل |
+| `OverflowError` | `خطأ_فائض` | الرقم أكبر مما يمكن تمثيله |
+| `PermissionError` | `خطأ_صلاحيه` | صلاحيات غير كافية |
+| `ProcessLookupError` | `خطأ_بحث_عمليه` | العملية غير موجودة |
+| `RecursionError` | `خطأ_عودية` | تجاوز حد العودية |
+| `ReferenceError` | `خطأ_مرجع` | مرجع ضعيف إلى كائن محذوف |
+| `RuntimeError` | `خطأ_تشغيل` | خطأ عام أثناء التشغيل |
 | `StopAsyncIteration` | `انتهاء_التكرار_غير_المتزامن` | توقف المكرر غير المتزامن |
 | `StopIteration` | `انتهاء_التكرار` | توقف المكرر |
-| `SyntaxError` | `خطا_صياغه` | خطأ في بناء الجملة |
-| `SystemError` | `خطا_نظام_داخلي` | خطأ داخلي في مفسر Python |
+| `SyntaxError` | `خطأ_صياغه` | خطأ في بناء الجملة |
+| `SystemError` | `خطأ_نظام_داخلي` | خطأ داخلي في مفسر Python |
 | `SystemExit` | `خروج_نظام` | خروج مطلوب |
-| `TabError` | `خطا_جدوله` | خلط بين المسافات والجداول |
-| `TimeoutError` | `خطا_انتهاء_وقت` | انتهاء وقت العملية |
-| `TypeError` | `خطا_نوع` | نوع بيانات خاطئ |
-| `UnboundLocalError` | `خطا_متغير_غير_معرف` | متغير محلي غير مُسنَد |
-| `UnicodeDecodeError` | `خطا_فك_يونيكود` | فشل فك ترميز Unicode |
-| `UnicodeEncodeError` | `خطا_ترميز_يونيكود` | فشل ترميز Unicode |
-| `UnicodeError` | `خطا_يونيكود` | أساس أخطاء Unicode |
-| `UnicodeTranslateError` | `خطا_ترجمه_يونيكود` | فشل ترجمة Unicode |
-| `ValueError` | `خطا_قيمه` | قيمة غير صالحة لهذا النوع |
+| `TabError` | `خطأ_جدولة` | خلط بين المسافات والجداول |
+| `TimeoutError` | `خطأ_انتهاء_وقت` | انتهاء وقت العملية |
+| `TypeError` | `خطأ_نوع` | نوع بيانات خاطئ |
+| `UnboundLocalError` | `خطأ_متغير_غير_معرف` | متغير محلي غير مُسنَد |
+| `UnicodeDecodeError` | `خطأ_فك_يونيكود` | فشل فك ترميز Unicode |
+| `UnicodeEncodeError` | `خطأ_ترميز_يونيكود` | فشل ترميز Unicode |
+| `UnicodeError` | `خطأ_يونيكود` | أساس أخطاء Unicode |
+| `UnicodeTranslateError` | `خطأ_ترجمه_يونيكود` | فشل ترجمة Unicode |
+| `ValueError` | `خطأ_قيمة` | قيمة غير صالحة لهذا النوع |
 | `Warning` | `تحذير` | أساس التحذيرات |
-| `ZeroDivisionError` | `خطا_قسمه_صفر` | قسمة على صفر |
+| `ZeroDivisionError` | `خطأ_قسمة_صفر` | قسمة على صفر |
 
 ---
 
@@ -147,7 +147,7 @@
 دالة قسم(أ, ب):
     حاول:
         ارجع أ / ب
-    استثناء خطا_قسمه_صفر:
+    استثناء خطأ_قسمة_صفر:
         اطبع("خطأ: القسمة على صفر غير مسموحة!")
         ارجع لا_شيء
 
@@ -158,17 +158,17 @@
 ### رفع استثناء مخصص
 
 ```python
-صنف خطا_كلمه_مرور(استثناء_عام):
+صنف خطأ_كلمة_مرور(استثناء_عام):
     دالة __init__(ذات, رسالة="كلمة المرور ضعيفة"):
         الأصل().__init__(رسالة)
 
 دالة تحقق_كلمه_مرور(كلمه):
     اذا طول(كلمه) < 8:
-        ارفع خطا_كلمه_مرور(f"كلمة المرور '{كلمه}' قصيرة جداً")
+        ارفع خطأ_كلمة_مرور(f"كلمة المرور '{كلمه}' قصيرة جداً")
 
 حاول:
     تحقق_كلمه_مرور("123")
-استثناء خطا_كلمه_مرور كـ خ:
+استثناء خطأ_كلمة_مرور باسم خ:
     اطبع(f"فشل التحقق: {خ}")
 ```
 
@@ -176,11 +176,11 @@
 
 ```python
 حاول:
-    مع افتح("بيانات.txt", encoding="utf-8") كـ ملف:
+    مع افتح("بيانات.txt", encoding="utf-8") باسم ملف:
         محتوى = ملف.read()
-استثناء خطا_ملف_مفقود:
+استثناء خطأ_ملف_مفقود:
     اطبع("الملف غير موجود!")
-استثناء خطا_صلاحيه:
+استثناء خطأ_صلاحيه:
     اطبع("لا تملك صلاحية القراءة!")
 اخيرا:
     اطبع("انتهت محاولة فتح الملف.")
@@ -190,11 +190,11 @@
 
 ```python
 دالة اقرا_عدد():
-    بينما صحيح:
+    طالما صحيح:
         حاول:
             نص_مدخل = ادخل("أدخل رقماً: ")
             ارجع عدد_صحيح(نص_مدخل)
-        استثناء خطا_قيمه:
+        استثناء خطأ_قيمة:
             اطبع("إدخال غير صالح، أدخل رقماً صحيحاً.")
 
 رقم = اقرا_عدد()
@@ -207,24 +207,24 @@
 
 # Exceptions Reference (English summary)
 
-All standard Python exceptions are available under Arabic names following the pattern `خطا_description`. The full hierarchy and table are in the Arabic section above.
+All standard Python exceptions are available under Arabic names following the pattern `خطأ_description`. The full hierarchy and table are in the Arabic section above.
 
 Common exceptions quick lookup:
 
 | Python | Arabic |
 |--------|--------|
 | `Exception` | `استثناء_عام` |
-| `ValueError` | `خطا_قيمه` |
-| `TypeError` | `خطا_نوع` |
-| `KeyError` | `خطا_مفتاح` |
-| `IndexError` | `خطا_فهرس` |
-| `AttributeError` | `خطا_صفه` |
-| `ImportError` | `خطا_استيراد` |
-| `FileNotFoundError` | `خطا_ملف_مفقود` |
-| `PermissionError` | `خطا_صلاحيه` |
-| `ZeroDivisionError` | `خطا_قسمه_صفر` |
-| `RuntimeError` | `خطا_تشغيل` |
-| `SyntaxError` | `خطا_صياغه` |
+| `ValueError` | `خطأ_قيمة` |
+| `TypeError` | `خطأ_نوع` |
+| `KeyError` | `خطأ_مفتاح` |
+| `IndexError` | `خطأ_فهرس` |
+| `AttributeError` | `خطأ_صفه` |
+| `ImportError` | `خطأ_استيراد` |
+| `FileNotFoundError` | `خطأ_ملف_مفقود` |
+| `PermissionError` | `خطأ_صلاحيه` |
+| `ZeroDivisionError` | `خطأ_قسمة_صفر` |
+| `RuntimeError` | `خطأ_تشغيل` |
+| `SyntaxError` | `خطأ_صياغه` |
 | `StopIteration` | `انتهاء_التكرار` |
 | `KeyboardInterrupt` | `مقاطعه` |
 | `SystemExit` | `خروج_نظام` |

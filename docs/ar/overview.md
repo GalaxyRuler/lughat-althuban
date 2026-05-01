@@ -88,7 +88,7 @@ pip install -e .
 
 ```python
 # main.apy
-استورد helper كـ مساعد
+استورد helper باسم مساعد
 اطبع(مساعد.مربع(5))
 ```
 
