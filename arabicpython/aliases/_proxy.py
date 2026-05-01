@@ -35,6 +35,8 @@ import types
 import warnings
 from typing import Any
 
+from arabicpython.messages import msg
+
 # Unicode ranges covering Arabic script variants
 _ARABIC_RANGES: tuple[tuple[str, str], ...] = (
     ("\u0600", "\u06ff"),  # Arabic
@@ -288,15 +290,14 @@ class InstanceProxy:
 
         # Unmapped Arabic name: warn and raise
         warnings.warn(
-            f"'{name}' is not in the curated instance mapping for "
-            f"'{class_name}'. "
-            f"Use dir(...) to list available Arabic names.",
+            f"{msg('aliases.unmapped_instance_warning')}: '{name}' في '{class_name}'. "
+            "استخدم dir(...) لعرض الأسماء العربية المتاحة.",
             DeprecationWarning,
             stacklevel=2,
         )
         raise AttributeError(
-            f"'{class_name}' proxy has no Arabic attribute '{name}'. "
-            f"Use dir(...) to list available Arabic names."
+            f"{msg('aliases.unmapped_instance_attribute')}: '{name}' في '{class_name}'. "
+            "استخدم dir(...) لعرض الأسماء العربية المتاحة."
         )
 
     def __repr__(self) -> str:
@@ -454,15 +455,14 @@ class ModuleProxy:
 
         if _is_arabic_looking(name):
             warnings.warn(
-                f"'{name}' is not in the curated mapping for '{arabic_name}'. "
-                f"Use dir({arabic_name}) to list available Arabic names.",
+                f"{msg('aliases.unmapped_module_warning')}: '{name}' في '{arabic_name}'. "
+                f"استخدم dir({arabic_name}) لعرض الأسماء العربية المتاحة.",
                 DeprecationWarning,
                 stacklevel=2,
             )
             raise AttributeError(
-                f"'{arabic_name}' has no attribute '{name}'. "
-                f"'{name}' is not in the curated mapping. "
-                f"Use dir({arabic_name}) to list available Arabic names."
+                f"{msg('aliases.unmapped_module_attribute')}: '{name}' في '{arabic_name}'. "
+                f"استخدم dir({arabic_name}) لعرض الأسماء العربية المتاحة."
             )
 
         # ASCII / non-Arabic name: forward unchanged to the wrapped module

@@ -84,20 +84,20 @@ def test_mixed_arabic_and_ascii_raises():
     with pytest.raises(SyntaxError) as exc:
         pretokenize("x = ١2")
     msg = str(exc.value)
-    assert "mixed digit" in msg
+    assert "مزج أنظمة الأرقام" in msg
     assert "١2" in msg
 
 
 def test_mixed_arabic_and_eastern_raises():
     with pytest.raises(SyntaxError) as exc:
         pretokenize("x = ١۲")
-    assert "mixed digit" in str(exc.value)
+    assert "مزج أنظمة الأرقام" in str(exc.value)
 
 
 def test_mixed_in_middle_of_expression_raises():
     with pytest.raises(SyntaxError) as exc:
         pretokenize("y = 5 + ١2 - 3")
-    assert "mixed digit" in str(exc.value)
+    assert "مزج أنظمة الأرقام" in str(exc.value)
 
 
 # String preservation (8)
@@ -265,15 +265,15 @@ def test_bidi_error_line_column():
     with pytest.raises(SyntaxError) as exc:
         pretokenize("x = 1\ny = \u202e")
     msg = str(exc.value)
-    assert "line 2" in msg
-    assert "column 4" in msg
+    assert "السطر 2" in msg
+    assert "العمود 4" in msg
 
 
 def test_mixed_digit_error_line_column():
     with pytest.raises(SyntaxError) as exc:
         pretokenize("a = 1\nb = ١2")
     msg = str(exc.value)
-    assert "line 2" in msg
+    assert "السطر 2" in msg
 
 
 # Idempotency on ASCII (1)

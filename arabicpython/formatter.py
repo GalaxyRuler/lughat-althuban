@@ -16,6 +16,8 @@ import re
 import sys
 from pathlib import Path
 
+from arabicpython.messages import ArabicArgumentParser, msg
+
 _INDENT_RE = re.compile(r"^(\s*)")
 
 
@@ -153,16 +155,14 @@ def format_file(path: Path, *, check: bool = False) -> bool:
 
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point used by ``ثعبان نسّق``."""
-    import argparse
-
-    parser = argparse.ArgumentParser(
+    parser = ArabicArgumentParser(
         prog="ثعبان نسّق",
-        description="Format .apy source files.",
+        description=msg("formatter.description"),
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Don't write; exit 1 if any file would change.",
+        help=msg("formatter.check_help"),
     )
     parser.add_argument("files", nargs="*", metavar="FILE")
     args = parser.parse_args(argv)
@@ -177,16 +177,16 @@ def main(argv: list[str] | None = None) -> int:
     for fname in args.files:
         p = Path(fname)
         if not p.exists():
-            sys.stderr.write(f"ثعبان نسّق: {fname}: file not found\n")
+            sys.stderr.write(f"ثعبان نسّق: {fname}: {msg('formatter.file_not_found')}\n")
             errors += 1
             continue
         changed = format_file(p, check=args.check)
         if changed:
             any_changed = True
-            verb = "would reformat" if args.check else "reformatted"
+            verb = msg("formatter.would_reformat") if args.check else msg("formatter.reformatted")
             sys.stderr.write(f"{verb} {fname}\n")
         else:
-            sys.stderr.write(f"{fname} already formatted\n")
+            sys.stderr.write(f"{fname} {msg('formatter.already_formatted')}\n")
 
     if errors:
         return 1

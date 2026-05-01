@@ -27,45 +27,26 @@ except ImportError:  # pragma: no cover
     IPythonKernel = object  # type: ignore
     _HAVE_IPYKERNEL = False
 
+from arabicpython.dialect import load_dialect
+from arabicpython.messages import msg
 from arabicpython.normalize import normalize_identifier
 from arabicpython.translate import translate
 
-# Arabic keywords offered as completions
-_ARABIC_KEYWORDS = [
-    "إذا",
-    "وإلا",
-    "إلا_إذا",
-    "إلا",
-    "بينما",
-    "لكل",
-    "في",
-    "دالة",
-    "صنف",
-    "إرجاع",
-    "ناتج",
-    "حاول",
-    "أخيرًا",
-    "إثارة",
-    "مع",
-    "باسم",
-    "استيراد",
-    "من",
-    "و",
-    "أو",
-    "ليس",
-    "مرر",
-    "تابع",
-    "اكسر",
-    "احذف",
-    "عالمي",
-    "غير_محلي",
-    "لامدا",
-    "تأكيد",
-    "منتج",
-    "صحيح",
-    "خطأ",
-    "لا_شيء",
-]
+
+def _load_dialect_names() -> list[str]:
+    """Return canonical Arabic names from the active dialect."""
+    try:
+        dialect = load_dialect("ar-v2")
+        return list(
+            dict.fromkeys(
+                list(dialect.reverse_names.values()) + list(dialect.reverse_attributes.values())
+            )
+        )
+    except Exception:
+        return ["إذا", "دالة", "صنف", "اطبع", "استورد", "باسم", "طالما", "مرر"]
+
+
+_ARABIC_KEYWORDS = _load_dialect_names()
 
 # Names of alias modules registered with AliasFinder
 _ALIAS_MODULE_NAMES: list[str] = []
@@ -80,7 +61,7 @@ def _load_alias_names() -> list[str]:
 
         mappings_dir = Path(__file__).parent.parent / "arabicpython" / "aliases"
         finder = AliasFinder(mappings_dir=mappings_dir)
-        return list(finder._mappings.keys())
+        return list(finder._arabic_to_mapping.keys())
     except Exception:
         return []
 
@@ -134,7 +115,7 @@ class ArabicPythonKernel(IPythonKernel):  # type: ignore[misc]
             python_code = translate(code)
         except Exception as exc:
             # Translation error — report to the frontend and return
-            err_text = f"خطأ في الترجمة: {exc}\n"
+            err_text = f"{msg('kernel.translation_error')}: {exc}\n"
             if not silent:
                 self._publish_stream("stderr", err_text)
             return {

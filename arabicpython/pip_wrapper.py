@@ -113,6 +113,9 @@ def run_pip(arabic_subcommand: str, args: list[str]) -> int:
             f"الأوامر المتاحة: {', '.join(_SUBCOMMAND_MAP)}\n"
         )
         return 2
+    if any(arg in {"-h", "--help", "مساعدة"} for arg in args):
+        _print_help()
+        return 0
 
     pip_sub, extra_args = _SUBCOMMAND_MAP[arabic_subcommand]
     translated = _translate_args(args)
@@ -129,3 +132,17 @@ def run_pip(arabic_subcommand: str, args: list[str]) -> int:
 # ── Public registry of Arabic subcommand tokens (used by cli.py) ─────────────
 
 ARABIC_SUBCOMMANDS: frozenset[str] = frozenset(_SUBCOMMAND_MAP)
+
+
+def _print_help() -> None:
+    sys.stdout.write(
+        "الاستخدام: ثعبان <أمر إدارة الحزم> [خيارات]\n\n"
+        "الأوامر:\n"
+        "  نصّب <حزمة>        ثبّت حزمة\n"
+        "  أزل <حزمة>         أزل حزمة\n"
+        "  قائمه              اعرض الحزم المثبتة\n"
+        "  حدّث <حزمة>        حدّث حزمة\n"
+        "  معلومات <حزمة>     اعرض معلومات حزمة\n"
+        "  تجميد              اطبع قائمة التجميد\n\n"
+        "خيارات عربية شائعة: --مستخدم، --هادئ، --مطول، --جفاف، --تاكيد، --تحديث، --قديمه، --محليه\n"
+    )

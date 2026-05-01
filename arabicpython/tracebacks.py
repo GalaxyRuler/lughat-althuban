@@ -4,6 +4,7 @@ import re
 import sys
 import traceback
 import types
+from pathlib import Path
 from typing import IO, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -14,76 +15,76 @@ if TYPE_CHECKING:
 
 EXCEPTION_NAMES_AR: dict[str, str] = {
     # ── Base hierarchy ────────────────────────────────────────────────────────
-    "BaseException": "استثناء_اساسي",
-    "Exception": "استثناء",
+    "BaseException": "استثناء_أساسي",
+    "Exception": "استثناء_عام",
     "GeneratorExit": "خروج_مولد",
-    "KeyboardInterrupt": "مقاطعه_لوحه_المفاتيح",
+    "KeyboardInterrupt": "مقاطعة",
     "SystemExit": "خروج_نظام",
     # ── Arithmetic ────────────────────────────────────────────────────────────
-    "ArithmeticError": "خطا_حسابي",
-    "FloatingPointError": "خطا_فاصله_عائمه",
-    "OverflowError": "خطا_فيضان",
-    "ZeroDivisionError": "خطا_القسمه_على_صفر",
+    "ArithmeticError": "خطأ_حسابي",
+    "FloatingPointError": "خطأ_عشري",
+    "OverflowError": "خطأ_فائض",
+    "ZeroDivisionError": "خطأ_قسمة_صفر",
     # ── Assertion / attribute / name ──────────────────────────────────────────
-    "AssertionError": "خطا_تاكيد",
-    "AttributeError": "خطا_خاصيه",
-    "NameError": "خطا_اسم",
-    "UnboundLocalError": "خطا_متغير_غير_مرتبط",
+    "AssertionError": "خطأ_تأكيد",
+    "AttributeError": "خطأ_صفة",
+    "NameError": "خطأ_اسم",
+    "UnboundLocalError": "خطأ_متغير_غير_مرتبط",
     # ── Buffer ────────────────────────────────────────────────────────────────
-    "BufferError": "خطا_مخزن_مؤقت",
+    "BufferError": "خطأ_مخزن_مؤقت",
     # ── EOF ───────────────────────────────────────────────────────────────────
-    "EOFError": "خطا_نهايه_الملف",
+    "EOFError": "خطأ_نهاية_ملف",
     # ── Import ────────────────────────────────────────────────────────────────
-    "ImportError": "خطا_استيراد",
-    "ModuleNotFoundError": "خطا_الوحده_غير_موجوده",
+    "ImportError": "خطأ_استيراد",
+    "ModuleNotFoundError": "خطأ_وحدة_مفقودة",
     # ── Lookup ────────────────────────────────────────────────────────────────
-    "LookupError": "خطا_بحث",
-    "IndexError": "خطا_فهرس",
-    "KeyError": "خطا_مفتاح",
+    "LookupError": "خطأ_بحث",
+    "IndexError": "خطأ_فهرس",
+    "KeyError": "خطأ_مفتاح",
     # ── Memory ───────────────────────────────────────────────────────────────
-    "MemoryError": "خطا_ذاكره",
+    "MemoryError": "خطأ_ذاكرة",
     # ── OS / IO errors ────────────────────────────────────────────────────────
-    "OSError": "خطا_نظام",
-    "EnvironmentError": "خطا_بيئه",  # alias for OSError in Python 3
-    "IOError": "خطا_ادخال_اخراج",  # alias for OSError in Python 3
-    "BlockingIOError": "خطا_ادخال_اخراج_حاجب",
-    "ChildProcessError": "خطا_عمليه_فرعيه",
-    "ConnectionError": "خطا_اتصال",
-    "BrokenPipeError": "خطا_انبوب_مكسور",
-    "ConnectionAbortedError": "خطا_اتصال_ملغي",
-    "ConnectionRefusedError": "خطا_اتصال_مرفوض",
-    "ConnectionResetError": "خطا_اتصال_منقطع",
-    "FileExistsError": "خطا_الملف_موجود",
-    "FileNotFoundError": "خطا_الملف_غير_موجود",
-    "InterruptedError": "خطا_مقاطعه",
-    "IsADirectoryError": "خطا_هذا_مجلد",
-    "NotADirectoryError": "خطا_ليس_مجلدا",
-    "PermissionError": "خطا_صلاحيات",
-    "ProcessLookupError": "خطا_بحث_عمليه",
-    "TimeoutError": "خطا_انتهاء_مهله",
+    "OSError": "خطأ_نظام",
+    "EnvironmentError": "خطأ_بيئه",  # alias for OSError in Python 3
+    "IOError": "خطأ_إدخال_إخراج",  # alias for OSError in Python 3
+    "BlockingIOError": "خطأ_إدخال_إخراج_حاجب",
+    "ChildProcessError": "خطأ_عمليه_فرعيه",
+    "ConnectionError": "خطأ_اتصال",
+    "BrokenPipeError": "خطأ_انبوب_مكسور",
+    "ConnectionAbortedError": "خطأ_اتصال_ملغي",
+    "ConnectionRefusedError": "خطأ_اتصال_مرفوض",
+    "ConnectionResetError": "خطأ_اتصال_منقطع",
+    "FileExistsError": "خطأ_ملف_موجود",
+    "FileNotFoundError": "خطأ_ملف_مفقود",
+    "InterruptedError": "خطأ_مقاطعه",
+    "IsADirectoryError": "خطأ_هذا_مجلد",
+    "NotADirectoryError": "خطأ_ليس_مجلدا",
+    "PermissionError": "خطأ_صلاحية",
+    "ProcessLookupError": "خطأ_بحث_عمليه",
+    "TimeoutError": "خطأ_انتهاء_وقت",
     # ── Reference ────────────────────────────────────────────────────────────
-    "ReferenceError": "خطا_مرجع",
+    "ReferenceError": "خطأ_مرجع",
     # ── Runtime ──────────────────────────────────────────────────────────────
-    "RuntimeError": "خطا_تشغيل",
-    "NotImplementedError": "خطا_غير_منفذ",
-    "RecursionError": "خطا_عوديه",
-    "SystemError": "خطا_نظام_داخلي",
+    "RuntimeError": "خطأ_تشغيل",
+    "NotImplementedError": "خطأ_غير_منفذ",
+    "RecursionError": "خطأ_عودية",
+    "SystemError": "خطأ_نظام_داخلي",
     # ── StopIteration ────────────────────────────────────────────────────────
-    "StopIteration": "ايقاف_التكرار",
+    "StopIteration": "انتهاء_التكرار",
     "StopAsyncIteration": "ايقاف_التكرار_المتزامن",
     # ── Syntax ───────────────────────────────────────────────────────────────
-    "SyntaxError": "خطا_صياغه",
-    "IndentationError": "خطا_ازاحه",
-    "TabError": "خطا_تبويب",
+    "SyntaxError": "خطأ_صياغة",
+    "IndentationError": "خطأ_إزاحة",
+    "TabError": "خطأ_جدولة",
     # ── Type ─────────────────────────────────────────────────────────────────
-    "TypeError": "خطا_نوع",
+    "TypeError": "خطأ_نوع",
     # ── Unicode ──────────────────────────────────────────────────────────────
-    "UnicodeError": "خطا_يونيكود",
-    "UnicodeDecodeError": "خطا_فك_يونيكود",
-    "UnicodeEncodeError": "خطا_ترميز_يونيكود",
-    "UnicodeTranslateError": "خطا_ترجمه_يونيكود",
+    "UnicodeError": "خطأ_يونيكود",
+    "UnicodeDecodeError": "خطأ_فك_يونيكود",
+    "UnicodeEncodeError": "خطأ_ترميز_يونيكود",
+    "UnicodeTranslateError": "خطأ_ترجمه_يونيكود",
     # ── Value ────────────────────────────────────────────────────────────────
-    "ValueError": "خطا_قيمه",
+    "ValueError": "خطأ_قيمة",
     # ── Warning hierarchy ────────────────────────────────────────────────────
     "Warning": "تحذير",
     "BytesWarning": "تحذير_بايت",
@@ -565,6 +566,8 @@ def format_translated_exception(
 
     if exc_tb:
         for frame in traceback.extract_tb(exc_tb):
+            if Path(frame.filename).name == "cli.py" and frame.name == "main":
+                continue
             scope = frame.name
             if scope == "<module>":
                 scope = "<الوحدة>"

@@ -7,6 +7,7 @@ import sys
 import types
 
 from arabicpython import __version__
+from arabicpython.messages import ArabicArgumentParser, msg
 from arabicpython.translate import _parse_file_directive, translate
 
 
@@ -75,25 +76,29 @@ def main(argv: "list[str] | None" = None) -> int:
 
         return lint_main(argv[1:])
 
-    parser = argparse.ArgumentParser(
+    parser = ArabicArgumentParser(
         prog="ثعبان",
         usage="ثعبان [-h] [--version] [--dict VERSION] [-c CODE] [FILE] [args ...]",
-        description="لغة الثعبان — Arabic Python runner.",
+        description=msg("cli.description"),
         add_help=False,
     )
-    parser.add_argument("-h", "--help", action="store_true")
-    parser.add_argument("--version", action="version", version=f"ثعبان {__version__}")
+    parser.add_argument("-h", "--help", action="store_true", help="اعرض هذه المساعدة ثم اخرج.")
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"ثعبان {__version__}",
+        help="اعرض رقم الإصدار ثم اخرج.",
+    )
     parser.add_argument(
         "--dict",
         dest="dict_version",
         metavar="VERSION",
         default=None,
-        help="dictionary version to use (e.g. ar-v1.1, ar-v2). "
-        "Overrides any per-file '# apython: dict=' directive.",
+        help=msg("cli.dict_help"),
     )
-    parser.add_argument("-c", dest="code", metavar="CODE")
-    parser.add_argument("file", nargs="?", metavar="FILE")
-    parser.add_argument("args", nargs=argparse.REMAINDER)
+    parser.add_argument("-c", dest="code", metavar="CODE", help="نفّذ نصا برمجيا مباشرا.")
+    parser.add_argument("file", nargs="?", metavar="FILE", help="ملف .apy المراد تشغيله.")
+    parser.add_argument("args", nargs=argparse.REMAINDER, help="معاملات تمرر إلى البرنامج.")
 
     # Use parse_known_args to avoid argparse exiting on its own for -h/--help
     # so we can control the exit code and output if needed, but the spec says
@@ -130,7 +135,7 @@ def main(argv: "list[str] | None" = None) -> int:
             try:
                 source = sys.stdin.read()
             except UnicodeDecodeError as e:
-                sys.stderr.write(f"ثعبان:can't read from stdin: {e}\n")
+                sys.stderr.write(f"ثعبان: {msg('cli.stdin_read_error')}: {e}\n")
                 return 1
             original_path = "<stdin>"
             prog_name = "-"
@@ -138,9 +143,8 @@ def main(argv: "list[str] | None" = None) -> int:
             file_path = args.file
             prog_name = file_path
             if os.path.isdir(file_path):
-                sys.stderr.write(
-                    f"ثعبان:can't open file '{file_path}': [Errno 21] Is a directory\n"
-                )
+                prefix = f"ثعبان: {msg('cli.open_file_error')} '{file_path}'"
+                sys.stderr.write(f"{prefix}: {msg('cli.is_directory')}\n")
                 return 1
             try:
                 # Absolute path for __file__ and error reporting
@@ -148,20 +152,18 @@ def main(argv: "list[str] | None" = None) -> int:
                 with open(file_path, encoding="utf-8") as f:
                     source = f.read()
             except FileNotFoundError:
-                sys.stderr.write(
-                    f"ثعبان:can't open file '{file_path}': [Errno 2] No such file or directory\n"
-                )
+                prefix = f"ثعبان: {msg('cli.open_file_error')} '{file_path}'"
+                sys.stderr.write(f"{prefix}: {msg('cli.missing_file')}\n")
                 return 1
             except PermissionError as e:
-                sys.stderr.write(f"ثعبان:can't open file '{file_path}': {e}\n")
+                sys.stderr.write(f"ثعبان: {msg('cli.open_file_error')} '{file_path}': {e}\n")
                 return 1
             except UnicodeDecodeError as e:
-                sys.stderr.write(
-                    f"ثعبان:can't open file '{file_path}': invalid UTF-8 encoding ({e})\n"
-                )
+                prefix = f"ثعبان: {msg('cli.open_file_error')} '{file_path}'"
+                sys.stderr.write(f"{prefix}: {msg('cli.invalid_utf8')} ({e})\n")
                 return 1
             except Exception as e:
-                sys.stderr.write(f"ثعبان:can't open file '{file_path}': {e}\n")
+                sys.stderr.write(f"ثعبان: {msg('cli.open_file_error')} '{file_path}': {e}\n")
                 return 1
     else:
         # No FILE, no -c, no '-': drop into the REPL.
@@ -177,9 +179,8 @@ def main(argv: "list[str] | None" = None) -> int:
 
     if cli_dict is not None and file_directive is not None and cli_dict != file_directive:
         sys.stderr.write(
-            f"ثعبان: dictionary version conflict — "
-            f"--dict specifies '{cli_dict}' but the file directive says '{file_directive}'. "
-            f"Remove one or make them agree.\n"
+            f"ثعبان: {msg('cli.dictionary_conflict')}: "
+            f"--dict = '{cli_dict}'، وتعليمة الملف = '{file_directive}'.\n"
         )
         return 1
 
@@ -192,7 +193,7 @@ def main(argv: "list[str] | None" = None) -> int:
         print_translated_exception(*sys.exc_info())
         return 1
     except FileNotFoundError as e:
-        sys.stderr.write(f"ثعبان: unknown dictionary version: {e}\n")
+        sys.stderr.write(f"ثعبان: {msg('cli.unknown_dictionary')}: {e}\n")
         return 1
     except Exception:
         print_translated_exception(*sys.exc_info())
@@ -234,7 +235,7 @@ def main(argv: "list[str] | None" = None) -> int:
         sys.stderr.write(str(e.code) + "\n")
         return 1
     except KeyboardInterrupt:
-        sys.stderr.write("KeyboardInterrupt\n")
+        sys.stderr.write(f"{msg('cli.keyboard_interrupt')}\n")
         return 130
     except Exception:
         print_translated_exception(*sys.exc_info())

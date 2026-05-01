@@ -13,11 +13,12 @@ data directory so the kernel appears in the JupyterLab / Notebook picker.
 
 from __future__ import annotations
 
-import argparse
 import json
 import sys
 import tempfile
 from pathlib import Path
+
+from arabicpython.messages import ArabicArgumentParser, msg
 
 KERNEL_JSON = {
     "argv": [sys.executable, "-m", "arabicpython_kernel", "-f", "{connection_file}"],
@@ -35,7 +36,7 @@ def _install(prefix: str | None, sys_prefix: bool, user: bool) -> None:
         import jupyter_client  # type: ignore  # noqa: F401
     except ImportError:
         print(
-            "jupyter_client is not installed. " "Install it with: pip install jupyter_client",
+            msg("kernel.missing_jupyter_client"),
             file=sys.stderr,
         )
         sys.exit(1)
@@ -57,7 +58,7 @@ def _install(prefix: str | None, sys_prefix: bool, user: bool) -> None:
             install_kwargs["prefix"] = prefix
 
         dest = ksm.install_kernel_spec(str(kernel_dir), **install_kwargs)
-        print(f"Installed kernel spec: {dest}")
+        print(f"{msg('kernel.installed_kernel')}: {dest}")
 
 
 def _run_kernel(connection_file: str) -> None:
@@ -73,10 +74,10 @@ def _run_kernel(connection_file: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(prog="python -m arabicpython_kernel")
+    parser = ArabicArgumentParser(prog="python -m arabicpython_kernel")
     sub = parser.add_subparsers(dest="cmd")
 
-    inst = sub.add_parser("install", help="Install the kernel spec into Jupyter.")
+    inst = sub.add_parser("install", help=msg("kernel.install_help"))
     inst.add_argument("--sys-prefix", action="store_true", dest="sys_prefix")
     inst.add_argument("--prefix", default=None)
     inst.add_argument("--user", action="store_true", default=True)

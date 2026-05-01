@@ -11,7 +11,7 @@ def test_help_flag_exits_zero(capsys):
     ret = main(["-h"])
     assert ret == 0
     out, err = capsys.readouterr()
-    assert "usage:" in out or "usage:" in err
+    assert "الاستخدام:" in out or "الاستخدام:" in err
 
 
 def test_version_flag_prints_version(capsys):
@@ -174,7 +174,8 @@ def test_missing_file_prints_error_exits_one(capsys):
     ret = main(["non_existent.apy"])
     assert ret == 1
     out, err = capsys.readouterr()
-    assert "can't open file" in err
+    assert "تعذر فتح الملف" in err
+    assert "الملف غير موجود" in err
     assert "non_existent.apy" in err
 
 
@@ -182,7 +183,8 @@ def test_directory_instead_of_file(tmp_path, capsys):
     ret = main([str(tmp_path)])
     assert ret == 1
     out, err = capsys.readouterr()
-    assert "can't open file" in err
+    assert "تعذر فتح الملف" in err
+    assert "المسار مجلد وليس ملفا" in err
     assert str(tmp_path) in err
 
 
@@ -193,7 +195,7 @@ def test_bidi_in_source_reports_syntax_error(tmp_path, capsys):
     ret = main([str(f)])
     assert ret == 1
     out, err = capsys.readouterr()
-    assert "bidi control" in err
+    assert "حرف تحكم باتجاه النص" in err
     assert "trojansource.codes" in err
 
 
@@ -203,7 +205,7 @@ def test_mixed_digit_in_source_reports_error(tmp_path, capsys):
     ret = main([str(f)])
     assert ret == 1
     out, err = capsys.readouterr()
-    assert "mixed digit" in err
+    assert "مزج أنظمة الأرقام" in err
 
 
 def test_translated_python_syntax_error(tmp_path, capsys):
@@ -222,7 +224,7 @@ def test_runtime_exception_prints_traceback(tmp_path, capsys):
     ret = main([str(f)])
     assert ret == 1
     out, err = capsys.readouterr()
-    assert "خطا_القسمه_على_صفر" in err
+    assert "خطأ_قسمة_صفر" in err
     assert "تتبع_الأخطاء" in err
 
 
@@ -247,7 +249,7 @@ def test_keyboard_interrupt_exits_130(tmp_path, capsys):
     ret = main([str(f)])
     assert ret == 130
     out, err = capsys.readouterr()
-    assert "KeyboardInterrupt" in err
+    assert "مقاطعة_لوحة_المفاتيح" in err
 
 
 # File encoding (2)
@@ -268,7 +270,7 @@ def test_non_utf8_file_clean_error(tmp_path, capsys):
     ret = main([str(f)])
     assert ret == 1
     out, err = capsys.readouterr()
-    assert "invalid UTF-8 encoding" in err
+    assert "ترميز الملف ليس UTF-8 صالحا" in err
 
 
 # Subprocess smoke (1)

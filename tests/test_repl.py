@@ -111,7 +111,7 @@ def test_bidi_in_input_clean_error_no_traceback(console):
     ret = console.runsource("\u202e")
     assert ret is False
     err_text = console._test_err.getvalue()
-    assert "bidi control" in err_text
+    assert "حرف تحكم باتجاه النص" in err_text
     assert "Traceback" not in err_text
 
 
@@ -119,7 +119,7 @@ def test_mixed_digit_clean_error(console):
     ret = console.runsource("x = ١2")
     assert ret is False
     err_text = console._test_err.getvalue()
-    assert "mixed digit" in err_text
+    assert "مزج أنظمة الأرقام" in err_text
     assert "Traceback" not in err_text
 
 
@@ -139,7 +139,7 @@ def test_zero_division_shows_traceback(console):
     ret = console.runsource("١/٠")
     assert ret is False
     err_text = console._test_err.getvalue()
-    assert "خطا_القسمه_على_صفر" in err_text
+    assert "خطأ_قسمة_صفر" in err_text
     assert "تتبع_الأخطاء" in err_text
 
 
@@ -147,7 +147,7 @@ def test_name_error_shows_traceback(console):
     ret = console.runsource("undefined_name")
     assert ret is False
     err_text = console._test_err.getvalue()
-    assert "خطا_اسم" in err_text
+    assert "خطأ_اسم" in err_text
     assert "تتبع_الأخطاء" in err_text
 
 
@@ -282,4 +282,4 @@ def test_keyboard_interrupt_does_not_exit_repl(console, capsys):
     ret = console.runsource("raise KeyboardInterrupt")
     assert ret is False
     err_text = console._test_err.getvalue()
-    assert "مقاطعه_لوحه_المفاتيح" in err_text
+    assert "مقاطعة" in err_text
