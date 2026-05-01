@@ -6,6 +6,13 @@ import sys
 from arabicpython.cli import main
 from arabicpython.translate import translate
 
+PY311_TOKENIZER_HARAKAT_LIMITATION = {
+    # CPython 3.11 rejects Arabic harakat in identifiers; 3.12+ accepts them.
+    pathlib.Path("examples/C26_jwt_demo.apy"),
+    pathlib.Path("examples/اختبار_نموذجي.apy"),
+    pathlib.Path("apps/مدير_مهام.apy"),
+}
+
 
 def test_01_hello_runs(capsys):
     repo_root = pathlib.Path(__file__).parents[1]
@@ -133,11 +140,15 @@ def test_all_examples_and_apps_translate_compile():
 
     failures: list[str] = []
     for path in apy_files:
+        relative_path = path.relative_to(repo_root)
+        if sys.version_info < (3, 12) and relative_path in PY311_TOKENIZER_HARAKAT_LIMITATION:
+            continue
+
         source = path.read_text(encoding="utf-8")
         try:
             compile(translate(source), str(path), "exec")
         except Exception as exc:  # pragma: no cover - assertion reports details
-            failures.append(f"{path.relative_to(repo_root)}: {type(exc).__name__}: {exc}")
+            failures.append(f"{relative_path}: {type(exc).__name__}: {exc}")
 
     assert not failures, "\n".join(failures)
 
