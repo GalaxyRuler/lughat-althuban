@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arabic Programming Lexicon",
+  "type": "object",
+  "required": ["core", "libraries", "messages"],
+  "properties": {
+    "core": {
+      "type": "object",
+      "required": ["meta", "dialect_entry"],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "required": ["version", "default_dialect", "normalization"]
+        },
+        "dialect_entry": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dialect", "category", "python", "canonical", "alternates", "rationale"]
+          }
+        }
+      }
+    },
+    "libraries": {
+      "type": "object",
+      "required": ["meta", "library"]
+    },
+    "messages": {
+      "type": "object"
+    }
+  }
+}
+

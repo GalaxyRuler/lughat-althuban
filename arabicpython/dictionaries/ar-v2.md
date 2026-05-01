@@ -1,32 +1,25 @@
-# Arabic dialect dictionary — ar-v2.0
-<!-- ar-v2: opt-in via `# apython: dict=ar-v2` file header -->
+# Arabic dialect dictionary — ar-v2
+<!-- Generated from lexicon/core.toml. Do not edit by hand. -->
 
-**Status**: active (ar-v2.0)
-**Released**: 2026-04-29 per ADR 0011 § C.4 (Phase C ar-v2 opt-in dictionary)
-**Supersedes**: ar-v1 (dictionaries/ar-v1.md, locked 2026-04-19)
-**Governance**: changes to existing entries require a new ADR (see ADR 0003). This dictionary changes exactly four ar-v1 keyword spellings; all other entries carry forward unchanged.
-
----
+**Status**: active
+**Source of truth**: `lexicon/core.toml`
 
 ## Reading this file
 
 - **Python**: the Python symbol this entry translates.
-- **Canonical**: the single Arabic word or underscored phrase the dialect accepts in v2.
-- **Alternates considered**: other Arabic words that are defensible; documented for transparency, **not accepted at runtime**.
-- **Rationale**: why this canonical was chosen.
+- **Canonical**: the visible Arabic spelling shown to learners.
+- **Alternates**: defensible non-canonical spellings; not accepted as canonical.
+- **Rationale**: why this Arabic term was chosen.
 
-Every canonical entry is shown in its **natural visible form** — the spelling a learner would type and that appears in IDE tooltips and error messages. The ADR 0004 normalizer folds hamza variants (`أ`/`إ`/`آ` → `ا`), ta-marbuta (`ة` → `ه`), harakat, and tatweel on both the dictionary entry and the user's identifier at lookup time, so `خطأ` and `خطا` resolve to the same key at runtime. Where a rationale note references the stored (normalized) form, it is marked explicitly.
-
-Multi-word translations use underscore `_` rather than space, because Python tokenizes space as a token boundary. Dotted method names are written with a leading `.` in this file for clarity but are stored without the dot in the machine-readable dictionary.
-
----
+The runtime normalizer folds hamza variants, final ta marbuta, alef maksura,
+harakat, and tatweel. This file keeps the natural visible form.
 
 ## 1. Control-flow keywords
 
 | Python | Canonical | Alternates | Rationale |
 |---|---|---|---|
 | `and` | و | — | MSA conjunction "and". |
-| `as` | باسم | كـ | "By the name of"; natural in `import X as Y` and `with X as Y`. |
+| `as` | باسم | كـ | "by the name of"; natural in `import X as Y` and `with X as Y`. Replaces ar-v1's `كـ` which normalized to single-char `ك`. |
 | `assert` | أكد | تحقق | MSA "affirm/assert". |
 | `async` | غير_متزامن | لاتزامني | MSA "non-synchronous"; composed for clarity. |
 | `await` | انتظر | — | MSA "wait". |
@@ -45,7 +38,7 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `if` | إذا | لو، إذا | MSA conditional "if". |
 | `import` | استورد | اجلب، ادرج | MSA "import". |
 | `in` | في | — | MSA preposition "in". |
-| `is` | يكون | هو | MSA "is / to be"; less ambiguous than the pronoun `هو`. |
+| `is` | يكون | هو | MSA "is / to be"; imperfect form reads naturally in `x يكون None`. Replaces ar-v1's `هو` (pronoun "he/it") which blocked learners from using `هو` as a variable name. |
 | `lambda` | لامدا | دالة_مجهولة | Transliteration; standard in Arabic mathematics for lambda. |
 | `nonlocal` | غير_محلي | — | Composed MSA. |
 | `not` | ليس | لا | MSA negation; ليس reads as a formal "not". |
@@ -57,11 +50,6 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `while` | طالما | بينما | MSA "as long as". |
 | `with` | مع | — | MSA "with". |
 | `yield` | سلم | انتج | MSA "hand over"; semantically closer to generator `yield` than "produce". |
-
-### Soft keywords
-
-| Python | Canonical | Alternates | Rationale |
-|---|---|---|---|
 | `match` | طابق | — | MSA "match/compare". |
 | `case` | حالة | — | MSA "case". |
 | `type` | نوع | — | MSA "type"; shared with built-in `type()`. |
@@ -152,8 +140,6 @@ Multi-word translations use underscore `_` rather than space, because Python tok
 | `vars` | متغيرات | — | MSA "variables". |
 | `zip` | ازدوج | دمج | MSA "pair up". |
 
-Type-constructor duplicates (also function and type, but listed once above): `bool`, `bytearray`, `bytes`, `complex`, `dict`, `float`, `frozenset`, `int`, `list`, `object`, `range`, `set`, `str`, `tuple`, `type`.
-
 ## 5. Built-in exceptions
 
 | Python | Canonical | Alternates | Rationale |
@@ -162,6 +148,7 @@ Type-constructor duplicates (also function and type, but listed once above): `bo
 | `AssertionError` | خطأ_تأكيد | — | Composed. |
 | `AttributeError` | خطأ_صفة | — | Composed. |
 | `BaseException` | استثناء_أساسي | — | Composed. |
+| `BlockingIOError` | خطأ_إدخال_إخراج_حاجب | — | OSError subclass; common in async code. Added in ar-v2. |
 | `ConnectionError` | خطأ_اتصال | — | Composed. |
 | `EOFError` | خطأ_نهاية_ملف | — | Composed. |
 | `Exception` | استثناء_عام | استثناء | "general exception"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_أساسي`. |
@@ -173,17 +160,19 @@ Type-constructor duplicates (also function and type, but listed once above): `bo
 | `IndentationError` | خطأ_إزاحة | — | Composed. |
 | `IndexError` | خطأ_فهرس | — | Composed. |
 | `IOError` | خطأ_إدخال_إخراج | — | Composed. |
+| `IsADirectoryError` | خطأ_هذا_مجلد | — | OSError subclass; common in file-handling. Added in ar-v2. |
 | `KeyboardInterrupt` | مقاطعة | — | MSA "interruption"; simplest form. |
 | `KeyError` | خطأ_مفتاح | — | Composed. |
 | `LookupError` | خطأ_بحث | — | Composed. |
 | `MemoryError` | خطأ_ذاكرة | — | Composed. |
 | `ModuleNotFoundError` | خطأ_وحدة_مفقودة | — | Composed. |
 | `NameError` | خطأ_اسم | — | Composed. |
+| `NotADirectoryError` | خطأ_ليس_مجلدا | — | OSError subclass; common in file-handling. Added in ar-v2. |
 | `NotImplementedError` | خطأ_غير_منفذ | — | Composed. |
 | `OSError` | خطأ_نظام | — | Composed. |
 | `OverflowError` | خطأ_فائض | — | Composed. |
 | `PermissionError` | خطأ_صلاحية | — | Composed. |
-| `RecursionError` | خطأ_تكرار_ذاتي | — | Composed. |
+| `RecursionError` | خطأ_عودية | خطأ_تكرار_ذاتي | `عودية` is the KSAA-confirmed CS term for recursion; replaces ar-v1's verbose compound. |
 | `RuntimeError` | خطأ_تشغيل | — | Composed. |
 | `StopIteration` | انتهاء_التكرار | — | Composed. |
 | `SyntaxError` | خطأ_صياغة | — | Composed. |
@@ -200,10 +189,6 @@ Type-constructor duplicates (also function and type, but listed once above): `bo
 | `ZeroDivisionError` | خطأ_قسمة_صفر | — | Composed. |
 
 ## 6. Common methods on built-in types
-
-Methods are stored without the leading dot in the machine-readable dictionary. The translation happens at the token level; the dot before a method call is a separate `OP` token and is preserved.
-
-### String methods
 
 | Python | Canonical | Alternates | Rationale |
 |---|---|---|---|
@@ -227,11 +212,6 @@ Methods are stored without the leading dot in the machine-readable dictionary. T
 | `.title` | عنوان | — | MSA "title/heading"; title-cases every word. |
 | `.upper` | كبير | — | MSA "big/uppercase". |
 | `.zfill` | مل_بأصفار | — | Composed: "fill with zeros". |
-
-### List methods
-
-| Python | Canonical | Alternates | Rationale |
-|---|---|---|---|
 | `.append` | اضف | الحق | MSA "add". |
 | `.extend` | مدد | — | MSA "extend". |
 | `.index` | موقع | — | MSA "position". |
@@ -240,96 +220,23 @@ Methods are stored without the leading dot in the machine-readable dictionary. T
 | `.remove` | ازل | — | MSA "remove". |
 | `.reverse` | اعكس | — | MSA "reverse" (imperative). |
 | `.sort` | رتب | — | MSA "arrange/sort". |
-
-### Dict methods
-
-| Python | Canonical | Alternates | Rationale |
-|---|---|---|---|
 | `.get` | اجلب | — | MSA "fetch". |
 | `.items` | عناصر | — | MSA "items/elements". |
 | `.keys` | مفاتيح | — | MSA "keys". |
-| `.pop` | انتزع | — | Same Python name as list `.pop`; the existing `انتزع → pop` mapping covers dicts automatically. No new entry needed — documented here for completeness. |
 | `.popitem` | انتزع_زوج | — | Composed: "extract a pair" (dict items are key-value pairs). |
 | `.setdefault` | عين_افتراضي | — | Composed. |
 | `.update` | حدث | — | MSA "update". |
 | `.values` | قيم_القاموس | قيم | Composed; `قيم` alone would collide with `eval`. See collision audit. |
-
-### Set methods
-
-`.remove`, `.clear`, and `.copy` already work on sets via the list and generic method mappings above (same Python names, same Arabic translations).
-
-| Python | Canonical | Alternates | Rationale |
-|---|---|---|---|
 | `.add` | ضم | — | MSA "include/incorporate"; distinct from `اضف` (list `.append`) to avoid attribute collision. |
 | `.difference` | فرق | — | MSA mathematical "difference" (A minus B). |
 | `.discard` | أسقط | — | MSA "drop/set aside"; like `.remove` but no error if element absent. |
 | `.intersection` | تقاطع | — | MSA mathematical "intersection". |
 | `.union` | اتحاد | — | MSA mathematical "union". |
-
-### Generic methods (on multiple types)
-
-| Python | Canonical | Alternates | Rationale |
-|---|---|---|---|
 | `.clear` | امسح | — | MSA "clear/erase". |
 | `.copy` | انسخ | — | MSA "copy". |
-
----
-
-## Collision audit
-
-The following canonicals appear in more than one section and must resolve to the same English symbol at runtime:
-
-| Arabic | Maps to (Python) | Notes |
-|---|---|---|
-| نسق | `format` (function and `.format` method) | Same target — safe. |
-| رمز | `chr` (function) and `.encode` (method) | **Conflict**. Since both are NAME tokens, the token-level rewrite cannot distinguish them. Resolution: `chr` keeps رمز; `.encode` uses رمّز (with shadda). But shadda is stripped by normalizer. **Decision**: rename `.encode` to `رمز_بايتات` in v1. Documented here; will verify during Packet 1.2. |
-| قيم | `eval` (function) and `.values` (method) | **Conflict**. Resolution: `eval` keeps قيم; `.values` renamed to `قيم_القاموس`. Applied below. |
-| اجلب | `.get` (method) and `getattr` (function) | `getattr` uses اجلب_صفة already; `.get` uses اجلب. Safe. |
-| عين_صفة | `setattr` (function) only | Safe. |
-| نوع | `type` (function/soft-keyword) | Intentional merge. |
-| صف | `tuple` (type) and `filter` (function) | **Conflict**. Resolution: `filter` renamed to `فلتر`. Applied below. |
-
-### Resolutions applied
-
-The three collisions above are resolved **inline in the tables** — `filter`, `.encode`, and `.values` now use their resolved canonicals (`فلتر`, `رمز_بايتات`, `قيم_القاموس`) in their respective sections. The rejected forms (`صف`, `رمز`, `قيم`) are listed as alternates for the audit trail.
-
-The loader reads only the tables; this audit section is historical documentation.
-
----
-
-## Counts
-
-These match what `dialect.load_dialect("ar-v2")` reports at runtime
-(`names: 145, attributes: 42, total: 187`).
-
-- Hard keywords: 32 (Python 3.13's `keyword.kwlist` minus `True`/`False`/`None`, which live in *Literals* below)
-- Soft keywords: 4 (`match`, `case`, `type`, `_`)
-- Literals: 3 (`True`, `False`, `None`)
-- Built-in types: 15
-- Built-in functions: 52 (unique; excludes type-constructor duplicates; includes `breakpoint` added in v1.1)
-- Built-in exceptions: 40
-- Subtotal (names): **145** — sums to 146 by section, minus 1 for the `type` soft-keyword / `type` built-in-type dedup (both map to `نوع`, stored once in `dialect.names`)
-- Methods (attributes): 42 (29 original + 7 new string methods + 5 new set methods + 1 new dict method)
-- **Total entries: 187**
-
-*Note: dict `.pop` is not counted as a new attribute — it resolves via the existing `انتزع → pop` mapping shared with list `.pop`.*
-
-## Known omissions
-
-- `yield from` — compound keyword, needs multi-token handling.
-- `async for`, `async with` — compounds.
-- `pattern matching` class patterns — limited use in beginner code.
-- `aiter`, `anext` — async iterator builtins (3.10+); deferred to Phase B.
-- Dunder methods (`__init__`, `__str__`, etc.) — Phase B aliasing concern.
-- `self`, `cls` — naming conventions, not syntax.
-- Stdlib module-level functions (`os.path.join`, `math.sqrt`, etc.) — Phase B.
-- Set methods `.issubset`, `.issuperset`, `.symmetric_difference` — advanced; deferred to a future dictionary.
-- String methods `.encode`, `.format_map`, `.maketrans`, `.translate` — advanced; deferred to a future dictionary.
-
-## References
-
-- Hedy Arabic translations (source for many canonical choices): https://hedy.org/
-- Python 3.13 `keyword.kwlist`: https://docs.python.org/3/library/keyword.html
-- Python Built-in Functions: https://docs.python.org/3/library/functions.html
-- Python Built-in Exceptions: https://docs.python.org/3/library/exceptions.html
-- ADR 0003 (governance), ADR 0004 (normalization).
+| `.fit` | لائم | — | MSA "calibrate/fit". |
+| `.predict` | تنبا | — | MSA "predict/foretell". |
+| `.transform` | حول_بيانات | — | Compound; `حول` alone reserved for future use. |
+| `.fit_transform` | لائم_وحول | — | Composed from `.fit` + `.transform`. |
+| `.score` | قيم_نموذج | — | `قيم` alone maps to `eval`; compound is safe. |
+| `.predict_proba` | احتمالات_التنبا | — | "prediction probabilities". |
