@@ -89,19 +89,19 @@ arabicpython/aliases/
     ├── _finder.py    ← AliasFinder: sys.meta_path hook
     ├── _loader.py    ← AliasLoader: creates ModuleProxy
     ├── _proxy.py     ← ModuleProxy: lazy attribute access
-    ├── numpy.toml    ← "حسابات_عددية" → numpy
-    ├── pandas.toml   ← "جداول_بيانات" → pandas
+    ├── numpy.toml    ← "نمباي" → numpy
+    ├── pandas.toml   ← "بانداس" → pandas
     └── ...           ← (40+ ملف TOML)
 ```
 
 **كيف يعمل الاستيراد؟**
 
 ```python
-استورد جداول_بيانات كـ جب
+استورد بانداس باسم بد
 ```
 
-1. Python يستدعي `AliasFinder.find_spec("جداول_بيانات", ...)`
-2. AliasFinder يبحث في ملفات TOML عن `arabic_name == "جداول_بيانات"`
+1. Python يستدعي `AliasFinder.find_spec("بانداس", ...)`
+2. AliasFinder يبحث في ملفات TOML عن `arabic_name == "بانداس"`
 3. يجد `pandas.toml` → يُعيد `ModuleSpec`
 4. `AliasLoader.create_module()` يُنشئ `ModuleProxy(pandas)`
 5. `جب.إطار_بيانات` → `pandas.DataFrame`
@@ -166,7 +166,7 @@ No AST rewrite. No CPython fork. The same pipeline serves CLI, REPL, and the imp
 
 ## Alias system
 
-`AliasFinder` (a `sys.meta_path` hook) intercepts `import جداول_بيانات`, finds `pandas.toml` where `arabic_name == "جداول_بيانات"`, and returns a `ModuleProxy(pandas)` whose attribute `إطار_بيانات` resolves to `pandas.DataFrame`.
+`AliasFinder` (a `sys.meta_path` hook) intercepts `import بانداس`, finds `pandas.toml` where `arabic_name == "بانداس"`, and returns a `ModuleProxy(pandas)` whose attribute `إطار_بيانات` resolves to `pandas.DataFrame`.
 
 ## Key ADRs
 

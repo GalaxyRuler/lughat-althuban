@@ -84,6 +84,21 @@ def run_tests(args: list[str]) -> int:
     *args* is everything after the ``اختبر`` token.
     Returns an integer exit code (0 = all passed, non-zero = failure / error).
     """
+    if any(arg in {"-h", "--help", "مساعدة"} for arg in args):
+        sys.stdout.write(
+            "الاستخدام: ثعبان اختبر [خيارات pytest أو مسارات]\n\n"
+            "خيارات عربية:\n"
+            "  --مطول              عرض تفصيلي\n"
+            "  --هادئ              عرض مختصر\n"
+            "  --توقف_اول          توقف عند أول فشل\n"
+            "  --بلا_رأس           أخف رأس pytest\n"
+            "  --اسم=<تعبير>       رشّح بالاسم\n"
+            "  --علامه=<تعبير>     رشّح بالوسم\n"
+            "  --تقرير=<نوع>       نمط أثر الخطأ\n"
+            "  --غطاء[=<مسار>]     فعّل التغطية\n"
+        )
+        return 0
+
     try:
         import pytest
     except ImportError:

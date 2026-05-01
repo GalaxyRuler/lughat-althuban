@@ -1,0 +1,4598 @@
+# Canonical Arabic programming lexicon for lughat-althuban.
+# This file is the source of truth for generated runtime dictionaries.
+[meta]
+version = "2026.05"
+default_dialect = "ar-v2"
+normalization = ["hamza", "ta_marbuta", "alef_maksura", "harakat", "tatweel"]
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "and"
+canonical = "و"
+alternates = []
+rationale = "MSA conjunction \"and\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "as"
+canonical = "كـ"
+alternates = ["باسم"]
+rationale = "Arabic prefix meaning \"as\"; natural in `import X as Y`."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "assert"
+canonical = "أكد"
+alternates = ["تحقق"]
+rationale = "MSA \"affirm/assert\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "async"
+canonical = "غير_متزامن"
+alternates = ["لاتزامني"]
+rationale = "MSA \"non-synchronous\"; composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "await"
+canonical = "انتظر"
+alternates = []
+rationale = "MSA \"wait\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "break"
+canonical = "اكسر"
+alternates = ["توقف", "اقطع"]
+rationale = "MSA direct cognate; matches the \"break out of loop\" metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "class"
+canonical = "صنف"
+alternates = ["فئة", "طبقة"]
+rationale = "Matches Hedy; MSA for \"kind/category\" is more established in CS translation than alternatives."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "continue"
+canonical = "استمر"
+alternates = ["تابع", "واصل"]
+rationale = "MSA \"continue\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "def"
+canonical = "دالة"
+alternates = ["عرف", "تعريف"]
+rationale = "MSA mathematical standard for \"function\"; Hedy uses this."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "del"
+canonical = "احذف"
+alternates = ["امسح"]
+rationale = "MSA \"delete\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "elif"
+canonical = "وإلا_إذا"
+alternates = ["وإذا"]
+rationale = "Composed from else + if; matches natural Arabic construction."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "else"
+canonical = "وإلا"
+alternates = ["والا"]
+rationale = "MSA \"otherwise\"; Hedy uses this."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "except"
+canonical = "استثناء"
+alternates = ["التقط"]
+rationale = "MSA noun form of \"exception\"; reads naturally in `try/except`."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "finally"
+canonical = "أخيرا"
+alternates = ["نهاية"]
+rationale = "MSA \"at last / finally\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "for"
+canonical = "لكل"
+alternates = ["من_أجل"]
+rationale = "\"For each\" idiom in MSA; concise."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "from"
+canonical = "من"
+alternates = []
+rationale = "MSA preposition \"from\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "global"
+canonical = "عام"
+alternates = ["عالمي"]
+rationale = "MSA \"public/general\"; avoid عالمي which means \"global as in worldwide\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "if"
+canonical = "إذا"
+alternates = ["لو", "إذا"]
+rationale = "MSA conditional \"if\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "import"
+canonical = "استورد"
+alternates = ["اجلب", "ادرج"]
+rationale = "MSA \"import\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "in"
+canonical = "في"
+alternates = []
+rationale = "MSA preposition \"in\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "is"
+canonical = "هو"
+alternates = ["يكون"]
+rationale = "MSA copula \"is/he\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "lambda"
+canonical = "لامدا"
+alternates = ["دالة_مجهولة"]
+rationale = "Transliteration; standard in Arabic mathematics for lambda."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "nonlocal"
+canonical = "غير_محلي"
+alternates = []
+rationale = "Composed MSA."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "not"
+canonical = "ليس"
+alternates = ["لا"]
+rationale = "MSA negation; ليس reads as a formal \"not\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "or"
+canonical = "أو"
+alternates = []
+rationale = "MSA disjunction \"or\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "pass"
+canonical = "مرر"
+alternates = ["تجاوز"]
+rationale = "MSA \"pass through\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "raise"
+canonical = "ارفع"
+alternates = ["اطلق"]
+rationale = "MSA \"raise\"; matches Python's metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "return"
+canonical = "ارجع"
+alternates = ["أرجع", "اعد"]
+rationale = "MSA \"return/go back\"; without hamza variants for normalizer idempotency."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "try"
+canonical = "حاول"
+alternates = ["جرب"]
+rationale = "MSA \"try/attempt\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "while"
+canonical = "طالما"
+alternates = ["بينما"]
+rationale = "MSA \"as long as\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "with"
+canonical = "مع"
+alternates = []
+rationale = "MSA \"with\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "yield"
+canonical = "سلم"
+alternates = ["انتج"]
+rationale = "MSA \"hand over\"; semantically closer to generator `yield` than \"produce\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "match"
+canonical = "طابق"
+alternates = []
+rationale = "MSA \"match/compare\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "case"
+canonical = "حالة"
+alternates = []
+rationale = "MSA \"case\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "type"
+canonical = "نوع"
+alternates = []
+rationale = "MSA \"type\"; shared with built-in `type()`."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "keyword"
+python = "_"
+canonical = "_"
+alternates = []
+rationale = "Underscore is universal; no translation."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "literal"
+python = "False"
+canonical = "خطأ"
+alternates = ["باطل", "كاذب"]
+rationale = "Semantic literal \"incorrect\"; Hedy uses صحيح/خطأ pair. Shown in visible form `خطأ`; normalizer folds final hamza to give stored key `خطا` per ADR 0004."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "literal"
+python = "None"
+canonical = "لاشيء"
+alternates = ["عدم", "فراغ"]
+rationale = "Literal \"nothing\"; closest to `None` semantically."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "literal"
+python = "True"
+canonical = "صحيح"
+alternates = ["حق"]
+rationale = "Semantic literal \"correct\"; Hedy uses."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "bool"
+canonical = "منطقي"
+alternates = []
+rationale = "MSA \"logical/boolean\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "bytearray"
+canonical = "مصفوفة_بايتات"
+alternates = []
+rationale = "Composed: \"array of bytes\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "bytes"
+canonical = "بايتات"
+alternates = ["ثنائيات"]
+rationale = "Transliteration; standard in Arabic technical writing."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "complex"
+canonical = "عدد_مركب"
+alternates = []
+rationale = "MSA \"complex number\" (mathematical)."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "dict"
+canonical = "قاموس"
+alternates = []
+rationale = "MSA \"dictionary\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "float"
+canonical = "عدد_عشري"
+alternates = ["عشري"]
+rationale = "MSA \"decimal number\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "frozenset"
+canonical = "مجموعة_ثابتة"
+alternates = []
+rationale = "Composed: \"frozen set\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "int"
+canonical = "عدد_صحيح"
+alternates = ["صحيح"]
+rationale = "MSA \"integer\"; avoids collision with True literal."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "list"
+canonical = "قائمة"
+alternates = []
+rationale = "MSA \"list\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "object"
+canonical = "كائن"
+alternates = ["شيء"]
+rationale = "MSA \"object\"; established in Arabic OOP translation."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "range"
+canonical = "نطاق"
+alternates = ["مدى"]
+rationale = "MSA \"range/span\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "set"
+canonical = "مجموعة"
+alternates = []
+rationale = "MSA \"set\" (mathematical usage)."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "str"
+canonical = "نص"
+alternates = ["سلسلة", "سلسلة_نصية"]
+rationale = "MSA \"text\"; simpler than \"string\" and widely used."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "tuple"
+canonical = "صف"
+alternates = ["ثنائية", "طقم"]
+rationale = "MSA \"row/series\"; matches ordered-tuple concept."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "type"
+python = "type"
+canonical = "نوع"
+alternates = []
+rationale = "See soft keywords."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "abs"
+canonical = "مطلق"
+alternates = []
+rationale = "MSA \"absolute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "all"
+canonical = "كل"
+alternates = []
+rationale = "MSA \"all\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "any"
+canonical = "أي"
+alternates = []
+rationale = "MSA \"any\"; normalizer folds hamza to give stored key `اي` per ADR 0004."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "ascii"
+canonical = "أيسكي"
+alternates = []
+rationale = "Transliteration."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "bin"
+canonical = "ثنائي"
+alternates = []
+rationale = "MSA \"binary\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "breakpoint"
+canonical = "نقطة_توقف"
+alternates = []
+rationale = "Composed: \"stopping point\"; matches the debugger metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "callable"
+canonical = "قابل_للاستدعاء"
+alternates = []
+rationale = "MSA \"callable\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "chr"
+canonical = "رمز"
+alternates = ["حرف"]
+rationale = "MSA \"symbol\"; `.ord` counterpart is قيمة_رمز."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "classmethod"
+canonical = "تابع_صنف"
+alternates = []
+rationale = "Composed: \"method of class\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "compile"
+canonical = "ترجم"
+alternates = ["جمع"]
+rationale = "MSA \"translate/compile\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "delattr"
+canonical = "احذف_صفة"
+alternates = []
+rationale = "Composed: \"delete attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "dir"
+canonical = "محتويات"
+alternates = []
+rationale = "MSA \"contents\"; reads naturally for object inspection."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "divmod"
+canonical = "قسمة_باقي"
+alternates = []
+rationale = "Composed: \"division and remainder\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "enumerate"
+canonical = "رقم"
+alternates = ["عدد", "عدد_متسلسل"]
+rationale = "MSA \"number\"; short and clear."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "eval"
+canonical = "قيم"
+alternates = []
+rationale = "MSA \"evaluate\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "exec"
+canonical = "نفذ"
+alternates = []
+rationale = "MSA \"execute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "filter"
+canonical = "فلتر"
+alternates = ["صف"]
+rationale = "Transliteration; `صف` would collide with `tuple`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "format"
+canonical = "نسق"
+alternates = []
+rationale = "MSA \"format\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "getattr"
+canonical = "اجلب_صفة"
+alternates = []
+rationale = "Composed: \"fetch attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "globals"
+canonical = "متغيرات_عامة"
+alternates = ["عامات"]
+rationale = "Composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "hasattr"
+canonical = "يملك_صفة"
+alternates = []
+rationale = "Composed: \"owns attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "hash"
+canonical = "بصمة"
+alternates = ["تجزئة"]
+rationale = "MSA \"fingerprint/signature\"; semantic."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "help"
+canonical = "مساعدة"
+alternates = ["ساعد"]
+rationale = "MSA \"help\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "hex"
+canonical = "ست_عشري"
+alternates = []
+rationale = "MSA \"hexadecimal\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "id"
+canonical = "معرف"
+alternates = []
+rationale = "MSA \"identifier\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "input"
+canonical = "ادخل"
+alternates = ["اقرا"]
+rationale = "MSA \"enter\"; reads as an imperative."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "isinstance"
+canonical = "من_نوع"
+alternates = []
+rationale = "Composed: \"is of type\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "issubclass"
+canonical = "صنف_فرعي"
+alternates = []
+rationale = "MSA \"subclass\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "iter"
+canonical = "كرر"
+alternates = []
+rationale = "MSA \"iterate\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "len"
+canonical = "طول"
+alternates = []
+rationale = "MSA \"length\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "locals"
+canonical = "متغيرات_محلية"
+alternates = ["محلات"]
+rationale = "Composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "map"
+canonical = "طبق"
+alternates = []
+rationale = "MSA \"apply\"; closer to functional map than alternatives."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "max"
+canonical = "الأكبر"
+alternates = ["أكبر"]
+rationale = "MSA \"maximum\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "min"
+canonical = "الأصغر"
+alternates = ["أصغر"]
+rationale = "MSA \"minimum\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "next"
+canonical = "التالي"
+alternates = []
+rationale = "MSA \"next\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "oct"
+canonical = "ثماني"
+alternates = []
+rationale = "MSA \"octal\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "open"
+canonical = "افتح"
+alternates = []
+rationale = "MSA \"open\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "ord"
+canonical = "قيمة_رمز"
+alternates = []
+rationale = "Composed: \"value of symbol\"; pairs with chr."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "pow"
+canonical = "أس"
+alternates = []
+rationale = "MSA \"power/exponent\" (short mathematical form)."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "print"
+canonical = "اطبع"
+alternates = []
+rationale = "MSA \"print\"; Hedy uses."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "property"
+canonical = "خاصية"
+alternates = []
+rationale = "MSA \"property/attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "repr"
+canonical = "تمثيل"
+alternates = []
+rationale = "MSA \"representation\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "reversed"
+canonical = "معكوس"
+alternates = []
+rationale = "MSA \"reversed\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "round"
+canonical = "قرب"
+alternates = ["دور"]
+rationale = "MSA \"approximate\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "setattr"
+canonical = "عين_صفة"
+alternates = []
+rationale = "Composed: \"set attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "slice"
+canonical = "شريحة"
+alternates = []
+rationale = "MSA \"slice\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "sorted"
+canonical = "مرتب"
+alternates = []
+rationale = "MSA \"sorted\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "staticmethod"
+canonical = "تابع_ثابت"
+alternates = []
+rationale = "Composed: \"static method\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "sum"
+canonical = "مجموع"
+alternates = []
+rationale = "MSA \"sum\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "super"
+canonical = "الأصل"
+alternates = ["الأب"]
+rationale = "MSA \"origin/parent\"; matches OOP inheritance metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "vars"
+canonical = "متغيرات"
+alternates = []
+rationale = "MSA \"variables\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "function"
+python = "zip"
+canonical = "ازدوج"
+alternates = ["دمج"]
+rationale = "MSA \"pair up\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "ArithmeticError"
+canonical = "خطأ_حسابي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "AssertionError"
+canonical = "خطأ_تأكيد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "AttributeError"
+canonical = "خطأ_صفة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "BaseException"
+canonical = "استثناء_أساسي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "ConnectionError"
+canonical = "خطأ_اتصال"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "EOFError"
+canonical = "خطأ_نهاية_ملف"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "Exception"
+canonical = "استثناء_عام"
+alternates = ["استثناء"]
+rationale = "\"general exception\"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_أساسي`."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "FileExistsError"
+canonical = "خطأ_ملف_موجود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "FileNotFoundError"
+canonical = "خطأ_ملف_مفقود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "FloatingPointError"
+canonical = "خطأ_عشري"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "GeneratorExit"
+canonical = "خروج_مولد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "ImportError"
+canonical = "خطأ_استيراد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "IndentationError"
+canonical = "خطأ_إزاحة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "IndexError"
+canonical = "خطأ_فهرس"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "IOError"
+canonical = "خطأ_إدخال_إخراج"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "KeyboardInterrupt"
+canonical = "مقاطعة"
+alternates = []
+rationale = "MSA \"interruption\"; simplest form."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "KeyError"
+canonical = "خطأ_مفتاح"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "LookupError"
+canonical = "خطأ_بحث"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "MemoryError"
+canonical = "خطأ_ذاكرة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "ModuleNotFoundError"
+canonical = "خطأ_وحدة_مفقودة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "NameError"
+canonical = "خطأ_اسم"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "NotImplementedError"
+canonical = "خطأ_غير_منفذ"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "OSError"
+canonical = "خطأ_نظام"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "OverflowError"
+canonical = "خطأ_فائض"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "PermissionError"
+canonical = "خطأ_صلاحية"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "RecursionError"
+canonical = "خطأ_تكرار_ذاتي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "RuntimeError"
+canonical = "خطأ_تشغيل"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "StopIteration"
+canonical = "انتهاء_التكرار"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "SyntaxError"
+canonical = "خطأ_صياغة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "SystemError"
+canonical = "خطأ_نظام_داخلي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "SystemExit"
+canonical = "خروج_نظام"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "TabError"
+canonical = "خطأ_جدولة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "TimeoutError"
+canonical = "خطأ_انتهاء_وقت"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "TypeError"
+canonical = "خطأ_نوع"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "UnicodeDecodeError"
+canonical = "خطأ_فك_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "UnicodeEncodeError"
+canonical = "خطأ_ترميز_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "UnicodeError"
+canonical = "خطأ_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "ValueError"
+canonical = "خطأ_قيمة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "Warning"
+canonical = "تحذير"
+alternates = []
+rationale = "MSA \"warning\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "exception"
+python = "ZeroDivisionError"
+canonical = "خطأ_قسمة_صفر"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".count"
+canonical = "عد"
+alternates = []
+rationale = "MSA \"count\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".decode"
+canonical = "فك_رمز"
+alternates = []
+rationale = "Composed: \"decode\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".encode"
+canonical = "رمز_بايتات"
+alternates = ["رمز"]
+rationale = "Composed; `رمز` alone would collide with `chr`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".endswith"
+canonical = "ينتهي_بـ"
+alternates = []
+rationale = "Composed: \"ends with\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".find"
+canonical = "ابحث"
+alternates = []
+rationale = "MSA \"find/search\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".format"
+canonical = "نسق"
+alternates = []
+rationale = "Same as built-in `format`."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".join"
+canonical = "اجمع"
+alternates = []
+rationale = "MSA \"join/collect\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".lower"
+canonical = "صغير"
+alternates = []
+rationale = "MSA \"small/lowercase\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".replace"
+canonical = "استبدل"
+alternates = []
+rationale = "MSA \"replace\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".split"
+canonical = "قسم"
+alternates = []
+rationale = "MSA \"split/divide\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".startswith"
+canonical = "يبدأ_بـ"
+alternates = []
+rationale = "Composed: \"starts with\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".capitalize"
+canonical = "كبر_الأول"
+alternates = []
+rationale = "Composed: \"capitalize the first (letter)\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".center"
+canonical = "توسط"
+alternates = []
+rationale = "MSA \"be in the center\"; pads to center the string."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".ljust"
+canonical = "ضبط_يسار"
+alternates = []
+rationale = "Composed: \"left-align\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".rjust"
+canonical = "ضبط_يمين"
+alternates = []
+rationale = "Composed: \"right-align\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".strip"
+canonical = "جرد"
+alternates = ["نظف"]
+rationale = "MSA \"strip\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".swapcase"
+canonical = "عكس_الحالة"
+alternates = []
+rationale = "Composed: \"reverse/swap case\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".title"
+canonical = "عنوان"
+alternates = []
+rationale = "MSA \"title/heading\"; title-cases every word."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".upper"
+canonical = "كبير"
+alternates = []
+rationale = "MSA \"big/uppercase\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".zfill"
+canonical = "مل_بأصفار"
+alternates = []
+rationale = "Composed: \"fill with zeros\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".append"
+canonical = "اضف"
+alternates = ["الحق"]
+rationale = "MSA \"add\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".extend"
+canonical = "مدد"
+alternates = []
+rationale = "MSA \"extend\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".index"
+canonical = "موقع"
+alternates = []
+rationale = "MSA \"position\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".insert"
+canonical = "ادرج"
+alternates = []
+rationale = "MSA \"insert\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".pop"
+canonical = "انتزع"
+alternates = []
+rationale = "MSA \"extract\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".remove"
+canonical = "ازل"
+alternates = []
+rationale = "MSA \"remove\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".reverse"
+canonical = "اعكس"
+alternates = []
+rationale = "MSA \"reverse\" (imperative)."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".sort"
+canonical = "رتب"
+alternates = []
+rationale = "MSA \"arrange/sort\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".get"
+canonical = "اجلب"
+alternates = []
+rationale = "MSA \"fetch\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".items"
+canonical = "عناصر"
+alternates = []
+rationale = "MSA \"items/elements\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".keys"
+canonical = "مفاتيح"
+alternates = []
+rationale = "MSA \"keys\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".popitem"
+canonical = "انتزع_زوج"
+alternates = []
+rationale = "Composed: \"extract a pair\" (dict items are key-value pairs)."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".setdefault"
+canonical = "عين_افتراضي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".update"
+canonical = "حدث"
+alternates = []
+rationale = "MSA \"update\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".values"
+canonical = "قيم_القاموس"
+alternates = ["قيم"]
+rationale = "Composed; `قيم` alone would collide with `eval`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".add"
+canonical = "ضم"
+alternates = []
+rationale = "MSA \"include/incorporate\"; distinct from `اضف` (list `.append`) to avoid attribute collision."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".difference"
+canonical = "فرق"
+alternates = []
+rationale = "MSA mathematical \"difference\" (A minus B)."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".discard"
+canonical = "أسقط"
+alternates = []
+rationale = "MSA \"drop/set aside\"; like `.remove` but no error if element absent."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".intersection"
+canonical = "تقاطع"
+alternates = []
+rationale = "MSA mathematical \"intersection\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".union"
+canonical = "اتحاد"
+alternates = []
+rationale = "MSA mathematical \"union\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".clear"
+canonical = "امسح"
+alternates = []
+rationale = "MSA \"clear/erase\"."
+
+[[dialect_entry]]
+dialect = "ar-v1"
+category = "method"
+python = ".copy"
+canonical = "انسخ"
+alternates = []
+rationale = "MSA \"copy\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "and"
+canonical = "و"
+alternates = []
+rationale = "MSA conjunction \"and\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "as"
+canonical = "كـ"
+alternates = ["باسم"]
+rationale = "Arabic prefix meaning \"as\"; natural in `import X as Y`."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "assert"
+canonical = "أكد"
+alternates = ["تحقق"]
+rationale = "MSA \"affirm/assert\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "async"
+canonical = "غير_متزامن"
+alternates = ["لاتزامني"]
+rationale = "MSA \"non-synchronous\"; composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "async"
+canonical = "متزامن"
+alternates = []
+rationale = "v1.1 addition: shorter MSA term \"concurrent/synchronous-with\". Both غير_متزامن and متزامن are accepted; غير_متزامن remains the reverse-map canonical."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "await"
+canonical = "انتظر"
+alternates = []
+rationale = "MSA \"wait\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "break"
+canonical = "اكسر"
+alternates = ["توقف", "اقطع"]
+rationale = "MSA direct cognate; matches the \"break out of loop\" metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "class"
+canonical = "صنف"
+alternates = ["فئة", "طبقة"]
+rationale = "Matches Hedy; MSA for \"kind/category\" is more established in CS translation than alternatives."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "continue"
+canonical = "استمر"
+alternates = ["تابع", "واصل"]
+rationale = "MSA \"continue\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "def"
+canonical = "دالة"
+alternates = ["عرف", "تعريف"]
+rationale = "MSA mathematical standard for \"function\"; Hedy uses this."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "del"
+canonical = "احذف"
+alternates = ["امسح"]
+rationale = "MSA \"delete\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "elif"
+canonical = "وإلا_إذا"
+alternates = ["وإذا"]
+rationale = "Composed from else + if; matches natural Arabic construction."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "else"
+canonical = "وإلا"
+alternates = ["والا"]
+rationale = "MSA \"otherwise\"; Hedy uses this."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "except"
+canonical = "استثناء"
+alternates = ["التقط"]
+rationale = "MSA noun form of \"exception\"; reads naturally in `try/except`."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "finally"
+canonical = "أخيرا"
+alternates = ["نهاية"]
+rationale = "MSA \"at last / finally\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "for"
+canonical = "لكل"
+alternates = ["من_أجل"]
+rationale = "\"For each\" idiom in MSA; concise."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "from"
+canonical = "من"
+alternates = []
+rationale = "MSA preposition \"from\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "global"
+canonical = "عام"
+alternates = ["عالمي"]
+rationale = "MSA \"public/general\"; avoid عالمي which means \"global as in worldwide\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "if"
+canonical = "إذا"
+alternates = ["لو", "إذا"]
+rationale = "MSA conditional \"if\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "import"
+canonical = "استورد"
+alternates = ["اجلب", "ادرج"]
+rationale = "MSA \"import\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "in"
+canonical = "في"
+alternates = []
+rationale = "MSA preposition \"in\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "is"
+canonical = "هو"
+alternates = ["يكون"]
+rationale = "MSA copula \"is/he\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "lambda"
+canonical = "لامدا"
+alternates = ["دالة_مجهولة"]
+rationale = "Transliteration; standard in Arabic mathematics for lambda."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "nonlocal"
+canonical = "غير_محلي"
+alternates = []
+rationale = "Composed MSA."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "not"
+canonical = "ليس"
+alternates = ["لا"]
+rationale = "MSA negation; ليس reads as a formal \"not\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "or"
+canonical = "أو"
+alternates = []
+rationale = "MSA disjunction \"or\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "pass"
+canonical = "مرر"
+alternates = ["تجاوز"]
+rationale = "MSA \"pass through\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "raise"
+canonical = "ارفع"
+alternates = ["اطلق"]
+rationale = "MSA \"raise\"; matches Python's metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "return"
+canonical = "ارجع"
+alternates = ["أرجع", "اعد"]
+rationale = "MSA \"return/go back\"; without hamza variants for normalizer idempotency."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "try"
+canonical = "حاول"
+alternates = ["جرب"]
+rationale = "MSA \"try/attempt\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "while"
+canonical = "طالما"
+alternates = ["بينما"]
+rationale = "MSA \"as long as\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "with"
+canonical = "مع"
+alternates = []
+rationale = "MSA \"with\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "yield"
+canonical = "سلم"
+alternates = ["انتج"]
+rationale = "MSA \"hand over\"; semantically closer to generator `yield` than \"produce\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "match"
+canonical = "طابق"
+alternates = []
+rationale = "MSA \"match/compare\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "case"
+canonical = "حالة"
+alternates = []
+rationale = "MSA \"case\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "type"
+canonical = "نوع"
+alternates = []
+rationale = "MSA \"type\"; shared with built-in `type()`."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "keyword"
+python = "_"
+canonical = "_"
+alternates = []
+rationale = "Underscore is universal; no translation."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "literal"
+python = "False"
+canonical = "خطأ"
+alternates = ["باطل", "كاذب"]
+rationale = "Semantic literal \"incorrect\"; Hedy uses صحيح/خطأ pair. Shown in visible form `خطأ`; normalizer folds final hamza to give stored key `خطا` per ADR 0004."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "literal"
+python = "None"
+canonical = "لاشيء"
+alternates = ["عدم", "فراغ"]
+rationale = "Literal \"nothing\"; closest to `None` semantically."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "literal"
+python = "True"
+canonical = "صحيح"
+alternates = ["حق"]
+rationale = "Semantic literal \"correct\"; Hedy uses."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "bool"
+canonical = "منطقي"
+alternates = []
+rationale = "MSA \"logical/boolean\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "bytearray"
+canonical = "مصفوفة_بايتات"
+alternates = []
+rationale = "Composed: \"array of bytes\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "bytes"
+canonical = "بايتات"
+alternates = ["ثنائيات"]
+rationale = "Transliteration; standard in Arabic technical writing."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "complex"
+canonical = "عدد_مركب"
+alternates = []
+rationale = "MSA \"complex number\" (mathematical)."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "dict"
+canonical = "قاموس"
+alternates = []
+rationale = "MSA \"dictionary\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "float"
+canonical = "عدد_عشري"
+alternates = ["عشري"]
+rationale = "MSA \"decimal number\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "frozenset"
+canonical = "مجموعة_ثابتة"
+alternates = []
+rationale = "Composed: \"frozen set\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "int"
+canonical = "عدد_صحيح"
+alternates = ["صحيح"]
+rationale = "MSA \"integer\"; avoids collision with True literal."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "list"
+canonical = "قائمة"
+alternates = []
+rationale = "MSA \"list\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "object"
+canonical = "كائن"
+alternates = ["شيء"]
+rationale = "MSA \"object\"; established in Arabic OOP translation."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "range"
+canonical = "نطاق"
+alternates = ["مدى"]
+rationale = "MSA \"range/span\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "set"
+canonical = "مجموعة"
+alternates = []
+rationale = "MSA \"set\" (mathematical usage)."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "str"
+canonical = "نص"
+alternates = ["سلسلة", "سلسلة_نصية"]
+rationale = "MSA \"text\"; simpler than \"string\" and widely used."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "tuple"
+canonical = "صف"
+alternates = ["ثنائية", "طقم"]
+rationale = "MSA \"row/series\"; matches ordered-tuple concept."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "type"
+python = "type"
+canonical = "نوع"
+alternates = []
+rationale = "See soft keywords."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "abs"
+canonical = "مطلق"
+alternates = []
+rationale = "MSA \"absolute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "all"
+canonical = "كل"
+alternates = []
+rationale = "MSA \"all\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "any"
+canonical = "أي"
+alternates = []
+rationale = "MSA \"any\"; normalizer folds hamza to give stored key `اي` per ADR 0004."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "ascii"
+canonical = "أيسكي"
+alternates = []
+rationale = "Transliteration."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "bin"
+canonical = "ثنائي"
+alternates = []
+rationale = "MSA \"binary\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "breakpoint"
+canonical = "نقطة_توقف"
+alternates = []
+rationale = "Composed: \"stopping point\"; matches the debugger metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "callable"
+canonical = "قابل_للاستدعاء"
+alternates = []
+rationale = "MSA \"callable\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "chr"
+canonical = "رمز"
+alternates = ["حرف"]
+rationale = "MSA \"symbol\"; `.ord` counterpart is قيمة_رمز."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "classmethod"
+canonical = "تابع_صنف"
+alternates = []
+rationale = "Composed: \"method of class\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "compile"
+canonical = "ترجم"
+alternates = ["جمع"]
+rationale = "MSA \"translate/compile\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "delattr"
+canonical = "احذف_صفة"
+alternates = []
+rationale = "Composed: \"delete attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "dir"
+canonical = "محتويات"
+alternates = []
+rationale = "MSA \"contents\"; reads naturally for object inspection."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "divmod"
+canonical = "قسمة_باقي"
+alternates = []
+rationale = "Composed: \"division and remainder\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "enumerate"
+canonical = "رقم"
+alternates = ["عدد", "عدد_متسلسل"]
+rationale = "MSA \"number\"; short and clear."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "eval"
+canonical = "قيم"
+alternates = []
+rationale = "MSA \"evaluate\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "exec"
+canonical = "نفذ"
+alternates = []
+rationale = "MSA \"execute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "filter"
+canonical = "فلتر"
+alternates = ["صف"]
+rationale = "Transliteration; `صف` would collide with `tuple`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "format"
+canonical = "نسق"
+alternates = []
+rationale = "MSA \"format\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "getattr"
+canonical = "اجلب_صفة"
+alternates = []
+rationale = "Composed: \"fetch attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "globals"
+canonical = "متغيرات_عامة"
+alternates = ["عامات"]
+rationale = "Composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "hasattr"
+canonical = "يملك_صفة"
+alternates = []
+rationale = "Composed: \"owns attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "hash"
+canonical = "بصمة"
+alternates = ["تجزئة"]
+rationale = "MSA \"fingerprint/signature\"; semantic."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "help"
+canonical = "مساعدة"
+alternates = ["ساعد"]
+rationale = "MSA \"help\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "hex"
+canonical = "ست_عشري"
+alternates = []
+rationale = "MSA \"hexadecimal\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "id"
+canonical = "معرف"
+alternates = []
+rationale = "MSA \"identifier\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "input"
+canonical = "ادخل"
+alternates = ["اقرا"]
+rationale = "MSA \"enter\"; reads as an imperative."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "isinstance"
+canonical = "من_نوع"
+alternates = []
+rationale = "Composed: \"is of type\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "issubclass"
+canonical = "صنف_فرعي"
+alternates = []
+rationale = "MSA \"subclass\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "iter"
+canonical = "كرر"
+alternates = []
+rationale = "MSA \"iterate\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "len"
+canonical = "طول"
+alternates = []
+rationale = "MSA \"length\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "locals"
+canonical = "متغيرات_محلية"
+alternates = ["محلات"]
+rationale = "Composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "map"
+canonical = "طبق"
+alternates = []
+rationale = "MSA \"apply\"; closer to functional map than alternatives."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "max"
+canonical = "الأكبر"
+alternates = ["أكبر"]
+rationale = "MSA \"maximum\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "min"
+canonical = "الأصغر"
+alternates = ["أصغر"]
+rationale = "MSA \"minimum\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "next"
+canonical = "التالي"
+alternates = []
+rationale = "MSA \"next\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "oct"
+canonical = "ثماني"
+alternates = []
+rationale = "MSA \"octal\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "open"
+canonical = "افتح"
+alternates = []
+rationale = "MSA \"open\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "ord"
+canonical = "قيمة_رمز"
+alternates = []
+rationale = "Composed: \"value of symbol\"; pairs with chr."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "pow"
+canonical = "أس"
+alternates = []
+rationale = "MSA \"power/exponent\" (short mathematical form)."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "print"
+canonical = "اطبع"
+alternates = []
+rationale = "MSA \"print\"; Hedy uses."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "property"
+canonical = "خاصية"
+alternates = []
+rationale = "MSA \"property/attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "repr"
+canonical = "تمثيل"
+alternates = []
+rationale = "MSA \"representation\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "reversed"
+canonical = "معكوس"
+alternates = []
+rationale = "MSA \"reversed\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "round"
+canonical = "قرب"
+alternates = ["دور"]
+rationale = "MSA \"approximate\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "setattr"
+canonical = "عين_صفة"
+alternates = []
+rationale = "Composed: \"set attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "slice"
+canonical = "شريحة"
+alternates = []
+rationale = "MSA \"slice\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "sorted"
+canonical = "مرتب"
+alternates = []
+rationale = "MSA \"sorted\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "staticmethod"
+canonical = "تابع_ثابت"
+alternates = []
+rationale = "Composed: \"static method\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "sum"
+canonical = "مجموع"
+alternates = []
+rationale = "MSA \"sum\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "super"
+canonical = "الأصل"
+alternates = ["الأب"]
+rationale = "MSA \"origin/parent\"; matches OOP inheritance metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "vars"
+canonical = "متغيرات"
+alternates = []
+rationale = "MSA \"variables\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "function"
+python = "zip"
+canonical = "ازدوج"
+alternates = ["دمج"]
+rationale = "MSA \"pair up\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "ArithmeticError"
+canonical = "خطأ_حسابي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "AssertionError"
+canonical = "خطأ_تأكيد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "AttributeError"
+canonical = "خطأ_صفة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "BaseException"
+canonical = "استثناء_أساسي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "ConnectionError"
+canonical = "خطأ_اتصال"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "EOFError"
+canonical = "خطأ_نهاية_ملف"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "Exception"
+canonical = "استثناء_عام"
+alternates = ["استثناء"]
+rationale = "\"general exception\"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_أساسي`."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "FileExistsError"
+canonical = "خطأ_ملف_موجود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "FileNotFoundError"
+canonical = "خطأ_ملف_مفقود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "FloatingPointError"
+canonical = "خطأ_عشري"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "GeneratorExit"
+canonical = "خروج_مولد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "ImportError"
+canonical = "خطأ_استيراد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "IndentationError"
+canonical = "خطأ_إزاحة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "IndexError"
+canonical = "خطأ_فهرس"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "IOError"
+canonical = "خطأ_إدخال_إخراج"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "KeyboardInterrupt"
+canonical = "مقاطعة"
+alternates = []
+rationale = "MSA \"interruption\"; simplest form."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "KeyError"
+canonical = "خطأ_مفتاح"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "LookupError"
+canonical = "خطأ_بحث"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "MemoryError"
+canonical = "خطأ_ذاكرة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "ModuleNotFoundError"
+canonical = "خطأ_وحدة_مفقودة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "NameError"
+canonical = "خطأ_اسم"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "NotImplementedError"
+canonical = "خطأ_غير_منفذ"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "OSError"
+canonical = "خطأ_نظام"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "OverflowError"
+canonical = "خطأ_فائض"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "PermissionError"
+canonical = "خطأ_صلاحية"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "RecursionError"
+canonical = "خطأ_تكرار_ذاتي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "RuntimeError"
+canonical = "خطأ_تشغيل"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "StopIteration"
+canonical = "انتهاء_التكرار"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "SyntaxError"
+canonical = "خطأ_صياغة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "SystemError"
+canonical = "خطأ_نظام_داخلي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "SystemExit"
+canonical = "خروج_نظام"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "TabError"
+canonical = "خطأ_جدولة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "TimeoutError"
+canonical = "خطأ_انتهاء_وقت"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "TypeError"
+canonical = "خطأ_نوع"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "UnicodeDecodeError"
+canonical = "خطأ_فك_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "UnicodeEncodeError"
+canonical = "خطأ_ترميز_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "UnicodeError"
+canonical = "خطأ_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "ValueError"
+canonical = "خطأ_قيمة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "Warning"
+canonical = "تحذير"
+alternates = []
+rationale = "MSA \"warning\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "exception"
+python = "ZeroDivisionError"
+canonical = "خطأ_قسمة_صفر"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".count"
+canonical = "عد"
+alternates = []
+rationale = "MSA \"count\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".decode"
+canonical = "فك_رمز"
+alternates = []
+rationale = "Composed: \"decode\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".encode"
+canonical = "رمز_بايتات"
+alternates = ["رمز"]
+rationale = "Composed; `رمز` alone would collide with `chr`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".endswith"
+canonical = "ينتهي_بـ"
+alternates = []
+rationale = "Composed: \"ends with\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".find"
+canonical = "ابحث"
+alternates = []
+rationale = "MSA \"find/search\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".format"
+canonical = "نسق"
+alternates = []
+rationale = "Same as built-in `format`."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".join"
+canonical = "اجمع"
+alternates = []
+rationale = "MSA \"join/collect\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".lower"
+canonical = "صغير"
+alternates = []
+rationale = "MSA \"small/lowercase\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".replace"
+canonical = "استبدل"
+alternates = []
+rationale = "MSA \"replace\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".split"
+canonical = "قسم"
+alternates = []
+rationale = "MSA \"split/divide\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".startswith"
+canonical = "يبدأ_بـ"
+alternates = []
+rationale = "Composed: \"starts with\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".capitalize"
+canonical = "كبر_الأول"
+alternates = []
+rationale = "Composed: \"capitalize the first (letter)\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".center"
+canonical = "توسط"
+alternates = []
+rationale = "MSA \"be in the center\"; pads to center the string."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".ljust"
+canonical = "ضبط_يسار"
+alternates = []
+rationale = "Composed: \"left-align\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".rjust"
+canonical = "ضبط_يمين"
+alternates = []
+rationale = "Composed: \"right-align\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".strip"
+canonical = "جرد"
+alternates = ["نظف"]
+rationale = "MSA \"strip\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".swapcase"
+canonical = "عكس_الحالة"
+alternates = []
+rationale = "Composed: \"reverse/swap case\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".title"
+canonical = "عنوان"
+alternates = []
+rationale = "MSA \"title/heading\"; title-cases every word."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".upper"
+canonical = "كبير"
+alternates = []
+rationale = "MSA \"big/uppercase\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".zfill"
+canonical = "مل_بأصفار"
+alternates = []
+rationale = "Composed: \"fill with zeros\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".append"
+canonical = "اضف"
+alternates = ["الحق"]
+rationale = "MSA \"add\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".extend"
+canonical = "مدد"
+alternates = []
+rationale = "MSA \"extend\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".index"
+canonical = "موقع"
+alternates = []
+rationale = "MSA \"position\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".insert"
+canonical = "ادرج"
+alternates = []
+rationale = "MSA \"insert\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".pop"
+canonical = "انتزع"
+alternates = []
+rationale = "MSA \"extract\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".remove"
+canonical = "ازل"
+alternates = []
+rationale = "MSA \"remove\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".reverse"
+canonical = "اعكس"
+alternates = []
+rationale = "MSA \"reverse\" (imperative)."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".sort"
+canonical = "رتب"
+alternates = []
+rationale = "MSA \"arrange/sort\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".get"
+canonical = "اجلب"
+alternates = []
+rationale = "MSA \"fetch\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".items"
+canonical = "عناصر"
+alternates = []
+rationale = "MSA \"items/elements\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".keys"
+canonical = "مفاتيح"
+alternates = []
+rationale = "MSA \"keys\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".popitem"
+canonical = "انتزع_زوج"
+alternates = []
+rationale = "Composed: \"extract a pair\" (dict items are key-value pairs)."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".setdefault"
+canonical = "عين_افتراضي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".update"
+canonical = "حدث"
+alternates = []
+rationale = "MSA \"update\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".values"
+canonical = "قيم_القاموس"
+alternates = ["قيم"]
+rationale = "Composed; `قيم` alone would collide with `eval`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".add"
+canonical = "ضم"
+alternates = []
+rationale = "MSA \"include/incorporate\"; distinct from `اضف` (list `.append`) to avoid attribute collision."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".difference"
+canonical = "فرق"
+alternates = []
+rationale = "MSA mathematical \"difference\" (A minus B)."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".discard"
+canonical = "أسقط"
+alternates = []
+rationale = "MSA \"drop/set aside\"; like `.remove` but no error if element absent."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".intersection"
+canonical = "تقاطع"
+alternates = []
+rationale = "MSA mathematical \"intersection\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".union"
+canonical = "اتحاد"
+alternates = []
+rationale = "MSA mathematical \"union\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".clear"
+canonical = "امسح"
+alternates = []
+rationale = "MSA \"clear/erase\"."
+
+[[dialect_entry]]
+dialect = "ar-v1.1"
+category = "method"
+python = ".copy"
+canonical = "انسخ"
+alternates = []
+rationale = "MSA \"copy\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "and"
+canonical = "و"
+alternates = []
+rationale = "MSA conjunction \"and\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "as"
+canonical = "باسم"
+alternates = ["كـ"]
+rationale = "\"by the name of\"; natural in `import X as Y` and `with X as Y`. Replaces ar-v1's `كـ` which normalized to single-char `ك`."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "assert"
+canonical = "أكد"
+alternates = ["تحقق"]
+rationale = "MSA \"affirm/assert\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "async"
+canonical = "غير_متزامن"
+alternates = ["لاتزامني"]
+rationale = "MSA \"non-synchronous\"; composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "await"
+canonical = "انتظر"
+alternates = []
+rationale = "MSA \"wait\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "break"
+canonical = "اكسر"
+alternates = ["توقف", "اقطع"]
+rationale = "MSA direct cognate; matches the \"break out of loop\" metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "class"
+canonical = "صنف"
+alternates = ["فئة", "طبقة"]
+rationale = "Matches Hedy; MSA for \"kind/category\" is more established in CS translation than alternatives."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "continue"
+canonical = "استمر"
+alternates = ["تابع", "واصل"]
+rationale = "MSA \"continue\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "def"
+canonical = "دالة"
+alternates = ["عرف", "تعريف"]
+rationale = "MSA mathematical standard for \"function\"; Hedy uses this."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "del"
+canonical = "احذف"
+alternates = ["امسح"]
+rationale = "MSA \"delete\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "elif"
+canonical = "وإلا_إذا"
+alternates = ["وإذا"]
+rationale = "Composed from else + if; matches natural Arabic construction."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "else"
+canonical = "وإلا"
+alternates = ["والا"]
+rationale = "MSA \"otherwise\"; Hedy uses this."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "except"
+canonical = "استثناء"
+alternates = ["التقط"]
+rationale = "MSA noun form of \"exception\"; reads naturally in `try/except`."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "finally"
+canonical = "أخيرا"
+alternates = ["نهاية"]
+rationale = "MSA \"at last / finally\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "for"
+canonical = "لكل"
+alternates = ["من_أجل"]
+rationale = "\"For each\" idiom in MSA; concise."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "from"
+canonical = "من"
+alternates = []
+rationale = "MSA preposition \"from\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "global"
+canonical = "عام"
+alternates = ["عالمي"]
+rationale = "MSA \"public/general\"; avoid عالمي which means \"global as in worldwide\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "if"
+canonical = "إذا"
+alternates = ["لو", "إذا"]
+rationale = "MSA conditional \"if\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "import"
+canonical = "استورد"
+alternates = ["اجلب", "ادرج"]
+rationale = "MSA \"import\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "in"
+canonical = "في"
+alternates = []
+rationale = "MSA preposition \"in\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "is"
+canonical = "يكون"
+alternates = ["هو"]
+rationale = "MSA \"is / to be\"; imperfect form reads naturally in `x يكون None`. Replaces ar-v1's `هو` (pronoun \"he/it\") which blocked learners from using `هو` as a variable name."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "lambda"
+canonical = "لامدا"
+alternates = ["دالة_مجهولة"]
+rationale = "Transliteration; standard in Arabic mathematics for lambda."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "nonlocal"
+canonical = "غير_محلي"
+alternates = []
+rationale = "Composed MSA."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "not"
+canonical = "ليس"
+alternates = ["لا"]
+rationale = "MSA negation; ليس reads as a formal \"not\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "or"
+canonical = "أو"
+alternates = []
+rationale = "MSA disjunction \"or\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "pass"
+canonical = "مرر"
+alternates = ["تجاوز"]
+rationale = "MSA \"pass through\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "raise"
+canonical = "ارفع"
+alternates = ["اطلق"]
+rationale = "MSA \"raise\"; matches Python's metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "return"
+canonical = "ارجع"
+alternates = ["أرجع", "اعد"]
+rationale = "MSA \"return/go back\"; without hamza variants for normalizer idempotency."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "try"
+canonical = "حاول"
+alternates = ["جرب"]
+rationale = "MSA \"try/attempt\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "while"
+canonical = "طالما"
+alternates = ["بينما"]
+rationale = "MSA \"as long as\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "with"
+canonical = "مع"
+alternates = []
+rationale = "MSA \"with\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "yield"
+canonical = "سلم"
+alternates = ["انتج"]
+rationale = "MSA \"hand over\"; semantically closer to generator `yield` than \"produce\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "match"
+canonical = "طابق"
+alternates = []
+rationale = "MSA \"match/compare\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "case"
+canonical = "حالة"
+alternates = []
+rationale = "MSA \"case\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "type"
+canonical = "نوع"
+alternates = []
+rationale = "MSA \"type\"; shared with built-in `type()`."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "keyword"
+python = "_"
+canonical = "_"
+alternates = []
+rationale = "Underscore is universal; no translation."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "literal"
+python = "False"
+canonical = "خطأ"
+alternates = ["باطل", "كاذب"]
+rationale = "Semantic literal \"incorrect\"; Hedy uses صحيح/خطأ pair. Shown in visible form `خطأ`; normalizer folds final hamza to give stored key `خطا` per ADR 0004."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "literal"
+python = "None"
+canonical = "لاشيء"
+alternates = ["عدم", "فراغ"]
+rationale = "Literal \"nothing\"; closest to `None` semantically."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "literal"
+python = "True"
+canonical = "صحيح"
+alternates = ["حق"]
+rationale = "Semantic literal \"correct\"; Hedy uses."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "bool"
+canonical = "منطقي"
+alternates = []
+rationale = "MSA \"logical/boolean\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "bytearray"
+canonical = "مصفوفة_بايتات"
+alternates = []
+rationale = "Composed: \"array of bytes\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "bytes"
+canonical = "بايتات"
+alternates = ["ثنائيات"]
+rationale = "Transliteration; standard in Arabic technical writing."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "complex"
+canonical = "عدد_مركب"
+alternates = []
+rationale = "MSA \"complex number\" (mathematical)."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "dict"
+canonical = "قاموس"
+alternates = []
+rationale = "MSA \"dictionary\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "float"
+canonical = "عدد_عشري"
+alternates = ["عشري"]
+rationale = "MSA \"decimal number\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "frozenset"
+canonical = "مجموعة_ثابتة"
+alternates = []
+rationale = "Composed: \"frozen set\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "int"
+canonical = "عدد_صحيح"
+alternates = ["صحيح"]
+rationale = "MSA \"integer\"; avoids collision with True literal."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "list"
+canonical = "قائمة"
+alternates = []
+rationale = "MSA \"list\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "object"
+canonical = "كائن"
+alternates = ["شيء"]
+rationale = "MSA \"object\"; established in Arabic OOP translation."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "range"
+canonical = "نطاق"
+alternates = ["مدى"]
+rationale = "MSA \"range/span\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "set"
+canonical = "مجموعة"
+alternates = []
+rationale = "MSA \"set\" (mathematical usage)."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "str"
+canonical = "نص"
+alternates = ["سلسلة", "سلسلة_نصية"]
+rationale = "MSA \"text\"; simpler than \"string\" and widely used."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "tuple"
+canonical = "صف"
+alternates = ["ثنائية", "طقم"]
+rationale = "MSA \"row/series\"; matches ordered-tuple concept."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "type"
+python = "type"
+canonical = "نوع"
+alternates = []
+rationale = "See soft keywords."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "abs"
+canonical = "مطلق"
+alternates = []
+rationale = "MSA \"absolute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "all"
+canonical = "كل"
+alternates = []
+rationale = "MSA \"all\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "any"
+canonical = "أي"
+alternates = []
+rationale = "MSA \"any\"; normalizer folds hamza to give stored key `اي` per ADR 0004."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "ascii"
+canonical = "أيسكي"
+alternates = []
+rationale = "Transliteration."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "bin"
+canonical = "ثنائي"
+alternates = []
+rationale = "MSA \"binary\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "breakpoint"
+canonical = "نقطة_توقف"
+alternates = []
+rationale = "Composed: \"stopping point\"; matches the debugger metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "callable"
+canonical = "قابل_للاستدعاء"
+alternates = []
+rationale = "MSA \"callable\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "chr"
+canonical = "رمز"
+alternates = ["حرف"]
+rationale = "MSA \"symbol\"; `.ord` counterpart is قيمة_رمز."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "classmethod"
+canonical = "تابع_صنف"
+alternates = []
+rationale = "Composed: \"method of class\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "compile"
+canonical = "ترجم"
+alternates = ["جمع"]
+rationale = "MSA \"translate/compile\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "delattr"
+canonical = "احذف_صفة"
+alternates = []
+rationale = "Composed: \"delete attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "dir"
+canonical = "محتويات"
+alternates = []
+rationale = "MSA \"contents\"; reads naturally for object inspection."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "divmod"
+canonical = "قسمة_باقي"
+alternates = []
+rationale = "Composed: \"division and remainder\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "enumerate"
+canonical = "رقم"
+alternates = ["عدد", "عدد_متسلسل"]
+rationale = "MSA \"number\"; short and clear."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "eval"
+canonical = "قيم"
+alternates = []
+rationale = "MSA \"evaluate\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "exec"
+canonical = "نفذ"
+alternates = []
+rationale = "MSA \"execute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "filter"
+canonical = "فلتر"
+alternates = ["صف"]
+rationale = "Transliteration; `صف` would collide with `tuple`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "format"
+canonical = "نسق"
+alternates = []
+rationale = "MSA \"format\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "getattr"
+canonical = "اجلب_صفة"
+alternates = []
+rationale = "Composed: \"fetch attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "globals"
+canonical = "متغيرات_عامة"
+alternates = ["عامات"]
+rationale = "Composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "hasattr"
+canonical = "يملك_صفة"
+alternates = []
+rationale = "Composed: \"owns attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "hash"
+canonical = "بصمة"
+alternates = ["تجزئة"]
+rationale = "MSA \"fingerprint/signature\"; semantic."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "help"
+canonical = "مساعدة"
+alternates = ["ساعد"]
+rationale = "MSA \"help\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "hex"
+canonical = "ست_عشري"
+alternates = []
+rationale = "MSA \"hexadecimal\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "id"
+canonical = "معرف"
+alternates = []
+rationale = "MSA \"identifier\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "input"
+canonical = "ادخل"
+alternates = ["اقرا"]
+rationale = "MSA \"enter\"; reads as an imperative."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "isinstance"
+canonical = "من_نوع"
+alternates = []
+rationale = "Composed: \"is of type\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "issubclass"
+canonical = "صنف_فرعي"
+alternates = []
+rationale = "MSA \"subclass\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "iter"
+canonical = "كرر"
+alternates = []
+rationale = "MSA \"iterate\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "len"
+canonical = "طول"
+alternates = []
+rationale = "MSA \"length\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "locals"
+canonical = "متغيرات_محلية"
+alternates = ["محلات"]
+rationale = "Composed for clarity."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "map"
+canonical = "طبق"
+alternates = []
+rationale = "MSA \"apply\"; closer to functional map than alternatives."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "max"
+canonical = "الأكبر"
+alternates = ["أكبر"]
+rationale = "MSA \"maximum\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "min"
+canonical = "الأصغر"
+alternates = ["أصغر"]
+rationale = "MSA \"minimum\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "next"
+canonical = "التالي"
+alternates = []
+rationale = "MSA \"next\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "oct"
+canonical = "ثماني"
+alternates = []
+rationale = "MSA \"octal\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "open"
+canonical = "افتح"
+alternates = []
+rationale = "MSA \"open\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "ord"
+canonical = "قيمة_رمز"
+alternates = []
+rationale = "Composed: \"value of symbol\"; pairs with chr."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "pow"
+canonical = "أس"
+alternates = []
+rationale = "MSA \"power/exponent\" (short mathematical form)."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "print"
+canonical = "اطبع"
+alternates = []
+rationale = "MSA \"print\"; Hedy uses."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "property"
+canonical = "خاصية"
+alternates = []
+rationale = "MSA \"property/attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "repr"
+canonical = "تمثيل"
+alternates = []
+rationale = "MSA \"representation\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "reversed"
+canonical = "معكوس"
+alternates = []
+rationale = "MSA \"reversed\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "round"
+canonical = "قرب"
+alternates = ["دور"]
+rationale = "MSA \"approximate\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "setattr"
+canonical = "عين_صفة"
+alternates = []
+rationale = "Composed: \"set attribute\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "slice"
+canonical = "شريحة"
+alternates = []
+rationale = "MSA \"slice\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "sorted"
+canonical = "مرتب"
+alternates = []
+rationale = "MSA \"sorted\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "staticmethod"
+canonical = "تابع_ثابت"
+alternates = []
+rationale = "Composed: \"static method\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "sum"
+canonical = "مجموع"
+alternates = []
+rationale = "MSA \"sum\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "super"
+canonical = "الأصل"
+alternates = ["الأب"]
+rationale = "MSA \"origin/parent\"; matches OOP inheritance metaphor."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "vars"
+canonical = "متغيرات"
+alternates = []
+rationale = "MSA \"variables\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "function"
+python = "zip"
+canonical = "ازدوج"
+alternates = ["دمج"]
+rationale = "MSA \"pair up\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "ArithmeticError"
+canonical = "خطأ_حسابي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "AssertionError"
+canonical = "خطأ_تأكيد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "AttributeError"
+canonical = "خطأ_صفة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "BaseException"
+canonical = "استثناء_أساسي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "BlockingIOError"
+canonical = "خطأ_إدخال_إخراج_حاجب"
+alternates = []
+rationale = "OSError subclass; common in async code. Added in ar-v2."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "ConnectionError"
+canonical = "خطأ_اتصال"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "EOFError"
+canonical = "خطأ_نهاية_ملف"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "Exception"
+canonical = "استثناء_عام"
+alternates = ["استثناء"]
+rationale = "\"general exception\"; `استثناء` alone collides with the `except` keyword (same name in MSA). Parallels `BaseException` → `استثناء_أساسي`."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "FileExistsError"
+canonical = "خطأ_ملف_موجود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "FileNotFoundError"
+canonical = "خطأ_ملف_مفقود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "FloatingPointError"
+canonical = "خطأ_عشري"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "GeneratorExit"
+canonical = "خروج_مولد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "ImportError"
+canonical = "خطأ_استيراد"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "IndentationError"
+canonical = "خطأ_إزاحة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "IndexError"
+canonical = "خطأ_فهرس"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "IOError"
+canonical = "خطأ_إدخال_إخراج"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "IsADirectoryError"
+canonical = "خطأ_هذا_مجلد"
+alternates = []
+rationale = "OSError subclass; common in file-handling. Added in ar-v2."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "KeyboardInterrupt"
+canonical = "مقاطعة"
+alternates = []
+rationale = "MSA \"interruption\"; simplest form."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "KeyError"
+canonical = "خطأ_مفتاح"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "LookupError"
+canonical = "خطأ_بحث"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "MemoryError"
+canonical = "خطأ_ذاكرة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "ModuleNotFoundError"
+canonical = "خطأ_وحدة_مفقودة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "NameError"
+canonical = "خطأ_اسم"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "NotADirectoryError"
+canonical = "خطأ_ليس_مجلدا"
+alternates = []
+rationale = "OSError subclass; common in file-handling. Added in ar-v2."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "NotImplementedError"
+canonical = "خطأ_غير_منفذ"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "OSError"
+canonical = "خطأ_نظام"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "OverflowError"
+canonical = "خطأ_فائض"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "PermissionError"
+canonical = "خطأ_صلاحية"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "RecursionError"
+canonical = "خطأ_عودية"
+alternates = ["خطأ_تكرار_ذاتي"]
+rationale = "`عودية` is the KSAA-confirmed CS term for recursion; replaces ar-v1's verbose compound."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "RuntimeError"
+canonical = "خطأ_تشغيل"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "StopIteration"
+canonical = "انتهاء_التكرار"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "SyntaxError"
+canonical = "خطأ_صياغة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "SystemError"
+canonical = "خطأ_نظام_داخلي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "SystemExit"
+canonical = "خروج_نظام"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "TabError"
+canonical = "خطأ_جدولة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "TimeoutError"
+canonical = "خطأ_انتهاء_وقت"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "TypeError"
+canonical = "خطأ_نوع"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "UnicodeDecodeError"
+canonical = "خطأ_فك_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "UnicodeEncodeError"
+canonical = "خطأ_ترميز_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "UnicodeError"
+canonical = "خطأ_يونيكود"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "ValueError"
+canonical = "خطأ_قيمة"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "Warning"
+canonical = "تحذير"
+alternates = []
+rationale = "MSA \"warning\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "exception"
+python = "ZeroDivisionError"
+canonical = "خطأ_قسمة_صفر"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".count"
+canonical = "عد"
+alternates = []
+rationale = "MSA \"count\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".decode"
+canonical = "فك_رمز"
+alternates = []
+rationale = "Composed: \"decode\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".encode"
+canonical = "رمز_بايتات"
+alternates = ["رمز"]
+rationale = "Composed; `رمز` alone would collide with `chr`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".endswith"
+canonical = "ينتهي_بـ"
+alternates = []
+rationale = "Composed: \"ends with\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".find"
+canonical = "ابحث"
+alternates = []
+rationale = "MSA \"find/search\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".format"
+canonical = "نسق"
+alternates = []
+rationale = "Same as built-in `format`."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".join"
+canonical = "اجمع"
+alternates = []
+rationale = "MSA \"join/collect\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".lower"
+canonical = "صغير"
+alternates = []
+rationale = "MSA \"small/lowercase\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".replace"
+canonical = "استبدل"
+alternates = []
+rationale = "MSA \"replace\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".split"
+canonical = "قسم"
+alternates = []
+rationale = "MSA \"split/divide\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".startswith"
+canonical = "يبدأ_بـ"
+alternates = []
+rationale = "Composed: \"starts with\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".capitalize"
+canonical = "كبر_الأول"
+alternates = []
+rationale = "Composed: \"capitalize the first (letter)\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".center"
+canonical = "توسط"
+alternates = []
+rationale = "MSA \"be in the center\"; pads to center the string."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".ljust"
+canonical = "ضبط_يسار"
+alternates = []
+rationale = "Composed: \"left-align\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".rjust"
+canonical = "ضبط_يمين"
+alternates = []
+rationale = "Composed: \"right-align\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".strip"
+canonical = "جرد"
+alternates = ["نظف"]
+rationale = "MSA \"strip\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".swapcase"
+canonical = "عكس_الحالة"
+alternates = []
+rationale = "Composed: \"reverse/swap case\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".title"
+canonical = "عنوان"
+alternates = []
+rationale = "MSA \"title/heading\"; title-cases every word."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".upper"
+canonical = "كبير"
+alternates = []
+rationale = "MSA \"big/uppercase\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".zfill"
+canonical = "مل_بأصفار"
+alternates = []
+rationale = "Composed: \"fill with zeros\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".append"
+canonical = "اضف"
+alternates = ["الحق"]
+rationale = "MSA \"add\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".extend"
+canonical = "مدد"
+alternates = []
+rationale = "MSA \"extend\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".index"
+canonical = "موقع"
+alternates = []
+rationale = "MSA \"position\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".insert"
+canonical = "ادرج"
+alternates = []
+rationale = "MSA \"insert\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".pop"
+canonical = "انتزع"
+alternates = []
+rationale = "MSA \"extract\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".remove"
+canonical = "ازل"
+alternates = []
+rationale = "MSA \"remove\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".reverse"
+canonical = "اعكس"
+alternates = []
+rationale = "MSA \"reverse\" (imperative)."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".sort"
+canonical = "رتب"
+alternates = []
+rationale = "MSA \"arrange/sort\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".get"
+canonical = "اجلب"
+alternates = []
+rationale = "MSA \"fetch\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".items"
+canonical = "عناصر"
+alternates = []
+rationale = "MSA \"items/elements\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".keys"
+canonical = "مفاتيح"
+alternates = []
+rationale = "MSA \"keys\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".popitem"
+canonical = "انتزع_زوج"
+alternates = []
+rationale = "Composed: \"extract a pair\" (dict items are key-value pairs)."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".setdefault"
+canonical = "عين_افتراضي"
+alternates = []
+rationale = "Composed."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".update"
+canonical = "حدث"
+alternates = []
+rationale = "MSA \"update\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".values"
+canonical = "قيم_القاموس"
+alternates = ["قيم"]
+rationale = "Composed; `قيم` alone would collide with `eval`. See collision audit."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".add"
+canonical = "ضم"
+alternates = []
+rationale = "MSA \"include/incorporate\"; distinct from `اضف` (list `.append`) to avoid attribute collision."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".difference"
+canonical = "فرق"
+alternates = []
+rationale = "MSA mathematical \"difference\" (A minus B)."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".discard"
+canonical = "أسقط"
+alternates = []
+rationale = "MSA \"drop/set aside\"; like `.remove` but no error if element absent."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".intersection"
+canonical = "تقاطع"
+alternates = []
+rationale = "MSA mathematical \"intersection\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".union"
+canonical = "اتحاد"
+alternates = []
+rationale = "MSA mathematical \"union\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".clear"
+canonical = "امسح"
+alternates = []
+rationale = "MSA \"clear/erase\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".copy"
+canonical = "انسخ"
+alternates = []
+rationale = "MSA \"copy\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".fit"
+canonical = "لائم"
+alternates = []
+rationale = "MSA \"calibrate/fit\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".predict"
+canonical = "تنبا"
+alternates = []
+rationale = "MSA \"predict/foretell\"."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".transform"
+canonical = "حول_بيانات"
+alternates = []
+rationale = "Compound; `حول` alone reserved for future use."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".fit_transform"
+canonical = "لائم_وحول"
+alternates = []
+rationale = "Composed from `.fit` + `.transform`."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".score"
+canonical = "قيم_نموذج"
+alternates = []
+rationale = "`قيم` alone maps to `eval`; compound is safe."
+
+[[dialect_entry]]
+dialect = "ar-v2"
+category = "method"
+python = ".predict_proba"
+canonical = "احتمالات_التنبا"
+alternates = []
+rationale = "\"prediction probabilities\"."

@@ -31,7 +31,7 @@ every snippet — apython is meant to be typed, not just read.
 apython requires Python 3.11 or newer. From the repository root:
 
 ```bash
-git clone https://github.com/GalaxyRuler/apython
+git clone https://github.com/GalaxyRuler/lughat-althuban
 cd apython
 pip install -e .
 ```
@@ -39,7 +39,7 @@ pip install -e .
 That installs the `apython` console script. Verify it:
 
 ```bash
-apython --version
+ثعبان --version
 ```
 
 You now have four ways to run apython code, mirroring stock `python`:
@@ -288,11 +288,10 @@ other transparently:
 اطبع(مساعد.مكعب(3))   # 27
 ```
 
-Run `apython main.apy` and the hook finds `helper.apy`, translates it, and
-makes it importable.
+شغّل `ثعبان main.apy` فيعثر خطّاف الاستيراد على `helper.apy` ويترجمه ويجعله قابلا للاستيراد.
 
-The keywords here are `استورد` (`import`) and `كـ` (`as`). You can also import
-specific names: `من helper استورد مربع` (`from helper import مربع`).
+الكلمتان الأساسيتان هنا هما `استورد` و`باسم`. ويمكنك أيضا استيراد أسماء محددة:
+`من helper استورد مربع`.
 
 Standard-library modules (`math`, `json`, `os`, …) are imported by their
 ordinary Python names — `استورد math`. Phase A only translates the *language*,
@@ -321,7 +320,7 @@ Uncaught exceptions print Arabic tracebacks:
 $ apython -c '1 / 0'
 تتبع_الأخطاء (المكدس الأحدث آخرا):
   ملف "<string>", سطر 1, في <الوحدة>
-خطا_القسمه_على_صفر: القسمة على صفر
+خطأ_قسمة_صفر: القسمة على صفر
 ```
 
 The structure is the same as a Python traceback, just with translated frame
@@ -335,12 +334,12 @@ labels:
 | `in <module>` | `في <الوحدة>` |
 
 Exception type names are translated systematically. `ZeroDivisionError` becomes
-`خطا_القسمه_على_صفر` ("error of division by zero"); `KeyError` becomes
-`خطا_المفتاح`; `ValueError` becomes `خطا_القيمه`. The `خطا_` prefix mirrors
+`خطأ_قسمة_صفر` ("error of division by zero"); `KeyError` becomes
+`خطأ_المفتاح`; `ValueError` becomes `خطأ_القيمه`. The `خطأ_` prefix mirrors
 Python's `Error` suffix. A handful of exceptions whose Python names *don't* end
 in `Error` keep that distinction in Arabic: `KeyboardInterrupt`,
 `StopIteration`, `Warning`, `GeneratorExit`, `SystemExit` are *not* prefixed
-with `خطا_`.
+with `خطأ_`.
 
 Full list of all 38 translated exception types is in
 [`dictionaries/exceptions-ar-v1.md`](../dictionaries/exceptions-ar-v1.md).
@@ -350,8 +349,8 @@ English class name — both resolve to the same object:
 
 ```arabic
 حاول:
-    ارفع خطا_القيمه("القيمة غير صالحة")
-استثناء خطا_القيمه باسم خطأ:
+    ارفع خطأ_القيمه("القيمة غير صالحة")
+استثناء خطأ_القيمه باسم خطأ:
     اطبع(f"التُقط: {خطأ}")
 ```
 

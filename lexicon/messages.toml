@@ -1,0 +1,50 @@
+# Arabic-only user-facing message lexicon.
+
+[cli]
+description = "لغة الثعبان، مشغّل بايثون العربي."
+dict_help = "اختر نسخة القاموس."
+stdin_read_error = "تعذر قراءة الإدخال القياسي"
+open_file_error = "تعذر فتح الملف"
+is_directory = "المسار مجلد وليس ملفا"
+missing_file = "الملف غير موجود"
+invalid_utf8 = "ترميز الملف ليس UTF-8 صالحا"
+dictionary_conflict = "تعارض في نسخة القاموس"
+unknown_dictionary = "نسخة القاموس غير معروفة"
+keyboard_interrupt = "مقاطعة_لوحة_المفاتيح"
+
+[formatter]
+description = "نسّق ملفات .apy."
+check_help = "لا تكتب التغييرات، واخرج برمز 1 إذا احتاج أي ملف إلى تنسيق."
+file_not_found = "الملف غير موجود"
+would_reformat = "سيعاد تنسيقه"
+reformatted = "أعيد تنسيقه"
+already_formatted = "منسق مسبقا"
+
+[linter]
+description = "راجع ملفات .apy."
+no_info_help = "أخف تشخيصات المعلومات."
+select_help = "قائمة رموز التشخيص المراد تفعيلها، مفصولة بفواصل."
+file_not_found = "الملف غير موجود"
+missing_intro = "لا يحتوي الملف على تعليق أو توثيق علوي"
+line_too_long = "السطر طويل"
+trailing_whitespace = "مسافة زائدة في نهاية السطر"
+tab_indentation = "إزاحة بعلامة جدولة؛ استخدم 4 مسافات"
+mixed_identifier = "معرّف يمزج العربية واللاتينية"
+
+[pretokenize]
+bidi_control = "حرف تحكم باتجاه النص غير مسموح خارج النصوص الحرفية"
+bidi_reason = "راجع https://trojansource.codes لمعرفة السبب"
+mixed_digits = "مزج أنظمة الأرقام داخل العدد غير مسموح"
+one_digit_system = "استخدم نظام أرقام واحدا في العدد"
+
+[aliases]
+unmapped_module_warning = "الاسم العربي غير موجود في خريطة الوحدة المنسقة"
+unmapped_module_attribute = "لا تملك الوحدة العربية هذه الصفة"
+unmapped_instance_warning = "الاسم العربي غير موجود في خريطة الكائن المنسقة"
+unmapped_instance_attribute = "لا يملك الكائن هذه الصفة العربية"
+
+[kernel]
+missing_jupyter_client = "الحزمة jupyter_client غير مثبتة. ثبّتها بالأمر: pip install jupyter_client"
+installed_kernel = "ثُبّتت مواصفة النواة"
+install_help = "ثبّت مواصفة النواة في Jupyter."
+translation_error = "خطأ في الترجمة"

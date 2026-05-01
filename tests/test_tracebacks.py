@@ -21,7 +21,7 @@ from arabicpython.tracebacks import (
 
 
 def test_translate_exception_name_known():
-    assert translate_exception_name("ZeroDivisionError") == "خطا_القسمه_على_صفر"
+    assert translate_exception_name("ZeroDivisionError") == "خطأ_قسمة_صفر"
 
 
 def test_translate_exception_name_unknown_passes_through():
@@ -90,9 +90,10 @@ def test_table_no_duplicate_arabic_values():
     assert len(values) == len(set(values))
 
 
-def test_table_arabic_names_are_normalized():
+def test_table_arabic_names_are_valid_visible_arabic():
     for val in EXCEPTION_NAMES_AR.values():
-        assert normalize_identifier(val) == val
+        assert normalize_identifier(val)
+        assert any("\u0600" <= ch <= "\u06ff" for ch in val)
 
 
 # Message template coverage (3)
@@ -122,7 +123,7 @@ def test_format_zero_division_simple():
         1 / 0  # noqa: B018
     except ZeroDivisionError:
         output = format_translated_exception(*sys.exc_info())
-    assert "خطا_القسمه_على_صفر" in output
+    assert "خطأ_قسمة_صفر" in output
     assert "القسمة على صفر" in output
     assert "تتبع_الأخطاء" in output
 
@@ -153,8 +154,8 @@ def test_format_chained_exception_with_from():
     except ValueError:
         output = format_translated_exception(*sys.exc_info())
     assert "السبب المباشر للاستثناء أعلاه:" in output
-    assert "خطا_القسمه_على_صفر" in output
-    assert "خطا_قيمه" in output
+    assert "خطأ_قسمة_صفر" in output
+    assert "خطأ_قيمة" in output
 
 
 def test_format_chained_exception_implicit_context():
@@ -166,8 +167,8 @@ def test_format_chained_exception_implicit_context():
     except ValueError:
         output = format_translated_exception(*sys.exc_info())
     assert "أثناء معالجة الاستثناء أعلاه, حدث استثناء آخر:" in output
-    assert "خطا_القسمه_على_صفر" in output
-    assert "خطا_قيمه" in output
+    assert "خطأ_قسمة_صفر" in output
+    assert "خطأ_قيمة" in output
 
 
 # print_translated_exception (2)
@@ -179,7 +180,7 @@ def test_print_writes_to_stderr_by_default(capsys):
     except ZeroDivisionError:
         print_translated_exception(*sys.exc_info())
     _, err = capsys.readouterr()
-    assert "خطا_القسمه_على_صفر" in err
+    assert "خطأ_قسمة_صفر" in err
 
 
 def test_print_accepts_custom_file():
@@ -188,7 +189,7 @@ def test_print_accepts_custom_file():
         1 / 0  # noqa: B018
     except ZeroDivisionError:
         print_translated_exception(*sys.exc_info(), file=buf)
-    assert "خطا_القسمه_على_صفر" in buf.getvalue()
+    assert "خطأ_قسمة_صفر" in buf.getvalue()
 
 
 # install_excepthook / uninstall_excepthook (4)
@@ -244,7 +245,7 @@ def test_cli_runtime_error_shows_arabic(tmp_path, capsys):
     f.write_text("x = 1 / 0\n", encoding="utf-8")
     assert cli.main([str(f)]) == 1
     _, err = capsys.readouterr()
-    assert "خطا_القسمه_على_صفر" in err
+    assert "خطأ_قسمة_صفر" in err
     assert "القسمة على صفر" in err
 
 
@@ -253,7 +254,7 @@ def test_cli_name_error_shows_arabic(tmp_path, capsys):
     f.write_text("undefined_var\n", encoding="utf-8")
     assert cli.main([str(f)]) == 1
     _, err = capsys.readouterr()
-    assert "خطا_اسم" in err
+    assert "خطأ_اسم" in err
     assert "الاسم 'undefined_var' غير معرّف" in err
 
 
@@ -262,7 +263,7 @@ def test_cli_unknown_exception_falls_through_to_english_message(tmp_path, capsys
     f.write_text("raise Exception('unique message')\n", encoding="utf-8")
     assert cli.main([str(f)]) == 1
     _, err = capsys.readouterr()
-    assert "استثناء: unique message" in err
+    assert "استثناء_عام: unique message" in err
 
 
 # REPL integration (2)
@@ -273,14 +274,14 @@ def test_repl_runtime_error_shows_arabic(monkeypatch, capsys):
     # run_repl calls sys.exit, so we catch it
     run_repl(banner="", exit_msg="")
     _, err = capsys.readouterr()
-    assert "خطا_القسمه_على_صفر" in err
+    assert "خطأ_قسمة_صفر" in err
 
 
 def test_repl_name_error_shows_arabic(monkeypatch, capsys):
     monkeypatch.setattr("sys.stdin", io.StringIO("undefined_in_repl\n"))
     run_repl(banner="", exit_msg="")
     _, err = capsys.readouterr()
-    assert "خطا_اسم" in err
+    assert "خطأ_اسم" in err
 
 
 # Class identity preservation (1)
@@ -337,33 +338,33 @@ class TestB041WarningNames:
 
 class TestB041ConnectionErrorNames:
     def test_connection_error(self):
-        assert EXCEPTION_NAMES_AR["ConnectionError"] == "خطا_اتصال"
+        assert EXCEPTION_NAMES_AR["ConnectionError"] == "خطأ_اتصال"
 
     def test_broken_pipe_error(self):
-        assert EXCEPTION_NAMES_AR["BrokenPipeError"] == "خطا_انبوب_مكسور"
+        assert EXCEPTION_NAMES_AR["BrokenPipeError"] == "خطأ_انبوب_مكسور"
 
     def test_connection_aborted_error(self):
-        assert EXCEPTION_NAMES_AR["ConnectionAbortedError"] == "خطا_اتصال_ملغي"
+        assert EXCEPTION_NAMES_AR["ConnectionAbortedError"] == "خطأ_اتصال_ملغي"
 
     def test_connection_refused_error(self):
-        assert EXCEPTION_NAMES_AR["ConnectionRefusedError"] == "خطا_اتصال_مرفوض"
+        assert EXCEPTION_NAMES_AR["ConnectionRefusedError"] == "خطأ_اتصال_مرفوض"
 
     def test_connection_reset_error(self):
-        assert EXCEPTION_NAMES_AR["ConnectionResetError"] == "خطا_اتصال_منقطع"
+        assert EXCEPTION_NAMES_AR["ConnectionResetError"] == "خطأ_اتصال_منقطع"
 
     def test_child_process_error(self):
-        assert EXCEPTION_NAMES_AR["ChildProcessError"] == "خطا_عمليه_فرعيه"
+        assert EXCEPTION_NAMES_AR["ChildProcessError"] == "خطأ_عمليه_فرعيه"
 
     def test_interrupted_error(self):
-        assert EXCEPTION_NAMES_AR["InterruptedError"] == "خطا_مقاطعه"
+        assert EXCEPTION_NAMES_AR["InterruptedError"] == "خطأ_مقاطعه"
 
     def test_process_lookup_error(self):
-        assert EXCEPTION_NAMES_AR["ProcessLookupError"] == "خطا_بحث_عمليه"
+        assert EXCEPTION_NAMES_AR["ProcessLookupError"] == "خطأ_بحث_عمليه"
 
 
 class TestB041OtherNewNames:
     def test_buffer_error(self):
-        assert EXCEPTION_NAMES_AR["BufferError"] == "خطا_مخزن_مؤقت"
+        assert EXCEPTION_NAMES_AR["BufferError"] == "خطأ_مخزن_مؤقت"
 
     def test_generator_exit(self):
         assert EXCEPTION_NAMES_AR["GeneratorExit"] == "خروج_مولد"
@@ -372,22 +373,22 @@ class TestB041OtherNewNames:
         assert EXCEPTION_NAMES_AR["StopAsyncIteration"] == "ايقاف_التكرار_المتزامن"
 
     def test_unbound_local_error(self):
-        assert EXCEPTION_NAMES_AR["UnboundLocalError"] == "خطا_متغير_غير_مرتبط"
+        assert EXCEPTION_NAMES_AR["UnboundLocalError"] == "خطأ_متغير_غير_مرتبط"
 
     def test_unicode_translate_error(self):
-        assert EXCEPTION_NAMES_AR["UnicodeTranslateError"] == "خطا_ترجمه_يونيكود"
+        assert EXCEPTION_NAMES_AR["UnicodeTranslateError"] == "خطأ_ترجمه_يونيكود"
 
     def test_reference_error(self):
-        assert EXCEPTION_NAMES_AR["ReferenceError"] == "خطا_مرجع"
+        assert EXCEPTION_NAMES_AR["ReferenceError"] == "خطأ_مرجع"
 
     def test_system_error(self):
-        assert EXCEPTION_NAMES_AR["SystemError"] == "خطا_نظام_داخلي"
+        assert EXCEPTION_NAMES_AR["SystemError"] == "خطأ_نظام_داخلي"
 
     def test_environment_error(self):
-        assert EXCEPTION_NAMES_AR["EnvironmentError"] == "خطا_بيئه"
+        assert EXCEPTION_NAMES_AR["EnvironmentError"] == "خطأ_بيئه"
 
     def test_io_error(self):
-        assert EXCEPTION_NAMES_AR["IOError"] == "خطا_ادخال_اخراج"
+        assert EXCEPTION_NAMES_AR["IOError"] == "خطأ_إدخال_إخراج"
 
     def test_base_exception_group(self):
         assert EXCEPTION_NAMES_AR["BaseExceptionGroup"] == "مجموعه_استثنائات_اساسيه"

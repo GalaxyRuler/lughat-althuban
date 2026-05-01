@@ -1,7 +1,7 @@
 {
   "name": "apython",
   "displayName": "لغة الثعبان (apython)",
-  "description": "Arabic Python dialect — syntax highlighting, hover, diagnostics, completion for .apy files",
+  "description": "لهجة بايثون عربية: تلوين صياغي، تلميحات، تشخيصات، وإكمال لملفات .apy",
   "version": "0.1.0",
   "publisher": "apython-contributors",
   "license": "Apache-2.0",
@@ -46,12 +46,12 @@
       }
     ],
     "configuration": {
-      "title": "apython",
+      "title": "لغة الثعبان",
       "properties": {
         "apython.serverPath": {
           "type": "string",
           "default": "",
-          "description": "Path to the ثعبان executable. Leave empty to use the ثعبان found on PATH."
+          "description": "مسار الأمر ثعبان. اتركه فارغا لاستخدام الأمر الموجود في PATH."
         },
         "apython.trace.server": {
           "type": "string",
@@ -61,7 +61,7 @@
             "verbose"
           ],
           "default": "off",
-          "description": "Trace LSP communication between VS Code and ثعبان-خادم."
+          "description": "تتبع اتصال LSP بين VS Code وخادم لغة الثعبان."
         }
       }
     }

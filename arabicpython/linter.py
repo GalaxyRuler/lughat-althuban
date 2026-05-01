@@ -17,6 +17,7 @@ import re
 from pathlib import Path
 from typing import NamedTuple
 
+from arabicpython.messages import ArabicArgumentParser, msg
 from arabicpython.normalize import normalize_identifier
 
 # ---------------------------------------------------------------------------
@@ -127,7 +128,7 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
                 1,
                 1,
                 "I001",
-                "file has no top-level comment or docstring",
+                msg("linter.missing_intro"),
                 "info",
             )
         )
@@ -141,7 +142,7 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
                     lineno,
                     MAX_LINE_LENGTH + 1,
                     "W001",
-                    f"line too long ({len(raw_line)} > {MAX_LINE_LENGTH} characters)",
+                    f"{msg('linter.line_too_long')} ({len(raw_line)} > {MAX_LINE_LENGTH})",
                     "warning",
                 )
             )
@@ -149,7 +150,9 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
         # W002: trailing whitespace
         if raw_line != raw_line.rstrip():
             col = len(raw_line.rstrip()) + 1
-            diags.append(Diagnostic(path, lineno, col, "W002", "trailing whitespace", "warning"))
+            diags.append(
+                Diagnostic(path, lineno, col, "W002", msg("linter.trailing_whitespace"), "warning")
+            )
 
         # W003: tab indentation
         if raw_line.startswith("\t"):
@@ -159,7 +162,7 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
                     lineno,
                     1,
                     "W003",
-                    "tab indentation (use 4 spaces)",
+                    msg("linter.tab_indentation"),
                     "warning",
                 )
             )
@@ -199,7 +202,7 @@ def lint_source(source: str, path: str = "<string>") -> list[Diagnostic]:
                         lineno,
                         col,
                         "W004",
-                        f"mixed Arabic/Latin identifier '{token}'",
+                        f"{msg('linter.mixed_identifier')}: '{token}'",
                         "warning",
                     )
                 )
@@ -214,20 +217,17 @@ def lint_file(path: Path) -> list[Diagnostic]:
 
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point used by ``ثعبان راجع``."""
-    import argparse
     import sys
 
-    parser = argparse.ArgumentParser(
+    parser = ArabicArgumentParser(
         prog="ثعبان راجع",
-        description="Lint .apy source files.",
+        description=msg("linter.description"),
     )
-    parser.add_argument(
-        "--no-info", action="store_true", help="Suppress I-level (info) diagnostics."
-    )
+    parser.add_argument("--no-info", action="store_true", help=msg("linter.no_info_help"))
     parser.add_argument(
         "--select",
         metavar="CODES",
-        help="Comma-separated list of codes to enable (e.g. W001,E001).",
+        help=msg("linter.select_help"),
     )
     parser.add_argument("files", nargs="+", metavar="FILE")
     args = parser.parse_args(argv)
@@ -240,7 +240,7 @@ def main(argv: list[str] | None = None) -> int:
     for fname in args.files:
         p = Path(fname)
         if not p.exists():
-            sys.stderr.write(f"ثعبان راجع: {fname}: file not found\n")
+            sys.stderr.write(f"ثعبان راجع: {fname}: {msg('linter.file_not_found')}\n")
             errors_found += 1
             continue
         diags = lint_file(p)

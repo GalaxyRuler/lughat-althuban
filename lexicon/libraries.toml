@@ -1,0 +1,363 @@
+# Canonical Arabic names for importable modules covered by alias TOML files.
+[meta]
+version = "2026.05"
+
+[[library]]
+python_module = "aiohttp"
+arabic_name = "أيو_هتب"
+alias_file = "aiohttp.toml"
+group = "web"
+
+[[library]]
+python_module = "arabicpython.aliases"
+arabic_name = "اسماء_بديله"
+alias_file = "alias_runtime.toml"
+group = "third_party"
+
+[[library]]
+python_module = "argparse"
+arabic_name = "محلل_وسائط"
+alias_file = "argparse.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "asyncio"
+arabic_name = "اتزامن"
+alias_file = "asyncio.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "asyncpg"
+arabic_name = "قاعده_بوست"
+alias_file = "asyncpg.toml"
+group = "third_party"
+
+[[library]]
+python_module = "bs4"
+arabic_name = "تحليل_ويب"
+alias_file = "bs4.toml"
+group = "web"
+
+[[library]]
+python_module = "calendar"
+arabic_name = "روزنامه"
+alias_file = "calendar.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "celery"
+arabic_name = "مهام_خلفيه"
+alias_file = "celery.toml"
+group = "third_party"
+
+[[library]]
+python_module = "click"
+arabic_name = "كليك"
+alias_file = "click.toml"
+group = "third_party"
+
+[[library]]
+python_module = "collections"
+arabic_name = "مجموعات"
+alias_file = "collections.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "contextlib"
+arabic_name = "مدير_سياق"
+alias_file = "contextlib.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "csv"
+arabic_name = "ملفات_csv"
+alias_file = "csv.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "datetime"
+arabic_name = "مكتبة_تاريخ"
+alias_file = "datetime.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "django"
+arabic_name = "دجانغو"
+alias_file = "django.toml"
+group = "web"
+
+[[library]]
+python_module = "docx"
+arabic_name = "مستندات_وورد"
+alias_file = "docx.toml"
+group = "documents"
+
+[[library]]
+python_module = "dotenv"
+arabic_name = "دوت_إنف"
+alias_file = "dotenv.toml"
+group = "third_party"
+
+[[library]]
+python_module = "fastapi"
+arabic_name = "فاست_أبي"
+alias_file = "fastapi.toml"
+group = "web"
+
+[[library]]
+python_module = "fastapi.testclient"
+arabic_name = "عميل_اختبار_فاست"
+alias_file = "fastapi_testclient.toml"
+group = "web"
+
+[[library]]
+python_module = "flask"
+arabic_name = "فلاسك"
+alias_file = "flask.toml"
+group = "web"
+
+[[library]]
+python_module = "functools"
+arabic_name = "ادوات_داليه"
+alias_file = "functools.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "hashlib"
+arabic_name = "هاشلب"
+alias_file = "hashlib.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "httpx"
+arabic_name = "طلبات_حديثه"
+alias_file = "httpx.toml"
+group = "web"
+
+[[library]]
+python_module = "io"
+arabic_name = "مجاري"
+alias_file = "io.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "itertools"
+arabic_name = "ادوات_تكرار"
+alias_file = "itertools.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "json"
+arabic_name = "جيسون"
+alias_file = "json.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "jwt"
+arabic_name = "جي_دبليو_تي"
+alias_file = "jwt.toml"
+group = "third_party"
+
+[[library]]
+python_module = "logging"
+arabic_name = "تسجيل"
+alias_file = "logging.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "math"
+arabic_name = "رياضيات"
+alias_file = "math.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "matplotlib"
+arabic_name = "رسوم_بيانيه"
+alias_file = "matplotlib.toml"
+group = "data"
+
+[[library]]
+python_module = "mongomock"
+arabic_name = "مونجو_وهمي"
+alias_file = "mongomock.toml"
+group = "testing"
+
+[[library]]
+python_module = "numpy"
+arabic_name = "نمباي"
+alias_file = "numpy.toml"
+group = "data"
+
+[[library]]
+python_module = "openpyxl"
+arabic_name = "جداول_اكسل"
+alias_file = "openpyxl.toml"
+group = "data"
+
+[[library]]
+python_module = "os"
+arabic_name = "نظام_تشغيل"
+alias_file = "os.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "pandas"
+arabic_name = "بانداس"
+alias_file = "pandas.toml"
+group = "data"
+
+[[library]]
+python_module = "pathlib"
+arabic_name = "مسار_مكتبه"
+alias_file = "pathlib.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "PIL.Image"
+arabic_name = "بيلو"
+alias_file = "pillow.toml"
+group = "media"
+
+[[library]]
+python_module = "playwright.async_api"
+arabic_name = "متصفح_الي"
+alias_file = "playwright.toml"
+group = "web"
+
+[[library]]
+python_module = "pydantic"
+arabic_name = "نماذج_بيانات"
+alias_file = "pydantic.toml"
+group = "third_party"
+
+[[library]]
+python_module = "pymongo"
+arabic_name = "قاعده_وثائق"
+alias_file = "pymongo.toml"
+group = "third_party"
+
+[[library]]
+python_module = "pytest"
+arabic_name = "بايتست"
+alias_file = "pytest.toml"
+group = "testing"
+
+[[library]]
+python_module = "random"
+arabic_name = "عشوائيات"
+alias_file = "random.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "re"
+arabic_name = "تعابير_نمطيه"
+alias_file = "re.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "redis"
+arabic_name = "مخزن_سريع"
+alias_file = "redis.toml"
+group = "third_party"
+
+[[library]]
+python_module = "requests"
+arabic_name = "طلبات"
+alias_file = "requests.toml"
+group = "web"
+
+[[library]]
+python_module = "rich"
+arabic_name = "ريتش"
+alias_file = "rich.toml"
+group = "third_party"
+
+[[library]]
+python_module = "scipy"
+arabic_name = "سايباي"
+alias_file = "scipy.toml"
+group = "data"
+
+[[library]]
+python_module = "seaborn"
+arabic_name = "سيبورن"
+alias_file = "seaborn.toml"
+group = "data"
+
+[[library]]
+python_module = "secrets"
+arabic_name = "اسرار"
+alias_file = "secrets.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "shutil"
+arabic_name = "ادوات_ملفات"
+alias_file = "shutil.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "sklearn"
+arabic_name = "تعلم_آلي"
+alias_file = "sklearn.toml"
+group = "data"
+
+[[library]]
+python_module = "sqlalchemy"
+arabic_name = "ألكيمي"
+alias_file = "sqlalchemy.toml"
+group = "third_party"
+
+[[library]]
+python_module = "sqlite3"
+arabic_name = "قاعدة_بيانات"
+alias_file = "sqlite3.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "statistics"
+arabic_name = "احصاء"
+alias_file = "statistics.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "string"
+arabic_name = "نصوص"
+alias_file = "string.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "subprocess"
+arabic_name = "عملية_فرعية"
+alias_file = "subprocess.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "sys"
+arabic_name = "نظام"
+alias_file = "sys.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "textwrap"
+arabic_name = "تنسيق_نص"
+alias_file = "textwrap.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "time"
+arabic_name = "وقت_نظام"
+alias_file = "time.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "uuid"
+arabic_name = "معرفات_فريده"
+alias_file = "uuid.toml"
+group = "stdlib"
+
+[[library]]
+python_module = "yaml"
+arabic_name = "يامل"
+alias_file = "yaml.toml"
+group = "third_party"

@@ -454,7 +454,7 @@ def test_line_count_within_one():
 def test_bidi_error_propagates():
     with pytest.raises(SyntaxError) as exc:
         translate("x = \u202e\n")
-    assert "bidi control" in str(exc.value)
+    assert "حرف تحكم باتجاه النص" in str(exc.value)
 
 
 def test_unclosed_string_raises_syntax_error():

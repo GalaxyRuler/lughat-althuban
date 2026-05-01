@@ -237,7 +237,7 @@ class Server:
             sys.exit(0 if not self._running else 1)
         elif req_id is not None:
             # Unknown request — respond with MethodNotFound
-            self._error(req_id, -32601, f"Method not found: {method}")
+            self._error(req_id, -32601, f"الطريقة غير موجودة: {method}")
         # Unknown notifications are silently ignored per LSP spec
 
     def run(self) -> None:

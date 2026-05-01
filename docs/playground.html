@@ -982,7 +982,7 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
 | `OSError` | خطأ_نظام | — | — |
 | `OverflowError` | خطأ_فائض | — | — |
 | `PermissionError` | خطأ_صلاحية | — | — |
-| `RecursionError` | خطأ_تكرار_ذاتي | — | — |
+| `RecursionError` | خطأ_عودية | — | — |
 | `RuntimeError` | خطأ_تشغيل | — | — |
 | `StopIteration` | انتهاء_التكرار | — | — |
 | `SyntaxError` | خطأ_صياغة | — | — |
@@ -1271,7 +1271,7 @@ const EXAMPLES = [
     code: `دالة قسمة_آمنة(أ، ب):
     حاول:
         ارجع أ / ب
-    استثناء خطا_قسمة_صفر:
+    استثناء خطأ_قسمة_صفر:
         ارجع "خطأ: لا يمكن القسمة على صفر"
 
 اطبع("١٠ ÷ ٢ =", قسمة_آمنة(١٠، ٢))

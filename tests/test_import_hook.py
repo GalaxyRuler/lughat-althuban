@@ -273,7 +273,7 @@ def test_apy_with_bidi_raises_syntax_error(tmp_path):
     with pytest.raises(SyntaxError) as exc:
         import bidi  # noqa: F401
 
-    assert "bidi control" in str(exc.value)
+    assert "حرف تحكم باتجاه النص" in str(exc.value)
     assert exc.value.filename == str(bidi_file)
 
 

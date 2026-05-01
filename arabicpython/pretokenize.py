@@ -3,6 +3,8 @@
 import re
 import unicodedata
 
+from arabicpython.messages import msg
+
 _BIDI_CONTROLS = frozenset(
     "\u061c"  # ARABIC LETTER MARK (ALM)
     "\u200e"  # LEFT-TO-RIGHT MARK (LRM)
@@ -14,6 +16,11 @@ _ASCII_DIGITS = frozenset("0123456789")
 _ARABIC_INDIC_DIGITS = frozenset("٠١٢٣٤٥٦٧٨٩")
 _EASTERN_ARABIC_INDIC_DIGITS = frozenset("۰۱۲۳۴۵۶۷۸۹")
 _ALL_DIGITS = _ASCII_DIGITS | _ARABIC_INDIC_DIGITS | _EASTERN_ARABIC_INDIC_DIGITS
+_DIGIT_SYSTEM_NAMES_AR = {
+    "ASCII": "الأرقام اللاتينية",
+    "Arabic-Indic": "الأرقام العربية الهندية",
+    "Eastern Arabic-Indic": "الأرقام العربية الهندية الشرقية",
+}
 
 # Single compiled regex that matches any character pretokenize needs to act on.
 # If this pattern does not match anywhere in the source, the source can be
@@ -172,9 +179,8 @@ def pretokenize(source: str) -> str:
                 name = unicodedata.name(ch, "UNKNOWN")
                 code = f"U+{ord(ch):04X}"
                 raise SyntaxError(
-                    f"bidi control character {code} ({name}) is not allowed outside "
-                    f"string literals at line {line}, column {col}. "
-                    f"See https://trojansource.codes for why."
+                    f"{msg('pretokenize.bidi_control')}: {code} ({name})، "
+                    f"السطر {line}، العمود {col}. {msg('pretokenize.bidi_reason')}."
                 )
 
             if ch == "#":
@@ -237,20 +243,20 @@ def pretokenize(source: str) -> str:
                 run = source[start_i:i]
                 sys_names = []
                 if any(c in _ASCII_DIGITS for c in run):
-                    sys_names.append("ASCII")
+                    sys_names.append(_DIGIT_SYSTEM_NAMES_AR["ASCII"])
                 if any(c in _ARABIC_INDIC_DIGITS for c in run):
-                    sys_names.append("Arabic-Indic")
+                    sys_names.append(_DIGIT_SYSTEM_NAMES_AR["Arabic-Indic"])
                 if any(c in _EASTERN_ARABIC_INDIC_DIGITS for c in run):
-                    sys_names.append("Eastern Arabic-Indic")
+                    sys_names.append(_DIGIT_SYSTEM_NAMES_AR["Eastern Arabic-Indic"])
 
                 if len(sys_names) > 1:
                     if len(sys_names) == 2:
-                        sys_str = f"{sys_names[0]} and {sys_names[1]}"
+                        sys_str = f"{sys_names[0]} و{sys_names[1]}"
                     else:
-                        sys_str = "ASCII, Arabic-Indic, and Eastern Arabic-Indic"
+                        sys_str = "، ".join(sys_names[:-1]) + f"، و{sys_names[-1]}"
                     raise SyntaxError(
-                        f"mixed digit systems in numeric literal at line {line}, column {col} "
-                        f"— found {sys_str} digits in '{run}'. Use one system per literal."
+                        f"{msg('pretokenize.mixed_digits')}: السطر {line}، العمود {col}؛ "
+                        f"وجدت {sys_str} في '{run}'. {msg('pretokenize.one_digit_system')}."
                     )
 
                 translated = run.translate(_PUNCTUATION_TRANSLATE)
@@ -273,9 +279,8 @@ def pretokenize(source: str) -> str:
                 name = unicodedata.name(ch, "UNKNOWN")
                 code = f"U+{ord(ch):04X}"
                 raise SyntaxError(
-                    f"bidi control character {code} ({name}) is not allowed outside "
-                    f"string literals at line {line}, column {col}. "
-                    f"See https://trojansource.codes for why."
+                    f"{msg('pretokenize.bidi_control')}: {code} ({name})، "
+                    f"السطر {line}، العمود {col}. {msg('pretokenize.bidi_reason')}."
                 )
             out.append(ch.translate(_PUNCTUATION_TRANSLATE))
             if ch == "\n":

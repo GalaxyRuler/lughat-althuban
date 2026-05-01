@@ -1,0 +1,10 @@
+include README.md CHANGELOG.md LICENSE pyproject.toml
+recursive-include arabicpython/aliases *.toml
+recursive-include arabicpython/dictionaries *.md
+recursive-include arabicpython_kernel *.json
+recursive-include dictionaries *.md
+recursive-include docs *.md *.html
+recursive-include editors/vscode *
+recursive-include examples *.apy *.md
+recursive-include lexicon *.toml *.json *.md
+recursive-include tools *.py

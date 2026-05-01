@@ -232,6 +232,13 @@ class TestDoComplete:
         result = self.kernel.do_complete("", 0)
         assert "matches" in result
 
+    def test_alias_names_loaded_for_completion(self):
+        from arabicpython_kernel.kernel import _load_alias_names
+
+        names = _load_alias_names()
+        assert len(names) > 0
+        assert "بانداس" in names
+
 
 # ---------------------------------------------------------------------------
 # __main__.py KERNEL_JSON
