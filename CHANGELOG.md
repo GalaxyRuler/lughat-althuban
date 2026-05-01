@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-05-01
+
+### Added
+
+- Canonical Arabic programming lexicon under `lexicon/`, with validators and
+  generated runtime dictionary outputs.
+- Arabic glossary, alias index, naming policy, exception policy,
+  normalization/bidi guide, troubleshooting guide, educator guide, coverage
+  matrix, and release checklist.
+- CI checks for lexicon validation and generated-output freshness.
+
+### Changed
+
+- User-facing CLI, formatter, linter, pretokenizer, alias-proxy, kernel, LSP,
+  and VS Code extension messages are Arabic-first.
+- `ar-v2` dictionary copies are generated from one source and kept in sync.
+- Tracebacks use the active `ar-v2` exception names and hide internal CLI
+  runner frames.
+- Jupyter alias completion loads the shipped alias names correctly.
+- Documentation and examples now use shipped aliases such as `بانداس`,
+  `نمباي`, and `فلاسك`, plus the `ar-v2` keyword `باسم`.
+
+### Fixed
+
+- Advanced examples `B57`, `B58`, and `B59` now compile under the default
+  `ar-v2` dialect.
+- Stale references to old repository names, unsupported aliases, and outdated
+  exception spellings were removed from Arabic documentation.
+
 ### Changed
 
 - FastAPI application GET route decorators use `احصل_مسار` for `FastAPI.get`,
@@ -182,7 +211,7 @@ Note: `حلقه_احداث` maps to `AbstractEventLoop` (not `EventLoop` which i
 
 #### B-034 — re (`تعابير_نمطيه`), string (`نصوص`), textwrap (`تنسيق_نص`)
 
-- **تعابير_نمطيه**: 33 entries — `رجم` (compile), `طابق` (match), `ابحث` (search), `عوض` (sub — uses `عوض` not `استبدل` to avoid dialect `.replace` collision), `خطا_نمط` maps to `re.error` (not `PatternError` which is Python 3.13-only), Pattern/Match unbound methods.
+- **تعابير_نمطيه**: 33 entries — `رجم` (compile), `طابق` (match), `ابحث` (search), `عوض` (sub — uses `عوض` not `استبدل` to avoid dialect `.replace` collision), `خطأ_نمط` maps to `re.error` (not `PatternError` which is Python 3.13-only), Pattern/Match unbound methods.
 - **نصوص**: 14 entries — Template/Formatter class aliases, `بديل_امن` (safe_substitute).
 - **تنسيق_نص**: 8 entries — `التف` (wrap), `امل` (fill), `اختصر` (shorten), TextWrapper class.
 
@@ -200,7 +229,7 @@ Note: `حلقه_احداث` maps to `AbstractEventLoop` (not `EventLoop` which i
 
 ### SDK aliases
 
-- **قارورة** (flask): ~60 entries covering Flask app, routes, request/response, blueprints, error handlers.
+- **فلاسك** (flask): ~60 entries covering Flask app, routes, request/response, blueprints, error handlers.
 - **طلبات** (requests): core HTTP surface — `اجلب`/`ارسل`/`رفع`/`حذف`, Session, Response aliases.
 
 ## [0.1.1] — 2026-04-20 — Dictionary rendering + coverage pass
@@ -212,7 +241,7 @@ Post-release doc and dictionary improvements. No code changes.
 - **ar-v1.md rendering convention**: all canonical entries now shown in natural
   visible (pre-normalizer) form. The ADR 0004 normalizer folds on lookup so
   runtime behaviour is unchanged; this is documentation-only. 45 entries
-  corrected — primarily `خطا_*` → `خطأ_*` exception names, `اي` → `أي`,
+  corrected — primarily `خطأ_*` → `خطأ_*` exception names, `اي` → `أي`,
   `الاكبر` → `الأكبر`, `يبدا_بـ` → `يبدأ_بـ`, and similar hamza restorations.
 
 ### Added — dictionaries (Category C, no ADR required per ADR 0003)
