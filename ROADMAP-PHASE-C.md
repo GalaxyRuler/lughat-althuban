@@ -1,8 +1,8 @@
 # Phase C Roadmap
 
-**Status as of 2026-05-01:** Phase C is largely implemented on `main`: PyPI metadata, ClassProxy support, application-library aliases, `ar-v2`, the integration demo, the canonical lexicon, and GitHub Pages are present. This roadmap remains the contributor-friendly map of the phase; use `specs/INDEX.md` and open issues for exact current ownership.
+**Status as of 2026-05-01:** Phase C is complete and historical. PyPI metadata, ClassProxy support, application-library aliases, `ar-v2`, the integration demo, and the canonical lexicon are shipped. The active phase is Phase D; see [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) and [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
 
-This file is the **single visible map** of what Phase C contains, what's open for contribution, and what depends on what. To pick up work, see [CONTRIBUTING.md](CONTRIBUTING.md). To understand *why* Phase C is structured this way, see [decisions/0011-phase-c-charter.md](decisions/0011-phase-c-charter.md).
+This file is the historical contributor-friendly map of what Phase C contained and what depended on what. To pick up current work, see [CONTRIBUTING.md](CONTRIBUTING.md) and the Phase D roadmap. To understand *why* Phase C was structured this way, see [decisions/0011-phase-c-charter.md](decisions/0011-phase-c-charter.md).
 
 ---
 
@@ -112,7 +112,7 @@ To claim a packet: open a "Claim a packet" issue (template in `.github/ISSUE_TEM
 
 ## Pickup advice
 
-Most Phase-C packets have shipped. New contributors should start with issues labeled documentation, examples, alias coverage, or lexicon review; larger new surfaces should get a fresh packet under `specs/packets/`.
+Phase C packets have shipped. New contributors should start with [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md), issues labeled documentation, examples, alias coverage, or lexicon review. Larger new surfaces should get a fresh packet under `specs/packets/`.
 
 ---
 
@@ -156,7 +156,9 @@ C-001 (PyPI)
 
 ---
 
-## What Phase C explicitly defers (Phase D)
+## What Phase C explicitly deferred into Phase D
+
+The items below are now tracked by [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) and [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
 
 - `tensorflow` / `pytorch` / HuggingFace `transformers` — each needs its own charter
 - `boto3` (AWS) — requires a scoped-subset strategy

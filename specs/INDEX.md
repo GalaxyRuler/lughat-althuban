@@ -80,4 +80,8 @@ Phase B is complete in the current repository. The historical roadmap remains at
 
 ## Phase C map
 
-For Phase C's 20-packet roadmap with status, dependencies, and contributor onramps, see [`ROADMAP-PHASE-C.md`](../ROADMAP-PHASE-C.md) at the repo root. The charter is at [`decisions/0011-phase-c-charter.md`](0011-phase-c-charter.md).
+Phase C is complete in the current repository. Its historical 20-packet roadmap is [`ROADMAP-PHASE-C.md`](../ROADMAP-PHASE-C.md), and the charter is [`decisions/0011-phase-c-charter.md`](../decisions/0011-phase-c-charter.md).
+
+## Phase D map
+
+Phase D is active. The current contributor roadmap is [`ROADMAP-PHASE-D.md`](../ROADMAP-PHASE-D.md), and the charter is [`decisions/0012-phase-d-charter.md`](../decisions/0012-phase-d-charter.md).

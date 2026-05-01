@@ -104,6 +104,7 @@
 - [ويكي المشروع](../wiki/index.md)
 - [دليل المساهمة](../../CONTRIBUTING.md)
 - [سجل التغييرات](CHANGELOG.md)
-- [خارطة الطريق](../../ROADMAP-PHASE-C.md)
+- [خارطة الطريق الحالية](../../ROADMAP-PHASE-D.md)
+- [خارطة المرحلة ج التاريخية](../../ROADMAP-PHASE-C.md)
 
 </div>

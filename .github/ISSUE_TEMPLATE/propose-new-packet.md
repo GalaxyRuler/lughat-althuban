@@ -16,7 +16,7 @@ assignees: []
 
 ## Why not an existing packet
 
-<!-- Confirm you've read ROADMAP-PHASE-C.md, specs/INDEX.md, and CONTRIBUTING.md. Explain why this work needs a new packet. -->
+<!-- Confirm you've read ROADMAP-PHASE-D.md, specs/INDEX.md, and CONTRIBUTING.md. Explain why this work needs a new packet. -->
 
 ## Rough scope
 
