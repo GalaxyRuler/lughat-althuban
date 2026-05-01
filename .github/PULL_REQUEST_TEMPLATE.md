@@ -44,13 +44,14 @@ Examples:
 
 If any cell is failing, **explain why below** and tag the planner — do not mark this PR ready for review.
 
-## Phase A compatibility statement
+## Compatibility and generated-output statement
 
 - [ ] This PR does not change `dictionaries/ar-v1.md`. (Required per ADR 0008.B.0.)
-- [ ] This PR does not change any file under `examples/` or `apps/`. (Required per ADR 0008.B.3.)
+- [ ] If this PR changes `examples/` or `apps/`, the changed `.apy` files translate/compile and any runnable examples have smoke coverage or documented optional dependencies.
+- [ ] If this PR changes Arabic terms, aliases, dictionaries, or generated docs, `python tools/validate_lexicon.py` and `python tools/generate_lexicon_outputs.py --check` pass.
 - [ ] If this PR changes an internal API in `arabicpython/`, the change is documented in the delivery note's "Deviations" section.
 
-If any of the above is unchecked, this PR cannot merge until a superseding ADR is accepted.
+If any compatibility box is unchecked, explain the reason in the PR body before requesting review.
 
 ---
 

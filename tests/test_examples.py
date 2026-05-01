@@ -123,6 +123,25 @@ def test_optional_advanced_examples_compile_under_ar_v2():
         compile(translate(source), str(examples_dir / filename), "exec")
 
 
+def test_all_examples_and_apps_translate_compile():
+    repo_root = pathlib.Path(__file__).parents[1]
+    apy_files = sorted((repo_root / "examples").rglob("*.apy")) + sorted(
+        (repo_root / "apps").rglob("*.apy")
+    )
+
+    assert apy_files, "expected .apy examples/apps to be present"
+
+    failures: list[str] = []
+    for path in apy_files:
+        source = path.read_text(encoding="utf-8")
+        try:
+            compile(translate(source), str(path), "exec")
+        except Exception as exc:  # pragma: no cover - assertion reports details
+            failures.append(f"{path.relative_to(repo_root)}: {type(exc).__name__}: {exc}")
+
+    assert not failures, "\n".join(failures)
+
+
 def test_old_hello_apy_removed():
     repo_root = pathlib.Path(__file__).parents[1]
     old_hello = repo_root / "examples" / "hello.apy"

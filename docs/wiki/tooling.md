@@ -81,7 +81,7 @@ from arabicpython.linter import lint_source, Diagnostic
 
 ---
 
-## 3. نواة Jupyter — `apython kernel`
+## 3. نواة Jupyter — `لغة الثعبان`
 
 تتيح تشغيل ملفات `.apy` كـ notebooks في Jupyter.
 
@@ -95,7 +95,7 @@ python -m arabicpython_kernel install
 ### الاستخدام
 
 ```bash
-jupyter notebook    # اختر kernel "apython (لغة الثعبان)"
+jupyter notebook    # اختر kernel "لغة الثعبان"
 jupyter lab         # نفس الشيء
 ```
 
@@ -162,7 +162,7 @@ Reports diagnostics: W001 (line too long), W002 (trailing whitespace), W003 (tab
 ```bash
 pip install -e ".[kernel]"
 python -m arabicpython_kernel install
-jupyter notebook   # choose "apython" kernel
+jupyter notebook   # choose the "لغة الثعبان" kernel
 ```
 
 ## VS Code Extension

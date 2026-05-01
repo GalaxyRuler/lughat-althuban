@@ -80,7 +80,7 @@ class ArabicPythonKernel(IPythonKernel):  # type: ignore[misc]
         "pygments_lexer": "python",  # fallback highlighter
         "codemirror_mode": {"name": "python"},
     }
-    banner = "لغة الثعبان (apython) — Arabic Python kernel"
+    banner = "لغة الثعبان — Arabic Python kernel"
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)

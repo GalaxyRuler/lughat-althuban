@@ -6,5 +6,6 @@ recursive-include dictionaries *.md
 recursive-include docs *.md *.html
 recursive-include editors/vscode *
 recursive-include examples *.apy *.md
+recursive-include apps *.apy *.md *.txt
 recursive-include lexicon *.toml *.json *.md
 recursive-include tools *.py
