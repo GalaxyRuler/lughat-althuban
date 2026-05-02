@@ -1,35 +1,24 @@
 # arabicpython/aliases/jwt.toml
-# C-026: Arabic aliases for PyJWT.
-#
-# Arabic import name : جي_دبليو_تي
-# Python module      : jwt
-#
-# Normalization reminders:
-#   شفّر              -> شفر
-#   فكّ_التشفير      -> فك_التشفير
-#   رأس              -> راس
-#   خوارزمية/صالحة   -> خوارزميه/صالحه
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "جي_دبليو_تي"
-python_module  = "jwt"
-dict_version   = "ar-v1"
+arabic_name   = "جي_دبليو_تي"
+python_module = "jwt"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
+maintainer    = "—"
 
 [entries]
-# Core helpers
-"شفر"                    = "encode"
-"فك_التشفير"             = "decode"
-"اجلب_الراس_دون_تحقق"   = "get_unverified_header"
-
-# Exceptions
-"خطا_jwt"                = "PyJWTError"
-"خطا_رمز_غير_صالح"      = "InvalidTokenError"
-"خطا_فك_تشفير"           = "DecodeError"
-"خطا_رمز_منتهي"          = "ExpiredSignatureError"
-"خطا_توقيع_غير_صالح"    = "InvalidSignatureError"
+"شفر" = "encode"
+"فك_التشفير" = "decode"
+"اجلب_الراس_دون_تحقق" = "get_unverified_header"
+"خطا_jwt" = "PyJWTError"
+"خطا_رمز_غير_صالح" = "InvalidTokenError"
+"خطا_فك_تشفير" = "DecodeError"
+"خطا_رمز_منتهي" = "ExpiredSignatureError"
+"خطا_توقيع_غير_صالح" = "InvalidSignatureError"
 "خطا_خوارزميه_غير_صالحه" = "InvalidAlgorithmError"
+"خوارزميات" = "algorithms"
 
-# Submodules
-"خوارزميات"              = "algorithms"
+[attributes]

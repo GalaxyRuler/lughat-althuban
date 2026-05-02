@@ -1,35 +1,27 @@
 # arabicpython/aliases/yaml.toml
-# C-023: Arabic aliases for PyYAML.
-#
-# Maps normalized Arabic names to the top-level `yaml` module API.
-# Natural spellings such as آمن, صدّر, محمّل, and ممثّل normalize to
-# امن, صدر, محمل, and ممثل before lookup.
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "يامل"
-python_module  = "yaml"
-dict_version   = "ar-v1"
+arabic_name   = "يامل"
+python_module = "yaml"
+dict_version  = "ar-v1"
 schema_version = 1
 
 [entries]
-# Loading and dumping
-"حمل_امن"              = "safe_load"
-"صدر_امن"              = "safe_dump"
-"حمل_كامل"             = "full_load"
-"حمل_امن_الكل"         = "safe_load_all"
-"صدر_امن_الكل"         = "safe_dump_all"
-"صدر"                  = "dump"
-"حمل"                  = "load"
+"حمل_امن" = "safe_load"
+"صدر_امن" = "safe_dump"
+"حمل_كامل" = "full_load"
+"حمل_امن_الكل" = "safe_load_all"
+"صدر_امن_الكل" = "safe_dump_all"
+"صدر" = "dump"
+"حمل" = "load"
+"خطا_يامل" = "YAMLError"
+"محمل" = "Loader"
+"محمل_امن" = "SafeLoader"
+"مصدر" = "Dumper"
+"مصدر_امن" = "SafeDumper"
+"اضف_منشئ" = "add_constructor"
+"اضف_ممثل" = "add_representer"
 
-# Exceptions
-"خطا_يامل"             = "YAMLError"
-
-# Loader and dumper classes
-"محمل"                 = "Loader"
-"محمل_امن"             = "SafeLoader"
-"مصدر"                 = "Dumper"
-"مصدر_امن"             = "SafeDumper"
-
-# Extension hooks
-"اضف_منشئ"             = "add_constructor"
-"اضف_ممثل"             = "add_representer"
+[attributes]

@@ -1,495 +1,16 @@
 """Translated tracebacks for Arabic Python."""
 
-import re
 import sys
 import traceback
 import types
 from pathlib import Path
-from typing import IO, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Any
-
+from typing import IO, Any
 
 # --- Translation tables (data) ---
-
-EXCEPTION_NAMES_AR: dict[str, str] = {
-    # ── Base hierarchy ────────────────────────────────────────────────────────
-    "BaseException": "استثناء_أساسي",
-    "Exception": "استثناء_عام",
-    "GeneratorExit": "خروج_مولد",
-    "KeyboardInterrupt": "مقاطعة",
-    "SystemExit": "خروج_نظام",
-    # ── Arithmetic ────────────────────────────────────────────────────────────
-    "ArithmeticError": "خطأ_حسابي",
-    "FloatingPointError": "خطأ_عشري",
-    "OverflowError": "خطأ_فائض",
-    "ZeroDivisionError": "خطأ_قسمة_صفر",
-    # ── Assertion / attribute / name ──────────────────────────────────────────
-    "AssertionError": "خطأ_تأكيد",
-    "AttributeError": "خطأ_صفة",
-    "NameError": "خطأ_اسم",
-    "UnboundLocalError": "خطأ_متغير_غير_مرتبط",
-    # ── Buffer ────────────────────────────────────────────────────────────────
-    "BufferError": "خطأ_مخزن_مؤقت",
-    # ── EOF ───────────────────────────────────────────────────────────────────
-    "EOFError": "خطأ_نهاية_ملف",
-    # ── Import ────────────────────────────────────────────────────────────────
-    "ImportError": "خطأ_استيراد",
-    "ModuleNotFoundError": "خطأ_وحدة_مفقودة",
-    # ── Lookup ────────────────────────────────────────────────────────────────
-    "LookupError": "خطأ_بحث",
-    "IndexError": "خطأ_فهرس",
-    "KeyError": "خطأ_مفتاح",
-    # ── Memory ───────────────────────────────────────────────────────────────
-    "MemoryError": "خطأ_ذاكرة",
-    # ── OS / IO errors ────────────────────────────────────────────────────────
-    "OSError": "خطأ_نظام",
-    "EnvironmentError": "خطأ_بيئه",  # alias for OSError in Python 3
-    "IOError": "خطأ_إدخال_إخراج",  # alias for OSError in Python 3
-    "BlockingIOError": "خطأ_إدخال_إخراج_حاجب",
-    "ChildProcessError": "خطأ_عمليه_فرعيه",
-    "ConnectionError": "خطأ_اتصال",
-    "BrokenPipeError": "خطأ_انبوب_مكسور",
-    "ConnectionAbortedError": "خطأ_اتصال_ملغي",
-    "ConnectionRefusedError": "خطأ_اتصال_مرفوض",
-    "ConnectionResetError": "خطأ_اتصال_منقطع",
-    "FileExistsError": "خطأ_ملف_موجود",
-    "FileNotFoundError": "خطأ_ملف_مفقود",
-    "InterruptedError": "خطأ_مقاطعه",
-    "IsADirectoryError": "خطأ_هذا_مجلد",
-    "NotADirectoryError": "خطأ_ليس_مجلدا",
-    "PermissionError": "خطأ_صلاحية",
-    "ProcessLookupError": "خطأ_بحث_عمليه",
-    "TimeoutError": "خطأ_انتهاء_وقت",
-    # ── Reference ────────────────────────────────────────────────────────────
-    "ReferenceError": "خطأ_مرجع",
-    # ── Runtime ──────────────────────────────────────────────────────────────
-    "RuntimeError": "خطأ_تشغيل",
-    "NotImplementedError": "خطأ_غير_منفذ",
-    "RecursionError": "خطأ_عودية",
-    "SystemError": "خطأ_نظام_داخلي",
-    # ── StopIteration ────────────────────────────────────────────────────────
-    "StopIteration": "انتهاء_التكرار",
-    "StopAsyncIteration": "ايقاف_التكرار_المتزامن",
-    # ── Syntax ───────────────────────────────────────────────────────────────
-    "SyntaxError": "خطأ_صياغة",
-    "IndentationError": "خطأ_إزاحة",
-    "TabError": "خطأ_جدولة",
-    # ── Type ─────────────────────────────────────────────────────────────────
-    "TypeError": "خطأ_نوع",
-    # ── Unicode ──────────────────────────────────────────────────────────────
-    "UnicodeError": "خطأ_يونيكود",
-    "UnicodeDecodeError": "خطأ_فك_يونيكود",
-    "UnicodeEncodeError": "خطأ_ترميز_يونيكود",
-    "UnicodeTranslateError": "خطأ_ترجمه_يونيكود",
-    # ── Value ────────────────────────────────────────────────────────────────
-    "ValueError": "خطأ_قيمة",
-    # ── Warning hierarchy ────────────────────────────────────────────────────
-    "Warning": "تحذير",
-    "BytesWarning": "تحذير_بايت",
-    "DeprecationWarning": "تحذير_اهمال",
-    "EncodingWarning": "تحذير_ترميز",
-    "FutureWarning": "تحذير_مستقبلي",
-    "ImportWarning": "تحذير_استيراد",
-    "PendingDeprecationWarning": "تحذير_اهمال_قادم",
-    "ResourceWarning": "تحذير_موارد",
-    "RuntimeWarning": "تحذير_تشغيل",
-    "SyntaxWarning": "تحذير_صياغه",
-    "UnicodeWarning": "تحذير_يونيكود",
-    "UserWarning": "تحذير_مستخدم",
-    # ── Exception groups (Python 3.11+) ──────────────────────────────────────
-    "BaseExceptionGroup": "مجموعه_استثنائات_اساسيه",
-    "ExceptionGroup": "مجموعه_استثنائات",
-}
-
-# Each entry: (compiled_regex, arabic_template_with_named_groups)
-MESSAGE_TEMPLATES_AR: list[tuple[re.Pattern, str]] = [
-    (re.compile(r"^division by zero$"), "القسمة على صفر"),
-    (re.compile(r"^integer division or modulo by zero$"), "قسمة صحيحة أو باقي على صفر"),
-    (re.compile(r"^float division by zero$"), "قسمة عشرية على صفر"),
-    (re.compile(r"^float modulo$"), "باقي قسمة عشرية على صفر"),
-    (re.compile(r"^complex division by zero$"), "قسمة عدد مركب على صفر"),
-    (
-        re.compile(r"^name '(?P<name>[^']+)' is not defined$"),
-        "الاسم '{name}' غير معرّف",
-    ),
-    (
-        re.compile(r"^name '(?P<name>[^']+)' is not defined\. Did you mean: '(?P<sugg>[^']+)'\?$"),
-        "الاسم '{name}' غير معرّف. هل تقصد: '{sugg}'؟",
-    ),
-    (
-        re.compile(
-            r"^free variable '(?P<name>[^']+)' referenced before assignment in enclosing scope$"
-        ),
-        "المتغير الحر '{name}' مستخدم قبل تعريفه في النطاق المحيط",
-    ),
-    (
-        re.compile(r"^local variable '(?P<name>[^']+)' referenced before assignment$"),
-        "المتغير المحلي '{name}' مستخدم قبل تعريفه",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object has no attribute '(?P<attr>[^']+)'$"),
-        "الكائن من نوع '{type}' لا يملك الخاصية '{attr}'",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object is not subscriptable$"),
-        "الكائن من نوع '{type}' لا يقبل الفهرسة",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object is not callable$"),
-        "الكائن من نوع '{type}' غير قابل للاستدعاء",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object is not iterable$"),
-        "الكائن من نوع '{type}' غير قابل للتكرار",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object cannot be interpreted as an integer$"),
-        "الكائن من نوع '{type}' لا يمكن تفسيره كعدد صحيح",
-    ),
-    (
-        re.compile(r"^argument of type '(?P<type>[^']+)' is not iterable$"),
-        "الوسيط من نوع '{type}' غير قابل للتكرار",
-    ),
-    (re.compile(r"^list index out of range$"), "فهرس القائمة خارج النطاق"),
-    (re.compile(r"^tuple index out of range$"), "فهرس الصف خارج النطاق"),
-    (re.compile(r"^string index out of range$"), "فهرس النص خارج النطاق"),
-    (re.compile(r"^bytearray index out of range$"), "فهرس مصفوفة البايت خارج النطاق"),
-    (re.compile(r"^range object index out of range$"), "فهرس كائن النطاق خارج النطاق"),
-    (re.compile(r"^pop index out of range$"), "فهرس الإخراج خارج النطاق"),
-    (re.compile(r"^pop from empty list$"), "إخراج من قائمة فارغة"),
-    (re.compile(r"^pop from an empty (set|deque|dict)$"), "إخراج من {1} فارغ"),
-    (
-        re.compile(r"^maximum recursion depth exceeded(?P<rest>.*)$"),
-        "تم تجاوز عمق العودية الأقصى{rest}",
-    ),
-    (re.compile(r"^No module named '(?P<name>[^']+)'$"), "لا توجد وحدة باسم '{name}'"),
-    (
-        re.compile(
-            r"^cannot import name '(?P<name>[^']+)' from partially initialized module "
-            r"'(?P<module>[^']+)'(?P<rest>.*)$"
-        ),
-        "لا يمكن استيراد الاسم '{name}' من الوحدة المُهيَّأة جزئياً '{module}'"
-        " (على الأرجح بسبب استيراد دائري)",
-    ),
-    (
-        re.compile(r"^cannot import name '(?P<name>[^']+)' from '(?P<module>[^']+)'(?P<rest>.*)$"),
-        "لا يمكن استيراد الاسم '{name}' من '{module}'{rest}",
-    ),
-    (
-        re.compile(r"^attempted relative import with no known parent package$"),
-        "محاولة استيراد نسبي دون وجود حزمة أصلية معروفة",
-    ),
-    (
-        re.compile(
-            r"^unsupported operand type\(s\) for (?P<op>\S+): "
-            r"'(?P<a>[^']+)' and '(?P<b>[^']+)'$"
-        ),
-        "أنواع المعاملات غير مدعومة لـ {op}: '{a}' و '{b}'",
-    ),
-    (
-        re.compile(r"^can only concatenate (?P<a>\w+) \(not \"(?P<b>\w+)\"\) to \w+$"),
-        "يمكن فقط ضم {a} (لا {b}) إلى {a}",
-    ),
-    (
-        re.compile(r"^invalid literal for int\(\) with base (?P<base>\d+): '(?P<val>[^']*)'$"),
-        "قيمة غير صالحة للدالة int() بالأساس {base}: '{val}'",
-    ),
-    (
-        re.compile(r"^could not convert string to float: '(?P<val>[^']*)'$"),
-        "تعذر تحويل النص إلى عدد عشري: '{val}'",
-    ),
-    (
-        re.compile(
-            r"^expected (?P<n>\d+) "
-            r"(?P<arg_kind>positional argument|positional arguments), got (?P<got>\d+)$"
-        ),
-        "كان متوقعا {n} {arg_kind} لكن تم تمرير {got}",
-    ),
-    (
-        re.compile(
-            r"^(?P<func>[^(]+)\(\) missing (?P<n>\d+) "
-            r"required positional argument(?P<plural>s?): (?P<rest>.+)$"
-        ),
-        "{func}() ينقصها {n} وسيط إجباري{plural}: {rest}",
-    ),
-    (
-        re.compile(r"^(?P<func>[^(]+)\(\) got an unexpected keyword argument '(?P<name>[^']+)'$"),
-        "{func}() استلمت وسيطا مفتاحيا غير متوقع '{name}'",
-    ),
-    (
-        re.compile(r"^\[Errno (?P<errno>\d+)\] (?P<msg>[^:]+): '(?P<path>.+)'$"),
-        "[رقم الخطأ {errno}] {msg}: '{path}'",
-    ),
-    # OSError without a path
-    (
-        re.compile(r"^\[Errno (?P<errno>\d+)\] (?P<msg>.+)$"),
-        "[رقم الخطأ {errno}] {msg}",
-    ),
-    # Windows OSError format
-    (
-        re.compile(r"^\[WinError (?P<errno>\d+)\] (?P<msg>.+)$"),
-        "[خطأ ويندوز {errno}] {msg}",
-    ),
-    # ── TypeError variants ────────────────────────────────────────────────────
-    (
-        re.compile(r"^list indices must be integers or slices, not (?P<type>\w+)$"),
-        "فهارس القائمة يجب أن تكون أعداداً صحيحة أو شرائح، لا '{type}'",
-    ),
-    (
-        re.compile(r"^tuple indices must be integers or slices, not (?P<type>\w+)$"),
-        "فهارس الصف يجب أن تكون أعداداً صحيحة أو شرائح، لا '{type}'",
-    ),
-    (
-        re.compile(r"^string indices must be integers(?:, not '(?P<type>[^']+)')?$"),
-        "فهارس النص يجب أن تكون أعداداً صحيحة",
-    ),
-    (
-        re.compile(r"^object of type '(?P<type>[^']+)' has no len\(\)$"),
-        "الكائن من نوع '{type}' لا يملك دالة len()",
-    ),
-    (
-        re.compile(r"^unhashable type: '(?P<type>[^']+)'$"),
-        "النوع '{type}' غير قابل للتجزئة",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object is not an iterator$"),
-        "الكائن من نوع '{type}' ليس مكرراً",
-    ),
-    (
-        re.compile(r"^a bytes-like object is required, not '(?P<type>[^']+)'$"),
-        "مطلوب كائن من نوع bytes، لا '{type}'",
-    ),
-    (
-        re.compile(
-            r"^(?P<func>[^(]+)\(\) takes (?P<n>\d+) positional argument(?P<plural>s?) "
-            r"but (?P<got>\d+) (?:were|was) given$"
-        ),
-        "{func}() تأخذ {n} وسيط موضعي{plural} لكن تم تمرير {got}",
-    ),
-    (
-        re.compile(r"^sequence item (?P<n>\d+): expected str instance, (?P<got>\w+) found$"),
-        "عنصر المتسلسلة {n}: متوقع نص، وجد {got}",
-    ),
-    (
-        re.compile(r"^(?P<func>[^(]+)\(\) got multiple values for argument '(?P<name>[^']+)'$"),
-        "{func}() استلمت قيماً متعددة للوسيط '{name}'",
-    ),
-    (
-        re.compile(r"^bad operand type for unary (?P<op>[^:]+): '(?P<type>[^']+)'$"),
-        "نوع معامل خاطئ للعملية الأحادية {op}: '{type}'",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object does not support item assignment$"),
-        "الكائن من نوع '{type}' لا يدعم تعيين العناصر",
-    ),
-    (
-        re.compile(r"^'(?P<type>[^']+)' object doesn't support item (?P<op>assignment|deletion)$"),
-        "الكائن من نوع '{type}' لا يدعم {op} العناصر",
-    ),
-    (
-        re.compile(r"^can't multiply sequence by non-int of type '(?P<type>[^']+)'$"),
-        "لا يمكن ضرب المتسلسلة بنوع غير صحيح '{type}'",
-    ),
-    (
-        re.compile(r"^expected str, bytes or os\.PathLike object, not (?P<type>\w+)$"),
-        "متوقع نص أو بايتات أو مسار، ليس '{type}'",
-    ),
-    (
-        re.compile(
-            r"^descriptor '(?P<desc>[^']+)' for '(?P<for_type>[^']+)' objects "
-            r"doesn't apply to a '(?P<got_type>[^']+)' object$"
-        ),
-        "الواصف '{desc}' لكائنات '{for_type}' لا ينطبق على كائن '{got_type}'",
-    ),
-    # ── UnboundLocalError (Python 3.12+ message) ──────────────────────────────
-    (
-        re.compile(
-            r"^cannot access local variable '(?P<name>[^']+)' "
-            r"where it is not associated with a value$"
-        ),
-        "لا يمكن الوصول إلى المتغير المحلي '{name}' لأنه غير مرتبط بقيمة",
-    ),
-    # ── AttributeError with suggestion ───────────────────────────────────────
-    (
-        re.compile(
-            r"^'(?P<type>[^']+)' object has no attribute '(?P<attr>[^']+)'\. "
-            r"Did you mean: '(?P<sugg>[^']+)'\?$"
-        ),
-        "الكائن من نوع '{type}' لا يملك الخاصية '{attr}'. هل تقصد: '{sugg}'؟",
-    ),
-    # ── AttributeError on module (no suggestion) ──────────────────────────────
-    (
-        re.compile(r"^module '(?P<module>[^']+)' has no attribute '(?P<attr>[^']+)'$"),
-        "الوحدة '{module}' لا تملك الخاصية '{attr}'",
-    ),
-    # ── AttributeError on module (with suggestion) ────────────────────────────
-    (
-        re.compile(
-            r"^module '(?P<module>[^']+)' has no attribute '(?P<attr>[^']+)'\. "
-            r"Did you mean: '(?P<sugg>[^']+)'\?$"
-        ),
-        "الوحدة '{module}' لا تملك الخاصية '{attr}'. هل تقصد: '{sugg}'؟",
-    ),
-    # ── ValueError variants ───────────────────────────────────────────────────
-    (
-        re.compile(r"^too many values to unpack \(expected (?P<n>\d+)\)$"),
-        "قيم كثيرة جداً للتفريغ (متوقع {n})",
-    ),
-    (
-        re.compile(r"^not enough values to unpack \(expected (?P<n>\d+), got (?P<got>\d+)\)$"),
-        "قيم غير كافية للتفريغ (متوقع {n}، حصلنا على {got})",
-    ),
-    (
-        re.compile(r"^math domain error$"),
-        "خطأ في نطاق الرياضيات",
-    ),
-    (re.compile(r"^substring not found$"), "النص الفرعي غير موجود"),
-    (
-        re.compile(r"^list\.remove\(x\): x not found$"),
-        "list.remove(x): العنصر غير موجود في القائمة",
-    ),
-    (re.compile(r"^I/O operation on closed file\.$"), "عملية إدخال/إخراج على ملف مغلق"),
-    (re.compile(r"^Circular reference detected$"), "تم اكتشاف مرجع دائري"),
-    (re.compile(r"^empty separator$"), "الفاصل فارغ"),
-    (
-        re.compile(
-            r"^dictionary update sequence element #(?P<n>\d+) "
-            r"has length (?P<got>\d+); 2 is required$"
-        ),
-        "عنصر تسلسل تحديث القاموس رقم {n} له طول {got}؛ المطلوب 2",
-    ),
-    # ── OverflowError ─────────────────────────────────────────────────────────
-    (
-        re.compile(r"^math range error$"),
-        "خطأ في مجال الرياضيات",
-    ),
-    (
-        re.compile(r"^int too large to convert to float$"),
-        "العدد الصحيح كبير جداً للتحويل إلى عشري",
-    ),
-    (
-        re.compile(r"^\(\d+, '(?P<msg>[^']+)'\)$"),
-        "خطأ عملية: {msg}",
-    ),
-    # ── RuntimeError variants ─────────────────────────────────────────────────
-    (
-        re.compile(r"^generator already executing$"),
-        "المولّد قيد التنفيذ بالفعل",
-    ),
-    (
-        re.compile(r"^coroutine already executing$"),
-        "الكوروتين قيد التنفيذ بالفعل",
-    ),
-    (
-        re.compile(r"^dictionary changed size during iteration$"),
-        "تغيّر حجم القاموس أثناء التكرار",
-    ),
-    (
-        re.compile(r"^[Ss]et changed size during iteration$"),
-        "تغيّر حجم المجموعة أثناء التكرار",
-    ),
-    (
-        re.compile(r"^asynchronous generator raised StopIteration$"),
-        "المولّد غير المتزامن أطلق ايقاف_التكرار",
-    ),
-    # ── SyntaxError / IndentationError messages ───────────────────────────────
-    (re.compile(r"^invalid syntax$"), "صياغة غير صالحة"),
-    (
-        re.compile(r"^invalid syntax\. Perhaps you forgot a comma\?$"),
-        "صياغة غير صالحة. ربما نسيت فاصلة؟",
-    ),
-    (
-        re.compile(r"^unterminated string literal \(detected at line (?P<line>\d+)\)$"),
-        "نص حرفي غير منتهٍ (اكتُشف في السطر {line})",
-    ),
-    (re.compile(r"^EOL while scanning string literal$"), "نهاية السطر أثناء فحص نص حرفي"),
-    (re.compile(r"^unexpected EOF while parsing$"), "نهاية ملف غير متوقعة أثناء التحليل"),
-    (
-        re.compile(r"^unexpected character after line continuation character$"),
-        "حرف غير متوقع بعد حرف استمرار السطر",
-    ),
-    (
-        re.compile(r"^invalid character '(?P<char>[^']+)' \((?P<code>U\+[0-9A-Fa-f]+)\)$"),
-        "حرف غير صالح '{char}' ({code})",
-    ),
-    (
-        re.compile(
-            r"^Missing parentheses in call to '(?P<func>[^']+)'\." r" Did you mean (?P<sugg>.+)\?$"
-        ),
-        "أقواس مفقودة في استدعاء '{func}'. هل تقصد {sugg}؟",
-    ),
-    (
-        re.compile(r"^f-string expression part cannot include a backslash$"),
-        "جزء تعبير النص المنسق لا يمكن أن يحتوي على شرطة مائلة عكسية",
-    ),
-    (
-        re.compile(r"^expected an indented block(?P<rest>.*)$"),
-        "متوقع كتلة مزاحة{rest}",
-    ),
-    (
-        re.compile(r"^inconsistent use of tabs and spaces in indentation$"),
-        "استخدام غير متسق للجداول والمسافات في الإزاحة",
-    ),
-    (
-        re.compile(r"^unindent does not match any outer indentation level$"),
-        "الإزاحة لا تطابق أي مستوى خارجي",
-    ),
-    # ── StopIteration / StopAsyncIteration ───────────────────────────────────
-    (
-        re.compile(r"^coroutine raised StopIteration$"),
-        "الكوروتين أطلق ايقاف_التكرار",
-    ),
-    # ── Connection errors ─────────────────────────────────────────────────────
-    (re.compile(r"^Connection refused$"), "رُفض الاتصال"),
-    (re.compile(r"^Connection timed out$"), "انتهت مهلة الاتصال"),
-    (re.compile(r"^timed out$"), "انتهت المهلة"),
-    (
-        re.compile(r"^Connection reset by peer$"),
-        "أعاد الطرف الآخر ضبط الاتصال",
-    ),
-    (
-        re.compile(r"^Broken pipe$"),
-        "الأنبوب معطوب",
-    ),
-    # ── Unicode codec errors ──────────────────────────────────────────────────
-    (
-        re.compile(
-            r"^'(?P<codec>[^']+)' codec can't decode byte (?P<byte>0x[0-9a-f]+) "
-            r"in position (?P<pos>\d+): (?P<reason>.+)$"
-        ),
-        "ترميز '{codec}' لا يستطيع فك تشفير البايت {byte} في الموضع {pos}: {reason}",
-    ),
-    (
-        re.compile(
-            r"^'(?P<codec>[^']+)' codec can't decode bytes? in position "
-            r"(?P<start>\d+)-(?P<end>\d+): (?P<reason>.+)$"
-        ),
-        "ترميز '{codec}' لا يستطيع فك تشفير البايتات في الموضع {start}-{end}: {reason}",
-    ),
-    (
-        re.compile(
-            r"^'(?P<codec>[^']+)' codec can't encode character '(?P<char>[^']+)' "
-            r"in position (?P<pos>\d+): (?P<reason>.+)$"
-        ),
-        "ترميز '{codec}' لا يستطيع ترميز الحرف '{char}' في الموضع {pos}: {reason}",
-    ),
-    (
-        re.compile(
-            r"^'(?P<codec>[^']+)' codec can't encode characters? in position "
-            r"(?P<start>\d+)-(?P<end>\d+): (?P<reason>.+)$"
-        ),
-        "ترميز '{codec}' لا يستطيع ترميز الأحرف في الموضع {start}-{end}: {reason}",
-    ),
-    # ── KeyError — quoted string key ──────────────────────────────────────────
-    # Must be last: pattern is deliberately broad (matches any quoted word).
-    (
-        re.compile(r"^'(?P<key>[^']+)'$"),
-        "المفتاح '{key}' غير موجود",
-    ),
-]
-
+from arabicpython._generated_traceback_data import (
+    EXCEPTION_NAMES_AR,
+    MESSAGE_TEMPLATES_AR,
+)
 
 # --- Public API ---
 
@@ -502,13 +23,16 @@ def translate_exception_name(name: str) -> str:
     return EXCEPTION_NAMES_AR.get(name, name)
 
 
-def translate_exception_message(message: str) -> str:
+def translate_exception_message(
+    message: str | type[BaseException], exc_value: BaseException | None = None
+) -> str:
     """Translate a CPython interpreter-level exception message to Arabic.
 
     Walks MESSAGE_TEMPLATES_AR; on first regex match, formats the Arabic
     template with the named groups from the match. Returns the original
     message if no template matches.
     """
+    message = str(exc_value) if exc_value is not None else str(message)
     for pattern, template in MESSAGE_TEMPLATES_AR:
         match = pattern.match(message)
         if match:
@@ -529,6 +53,8 @@ def format_translated_exception(
     exc_type: type[BaseException],
     exc_value: BaseException,
     exc_tb: "types.TracebackType | None",
+    *,
+    message_mode: str = "arabic",
 ) -> str:
     """Format an exception in Arabic. Returns the formatted string.
 
@@ -547,7 +73,10 @@ def format_translated_exception(
     if exc_value.__cause__ is not None:
         blocks.append(
             format_translated_exception(
-                type(exc_value.__cause__), exc_value.__cause__, exc_value.__cause__.__traceback__
+                type(exc_value.__cause__),
+                exc_value.__cause__,
+                exc_value.__cause__.__traceback__,
+                message_mode=message_mode,
             )
         )
         blocks.append("\nالسبب المباشر للاستثناء أعلاه:\n\n")
@@ -557,6 +86,7 @@ def format_translated_exception(
                 type(exc_value.__context__),
                 exc_value.__context__,
                 exc_value.__context__.__traceback__,
+                message_mode=message_mode,
             )
         )
         blocks.append("\nأثناء معالجة الاستثناء أعلاه, حدث استثناء آخر:\n\n")
@@ -598,7 +128,10 @@ def format_translated_exception(
     # For some exceptions like KeyError, str(exc_value) might be the key's repr.
     # We should match what format_exception_only does if possible, but the spec
     # says translate_exception_message(str(exc_value)).
-    message = translate_exception_message(str(exc_value))
+    if message_mode == "english":
+        message = str(exc_value)
+    else:
+        message = translate_exception_message(str(exc_value))
 
     current_blocks.append(f"{type_name}: {message}\n")
 
@@ -606,28 +139,68 @@ def format_translated_exception(
     return "".join(blocks)
 
 
+def format_exception(
+    exc_type: type[BaseException],
+    exc_value: BaseException,
+    exc_tb: "types.TracebackType | None",
+    *,
+    mode: str = "arabic",
+) -> str:
+    """Format an exception according to the requested traceback localization mode."""
+    if mode == "english":
+        return "".join(traceback.format_exception(exc_type, exc_value, exc_tb))
+    if mode == "mixed":
+        return format_translated_exception(
+            exc_type,
+            exc_value,
+            exc_tb,
+            message_mode="english",
+        )
+    if mode != "arabic":
+        raise ValueError("traceback mode must be 'arabic', 'english', or 'mixed'")
+    return format_translated_exception(exc_type, exc_value, exc_tb)
+
+
+def format_arabic_traceback(
+    exc_info: tuple[type[BaseException], BaseException, types.TracebackType | None],
+    *,
+    level: str = "full",
+) -> str:
+    """Phase D compatibility wrapper for Arabic traceback formatting."""
+    if level not in {"full", "message"}:
+        raise ValueError("level must be 'full' or 'message'")
+    exc_type, exc_value, exc_tb = exc_info
+    return format_translated_exception(exc_type, exc_value, exc_tb)
+
+
 def print_translated_exception(
     exc_type: type[BaseException],
     exc_value: BaseException,
     exc_tb: "types.TracebackType | None",
     file: "IO[str] | None" = None,
+    *,
+    mode: str | None = None,
 ) -> None:
     """Format and write the traceback to `file` (default sys.stderr)."""
     if file is None:
         file = sys.stderr
-    file.write(format_translated_exception(exc_type, exc_value, exc_tb))
+    file.write(format_exception(exc_type, exc_value, exc_tb, mode=mode or _traceback_mode))
 
 
 _saved_excepthook = None
+_traceback_mode = "arabic"
 
 
-def install_excepthook() -> None:
+def install_excepthook(mode: str = "arabic") -> None:
     """Set sys.excepthook to print_translated_exception.
 
     Idempotent: calling install_excepthook() twice does not re-install. The
     previous excepthook is saved at module level so uninstall() can restore it.
     """
-    global _saved_excepthook
+    global _saved_excepthook, _traceback_mode
+    if mode not in {"arabic", "english", "mixed"}:
+        raise ValueError("traceback mode must be 'arabic', 'english', or 'mixed'")
+    _traceback_mode = mode
     if sys.excepthook is print_translated_exception:
         return
     _saved_excepthook = sys.excepthook

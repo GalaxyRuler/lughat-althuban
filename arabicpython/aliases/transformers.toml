@@ -1,0 +1,38 @@
+# arabicpython/aliases/transformers.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "محولات"
+python_module = "transformers"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"نموذج_تلقائي" = "AutoModel"
+"نموذج_سببي" = "AutoModelForCausalLM"
+"نموذج_تصنيف" = "AutoModelForSequenceClassification"
+"مرمز_تلقائي" = "AutoTokenizer"
+"مرمز_مدرب" = "PreTrainedTokenizer"
+"مرمز_مدرب_سريع" = "PreTrainedTokenizerFast"
+"خط_انابيب" = "pipeline"
+"مدرب" = "Trainer"
+"وسائط_تدريب" = "TrainingArguments"
+"نموذج_بيرت" = "BertModel"
+"نموذج_gpt2" = "GPT2LMHeadModel"
+"ثبت_بذره" = "set_seed"
+"تسجيل" = "logging"
+"اعداد" = "AutoConfig"
+"معالج_تلقائي" = "AutoProcessor"
+"معالج_صور_تلقائي" = "AutoImageProcessor"
+"نموذج_تسلسل_الي_تسلسل" = "AutoModelForSeq2SeqLM"
+"نموذج_سؤال_جواب" = "AutoModelForQuestionAnswering"
+"دفتر_بيانات" = "DataCollatorWithPadding"
+"وسيط_تقييم" = "EvalPrediction"
+
+[attributes]
+"من_مدرب" = "from_pretrained"
+"حفظ_مدرب" = "save_pretrained"
+"تنبؤ" = "predict"
+"درب" = "train"

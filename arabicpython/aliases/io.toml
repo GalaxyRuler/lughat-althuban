@@ -1,46 +1,31 @@
 # arabicpython/aliases/io.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `io` standard-library module.
-# Normalization:
-#   أ/إ/آ → ا  anywhere
-#   final ة → ه
-#   final ى → ي
-#
-# Collision notes:
-#   افتح → already used by pathlib (Path.open). io.open == builtins.open
-#     anyway; use فتح_تيار as the explicit io.open alias instead.
-#   ابحث_بدايه/حاليه/نهايه: compound forms; ابحث alone is in
-#     dialect.attributes (.find/.search) but compound forms are distinct.
 
 [meta]
-arabic_name   = "مجاري"
+arabic_name   = "ادخال_اخراج"
 python_module = "io"
 dict_version  = "ar-v1"
 schema_version = 1
 maintainer    = "—"
+arabic_aliases = ["مجاري"]
 
 [entries]
-# ── open ──────────────────────────────────────────────────────────────────────
-"فتح_تيار"              = "open"
+"فتح_تيار" = "open"
+"تيار_نص" = "StringIO"
+"تيار_بايت" = "BytesIO"
+"تيار_ملف" = "FileIO"
+"قارئ_منظم" = "BufferedReader"
+"كاتب_منظم" = "BufferedWriter"
+"منظم_عشوائي" = "BufferedRandom"
+"غلاف_نصي" = "TextIOWrapper"
+"اساس_تيار" = "IOBase"
+"اساس_خام" = "RawIOBase"
+"اساس_منظم" = "BufferedIOBase"
+"اساس_نصي" = "TextIOBase"
+"حجم_منظم" = "DEFAULT_BUFFER_SIZE"
+"ابحث_بدايه" = "SEEK_SET"
+"ابحث_حاليه" = "SEEK_CUR"
+"ابحث_نهايه" = "SEEK_END"
 
-# ── Stream classes ────────────────────────────────────────────────────────────
-"تيار_نص"               = "StringIO"
-"تيار_بايت"             = "BytesIO"
-"تيار_ملف"              = "FileIO"
-"قارئ_منظم"             = "BufferedReader"
-"كاتب_منظم"             = "BufferedWriter"
-"منظم_عشوائي"           = "BufferedRandom"
-"غلاف_نصي"              = "TextIOWrapper"
-
-# ── Base classes ──────────────────────────────────────────────────────────────
-"اساس_تيار"             = "IOBase"
-"اساس_خام"              = "RawIOBase"
-"اساس_منظم"             = "BufferedIOBase"
-"اساس_نصي"              = "TextIOBase"
-
-# ── Constants ─────────────────────────────────────────────────────────────────
-"حجم_منظم"              = "DEFAULT_BUFFER_SIZE"
-"ابحث_بدايه"            = "SEEK_SET"
-"ابحث_حاليه"            = "SEEK_CUR"
-"ابحث_نهايه"            = "SEEK_END"
+[attributes]

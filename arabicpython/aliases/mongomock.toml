@@ -1,11 +1,15 @@
-# C-040: Optional mongomock alias for in-process MongoDB demos/tests.
+# arabicpython/aliases/mongomock.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "مونجو_وهمي"
-python_module  = "mongomock"
-dict_version   = "ar-v1"
+arabic_name   = "مونجو_وهمي"
+python_module = "mongomock"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
+maintainer    = "—"
 
 [entries]
 "عميل_مونجو_وهمي" = "MongoClient"
+
+[attributes]

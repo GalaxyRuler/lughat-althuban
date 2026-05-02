@@ -33,6 +33,7 @@ class AliasMapping:
     attributes: dict[str, str]  # Arabic instance attribute → Python instance attribute
     source_path: Path  # for error messages
     proxy_classes: frozenset[str]  # class names whose *instances* get proxied
+    arabic_aliases: frozenset[str]  # additional Arabic import names for compatibility
 
 
 def _resolve_dotted_attr(obj: Any, dotted_name: str) -> Any:
@@ -168,6 +169,16 @@ def load_mapping(toml_path: Path, *, validate_target: bool = True) -> AliasMappi
         )
     proxy_classes: frozenset[str] = frozenset(proxy_classes_raw)
 
+    arabic_aliases_raw = meta.get("arabic_aliases", [])
+    if not isinstance(arabic_aliases_raw, list) or not all(
+        isinstance(c, str) for c in arabic_aliases_raw
+    ):
+        raise AliasMappingError(
+            f"{toml_path}: [meta].arabic_aliases must be a list of strings, "
+            f"got {arabic_aliases_raw!r}"
+        )
+    arabic_aliases: frozenset[str] = frozenset(arabic_aliases_raw)
+
     # ------------------------------------------------------------------ #
     # 3. Validate [entries]
     # ------------------------------------------------------------------ #
@@ -196,6 +207,7 @@ def load_mapping(toml_path: Path, *, validate_target: bool = True) -> AliasMappi
             attributes=attributes,
             source_path=toml_path,
             proxy_classes=proxy_classes,
+            arabic_aliases=arabic_aliases,
         )
 
     # ------------------------------------------------------------------ #
@@ -253,4 +265,5 @@ def load_mapping(toml_path: Path, *, validate_target: bool = True) -> AliasMappi
         attributes=attributes,
         source_path=toml_path,
         proxy_classes=proxy_classes,
+        arabic_aliases=arabic_aliases,
     )

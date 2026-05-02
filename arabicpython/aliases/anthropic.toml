@@ -1,0 +1,40 @@
+# arabicpython/aliases/anthropic.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "كلود_عربي"
+python_module = "anthropic"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+proxy_classes = ["Anthropic", "AsyncAnthropic"]
+
+[entries]
+"عميل" = "Anthropic"
+"عميل_غير_متزامن" = "AsyncAnthropic"
+"رساله" = "types.Message"
+"رساله_وسيط" = "types.MessageParam"
+"محتوي" = "types.ContentBlock"
+"كتله_نص" = "types.TextBlock"
+"استخدام" = "types.Usage"
+"نموذج" = "types.Model"
+"تيار_رسائل" = "MessageStream"
+"تيار_غير_متزامن" = "AsyncMessageStream"
+"خطا_api" = "APIError"
+"خطا_اتصال_ai" = "APIConnectionError"
+"خطا_حاله_ai" = "APIStatusError"
+"خطا_مصادقه_ai" = "AuthenticationError"
+"خطا_صلاحيات_ai" = "PermissionDeniedError"
+"خطا_غير_موجود_ai" = "NotFoundError"
+"خطا_طلب_ai" = "BadRequestError"
+"خطا_تعارض_ai" = "ConflictError"
+"خطا_غير_قابل_ai" = "UnprocessableEntityError"
+"خطا_معدل_ai" = "RateLimitError"
+"خطا_مهله_ai" = "APITimeoutError"
+
+[attributes]
+"انشئ" = "create"
+"رسائل" = "messages"
+"اكمالات" = "completions"
+"نماذج" = "models"

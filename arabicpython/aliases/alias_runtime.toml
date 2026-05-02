@@ -1,18 +1,22 @@
-# C-040: Arabic aliases for the lughat-althuban alias runtime helpers.
+# arabicpython/aliases/alias_runtime.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "اسماء_بديله"
-python_module  = "arabicpython.aliases"
-dict_version   = "ar-v1"
+arabic_name   = "اسماء_بديله"
+python_module = "arabicpython.aliases"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "lughat-althuban"
+maintainer    = "lughat-althuban"
 
 [entries]
-"ثبت_الاسماء"       = "install"
+"ثبت_الاسماء" = "install"
 "الغ_تثبيت_الاسماء" = "uninstall"
-"وكيل_صنف"          = "ClassProxy"
-"وكيل_وحده"         = "ModuleProxy"
-"باحث_اسماء"        = "AliasFinder"
-"خريطه_اسماء"       = "AliasMapping"
-"خطا_خريطه_اسماء"   = "AliasMappingError"
-"حمل_خريطه"         = "load_mapping"
+"وكيل_صنف" = "ClassProxy"
+"وكيل_وحده" = "ModuleProxy"
+"باحث_اسماء" = "AliasFinder"
+"خريطه_اسماء" = "AliasMapping"
+"خطا_خريطه_اسماء" = "AliasMappingError"
+"حمل_خريطه" = "load_mapping"
+
+[attributes]

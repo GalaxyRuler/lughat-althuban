@@ -2,13 +2,13 @@
 
 # لغة الثعبان — بايثون بالعربية الكاملة
 
-[![الاختبارات](https://img.shields.io/badge/اختبارات-2510_نجاح-brightgreen)](tests/)
+[![الاختبارات](https://img.shields.io/badge/اختبارات-2926_نجاح-brightgreen)](tests/)
 [![بايثون](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
 [![الرخصة](https://img.shields.io/badge/رخصة-Apache--2.0-orange)](LICENSE)
 
 لهجة برمجية تكتب فيها **الكلمات المفتاحية والدوال المدمجة والاستثناءات والمكتبات** بالعربية الكاملة. ملفات `.apy` تُترجم إلى بايثون القياسي في وقت التحميل وتُنفَّذ بواسطة CPython — دون تشعيب للمترجم ودون تعديل على اللغة الأصلية.
 
-**الحالة (2026-05-01)**: المرحلة أ مكتملة. المرحلة ب مكتملة إلى حدٍّ بعيد — أكثر من **2700 اختبار ناجح** على Python 3.11–3.13 في Ubuntu وmacOS وWindows. 40+ وحدة عربية مُشحونة. منظومة أدوات متكاملة (منسّق + مدقّق + نواة Jupyter + امتداد VS Code).
+**الحالة (2026-05-02)**: المراحل أ/ب/ج مكتملة، وعمل المرحلة د D-002 إلى D-005 مشحون: معجم واحد في `lexicon/`، أسماء AI عربية، مترجم عكسي Python→لغة الثعبان، أسماء stdlib المعتمدة، وأثر أخطاء عربي بثلاثة أوضاع. آخر تشغيل كامل: **2926 اختباراً ناجحاً** على Python 3.13 مع 23 تخطياً مقصوداً لا يعتمد على مكتبات ناقصة.
 
 ---
 
@@ -28,13 +28,13 @@
 رسم.ضبط_موضوع("darkgrid")
 مخطط = رسم.خط_بياني(بيانات=بيانات, x="الشهر", y="الإيرادات")
 مخطط.figure.savefig("تقرير_المبيعات.png")
-اطبع("✓ تم حفظ التقرير")
+اطبع("تم حفظ التقرير")
 ```
 
 ```bash
 $ ثعبان تحليل_مبيعات.apy
 متوسط الإيرادات: 48750.32
-✓ تم حفظ التقرير
+تم حفظ التقرير
 ```
 
 ---
@@ -52,7 +52,7 @@ pip install -e .
 للتطوير مع جميع المكتبات المدعومة:
 
 ```bash
-pip install -e ".[dev]"
+pip install -e ".[all]"
 ```
 
 يُثبَّت الأمر `ثعبان` تلقائياً. `ثعبان --help` و`ثعبان --version` يعملان كما هو متوقع.
@@ -76,15 +76,15 @@ $ ثعبان -c '1 / 0'
 | [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
 | [الأمثلة التعليمية](examples/README-ar.md) | شرح الأمثلة السبعة التصاعدية |
 | [سجل التغييرات](docs/ar/CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
-| [قاموس الكلمات المفتاحية](dictionaries/ar-v1.md) | المرجع الكامل لكل الكلمات المفتاحية والدوال |
+| [المعجم العربي الموحد](docs/ar/lexicon.md) | المرجع المولد من `lexicon/core.toml` و`lexicon/libraries.toml` |
 
-## المرحلة (ب): مفتوحة للمساهمات
+## المرحلة (د): AI والوصول
 
-اكتملت المرحلة (أ). المرحلة (ب) تضيف أسماء عربية لمكتبات بايثون الشهيرة (فلاسك، نمباي، وغيرها)، وتغطي المكتبة القياسية، وتحدّث القاموس بكلمات `async` و`match`. يوجد ٢٨ حزمة تنفيذية، ست منها مكتوبة بالكامل والباقي بانتظار من يكتب مواصفاتها.
+اكتملت حزم D-002 إلى D-005 من المرحلة (د): أسماء AI، مترجم عكسي، أسماء stdlib المعتمدة، وأثر أخطاء عربي كامل. تبقى عناصر الواجهة مثل تبويب الترجمة العكسية في الملعب وعناصر Tier 2 مخططة في ميثاق المرحلة.
 
-- **خارطة الطريق:** [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md)
+- **ميثاق المرحلة د:** [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md)
 - **دليل المساهمة:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- **حزمة جيدة للبدء:** [`specs/B-002-phase-a-compat-suite.md`](specs/B-002-phase-a-compat-suite.md)
+- **مصدر الحقيقة للمصطلحات:** [`lexicon/`](lexicon/)
 
 </div>
 
@@ -97,8 +97,10 @@ $ ثعبان -c '1 / 0'
 ثعبان -c 'اطبع("مرحبا")'         # تنفيذ سطر مباشرةً
 ثعبان - < ملف.apy                # قراءة من المدخل القياسي
 ثعبان                             # البيئة التفاعلية REPL
+ثعبان ترجمة-عكسية ملف.py          # تحويل Python إلى .apy
 ثعبان نسّق ملف.apy               # تنسيق الملف تلقائياً
 ثعبان راجع ملف.apy               # فحص الجودة وإظهار التحذيرات
+ثعبان --tracebacks=mixed ملف.apy  # أثر عربي مع رسالة Python الأصلية
 ```
 
 رموز الخروج: `0` نجاح، `1` خطأ في التشغيل أو الترجمة، `2` خطأ في الاستخدام.
@@ -132,27 +134,32 @@ $ ثعبان -c '1 / 0'
 خطأ_قسمة_صفر: القسمة على صفر
 ```
 
-38 نوع استثناء قياسي و~30 رسالة مترجمة. الأنواع غير المعروفة تمر كما هي.
+أسماء الاستثناءات تأتي من `lexicon/core.toml`، وقوالب رسائل الأثر من `lexicon/messages.toml`. الوضع الافتراضي `arabic` يترجم الاسم والرسالة، و`english` يعرض أثر Python الأصلي، و`mixed` يعرض اسم الاستثناء بالعربية مع الرسالة الإنجليزية الأصلية.
 
 ---
 
 ## الوحدات العربية — استيراد المكتبات بأسماء عربية
 
-### المكتبة القياسية (21 وحدة)
+### المكتبة القياسية (31 وحدة)
 
 | الاسم العربي | وحدة Python | الاسم العربي | وحدة Python |
 |---|---|---|---|
-| `نظام_تشغيل` | `os` | `رياضيات` | `math` |
-| `مسار_مكتبه` | `pathlib` | `احصاء` | `statistics` |
-| `نظام` | `sys` | `عشوائيات` | `random` |
+| `نظام` | `os` | `رياضيات` | `math` |
+| `مسار` | `pathlib` | `احصاء` | `statistics` |
+| `نظام_بايثون` | `sys` | `عشوائي` | `random` |
 | `مجموعات` | `collections` | `تسجيل` | `logging` |
 | `ادوات_تكرار` | `itertools` | `اتزامن` | `asyncio` |
-| `ادوات_داليه` | `functools` | `هاشلب` | `hashlib` |
-| `مكتبة_تاريخ` | `datetime` | `مجاري` | `io` |
+| `ادوات_دوال` | `functools` | `تشفير` | `hashlib` |
+| `تاريخ_وقت` | `datetime` | `ادخال_اخراج` | `io` |
 | `وقت_نظام` | `time` | `مدير_سياق` | `contextlib` |
 | `روزنامه` | `calendar` | `قاعدة_بيانات` | `sqlite3` |
-| `جيسون` | `json` | `تعابير_نمطيه` | `re` |
-| `ملفات_csv` | `csv` | | |
+| `جيسون` | `json` | `تعابير` | `re` |
+| `ملف_csv` | `csv` | `تنميط` | `typing` |
+| `خيوط` | `threading` | `مسار_نظام` | `os.path` |
+| `نصوص` | `string` | `تنسيق_نص` | `textwrap` |
+| `عملية_فرعية` | `subprocess` | `ادوات_ملفات` | `shutil` |
+| `محلل_وسائط` | `argparse` | `اسرار` | `secrets` |
+| `معرف_فريد` | `uuid` | — | — |
 
 ### علوم وبيانات (6 حزم)
 
@@ -165,7 +172,23 @@ $ ثعبان -c '1 / 0'
 | `سايباي` | `scipy` |
 | `تعلم_آلي` | `scikit-learn` |
 
-### ويب وشبكات (4 حزم)
+### الذكاء الاصطناعي (5 حزم)
+
+| الاسم العربي | حزمة Python |
+|---|---|
+| `ذكاء_مفتوح` | `openai` |
+| `كلود_عربي` | `anthropic` |
+| `سلسلة_لغه` | `langchain_core` |
+| `محولات` | `transformers` |
+| `محولات_جمل` | `sentence_transformers` |
+
+ثبّتها مع:
+
+```bash
+pip install -e ".[ai]"
+```
+
+### ويب وشبكات (6 حزم)
 
 | الاسم العربي | حزمة Python |
 |---|---|
@@ -173,6 +196,8 @@ $ ثعبان -c '1 / 0'
 | `طلبات` | `requests` |
 | `أيو_هتب` | `aiohttp` |
 | `فاست_أبي` | `fastapi` |
+| `دجانغو` | `django` |
+| `طلبات_حديثه` | `httpx` |
 
 ## طبقة الأدوات
 
@@ -180,6 +205,7 @@ $ ثعبان -c '1 / 0'
 |---|---|---|
 | **المنسِّق** | `ثعبان نسّق ملف.apy` | تنسيق تلقائي: المسافات البادئة، والتباعد، وأسلوب التعليقات |
 | **المدقِّق** | `ثعبان راجع ملف.apy` | تشخيصات: W001–W004، E001، I001 |
+| **المترجم العكسي** | `ثعبان ترجمة-عكسية ملف.py` | تحويل Python إلى لغة الثعبان اعتماداً على `Dialect.reverse_names` |
 | **نواة Jupyter** | `pip install -e ".[kernel]"` | تشغيل دفاتر `.apy` في Jupyter |
 | **امتداد VS Code** | `editors/vscode/` | إبراز صياغي لملفات `.apy` |
 | **إضافة pytest** | مُدمجة تلقائياً | اكتشاف وتشغيل ملفات اختبار `.apy` |
@@ -197,6 +223,7 @@ from arabicpython import (
     uninstall_excepthook,
     format_translated_exception,   # تنسيق مجموعة (نوع، قيمة، تتبع) بالعربية
 )
+from arabicpython.reverse import reverse_translate
 from arabicpython.formatter import format_source, format_file
 from arabicpython.linter import lint_source, Diagnostic
 ```
@@ -208,16 +235,18 @@ from arabicpython.linter import lint_source, Diagnostic
 ```
 lughat-althuban/
 ├── arabicpython/              حزمة المحوِّل
-│   ├── aliases/               تعيينات TOML (40+ وحدة)
+│   ├── aliases/               تعيينات TOML مولدة من lexicon/libraries.toml
+│   ├── reverse.py             مترجم Python → لغة الثعبان
 │   ├── formatter.py           المنسِّق التلقائي
 │   └── linter.py              محرك التدقيق والتشخيص
 ├── arabicpython_kernel/       حزمة نواة Jupyter
 ├── editors/vscode/            امتداد VS Code
 ├── tools/                     مولد القواعد النحوية وأدوات التطوير
 ├── decisions/                 سجلات قرارات المعمارية (ADRs)
-├── dictionaries/              مرجع الكلمات المفتاحية ar-v1
+├── lexicon/                   مصدر الحقيقة للمصطلحات والكلمات والرسائل
+├── dictionaries/              مخرجات القواميس المولدة
 ├── specs/                     حزم المواصفات للتنفيذ
-├── tests/                     مجموعة pytest (أكثر من 2700 نجاح)
+├── tests/                     مجموعة pytest (2926 نجاحاً في بيئة all)
 ├── examples/                  برامج .apy قابلة للتشغيل
 ├── docs/
 │   ├── ar/                    الوثائق العربية
@@ -257,12 +286,13 @@ lughat-althuban/
 
 | المرحلة | المحتوى | الحالة |
 |---|---|---|
-| 0 | قرارات التصميم (8 سجلات ADR) | ✅ مكتملة |
-| أ | اللهجة الأساسية: التجهيز المسبق، التطبيع، الترجمة، CLI، REPL، خطاف الاستيراد، رسائل الخطأ | ✅ مكتملة |
-| ب | النظام البيئي: 40+ وحدة عربية، منسِّق، مدقِّق، نواة Jupyter، VS Code، دليل تعليمي | 🟡 **مكتملة إلى حدٍّ بعيد — المساهمون مرحب بهم** |
-| ج | متقدم: خادم LSP، ملعب ويب، تكامل مدير الحزم | 📋 مخطط لها |
+| 0 | قرارات التصميم (8 سجلات ADR) | مكتملة |
+| أ | اللهجة الأساسية: التجهيز المسبق، التطبيع، الترجمة، CLI، REPL، خطاف الاستيراد، رسائل الخطأ | مكتملة |
+| ب | النظام البيئي: مكتبة قياسية ومكتبات طرف ثالث وأدوات تعليمية | مكتملة |
+| ج | طبقة التطبيقات المتقدمة: حزم البيانات، الويب، المستندات، التشغيل، التكامل | مكتملة |
+| د | AI والوصول: ملعب ويب، AI aliases، ترجمة عكسية، stdlib canonical، أثر بثلاثة أوضاع | D-002 إلى D-005 مشحونة |
 
-انظر [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
+انظر [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
@@ -279,7 +309,7 @@ lughat-althuban/
 | [ويكي المشروع](docs/wiki/index.md) | دليل شامل: الكلمات المفتاحية، المكتبات، الأدوات، الأسئلة الشائعة |
 | [دليل المساهمة](CONTRIBUTING.md) | كيفية إضافة وحدات ومساهمات الكود |
 | [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
-| [خارطة الطريق](ROADMAP-PHASE-B.md) | الحزم القادمة وحالتها |
+| [ميثاق المرحلة د](decisions/0012-phase-d-charter.md) | خطة D-001 إلى D-017 وحالة D-002 إلى D-005 |
 
 ---
 
@@ -301,7 +331,7 @@ lughat-althuban/
 
 A Python dialect where **keywords, built-ins, exceptions, and popular libraries** are all written in Arabic. `.apy` files are translated to standard Python at import time and executed by CPython — no interpreter fork, no language modification.
 
-**Status (2026-04-28)**: Phase A complete. Phase B substantially complete — **2,510 tests passing** across Python 3.11–3.13 on Ubuntu / macOS / Windows.
+**Status (2026-05-02)**: Phases A-C complete; Phase D D-002 through D-005 are shipped. Full local verification with optional extras: **2926 passed, 23 intentionally skipped** on Python 3.13.
 
 **License**: Apache-2.0.
 
@@ -313,7 +343,7 @@ A Python dialect where **keywords, built-ins, exceptions, and popular libraries*
 git clone https://github.com/GalaxyRuler/lughat-althuban
 cd lughat-althuban
 pip install -e .          # installs the ثعبان console script
-pip install -e ".[dev]"   # all optional library aliases
+pip install -e ".[all]"   # dev, kernel, aliases, and AI optional targets
 ```
 
 ---
@@ -324,6 +354,7 @@ pip install -e ".[dev]"   # all optional library aliases
 ثعبان script.apy          # run a file
 ثعبان -c 'اطبع("مرحبا")'  # inline snippet
 ثعبان                      # interactive REPL
+ثعبان ترجمة-عكسية file.py # reverse-translate Python to .apy
 ثعبان نسّق script.apy      # auto-format
 ثعبان راجع script.apy      # lint
 ```
@@ -332,8 +363,9 @@ pip install -e ".[dev]"   # all optional library aliases
 
 ## Key facts
 
-- 38 Arabic exception names · ~30 translated interpreter messages
-- 21 stdlib alias modules · 6 science/data · 4 web · 1 ML (40+ total)
+- generated lexicon source of truth for core words, aliases, messages, and docs
+- Arabic traceback modes: `arabic`, `english`, `mixed`
+- 31 stdlib alias modules · AI aliases for OpenAI, Anthropic, LangChain Core, Transformers, and Sentence Transformers
 - Formatter · Linter · Jupyter kernel · VS Code extension · pytest plugin — all ship in this repo
 - Normalization: `أ/إ/آ → ا`, final `ة → ه`, final `ى → ي`
 

@@ -1,6 +1,6 @@
 # Phase C Roadmap
 
-**Status as of 2026-04-28:** Phase B complete. Phase C not yet started — all packets open for claim.
+**Status update (2026-05-02):** Phase C is complete and Phase D Tier 1 runtime work is shipped. This file remains the historical Phase C packet map; for current Phase D work, see [decisions/0012-phase-d-charter.md](decisions/0012-phase-d-charter.md).
 
 This file is the **single visible map** of what Phase C contains, what's open for contribution, and what depends on what. To pick up work, see [CONTRIBUTING.md](CONTRIBUTING.md). To understand *why* Phase C is structured this way, see [decisions/0011-phase-c-charter.md](decisions/0011-phase-c-charter.md).
 

@@ -1,0 +1,32 @@
+# arabicpython/aliases/typing.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "تنميط"
+python_module = "typing"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"اي" = "Any"
+"اختياري" = "Optional"
+"اتحاد" = "Union"
+"قائمه" = "List"
+"قاموس" = "Dict"
+"صف" = "Tuple"
+"مجموعه" = "Set"
+"قابل_استدعاء" = "Callable"
+"نوع" = "Type"
+"حرفي" = "Literal"
+"بروتوكول" = "Protocol"
+"نهائي" = "Final"
+"مكرر" = "Iterator"
+"قابل_تكرار" = "Iterable"
+"تسلسل" = "Sequence"
+"خرائط" = "Mapping"
+"متغير_نوع" = "TypeVar"
+"اسم_نوع" = "NewType"
+
+[attributes]

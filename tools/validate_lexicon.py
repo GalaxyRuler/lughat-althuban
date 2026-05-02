@@ -10,10 +10,14 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 LEXICON_DIR = ROOT / "lexicon"
 PACKAGE_DICTIONARIES = ROOT / "arabicpython" / "dictionaries"
 ROOT_DICTIONARIES = ROOT / "dictionaries"
 ALIASES_DIR = ROOT / "arabicpython" / "aliases"
+DOCS_AR = ROOT / "docs" / "ar"
+PACKAGE_DIR = ROOT / "arabicpython"
 
 CATEGORY_HEADINGS = {
     "## 1. Control-flow keywords": "keyword",
@@ -139,17 +143,32 @@ def validate_traceback_exceptions(core: dict, errors: list[str]) -> None:
 
 
 def validate_libraries(errors: list[str]) -> None:
+    from tools.generate_lexicon_outputs import render_alias_mapping
+
     libraries = _load_toml(LEXICON_DIR / "libraries.toml")
     by_file = {item["alias_file"]: item for item in libraries.get("library", [])}
     seen_normalized: dict[str, str] = {}
     for item in libraries.get("library", []):
-        norm = _normalize(item["arabic_name"])
-        previous = seen_normalized.get(norm)
-        if previous and previous != item["python_module"]:
-            errors.append(
-                f"libraries.toml: normalized Arabic module collision for {item['arabic_name']!r}"
-            )
-        seen_normalized[norm] = item["python_module"]
+        for arabic_name in [item["arabic_name"], *item.get("arabic_aliases", [])]:
+            norm = _normalize(arabic_name)
+            previous = seen_normalized.get(norm)
+            if previous and previous != item["python_module"]:
+                errors.append(
+                    "libraries.toml: normalized Arabic module collision for "
+                    f"{arabic_name!r} between {previous!r} and {item['python_module']!r}"
+                )
+            seen_normalized[norm] = item["python_module"]
+
+        if "entries" not in item:
+            errors.append(f"{item['alias_file']}: missing [library.entries] in lexicon")
+        for section in ("entries", "attributes"):
+            for arabic_key in item.get(section, {}):
+                normalized = _normalize(arabic_key)
+                if normalized != arabic_key:
+                    errors.append(
+                        f"{item['alias_file']}: lexicon {section} key {arabic_key!r} "
+                        f"normalizes to {normalized!r}"
+                    )
 
     for path in sorted(ALIASES_DIR.glob("*.toml")):
         data = _load_toml(path)
@@ -162,6 +181,49 @@ def validate_libraries(errors: list[str]) -> None:
             errors.append(f"{path.name}: Arabic library name differs from lexicon")
         if item["python_module"] != meta.get("python_module"):
             errors.append(f"{path.name}: Python module name differs from lexicon")
+        expected = render_alias_mapping(item)
+        actual = path.read_text(encoding="utf-8")
+        if actual != expected:
+            errors.append(f"{path.name}: generated alias TOML differs from lexicon")
+
+
+def _expect_generated_file(path: Path, expected: str, errors: list[str]) -> None:
+    actual = path.read_text(encoding="utf-8") if path.exists() else ""
+    if actual != expected:
+        errors.append(f"{path.relative_to(ROOT)}: generated file differs from lexicon")
+
+
+def validate_generated_outputs(errors: list[str]) -> None:
+    from tools.generate_lexicon_outputs import (
+        GENERATED_DIALECTS,
+        _entries_by_dialect,
+        render_alias_index,
+        render_dictionary,
+        render_glossary,
+        render_messages_module,
+        render_traceback_data_module,
+        render_unified_lexicon,
+    )
+
+    entries_by_dialect = _entries_by_dialect()
+    for dialect, entries in sorted(entries_by_dialect.items()):
+        if dialect not in GENERATED_DIALECTS:
+            continue
+        expected = render_dictionary(dialect, entries)
+        _expect_generated_file(PACKAGE_DICTIONARIES / f"{dialect}.md", expected, errors)
+        _expect_generated_file(ROOT_DICTIONARIES / f"{dialect}.md", expected, errors)
+
+    _expect_generated_file(DOCS_AR / "glossary.md", render_glossary(entries_by_dialect), errors)
+    _expect_generated_file(DOCS_AR / "aliases-index.md", render_alias_index(), errors)
+    _expect_generated_file(
+        DOCS_AR / "lexicon.md", render_unified_lexicon(entries_by_dialect), errors
+    )
+    _expect_generated_file(PACKAGE_DIR / "_generated_messages.py", render_messages_module(), errors)
+    _expect_generated_file(
+        PACKAGE_DIR / "_generated_traceback_data.py",
+        render_traceback_data_module(),
+        errors,
+    )
 
 
 def validate_messages(errors: list[str]) -> None:
@@ -206,6 +268,7 @@ def validate() -> list[str]:
         validate_traceback_exceptions(core, errors)
     validate_libraries(errors)
     validate_messages(errors)
+    validate_generated_outputs(errors)
     return errors
 
 

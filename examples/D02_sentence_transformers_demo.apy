@@ -1,0 +1,5 @@
+# requires: pip install sentence-transformers
+استورد محولات_جمل
+
+اطبع("SentenceTransformer:", محولات_جمل.محول_جمل.__name__)
+اطبع("CrossEncoder:", محولات_جمل.مشفر_عابر.__name__)

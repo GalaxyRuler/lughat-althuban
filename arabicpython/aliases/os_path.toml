@@ -1,0 +1,29 @@
+# arabicpython/aliases/os_path.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "مسار_نظام"
+python_module = "os.path"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"يوجد" = "exists"
+"يكون_ملف" = "isfile"
+"يكون_مجلد" = "isdir"
+"انضم" = "join"
+"اسم_اساس" = "basename"
+"اسم_مجلد" = "dirname"
+"مطلق" = "abspath"
+"طبيعي" = "normpath"
+"وسع_مستخدم" = "expanduser"
+"وسع_متغيرات" = "expandvars"
+"قسم" = "split"
+"قسم_امتداد" = "splitext"
+"حجم" = "getsize"
+"وقت_تعديل" = "getmtime"
+"مشترك" = "commonpath"
+
+[attributes]

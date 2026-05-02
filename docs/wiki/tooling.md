@@ -81,7 +81,49 @@ from arabicpython.linter import lint_source, Diagnostic
 
 ---
 
-## 3. نواة Jupyter — `apython kernel`
+## 3. المترجم العكسي — `ثعبان ترجمة-عكسية`
+
+يحوّل ملفات Python العادية إلى مصدر `.apy` باستخدام أسماء المعجم المعتمدة. يعتمد على `Dialect.reverse_names` و`Dialect.reverse_attributes` الناتجة من `lexicon/core.toml`، ولا يملك جدول كلمات منفصلا.
+
+### الاستخدام
+
+```bash
+ثعبان ترجمة-عكسية script.py
+ثعبان ترجمة-عكسية script.py --stdout
+ثعبان ترجمة-عكسية script.py --level=3
+```
+
+| المستوى | السلوك |
+|---------|--------|
+| `1` | الكلمات المفتاحية |
+| `2` | الكلمات المفتاحية والدوال المدمجة |
+| `3` | يضيف أسماء الاستثناءات |
+
+### واجهة برمجية
+
+```python
+from arabicpython.reverse import reverse_translate
+
+مصدر = reverse_translate("print(len(items))\n", level=2)
+```
+
+---
+
+## 4. أوضاع الأثر — `--tracebacks`
+
+تأتي أسماء الاستثناءات من `lexicon/core.toml`، وتأتي قوالب الرسائل من `lexicon/messages.toml`.
+
+```bash
+ثعبان --tracebacks=arabic ملف.apy
+ثعبان --tracebacks=english ملف.apy
+ثعبان --tracebacks=mixed ملف.apy
+```
+
+يمكن ضبط الوضع أيضا عبر `PYTHONTRACEBACK`.
+
+---
+
+## 5. نواة Jupyter — `apython kernel`
 
 تتيح تشغيل ملفات `.apy` كـ notebooks في Jupyter.
 
@@ -106,13 +148,13 @@ jupyter lab         # نفس الشيء
 استورد بانداس باسم بد
 استورد سيبورن باسم رسم
 
-بيانات = جب.إطار_بيانات({"س": [1,2,3,4], "ص": [2,4,6,8]})
+بيانات = بد.اطار_بيانات({"س": [1,2,3,4], "ص": [2,4,6,8]})
 رسم.خط_بياني(data=بيانات, x="س", y="ص")
 ```
 
 ---
 
-## 4. امتداد VS Code
+## 6. امتداد VS Code
 
 يوفر تلوين الصياغة لملفات `.apy`.
 
@@ -156,6 +198,25 @@ Reports diagnostics: W001 (line too long), W002 (trailing whitespace), W003 (tab
 ```bash
 ثعبان راجع file.apy
 ```
+
+## Reverse Translator (`ثعبان ترجمة-عكسية`)
+
+Converts Python source to `.apy` using generated reverse maps from the active dialect.
+
+```bash
+ثعبان ترجمة-عكسية script.py --stdout
+ثعبان ترجمة-عكسية script.py --level=3
+```
+
+## Traceback Modes
+
+```bash
+ثعبان --tracebacks=arabic file.apy
+ثعبان --tracebacks=english file.apy
+ثعبان --tracebacks=mixed file.apy
+```
+
+Exception names come from `lexicon/core.toml`; translated message patterns come from `lexicon/messages.toml`.
 
 ## Jupyter Kernel
 

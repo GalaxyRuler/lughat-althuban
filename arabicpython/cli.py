@@ -5,6 +5,7 @@ import contextlib
 import os
 import sys
 import types
+from pathlib import Path
 
 from arabicpython import __version__
 from arabicpython.messages import ArabicArgumentParser, msg
@@ -18,6 +19,59 @@ def _configure_utf8_streams() -> None:
         if stream is not None and hasattr(stream, "reconfigure"):
             with contextlib.suppress(AttributeError, OSError, ValueError):
                 stream.reconfigure(encoding="utf-8")
+
+
+def _run_reverse_translate(argv: list[str]) -> int:
+    from arabicpython.reverse import reverse_file
+
+    parser = ArabicArgumentParser(
+        prog="ثعبان ترجمة-عكسية",
+        description="حوّل ملف Python إلى مصدر لغة الثعبان.",
+    )
+    parser.add_argument("file", metavar="FILE", help="ملف Python المراد ترجمته عكسيا.")
+    parser.add_argument("--stdout", action="store_true", help="اطبع الناتج بدلا من كتابة ملف.")
+    parser.add_argument(
+        "--level",
+        type=int,
+        choices=(1, 2, 3),
+        default=2,
+        help="مستوى الترجمة: 1 كلمات، 2 مدمجات، 3 استثناءات.",
+    )
+    parser.add_argument("--dict", dest="dict_version", default="ar-v2", help=msg("cli.dict_help"))
+
+    try:
+        args = parser.parse_args(argv)
+    except SystemExit as exc:
+        return int(exc.code)
+
+    input_path = Path(args.file)
+    try:
+        result = reverse_file(input_path, dict_version=args.dict_version, level=args.level)
+    except FileNotFoundError:
+        sys.stderr.write(f"ثعبان ترجمة-عكسية: {msg('cli.missing_file')}: {input_path}\n")
+        return 1
+    except UnicodeDecodeError as exc:
+        sys.stderr.write(f"ثعبان ترجمة-عكسية: {msg('cli.invalid_utf8')}: {exc}\n")
+        return 1
+    except Exception as exc:
+        sys.stderr.write(f"ثعبان ترجمة-عكسية: {exc}\n")
+        return 1
+
+    if args.stdout:
+        sys.stdout.write(result.source)
+        return 0
+
+    output_path = input_path.with_suffix(".apy")
+    output_path.write_text(result.source, encoding="utf-8")
+    sys.stdout.write(f"ترجمة: {input_path} → {output_path} ({result.replacements} استبدال)\n")
+    return 0
+
+
+def _effective_traceback_mode(cli_value: str | None) -> str:
+    mode = cli_value or os.environ.get("PYTHONTRACEBACK") or "arabic"
+    if mode not in {"arabic", "english", "mixed"}:
+        raise ValueError("--tracebacks must be one of: arabic, english, mixed")
+    return mode
 
 
 def main(argv: "list[str] | None" = None) -> int:
@@ -64,6 +118,9 @@ def main(argv: "list[str] | None" = None) -> int:
         lsp_main()
         return 0
 
+    if argv and argv[0] in {"ترجمة-عكسية", "ترجمه-عكسيه"}:
+        return _run_reverse_translate(argv[1:])
+
     # `ثعبان نسّق [--check] [FILE ...]` — formatter (B-055).
     if argv and argv[0] == "نسّق":
         from arabicpython.formatter import main as fmt_main
@@ -96,6 +153,12 @@ def main(argv: "list[str] | None" = None) -> int:
         default=None,
         help=msg("cli.dict_help"),
     )
+    parser.add_argument(
+        "--tracebacks",
+        choices=("arabic", "english", "mixed"),
+        default=None,
+        help="اختر لغة تتبع الأخطاء.",
+    )
     parser.add_argument("-c", dest="code", metavar="CODE", help="نفّذ نصا برمجيا مباشرا.")
     parser.add_argument("file", nargs="?", metavar="FILE", help="ملف .apy المراد تشغيله.")
     parser.add_argument("args", nargs=argparse.REMAINDER, help="معاملات تمرر إلى البرنامج.")
@@ -113,6 +176,13 @@ def main(argv: "list[str] | None" = None) -> int:
     if args.help:
         parser.print_help()
         return 0
+
+    try:
+        traceback_mode = _effective_traceback_mode(args.tracebacks)
+    except ValueError as exc:
+        sys.stderr.write(f"ثعبان: {exc}\n")
+        return 2
+    install_excepthook(traceback_mode)
 
     source: str
     original_path: str
@@ -169,7 +239,7 @@ def main(argv: "list[str] | None" = None) -> int:
         # No FILE, no -c, no '-': drop into the REPL.
         from arabicpython.repl import run_repl
 
-        return run_repl()
+        return run_repl(tracebacks=traceback_mode)
 
     # Resolve the dictionary version: --dict flag > per-file directive > default.
     # If the file has a directive and the flag is also given, they must agree;
@@ -190,23 +260,23 @@ def main(argv: "list[str] | None" = None) -> int:
     try:
         translated = translate(source, dict_version=effective_dict)
     except SyntaxError:
-        print_translated_exception(*sys.exc_info())
+        print_translated_exception(*sys.exc_info(), mode=traceback_mode)
         return 1
     except FileNotFoundError as e:
         sys.stderr.write(f"ثعبان: {msg('cli.unknown_dictionary')}: {e}\n")
         return 1
     except Exception:
-        print_translated_exception(*sys.exc_info())
+        print_translated_exception(*sys.exc_info(), mode=traceback_mode)
         return 1
 
     # Step 4: compile
     try:
         code_obj = compile(translated, original_path, "exec")
     except SyntaxError:
-        print_translated_exception(*sys.exc_info())
+        print_translated_exception(*sys.exc_info(), mode=traceback_mode)
         return 1
     except Exception:
-        print_translated_exception(*sys.exc_info())
+        print_translated_exception(*sys.exc_info(), mode=traceback_mode)
         return 1
 
     # Step 5: execute
@@ -238,7 +308,7 @@ def main(argv: "list[str] | None" = None) -> int:
         sys.stderr.write(f"{msg('cli.keyboard_interrupt')}\n")
         return 130
     except Exception:
-        print_translated_exception(*sys.exc_info())
+        print_translated_exception(*sys.exc_info(), mode=traceback_mode)
         return 1
     finally:
         sys.argv = old_argv

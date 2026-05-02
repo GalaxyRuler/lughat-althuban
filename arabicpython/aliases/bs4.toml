@@ -1,61 +1,54 @@
 # arabicpython/aliases/bs4.toml
-# C-025: Arabic aliases for Beautiful Soup parsing, tags, selectors, and strings.
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "تحليل_ويب"
-python_module  = "bs4"
-dict_version   = "ar-v1"
+arabic_name   = "تحليل_ويب"
+python_module = "bs4"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
-proxy_classes  = ["BeautifulSoup", "Tag"]
+maintainer    = "—"
+proxy_classes = ["BeautifulSoup", "Tag"]
 
 [entries]
-# Parser and element classes
-"حساء_جميل"              = "BeautifulSoup"
-"وسم"                    = "Tag"
-"نص_ملاحي"               = "NavigableString"
-"تعليق_html"             = "Comment"     # disambiguates from openpyxl.Comment
-"اعلان_نوع"              = "Doctype"
-"مصفاه_حساء"             = "SoupStrainer"
-"مجموعه_نتائج"           = "ResultSet"
-"بيانات_c"               = "CData"
-"تعليمه_معالجه"          = "ProcessingInstruction"
-
-# BeautifulSoup instance methods (ClassFactory -> InstanceProxy)
-"ابحث_حساء"              = "BeautifulSoup.find"
-"ابحث_الكل_حساء"         = "BeautifulSoup.find_all"
-"حدد_حساء"               = "BeautifulSoup.select"
-"حدد_واحد_حساء"          = "BeautifulSoup.select_one"
-"نص_حساء"                = "BeautifulSoup.get_text"
-
-# Tag instance methods (ClassFactory -> InstanceProxy)
-"ابحث_وسم"               = "Tag.find"
-"ابحث_الكل_وسم"          = "Tag.find_all"
-"حدد_وسم"                = "Tag.select"
-"حدد_واحد_وسم"           = "Tag.select_one"
-"نص_وسم"                 = "Tag.get_text"
-"فكك_وسم"                = "Tag.decompose"
-"استخرج_وسم"             = "Tag.extract"
-
-# Exceptions
-"خطا_ميزهه"              = "FeatureNotFound"
+"حساء_جميل" = "BeautifulSoup"
+"وسم" = "Tag"
+"نص_ملاحي" = "NavigableString"
+"تعليق_html" = "Comment"
+"اعلان_نوع" = "Doctype"
+"مصفاه_حساء" = "SoupStrainer"
+"مجموعه_نتائج" = "ResultSet"
+"بيانات_c" = "CData"
+"تعليمه_معالجه" = "ProcessingInstruction"
+"ابحث_حساء" = "BeautifulSoup.find"
+"ابحث_الكل_حساء" = "BeautifulSoup.find_all"
+"حدد_حساء" = "BeautifulSoup.select"
+"حدد_واحد_حساء" = "BeautifulSoup.select_one"
+"نص_حساء" = "BeautifulSoup.get_text"
+"ابحث_وسم" = "Tag.find"
+"ابحث_الكل_وسم" = "Tag.find_all"
+"حدد_وسم" = "Tag.select"
+"حدد_واحد_وسم" = "Tag.select_one"
+"نص_وسم" = "Tag.get_text"
+"فكك_وسم" = "Tag.decompose"
+"استخرج_وسم" = "Tag.extract"
+"خطا_ميزهه" = "FeatureNotFound"
 
 [attributes]
-# BeautifulSoup and Tag attributes for explicit ClassProxy use.
-"ابحث"                   = "find"
-"ابحث_الكل"              = "find_all"
-"حدد"                    = "select"
-"حدد_واحد"               = "select_one"
-"نص"                     = "text"
-"احصل_نص"                = "get_text"
-"سمات"                   = "attrs"
-"اسم"                    = "name"
-"ابناء"                  = "children"
-"محتويات"                = "contents"
-"والد"                   = "parent"
-"والدون"                 = "parents"
-"التالي_شقيق"            = "next_sibling"
-"السابق_شقيق"            = "previous_sibling"
-"فكك"                    = "decompose"
-"استخرج"                 = "extract"
-"احصل"                   = "get"
+"ابحث" = "find"
+"ابحث_الكل" = "find_all"
+"حدد" = "select"
+"حدد_واحد" = "select_one"
+"نص" = "text"
+"احصل_نص" = "get_text"
+"سمات" = "attrs"
+"اسم" = "name"
+"ابناء" = "children"
+"محتويات" = "contents"
+"والد" = "parent"
+"والدون" = "parents"
+"التالي_شقيق" = "next_sibling"
+"السابق_شقيق" = "previous_sibling"
+"فكك" = "decompose"
+"استخرج" = "extract"
+"احصل" = "get"

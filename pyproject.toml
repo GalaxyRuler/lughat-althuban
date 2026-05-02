@@ -46,6 +46,7 @@ dev = [
     "ruff>=0.6",
     "black>=24.0",
     "pre-commit>=3.7",
+    "pyreadline3>=3.5; platform_system == 'Windows'",
     "requests>=2.32",
     "flask>=3.0",
     "numpy>=1.26",
@@ -85,10 +86,18 @@ aliases = [
     "playwright>=1.44",
     "beautifulsoup4>=4.12",
 ]
+ai = [
+    "anthropic>=0.25",
+    "openai>=1.30",
+    "langchain-core>=0.2",
+    "transformers>=4.40",
+    "sentence-transformers>=3.0",
+]
 all = [
     "lughat-althuban[dev]",
     "lughat-althuban[kernel]",
     "lughat-althuban[aliases]",
+    "lughat-althuban[ai]",
 ]
 
 [project.scripts]

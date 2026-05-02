@@ -1,11 +1,6 @@
 # arabicpython/aliases/textwrap.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `textwrap` standard-library module.
-# Normalization:
-#   أ/إ/آ → ا  anywhere
-#   final ة → ه
-#   final ى → ي
 
 [meta]
 arabic_name   = "تنسيق_نص"
@@ -15,16 +10,13 @@ schema_version = 1
 maintainer    = "—"
 
 [entries]
-# ── Module-level functions ────────────────────────────────────────────────────
-"التف"                  = "wrap"
-"امل"                   = "fill"
-"اختصر"                 = "shorten"
-"ازل_مسافه"             = "dedent"
-"اضف_بادئه"             = "indent"
+"التف" = "wrap"
+"امل" = "fill"
+"اختصر" = "shorten"
+"ازل_مسافه" = "dedent"
+"اضف_بادئه" = "indent"
+"ملتف_نص" = "TextWrapper"
+"التف_كائن" = "TextWrapper.wrap"
+"امل_كائن" = "TextWrapper.fill"
 
-# ── Module-level class ────────────────────────────────────────────────────────
-"ملتف_نص"               = "TextWrapper"
-
-# ── TextWrapper unbound methods ───────────────────────────────────────────────
-"التف_كائن"             = "TextWrapper.wrap"
-"امل_كائن"              = "TextWrapper.fill"
+[attributes]

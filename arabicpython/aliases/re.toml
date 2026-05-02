@@ -1,66 +1,48 @@
 # arabicpython/aliases/re.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `re` standard-library module.
-# Normalization:
-#   أ/إ/آ → ا  anywhere
-#   final ة → ه
-#   final ى → ي
-#
-# Dotted-path entries resolve unbound methods:
-#   "Pattern.search" → re.Pattern.search  (call with compiled pattern as first arg)
-#   "Match.group"    → re.Match.group     (call with match object as first arg)
-#
-# Note: re.PatternError was added in Python 3.13 as an alias for re.error.
-#   We map خطا_نمط → error (available in all versions).
 
 [meta]
-arabic_name   = "تعابير_نمطيه"
+arabic_name   = "تعابير"
 python_module = "re"
 dict_version  = "ar-v1"
 schema_version = 1
 maintainer    = "—"
+arabic_aliases = ["تعابير_نمطيه"]
 
 [entries]
-# ── Module-level search/match functions ──────────────────────────────────────
-"بحث"                   = "search"
-"طابق"                  = "match"
-"طابق_كامل"             = "fullmatch"
-"ابحث_الكل"             = "findall"
-"ابحث_مكرر"             = "finditer"
-"قسم"                   = "split"
-"عوض"                   = "sub"
-"عوض_عدد"               = "subn"
-"هرب"                   = "escape"
-"رجم"                   = "compile"
+"بحث" = "search"
+"طابق" = "match"
+"طابق_كامل" = "fullmatch"
+"ابحث_الكل" = "findall"
+"ابحث_مكرر" = "finditer"
+"قسم" = "split"
+"عوض" = "sub"
+"عوض_عدد" = "subn"
+"هرب" = "escape"
+"رجم" = "compile"
+"نمط" = "Pattern"
+"نتيجة_بحث" = "Match"
+"خطا_نمط" = "error"
+"تجاهل_حاله" = "IGNORECASE"
+"متعدد_اسطر" = "MULTILINE"
+"نقطة_للكل" = "DOTALL"
+"مطول" = "VERBOSE"
+"يونيكود" = "UNICODE"
+"اسكي" = "ASCII"
+"بحث_نمط" = "Pattern.search"
+"طابق_نمط" = "Pattern.match"
+"طابق_كامل_نمط" = "Pattern.fullmatch"
+"ابحث_الكل_نمط" = "Pattern.findall"
+"ابحث_مكرر_نمط" = "Pattern.finditer"
+"قسم_نمط" = "Pattern.split"
+"عوض_نمط" = "Pattern.sub"
+"عوض_عدد_نمط" = "Pattern.subn"
+"مجموعه" = "Match.group"
+"مجموعات" = "Match.groups"
+"قاموس_مجموعات" = "Match.groupdict"
+"بدايه" = "Match.start"
+"نهايه" = "Match.end"
+"نطاق" = "Match.span"
 
-# ── Module-level classes ──────────────────────────────────────────────────────
-"نمط"                   = "Pattern"
-"نتيجة_بحث"             = "Match"
-"خطا_نمط"               = "error"
-
-# ── Module-level flags (constants) ───────────────────────────────────────────
-"تجاهل_حاله"            = "IGNORECASE"
-"متعدد_اسطر"            = "MULTILINE"
-"نقطة_للكل"             = "DOTALL"
-"مطول"                  = "VERBOSE"
-"يونيكود"               = "UNICODE"
-"اسكي"                  = "ASCII"
-
-# ── Pattern unbound methods ───────────────────────────────────────────────────
-"بحث_نمط"               = "Pattern.search"
-"طابق_نمط"              = "Pattern.match"
-"طابق_كامل_نمط"         = "Pattern.fullmatch"
-"ابحث_الكل_نمط"         = "Pattern.findall"
-"ابحث_مكرر_نمط"         = "Pattern.finditer"
-"قسم_نمط"               = "Pattern.split"
-"عوض_نمط"               = "Pattern.sub"
-"عوض_عدد_نمط"           = "Pattern.subn"
-
-# ── Match unbound methods ─────────────────────────────────────────────────────
-"مجموعه"                = "Match.group"
-"مجموعات"               = "Match.groups"
-"قاموس_مجموعات"         = "Match.groupdict"
-"بدايه"                 = "Match.start"
-"نهايه"                 = "Match.end"
-"نطاق"                  = "Match.span"
+[attributes]

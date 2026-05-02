@@ -23,7 +23,52 @@
     },
     "libraries": {
       "type": "object",
-      "required": ["meta", "library"]
+      "required": ["meta", "library"],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "required": ["version"]
+        },
+        "library": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "python_module",
+              "arabic_name",
+              "alias_file",
+              "group",
+              "entries"
+            ],
+            "properties": {
+              "python_module": { "type": "string" },
+              "arabic_name": { "type": "string" },
+              "alias_file": { "type": "string" },
+              "group": { "type": "string" },
+              "dict_version": { "type": "string" },
+              "schema_version": { "type": "integer" },
+              "maintainer": { "type": "string" },
+              "optional_extra": { "type": "string" },
+              "arabic_aliases": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "proxy_classes": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "entries": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              },
+              "attributes": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
     },
     "messages": {
       "type": "object"

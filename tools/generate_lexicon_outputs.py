@@ -12,8 +12,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LEXICON_DIR = ROOT / "lexicon"
 PACKAGE_DICTIONARIES = ROOT / "arabicpython" / "dictionaries"
+PACKAGE_DIR = ROOT / "arabicpython"
 ROOT_DICTIONARIES = ROOT / "dictionaries"
 DOCS_AR = ROOT / "docs" / "ar"
+ALIASES_DIR = ROOT / "arabicpython" / "aliases"
 
 CATEGORY_ORDER = [
     ("keyword", "## 1. Control-flow keywords"),
@@ -39,6 +41,14 @@ GENERATED_DIALECTS = {"ar-v1.1", "ar-v2"}
 def _load_toml(path: Path) -> dict:
     with path.open("rb") as f:
         return tomllib.load(f)
+
+
+def _quote_toml(value: str) -> str:
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def _quote_toml_list(values: list[str]) -> str:
+    return "[" + ", ".join(_quote_toml(value) for value in values) + "]"
 
 
 def _entries_by_dialect() -> dict[str, list[dict]]:
@@ -128,6 +138,114 @@ def render_alias_index() -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def render_alias_mapping(library: dict) -> str:
+    """Render one runtime alias TOML from its canonical lexicon entry."""
+    lines = [
+        f"# arabicpython/aliases/{library['alias_file']}",
+        "# Generated from lexicon/libraries.toml. Do not edit by hand.",
+        "# Schema version: 1",
+        "",
+        "[meta]",
+        f"arabic_name   = {_quote_toml(library['arabic_name'])}",
+        f"python_module = {_quote_toml(library['python_module'])}",
+        f"dict_version  = {_quote_toml(library.get('dict_version', 'ar-v1'))}",
+        f"schema_version = {int(library.get('schema_version', 1))}",
+    ]
+    maintainer = library.get("maintainer")
+    if maintainer is not None:
+        lines.append(f"maintainer    = {_quote_toml(str(maintainer))}")
+
+    aliases = library.get("arabic_aliases", [])
+    if aliases:
+        lines.append(f"arabic_aliases = {_quote_toml_list(aliases)}")
+
+    proxy_classes = library.get("proxy_classes", [])
+    if proxy_classes:
+        lines.append(f"proxy_classes = {_quote_toml_list(proxy_classes)}")
+
+    lines.extend(["", "[entries]"])
+    for arabic_key, python_attr in library.get("entries", {}).items():
+        lines.append(f"{_quote_toml(arabic_key)} = {_quote_toml(python_attr)}")
+
+    lines.extend(["", "[attributes]"])
+    for arabic_key, python_attr in library.get("attributes", {}).items():
+        lines.append(f"{_quote_toml(arabic_key)} = {_quote_toml(python_attr)}")
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_alias_mappings() -> dict[Path, str]:
+    data = _load_toml(LEXICON_DIR / "libraries.toml")
+    return {
+        ALIASES_DIR / library["alias_file"]: render_alias_mapping(library)
+        for library in data.get("library", [])
+    }
+
+
+def _message_entries() -> dict[str, str]:
+    data = _load_toml(LEXICON_DIR / "messages.toml")
+    return {
+        f"{section}.{key}": value
+        for section, values in data.items()
+        if isinstance(values, dict)
+        for key, value in values.items()
+    }
+
+
+def render_messages_module() -> str:
+    entries = _message_entries()
+    lines = [
+        '"""Generated Arabic user-facing message data."""',
+        "",
+        "# Generated from lexicon/messages.toml. Do not edit by hand.",
+        "# fmt: off",
+        "# ruff: noqa: E501",
+        "",
+        "MESSAGES: dict[str, str] = {",
+    ]
+    for key in sorted(entries):
+        lines.append(f"    {key!r}: {entries[key]!r},")
+    lines.extend(["}", ""])
+    return "\n".join(lines)
+
+
+def render_traceback_data_module() -> str:
+    data = _load_toml(LEXICON_DIR / "messages.toml")
+    exceptions = data.get("traceback_exception", [])
+    patterns = data.get("traceback_pattern", [])
+    lines = [
+        '"""Generated Arabic traceback localization data."""',
+        "",
+        "# Generated from lexicon/messages.toml. Do not edit by hand.",
+        "# fmt: off",
+        "# ruff: noqa: E501",
+        "",
+        "import re",
+        "",
+        "EXCEPTION_NAMES_AR: dict[str, str] = {",
+    ]
+    for item in exceptions:
+        lines.append(f"    {item['python']!r}: {item['arabic']!r},")
+    lines.extend(
+        [
+            "}",
+            "",
+            "_MSG_PATTERNS: list[tuple[re.Pattern[str], str]] = [",
+        ]
+    )
+    for item in patterns:
+        lines.append(f"    (re.compile({item['pattern']!r}), {item['template']!r}),")
+    lines.extend(
+        [
+            "]",
+            "",
+            "MESSAGE_TEMPLATES_AR = _MSG_PATTERNS",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def _libraries_by_group(data: dict) -> dict[str, list[dict]]:
     grouped: dict[str, list[dict]] = defaultdict(list)
     for library in data.get("library", []):
@@ -143,6 +261,7 @@ def _render_library_tables(grouped: dict[str, list[dict]], *, heading_level: int
         "testing": "الاختبار",
         "documents": "المستندات",
         "media": "الوسائط",
+        "ai": "الذكاء الاصطناعي",
         "third_party": "حزم أخرى",
     }
     lines: list[str] = []
@@ -249,6 +368,18 @@ def generate(*, check: bool = False) -> int:
     changed |= _write_or_check(DOCS_AR / "aliases-index.md", render_alias_index(), check=check)
     changed |= _write_or_check(
         DOCS_AR / "lexicon.md", render_unified_lexicon(entries_by_dialect), check=check
+    )
+
+    for path, content in sorted(render_alias_mappings().items()):
+        changed |= _write_or_check(path, content, check=check)
+
+    changed |= _write_or_check(
+        PACKAGE_DIR / "_generated_messages.py", render_messages_module(), check=check
+    )
+    changed |= _write_or_check(
+        PACKAGE_DIR / "_generated_traceback_data.py",
+        render_traceback_data_module(),
+        check=check,
     )
 
     if check and changed:

@@ -1,52 +1,36 @@
 # arabicpython/aliases/random.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `random` standard-library module.
-# Normalization:
-#   أ/إ/آ → ا  anywhere
-#   final ة → ه
-#   final ى → ي
-#
-# Note: `حاله` (case) is a reserved keyword in the Arabic dialect (match/case).
-# We use `احضر_حاله` (get state) and `ضبط_حاله` (set state) instead.
 
 [meta]
-arabic_name   = "عشوائيات"
+arabic_name   = "عشوائي"
 python_module = "random"
 dict_version  = "ar-v1"
 schema_version = 1
 maintainer    = "—"
+arabic_aliases = ["عشوائيات"]
 
 [entries]
-# ── Core random float ─────────────────────────────────────────────────────────
-"عشوائي"                = "random"
-"موحد"                  = "uniform"
-"مثلثي"                 = "triangular"
+"عشوائي" = "random"
+"موحد" = "uniform"
+"مثلثي" = "triangular"
+"عدد_عشوائي" = "randint"
+"نطاق_عشوائي" = "randrange"
+"بتات_عشوائيه" = "getrandbits"
+"بايتات_عشوائيه_عدد" = "randbytes"
+"اختر" = "choice"
+"اختر_عده" = "choices"
+"عينه" = "sample"
+"خلط" = "shuffle"
+"اعتدالي" = "gauss"
+"طبيعي" = "normalvariate"
+"اسي_عشوائي" = "expovariate"
+"تقريبي_اعتدالي" = "lognormvariate"
+"بيتا_عشوائي" = "betavariate"
+"غاما_عشوائي" = "gammavariate"
+"ابذر" = "seed"
+"احضر_حاله" = "getstate"
+"ضبط_حاله" = "setstate"
+"عشوائي_نظام" = "SystemRandom"
 
-# ── Integer random ────────────────────────────────────────────────────────────
-"عدد_عشوائي"            = "randint"
-"نطاق_عشوائي"           = "randrange"
-"بتات_عشوائيه"          = "getrandbits"
-"بايتات_عشوائيه_عدد"    = "randbytes"
-
-# ── Sequence operations ───────────────────────────────────────────────────────
-"اختر"                  = "choice"
-"اختر_عده"              = "choices"
-"عينه"                  = "sample"
-"خلط"                   = "shuffle"
-
-# ── Distributions ────────────────────────────────────────────────────────────
-"اعتدالي"               = "gauss"
-"طبيعي"                 = "normalvariate"
-"اسي_عشوائي"            = "expovariate"
-"تقريبي_اعتدالي"        = "lognormvariate"
-"بيتا_عشوائي"           = "betavariate"
-"غاما_عشوائي"           = "gammavariate"
-
-# ── Seed / state ─────────────────────────────────────────────────────────────
-"ابذر"                  = "seed"
-"احضر_حاله"             = "getstate"
-"ضبط_حاله"              = "setstate"
-
-# ── Classes ───────────────────────────────────────────────────────────────────
-"عشوائي_نظام"           = "SystemRandom"
+[attributes]

@@ -67,6 +67,12 @@
 | C-026 | aliases-pyjwt-v1 | C (auth) | — | delivered |
 | C-030 | dictionary-v2 | C (dictionary) | — | delivered |
 | C-040 | integration-demo-v1 | C (validation) | — | delivered |
+| D-001 | web-playground | D (reach) | — | shipped |
+| D-002 | ai-aliases | D (AI aliases) | Codex | shipped |
+| D-003 | reverse-translator | D (tooling) | Codex | shipped CLI/API |
+| D-004 | stdlib-aliases-charter | D (stdlib) | Codex | shipped |
+| D-005 | traceback-localization | D (tracebacks) | Codex | shipped |
+| D-011 | ai-optional-extra | D (packaging) | Codex | shipped |
 
 ## Legend
 
@@ -80,4 +86,8 @@ For Phase B's 28-packet roadmap with status, dependencies, and contributor onram
 
 ## Phase C map
 
-For Phase C's 20-packet roadmap with status, dependencies, and contributor onramps, see [`ROADMAP-PHASE-C.md`](../ROADMAP-PHASE-C.md) at the repo root. The charter is at [`decisions/0011-phase-c-charter.md`](0011-phase-c-charter.md).
+For Phase C's 20-packet roadmap with status, dependencies, and contributor onramps, see [`ROADMAP-PHASE-C.md`](../ROADMAP-PHASE-C.md) at the repo root. The charter is at [`decisions/0011-phase-c-charter.md`](../decisions/0011-phase-c-charter.md).
+
+## Phase D map
+
+For Phase D's AI and reach charter, see [`decisions/0012-phase-d-charter.md`](../decisions/0012-phase-d-charter.md). D-002 through D-005 were implemented with `lexicon/` as the single source of truth for Arabic-authored words and generated runtime/docs outputs.

@@ -1,14 +1,6 @@
 # arabicpython/aliases/statistics.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `statistics` standard-library module.
-# Normalization:
-#   أ/إ/آ → ا  anywhere
-#   final ة → ه
-#   final ى → ي
-#
-# Note: statistics exposes many private implementation names (Counter, Decimal,
-# etc. imported from other modules). Only the public API is mapped here.
 
 [meta]
 arabic_name   = "احصاء"
@@ -18,33 +10,26 @@ schema_version = 1
 maintainer    = "—"
 
 [entries]
-# ── Central tendency ──────────────────────────────────────────────────────────
-"وسط"                   = "mean"
-"وسط_دقيق"              = "fmean"
-"وسط_هندسي"             = "geometric_mean"
-"وسط_توافقي"            = "harmonic_mean"
-"وسيط"                  = "median"
-"وسيط_ادني"             = "median_low"
-"وسيط_اعلي"             = "median_high"
-"وسيط_مجمع"             = "median_grouped"
-"منوال"                 = "mode"
-"منوالات"               = "multimode"
+"وسط" = "mean"
+"وسط_دقيق" = "fmean"
+"وسط_هندسي" = "geometric_mean"
+"وسط_توافقي" = "harmonic_mean"
+"وسيط" = "median"
+"وسيط_ادني" = "median_low"
+"وسيط_اعلي" = "median_high"
+"وسيط_مجمع" = "median_grouped"
+"منوال" = "mode"
+"منوالات" = "multimode"
+"انحراف" = "stdev"
+"تباين" = "variance"
+"انحراف_سكاني" = "pstdev"
+"تباين_سكاني" = "pvariance"
+"تغاير" = "covariance"
+"ارتباط" = "correlation"
+"انحدار_خطي" = "linear_regression"
+"كميات" = "quantiles"
+"توزيع_طبيعي" = "NormalDist"
+"نتيجة_انحدار" = "LinearRegression"
+"خطا_احصائي" = "StatisticsError"
 
-# ── Spread / dispersion ───────────────────────────────────────────────────────
-"انحراف"                = "stdev"
-"تباين"                 = "variance"
-"انحراف_سكاني"          = "pstdev"
-"تباين_سكاني"           = "pvariance"
-
-# ── Relation between two datasets ────────────────────────────────────────────
-"تغاير"                 = "covariance"
-"ارتباط"                = "correlation"
-"انحدار_خطي"            = "linear_regression"
-
-# ── Distribution / sampling ───────────────────────────────────────────────────
-"كميات"                 = "quantiles"
-
-# ── Classes ───────────────────────────────────────────────────────────────────
-"توزيع_طبيعي"           = "NormalDist"
-"نتيجة_انحدار"          = "LinearRegression"
-"خطا_احصائي"            = "StatisticsError"
+[attributes]
