@@ -1149,13 +1149,13 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
 const EXAMPLES = [
   // ═══════════════ المبتدئ ═══════════════
   {
-    tier: 1, tag: "مبتدئ", title: "مرحبا بالعالم",
+    id: "hello", tier: 1, tag: "مبتدئ", title: "مرحبا بالعالم",
     code: `اطبع("مرحبا بالعالم!")
 اطبع("أهلاً بك في لغة الثعبان 🐍")
 اطبع("Python بالعربية الكاملة")`
   },
   {
-    tier: 1, tag: "مبتدئ", title: "متغيرات وحساب",
+    id: "variables", tier: 1, tag: "مبتدئ", title: "متغيرات وحساب",
     code: `الطول = ١٠
 العرض = ٥
 المساحة = الطول * العرض
@@ -1167,7 +1167,7 @@ const EXAMPLES = [
 اطبع("المحيط:", المحيط)`
   },
   {
-    tier: 1, tag: "مبتدئ", title: "شرط بسيط",
+    id: "condition", tier: 1, tag: "مبتدئ", title: "شرط بسيط",
     code: `العمر = ١٨
 
 اذا العمر >= ١٨:
@@ -1178,7 +1178,7 @@ const EXAMPLES = [
 اطبع("عمرك:", العمر، "سنة")`
   },
   {
-    tier: 1, tag: "مبتدئ", title: "العد التنازلي",
+    id: "countdown", tier: 1, tag: "مبتدئ", title: "العد التنازلي",
     code: `اطبع("العد التنازلي للإطلاق:")
 اطبع()
 
@@ -1189,7 +1189,7 @@ const EXAMPLES = [
 اطبع("🚀 انطلق!")`
   },
   {
-    tier: 1, tag: "مبتدئ", title: "قائمة فواكه",
+    id: "fruit-list", tier: 1, tag: "مبتدئ", title: "قائمة فواكه",
     code: `الفواكه = ["تفاح"، "موز"، "برتقال"، "عنب"، "مانجو"]
 
 اطبع("قائمة الفواكه:")
@@ -1202,7 +1202,7 @@ const EXAMPLES = [
 اطبع("الأخيرة:", الفواكه[-١])`
   },
   {
-    tier: 1, tag: "مبتدئ", title: "جدول الضرب",
+    id: "multiplication-table", tier: 1, tag: "مبتدئ", title: "جدول الضرب",
     code: `الرقم = ٧
 
 اطبع("جدول الضرب لـ", الرقم)
@@ -1215,7 +1215,7 @@ const EXAMPLES = [
 
   // ═══════════════ المتوسط ═══════════════
   {
-    tier: 2, tag: "متوسط", title: "دالة بسيطة",
+    id: "function", tier: 2, tag: "متوسط", title: "دالة بسيطة",
     code: `دالة مرحبا(اسم):
     ارجع "مرحبا يا " + اسم
 
@@ -1225,7 +1225,7 @@ const EXAMPLES = [
 اطبع(مرحبا("نور"))`
   },
   {
-    tier: 2, tag: "متوسط", title: "متوسط الدرجات",
+    id: "grades-average", tier: 2, tag: "متوسط", title: "متوسط الدرجات",
     code: `الدرجات = [٨٥، ٩٢، ٧٨، ٩٥، ٨٨، ٧٦، ٩٠]
 
 المجموع = مجموع(الدرجات)
@@ -1240,7 +1240,7 @@ const EXAMPLES = [
 اطبع("الأدنى:", الاصغر(الدرجات))`
   },
   {
-    tier: 2, tag: "متوسط", title: "القاموس",
+    id: "dictionary", tier: 2, tag: "متوسط", title: "القاموس",
     code: `الطالب = {
     "اسم": "أحمد"،
     "عمر": ٢٠،
@@ -1254,7 +1254,7 @@ const EXAMPLES = [
     اطبع(" ", المفتاح، ":", الطالب[المفتاح])`
   },
   {
-    tier: 2, tag: "متوسط", title: "فيز-باز",
+    id: "fizzbuzz", tier: 2, tag: "متوسط", title: "فيز-باز",
     code: `# لعبة الأرقام الكلاسيكية
 لكل عدد في نطاق(١، ١٦):
     اذا عدد % ١٥ == ٠:
@@ -1267,7 +1267,7 @@ const EXAMPLES = [
         اطبع(عدد)`
   },
   {
-    tier: 2, tag: "متوسط", title: "معالجة الأخطاء",
+    id: "safe-division", tier: 2, tag: "متوسط", title: "معالجة الأخطاء",
     code: `دالة قسمة_آمنة(أ، ب):
     حاول:
         ارجع أ / ب
@@ -1280,7 +1280,7 @@ const EXAMPLES = [
 اطبع("١٠٠ ÷ ٥ =", قسمة_آمنة(١٠٠، ٥))`
   },
   {
-    tier: 2, tag: "متوسط", title: "مدركات القائمة",
+    id: "list-comprehension", tier: 2, tag: "متوسط", title: "مدركات القائمة",
     code: `# مربعات الأعداد من ١ إلى ١٠
 المربعات = [س * س لكل س في نطاق(١، ١١)]
 اطبع("المربعات:", المربعات)
@@ -1295,7 +1295,7 @@ const EXAMPLES = [
 
   // ═══════════════ المتقدم ═══════════════
   {
-    tier: 3, tag: "متقدم", title: "فيبوناتشي",
+    id: "fibonacci", tier: 3, tag: "متقدم", title: "فيبوناتشي",
     code: `دالة فيبوناتشي(ن):
     اذا ن <= ١:
         ارجع ن
@@ -1307,7 +1307,7 @@ const EXAMPLES = [
     اطبع(ت"  العنصر رقم {ي} = {فيبوناتشي(ي)}")`
   },
   {
-    tier: 3, tag: "متقدم", title: "صنف وكائن",
+    id: "class-object", tier: 3, tag: "متقدم", title: "صنف وكائن",
     code: `صنف حيوان:
     دالة __init__(ذات، اسم، صوت):
         ذات.اسم = اسم
@@ -1326,7 +1326,7 @@ const EXAMPLES = [
     ح.ينطق()`
   },
   {
-    tier: 3, tag: "متقدم", title: "الميراث",
+    id: "inheritance", tier: 3, tag: "متقدم", title: "الميراث",
     code: `صنف شكل:
     دالة __init__(ذات، اسم):
         ذات.اسم = اسم
@@ -1354,7 +1354,7 @@ const EXAMPLES = [
     اطبع(" ", ش.اسم، "→ المساحة:", ش.المساحة())`
   },
   {
-    tier: 3, tag: "متقدم", title: "فرز فقاعي",
+    id: "bubble-sort", tier: 3, tag: "متقدم", title: "فرز فقاعي",
     code: `دالة فرز_فقاعي(الارقام):
     ن = طول(الارقام)
     لكل ي في نطاق(ن):
@@ -1370,7 +1370,7 @@ const EXAMPLES = [
 اطبع("بعد الفرز:", المفروزة)`
   },
   {
-    tier: 3, tag: "متقدم", title: "الأعداد الأولية",
+    id: "prime-numbers", tier: 3, tag: "متقدم", title: "الأعداد الأولية",
     code: `دالة عدد_اولي(ن):
     اذا ن < ٢:
         ارجع خطأ
@@ -1389,7 +1389,7 @@ const EXAMPLES = [
 اطبع("العدد الكلي:", طول(الاوليات))`
   },
   {
-    tier: 3, tag: "متقدم", title: "آلة حاسبة",
+    id: "calculator", tier: 3, tag: "متقدم", title: "آلة حاسبة",
     code: `دالة احسب(أ، ب، عملية):
     اذا عملية == "+":
         ارجع أ + ب
@@ -1410,6 +1410,83 @@ const EXAMPLES = [
 اطبع("١٠ ÷ ٥ =", احسب(١٠، ٥، "/"))
 اطبع("١٠ ÷ ٠ =", احسب(١٠، ٠، "/"))`
   },
+
+  // ═══════════════ المرحلة د ═══════════════
+  {
+    id: "phase-d-overview", tier: 4, tag: "مرحلة د", title: "ملخص إضافات المرحلة د",
+    code: `الإضافات = [
+    "مصدر حقيقة واحد في lexicon/",
+    "أسماء AI عربية",
+    "مترجم عكسي من Python إلى .apy",
+    "أسماء stdlib معتمدة",
+    "أثر أخطاء بثلاثة أوضاع",
+]
+
+اطبع("ما الجديد في المرحلة د:")
+لكل بند في الإضافات:
+    اطبع(" -", بند)`
+  },
+  {
+    id: "stdlib-canonical-names", tier: 4, tag: "مرحلة د", title: "أسماء stdlib المعتمدة",
+    code: `وحدات = {
+    "نظام": "os",
+    "مسار": "pathlib",
+    "نظام_بايثون": "sys",
+    "جيسون": "json",
+    "تعابير": "re",
+    "تنميط": "typing",
+    "خيوط": "threading",
+}
+
+اطبع("أمثلة من أسماء المكتبة القياسية:")
+لكل عربي، بايثون في وحدات.عناصر():
+    اطبع(ت"{عربي:>14}  ←  {بايثون}")`
+  },
+  {
+    id: "ai-alias-names", tier: 4, tag: "مرحلة د", title: "أسماء AI العربية",
+    code: `حزم_ai = [
+    ("ذكاء_مفتوح", "openai"),
+    ("كلود_عربي", "anthropic"),
+    ("سلسلة_لغه", "langchain_core"),
+    ("محولات", "transformers"),
+    ("محولات_جمل", "sentence_transformers"),
+]
+
+اطبع("أسماء حزم الذكاء الاصطناعي:")
+لكل عربي، بايثون في حزم_ai:
+    اطبع(ت"{عربي} = {بايثون}")`
+  },
+  {
+    id: "reverse-translation-preview", tier: 4, tag: "مرحلة د", title: "فكرة الترجمة العكسية",
+    code: `مصدر_بايثون = """
+for item in range(3):
+    print(item)
+"""
+
+مصدر_الثعبان = """
+لكل عنصر في نطاق(٣):
+    اطبع(عنصر)
+"""
+
+اطبع("Python:")
+اطبع(مصدر_بايثون)
+اطبع("لغة الثعبان:")
+اطبع(مصدر_الثعبان)
+اطبع("محليا: ثعبان ترجمة-عكسية script.py --stdout")`
+  },
+  {
+    id: "arabic-error-handling", tier: 4, tag: "مرحلة د", title: "استثناء عربي واضح",
+    code: `دالة عدد_موجب(ن):
+    اذا ن <= ٠:
+        ارفع خطأ_قيمة("نحتاج عددا موجبا")
+    ارجع ن
+
+لكل قيمة في [٣، ١، ٠]:
+    حاول:
+        اطبع("القيمة:", عدد_موجب(قيمة))
+    استثناء خطأ_قيمة باسم السبب:
+        اطبع("تم التقاط الخطأ:", السبب)`
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────
@@ -1429,8 +1506,23 @@ const exList    = document.getElementById("example-list");
 //  Populate examples sidebar
 // ─────────────────────────────────────────────────────────────────
 let activeExBtn = null;
-const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم" };
+const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د" };
 let lastTier = null;
+const requestedExample = new URLSearchParams(window.location.search).get("example");
+let initialExample = null;
+
+function selectExample(ex, btn, updateUrl = true) {
+  editorEl.value = ex.code;
+  if (activeExBtn) activeExBtn.classList.remove("active");
+  btn.classList.add("active");
+  activeExBtn = btn;
+  if (updateUrl && ex.id) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("example", ex.id);
+    window.history.replaceState(null, "", url);
+  }
+  editorEl.focus();
+}
 
 EXAMPLES.forEach((ex, idx) => {
   // Insert a section header when the tier changes
@@ -1445,17 +1537,17 @@ EXAMPLES.forEach((ex, idx) => {
   const btn = document.createElement("button");
   btn.className = "example-btn";
   btn.dataset.tier = ex.tier;
+  btn.dataset.example = ex.id || String(idx);
   btn.innerHTML = `<span class="ex-tag">${ex.tag}</span>${ex.title}`;
-  btn.addEventListener("click", () => {
-    editorEl.value = ex.code;
-    if (activeExBtn) activeExBtn.classList.remove("active");
-    btn.classList.add("active");
-    activeExBtn = btn;
-    editorEl.focus();
-  });
+  btn.addEventListener("click", () => selectExample(ex, btn));
   exList.appendChild(btn);
-  if (idx === 0) btn.click(); // load first example by default
+  if (idx === 0) initialExample = { ex, btn };
+  if (requestedExample && (requestedExample === ex.id || requestedExample === String(idx))) {
+    initialExample = { ex, btn };
+  }
 });
+
+if (initialExample) selectExample(initialExample.ex, initialExample.btn, Boolean(requestedExample));
 
 // ─────────────────────────────────────────────────────────────────
 //  Status helpers

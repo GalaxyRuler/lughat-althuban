@@ -72,6 +72,7 @@
 | D-003 | reverse-translator | D (tooling) | Codex | shipped CLI/API |
 | D-004 | stdlib-aliases-charter | D (stdlib) | Codex | shipped |
 | D-005 | traceback-localization | D (tracebacks) | Codex | shipped |
+| D-010 | example-gallery-page | D (reach) | Codex | shipped |
 | D-011 | ai-optional-extra | D (packaging) | Codex | shipped |
 
 ## Legend

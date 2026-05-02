@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `ادوات_دوال`→`functools`, `تنميط`→`typing`, `خيوط`→`threading`,
     and `مسار_نظام`→`os.path`.
   - Traceback localization modes: `arabic`, `english`, and `mixed`.
+- GitHub Pages example gallery with direct playground links for browser-safe
+  examples and source links for stdlib, AI, reverse-translation, and larger
+  local demos.
 
 ### Changed
 
