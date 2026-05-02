@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ملعب لغة الثعبان — Python بالعربية</title>
+  <title>ملعب لغة الثعبان — البرمجة العربية</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
@@ -30,6 +30,7 @@
     }
 
     html, body { height: 100%; background: var(--bg); color: var(--text); }
+    [hidden] { display: none !important; }
     body {
       font-family: 'Cairo', system-ui, sans-serif;
       display: flex;
@@ -159,6 +160,8 @@
     .example-btn[data-tier="1"] .ex-tag { color: var(--green); }
     .example-btn[data-tier="2"] .ex-tag { color: var(--yellow); }
     .example-btn[data-tier="3"] .ex-tag { color: var(--red); }
+    .example-btn[data-tier="4"] .ex-tag { color: var(--accent-h); }
+    .example-btn[data-tier="5"] .ex-tag { color: var(--green); }
     .examples-section-header {
       font-size: 0.7rem;
       font-weight: 700;
@@ -245,6 +248,215 @@
       border-left: 1px solid var(--border);
       min-width: 0;
     }
+    #stdin-panel {
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    #stdin-panel label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    #stdin-input {
+      width: 100%;
+      min-height: 86px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #010409;
+      color: var(--text);
+      padding: 0.65rem 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      line-height: 1.55;
+      direction: rtl;
+      text-align: right;
+      outline: none;
+    }
+    #stdin-input:focus { border-color: var(--accent); }
+    #stdin-input::placeholder { color: var(--muted); opacity: 0.7; }
+    #stdin-help {
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.5;
+    }
+    #game-panel {
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(227, 179, 65, 0.12), rgba(45, 212, 191, 0.08)),
+        #090d10;
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      overflow: auto;
+    }
+    .game-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .game-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+    .game-title strong {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+    #game-message {
+      color: var(--yellow);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+    #game-reset {
+      flex-shrink: 0;
+      border: 1px solid rgba(227, 179, 65, 0.45);
+      border-radius: var(--radius);
+      background: rgba(227, 179, 65, 0.12);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.4rem 0.65rem;
+    }
+    #game-reset:hover { border-color: var(--yellow); }
+    .game-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.45rem;
+    }
+    .game-actions button {
+      flex-shrink: 0;
+      border: 1px solid rgba(227, 179, 65, 0.45);
+      border-radius: var(--radius);
+      background: rgba(227, 179, 65, 0.12);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.4rem 0.65rem;
+    }
+    .game-actions button:hover { border-color: var(--yellow); }
+    .game-stats {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 0.45rem 0.65rem;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+    .game-stat-value { color: var(--text); font-weight: 700; }
+    .energy-track {
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(139, 148, 158, 0.25);
+      overflow: hidden;
+    }
+    #game-energy-bar {
+      height: 100%;
+      width: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      transition: width 0.2s ease;
+    }
+    #game-board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 7px;
+      width: min(100%, 360px);
+      margin: 0 auto;
+      direction: ltr;
+    }
+    .game-cell {
+      aspect-ratio: 1 / 1;
+      min-width: 0;
+      border: 1px solid rgba(227, 179, 65, 0.24);
+      border-radius: 8px;
+      background: #2a2117;
+      color: #f8f4e8;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: clamp(0.62rem, 2.4vw, 0.82rem);
+      font-weight: 800;
+      line-height: 1.2;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      transition: transform 0.12s, border-color 0.12s, background 0.12s;
+    }
+    .game-cell:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: var(--yellow);
+    }
+    .game-cell.player {
+      background: #0f766e;
+      border-color: #5eead4;
+      box-shadow: 0 0 0 2px rgba(94, 234, 212, 0.16) inset;
+    }
+    .game-cell.near {
+      background: #3d321b;
+      border-color: rgba(227, 179, 65, 0.58);
+    }
+    .game-cell.treasure {
+      background: #574214;
+      border-color: var(--yellow);
+      color: #fff7cf;
+    }
+    .game-controls {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 78px));
+      gap: 0.45rem;
+      justify-content: center;
+    }
+    .game-controls button {
+      min-height: 40px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface2);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+    .game-controls button:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: rgba(56, 139, 253, 0.16);
+    }
+    .game-controls button:disabled,
+    .game-cell:disabled,
+    #game-reset:disabled,
+    #game-source-toggle:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+    .game-controls .north { grid-column: 2; }
+    .game-controls .west { grid-column: 1; }
+    .game-controls .search { grid-column: 2; background: rgba(227, 179, 65, 0.16); }
+    .game-controls .east { grid-column: 3; }
+    .game-controls .south { grid-column: 2; }
+    #game-log {
+      min-height: 72px;
+      border: 1px solid rgba(139, 148, 158, 0.22);
+      border-radius: var(--radius);
+      background: rgba(1, 4, 9, 0.58);
+      color: var(--muted);
+      padding: 0.65rem 0.75rem;
+      font-size: 0.76rem;
+      line-height: 1.65;
+    }
     #output {
       flex: 1;
       background: #010409;
@@ -322,6 +534,40 @@
       #output-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); }
       .main-wrap { flex-direction: column; }
       #editor-panel { border-left: none; }
+    }
+
+    body.game-mode .main-wrap { overflow: auto; }
+    body.game-mode:not(.source-open) #editor-panel { display: none; }
+    body.game-mode #output-panel {
+      flex: 1;
+      width: 100%;
+      border-left: none;
+    }
+    body.game-mode #output-panel > .panel-header { display: none; }
+    body.game-mode #game-panel {
+      flex: 1;
+      border-bottom: none;
+    }
+    body.game-mode #output { display: none; }
+    body.game-mode.source-open #editor-panel {
+      display: flex;
+      flex: 0 0 min(48%, 640px);
+      border-left: 1px solid var(--border);
+    }
+    body.game-mode.source-open #output-panel { width: 52%; }
+
+    @media (max-width: 860px) {
+      body.game-mode.source-open .main-wrap { flex-direction: column; }
+      body.game-mode.source-open #editor-panel {
+        flex: 0 0 42vh;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        order: 2;
+      }
+      body.game-mode.source-open #output-panel {
+        width: 100%;
+        order: 1;
+      }
     }
   </style>
 </head>
@@ -1084,6 +1330,9 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
     <h1>لغة الثعبان <span>— ملعب تفاعلي</span></h1>
   </div>
   <div class="header-links">
+    <a class="badge" href="playground.html?example=desert-treasure">
+      لعبة عربية
+    </a>
     <a class="badge" href="https://github.com/GalaxyRuler/lughat-althuban" target="_blank" rel="noopener">
       ⭐ GitHub
     </a>
@@ -1110,7 +1359,7 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
     <div class="panel-header">
       <h3>📝 المحرّر</h3>
       <button id="run-btn" disabled>
-        ▶ تشغيل <kbd>Ctrl+Enter</kbd>
+        ▶ تشغيل <kbd>تحكم+إدخال</kbd>
       </button>
     </div>
     <textarea
@@ -1132,6 +1381,50 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
         style="cursor:pointer;font-family:Cairo,sans-serif;"
       >مسح</button>
     </div>
+    <div id="game-panel" hidden>
+      <div class="game-top">
+        <div class="game-title">
+          <strong>كنز الصحراء</strong>
+          <span id="game-message">جارٍ تجهيز اللوحة…</span>
+        </div>
+        <div class="game-actions">
+          <button id="game-source-toggle" type="button">عرض الشفرة</button>
+          <button id="game-reset" type="button">جولة جديدة</button>
+        </div>
+      </div>
+      <div class="game-stats" aria-live="polite">
+        <span>الطاقة</span>
+        <span class="game-stat-value"><span id="game-energy">٠</span></span>
+        <span></span>
+        <div class="energy-track"><div id="game-energy-bar"></div></div>
+        <span>التلميح</span>
+        <span class="game-stat-value" id="game-hint">—</span>
+      </div>
+      <div id="game-board" aria-label="لوحة كنز الصحراء"></div>
+      <div class="game-controls" aria-label="أوامر كنز الصحراء">
+        <button class="north" type="button" data-game-command="شمال">شمال</button>
+        <button class="west" type="button" data-game-command="غرب">غرب</button>
+        <button class="search" type="button" data-game-command="بحث">بحث</button>
+        <button class="east" type="button" data-game-command="شرق">شرق</button>
+        <button class="south" type="button" data-game-command="جنوب">جنوب</button>
+      </div>
+      <div id="game-log" aria-live="polite"></div>
+    </div>
+    <div id="stdin-panel">
+      <label for="stdin-input">مدخلات البرنامج</label>
+      <textarea
+        id="stdin-input"
+        spellcheck="false"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="للعبة كنز الصحراء جرّب:
+شرق
+شرق
+شمال
+بحث"
+      ></textarea>
+      <div id="stdin-help">كل سطر يُستخدم كإجابة واحدة عند استدعاء ادخل(). عند نفاد الأسطر يرسل الملعب: خروج.</div>
+    </div>
     <pre id="output" class="empty">الناتج سيظهر هنا بعد التشغيل…</pre>
   </div>
 </div>
@@ -1139,7 +1432,7 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
 <footer>
   مشغَّل بـ <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a> ·
   المحرّك: <a href="https://github.com/GalaxyRuler/lughat-althuban" target="_blank" rel="noopener">لغة الثعبان v0.4.0</a> ·
-  Python كاملة في المتصفح — لا تثبيت مطلوب
+  برمجة عربية كاملة في المتصفح — لا تثبيت مطلوب
 </footer>
 
 <script>
@@ -1152,7 +1445,7 @@ const EXAMPLES = [
     id: "hello", tier: 1, tag: "مبتدئ", title: "مرحبا بالعالم",
     code: `اطبع("مرحبا بالعالم!")
 اطبع("أهلاً بك في لغة الثعبان 🐍")
-اطبع("Python بالعربية الكاملة")`
+اطبع("برمجة عربية كاملة")`
   },
   {
     id: "variables", tier: 1, tag: "مبتدئ", title: "متغيرات وحساب",
@@ -1415,10 +1708,10 @@ const EXAMPLES = [
   {
     id: "phase-d-overview", tier: 4, tag: "مرحلة د", title: "ملخص إضافات المرحلة د",
     code: `الإضافات = [
-    "مصدر حقيقة واحد في lexicon/",
-    "أسماء AI عربية",
-    "مترجم عكسي من Python إلى .apy",
-    "أسماء stdlib معتمدة",
+    "مصدر حقيقة واحد في مجلد المعجم",
+    "أسماء ذكاء اصطناعي عربية",
+    "مترجم عكسي إلى ملفات عربية",
+    "أسماء مكتبة قياسية معتمدة",
     "أثر أخطاء بثلاثة أوضاع",
 ]
 
@@ -1427,52 +1720,47 @@ const EXAMPLES = [
     اطبع(" -", بند)`
   },
   {
-    id: "stdlib-canonical-names", tier: 4, tag: "مرحلة د", title: "أسماء stdlib المعتمدة",
-    code: `وحدات = {
-    "نظام": "os",
-    "مسار": "pathlib",
-    "نظام_بايثون": "sys",
-    "جيسون": "json",
-    "تعابير": "re",
-    "تنميط": "typing",
-    "خيوط": "threading",
-}
+    id: "stdlib-canonical-names", tier: 4, tag: "مرحلة د", title: "أسماء المكتبة القياسية المعتمدة",
+    code: `وحدات = [
+    ("نظام", "ملفات وبيئة التشغيل"),
+    ("مسار", "بناء المسارات وفحصها"),
+    ("نظام_بايثون", "إعدادات المفسر"),
+    ("جيسون", "قراءة البيانات المنظمة"),
+    ("تعابير", "البحث في النصوص"),
+    ("تنميط", "تلميحات الأنواع"),
+    ("خيوط", "التنفيذ المتوازي"),
+]
 
 اطبع("أمثلة من أسماء المكتبة القياسية:")
-لكل عربي، بايثون في وحدات.عناصر():
-    اطبع(ت"{عربي:>14}  ←  {بايثون}")`
+لكل اسم، وصف في وحدات:
+    اطبع(ت"{اسم}: {وصف}")`
   },
   {
-    id: "ai-alias-names", tier: 4, tag: "مرحلة د", title: "أسماء AI العربية",
-    code: `حزم_ai = [
-    ("ذكاء_مفتوح", "openai"),
-    ("كلود_عربي", "anthropic"),
-    ("سلسلة_لغه", "langchain_core"),
-    ("محولات", "transformers"),
-    ("محولات_جمل", "sentence_transformers"),
+    id: "ai-alias-names", tier: 4, tag: "مرحلة د", title: "أسماء الذكاء الاصطناعي العربية",
+    code: `حزم_الذكاء = [
+    ("ذكاء_مفتوح", "نماذج ومحادثة"),
+    ("كلود_عربي", "مساعدات لغوية"),
+    ("سلسلة_لغه", "سلاسل تطبيقات لغوية"),
+    ("محولات", "نماذج تحويلية"),
+    ("محولات_جمل", "تمثيل الجمل"),
 ]
 
 اطبع("أسماء حزم الذكاء الاصطناعي:")
-لكل عربي، بايثون في حزم_ai:
-    اطبع(ت"{عربي} = {بايثون}")`
+لكل اسم، وصف في حزم_الذكاء:
+    اطبع(ت"{اسم}: {وصف}")`
   },
   {
     id: "reverse-translation-preview", tier: 4, tag: "مرحلة د", title: "فكرة الترجمة العكسية",
-    code: `مصدر_بايثون = """
-for item in range(3):
-    print(item)
-"""
-
-مصدر_الثعبان = """
+    code: `مصدر_الثعبان = """
 لكل عنصر في نطاق(٣):
     اطبع(عنصر)
 """
 
-اطبع("Python:")
-اطبع(مصدر_بايثون)
-اطبع("لغة الثعبان:")
+اطبع("فكرة الترجمة العكسية:")
+اطبع("تقرأ الأداة مصدرا عاديا وتنتج مقابلا عربيا.")
+اطبع("مثال الناتج:")
 اطبع(مصدر_الثعبان)
-اطبع("محليا: ثعبان ترجمة-عكسية script.py --stdout")`
+اطبع("محليا: استخدم أمر الترجمة العكسية من أداة ثعبان.")`
   },
   {
     id: "arabic-error-handling", tier: 4, tag: "مرحلة د", title: "استثناء عربي واضح",
@@ -1487,6 +1775,12 @@ for item in range(3):
     استثناء خطأ_قيمة باسم السبب:
         اطبع("تم التقاط الخطأ:", السبب)`
   },
+
+  // ═══════════════ ألعاب ═══════════════
+  {
+    id: "desert-treasure", tier: 5, tag: "لعبة", title: "كنز الصحراء",
+    source: "games/كنز_الصحراء.apy"
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────
@@ -1494,6 +1788,8 @@ for item in range(3):
 // ─────────────────────────────────────────────────────────────────
 const editorEl  = document.getElementById("editor");
 const outputEl  = document.getElementById("output");
+const stdinEl   = document.getElementById("stdin-input");
+const stdinPanel= document.getElementById("stdin-panel");
 const runBtn    = document.getElementById("run-btn");
 const clearBtn  = document.getElementById("clear-btn");
 const statusDot = document.getElementById("status-dot");
@@ -1501,18 +1797,70 @@ const statusTxt = document.getElementById("status-text");
 const overlay   = document.getElementById("loading-overlay");
 const loadingTxt= document.getElementById("loading-text");
 const exList    = document.getElementById("example-list");
+const gamePanel = document.getElementById("game-panel");
+const gameBoard = document.getElementById("game-board");
+const gameLog   = document.getElementById("game-log");
+const gameMsg   = document.getElementById("game-message");
+const gameHint  = document.getElementById("game-hint");
+const gameEnergy= document.getElementById("game-energy");
+const gameEnergyBar = document.getElementById("game-energy-bar");
+const gameResetBtn  = document.getElementById("game-reset");
+const gameSourceToggle = document.getElementById("game-source-toggle");
+const gameCommandBtns = Array.from(document.querySelectorAll("[data-game-command]"));
+let pyodide = null;
+let activeExample = null;
+let visualGameReady = false;
+let visualGameBusy = false;
+let visualGameFinished = false;
 
 // ─────────────────────────────────────────────────────────────────
 //  Populate examples sidebar
 // ─────────────────────────────────────────────────────────────────
 let activeExBtn = null;
-const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د" };
+const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د", 5: "الألعاب" };
+const VISUAL_GAME_ID = "desert-treasure";
 let lastTier = null;
 const requestedExample = new URLSearchParams(window.location.search).get("example");
 let initialExample = null;
+const sourceCache = new Map();
 
-function selectExample(ex, btn, updateUrl = true) {
-  editorEl.value = ex.code;
+async function loadExampleSource(ex) {
+  if (Object.prototype.hasOwnProperty.call(ex, "code")) return ex.code;
+  if (!ex.source) return "";
+  if (sourceCache.has(ex.source)) return sourceCache.get(ex.source);
+
+  const response = await fetch(new URL(ex.source, window.location.href));
+  if (!response.ok) {
+    throw new Error(`تعذر تحميل المصدر: ${response.status}`);
+  }
+  const text = await response.text();
+  sourceCache.set(ex.source, text);
+  return text;
+}
+
+function isVisualGameSelected() {
+  return activeExample && activeExample.id === VISUAL_GAME_ID;
+}
+
+function updateGameMode() {
+  const showGame = isVisualGameSelected();
+  document.body.classList.toggle("game-mode", showGame);
+  if (!showGame) document.body.classList.remove("source-open");
+  gamePanel.hidden = !showGame;
+  stdinPanel.hidden = showGame;
+  outputEl.hidden = showGame;
+  gameSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+  runBtn.innerHTML = showGame ? "↻ بدء <kbd>تحكم+إدخال</kbd>" : "▶ تشغيل <kbd>تحكم+إدخال</kbd>";
+  if (!showGame) {
+    visualGameReady = false;
+    visualGameFinished = false;
+  }
+}
+
+async function selectExample(ex, btn, updateUrl = true) {
+  activeExample = ex;
+  visualGameReady = false;
+  updateGameMode();
   if (activeExBtn) activeExBtn.classList.remove("active");
   btn.classList.add("active");
   activeExBtn = btn;
@@ -1521,6 +1869,32 @@ function selectExample(ex, btn, updateUrl = true) {
     url.searchParams.set("example", ex.id);
     window.history.replaceState(null, "", url);
   }
+
+  const loadingExternal = Boolean(ex.source && !Object.prototype.hasOwnProperty.call(ex, "code"));
+  if (loadingExternal) {
+    editorEl.value = "جارٍ تحميل مصدر المثال…";
+    runBtn.disabled = true;
+    setStatus("busy", "جارٍ تحميل مصدر المثال…");
+  }
+
+  try {
+    editorEl.value = await loadExampleSource(ex);
+    if (loadingExternal && pyodide) {
+      setStatus("ready", "تم تحميل مصدر اللعبة — جاهز للتشغيل");
+    }
+    if (isVisualGameSelected() && pyodide) {
+      void resetVisualGame();
+    }
+  } catch (err) {
+    editorEl.value = "تعذر تحميل مصدر المثال.";
+    outputEl.className = "err";
+    outputEl.hidden = false;
+    outputEl.textContent = err.message;
+    setStatus("error", "تعذر تحميل مصدر المثال");
+  } finally {
+    if (pyodide) runBtn.disabled = false;
+  }
+
   editorEl.focus();
 }
 
@@ -1539,7 +1913,7 @@ EXAMPLES.forEach((ex, idx) => {
   btn.dataset.tier = ex.tier;
   btn.dataset.example = ex.id || String(idx);
   btn.innerHTML = `<span class="ex-tag">${ex.tag}</span>${ex.title}`;
-  btn.addEventListener("click", () => selectExample(ex, btn));
+  btn.addEventListener("click", () => { void selectExample(ex, btn); });
   exList.appendChild(btn);
   if (idx === 0) initialExample = { ex, btn };
   if (requestedExample && (requestedExample === ex.id || requestedExample === String(idx))) {
@@ -1547,7 +1921,7 @@ EXAMPLES.forEach((ex, idx) => {
   }
 });
 
-if (initialExample) selectExample(initialExample.ex, initialExample.btn, Boolean(requestedExample));
+if (initialExample) void selectExample(initialExample.ex, initialExample.btn, Boolean(requestedExample));
 
 // ─────────────────────────────────────────────────────────────────
 //  Status helpers
@@ -1557,6 +1931,149 @@ function setStatus(state, text) {
   statusTxt.textContent = text;
 }
 
+function toArabicDigits(value) {
+  return String(value).replace(/[0-9]/g, (digit) => "٠١٢٣٤٥٦٧٨٩"[Number(digit)]);
+}
+
+function setVisualGameBusy(isBusy) {
+  visualGameBusy = isBusy;
+  gameResetBtn.disabled = isBusy;
+  for (const btn of gameCommandBtns) btn.disabled = isBusy || visualGameFinished;
+  for (const cell of gameBoard.querySelectorAll("button")) cell.disabled = isBusy || visualGameFinished;
+}
+
+function renderVisualGame(state) {
+  const energy = Number(state["الطاقة"]);
+  const fullEnergy = Number(state["الطاقة_الكاملة"]);
+  const ratio = Math.max(0, Math.min(1, energy / fullEnergy));
+  const rows = state["اللوحة"];
+  const player = state["اللاعب"];
+  const finished = Boolean(state["انتهت"]);
+  visualGameFinished = finished;
+
+  gameEnergy.textContent = `${toArabicDigits(energy)} / ${toArabicDigits(fullEnergy)}`;
+  gameEnergyBar.style.width = `${Math.round(ratio * 100)}%`;
+  gameHint.textContent = state["تلميح"];
+  gameMsg.textContent = state["رسالة"];
+  gameLog.innerHTML = "";
+  for (const item of state["سجل"]) {
+    const line = document.createElement("div");
+    line.textContent = item;
+    gameLog.appendChild(line);
+  }
+
+  gameBoard.innerHTML = "";
+  gameBoard.style.gridTemplateColumns = `repeat(${Number(state["العرض"])}, minmax(0, 1fr))`;
+  rows.forEach((row, rowIdx) => {
+    row.forEach((kind, colIdx) => {
+      const x = colIdx + 1;
+      const y = rowIdx + 1;
+      const cell = document.createElement("button");
+      cell.type = "button";
+      cell.className = "game-cell";
+      cell.dataset.x = String(x);
+      cell.dataset.y = String(y);
+      cell.dataset.kind = kind;
+      if (kind === "لاعب") {
+        cell.classList.add("player");
+        cell.textContent = "أنت";
+      } else if (kind === "كنز") {
+        cell.classList.add("treasure");
+        cell.textContent = "كنز";
+      } else if (kind === "قريب") {
+        cell.classList.add("near");
+        cell.textContent = "لمعان";
+      } else {
+        cell.textContent = "";
+      }
+      cell.setAttribute("aria-label", `خانة ${toArabicDigits(x)}، ${toArabicDigits(y)}`);
+      cell.disabled = finished || visualGameBusy;
+      cell.addEventListener("click", () => handleVisualCellClick(x, y, player));
+      gameBoard.appendChild(cell);
+    });
+  });
+
+  for (const btn of gameCommandBtns) btn.disabled = finished || visualGameBusy;
+}
+
+function handleVisualCellClick(x, y, player) {
+  if (visualGameBusy) return;
+  const dx = x - Number(player["س"]);
+  const dy = y - Number(player["ص"]);
+  if (dx === 0 && dy === 0) {
+    void sendVisualGameCommand("بحث");
+  } else if (Math.abs(dx) + Math.abs(dy) !== 1) {
+    gameMsg.textContent = "اختر خانة ملاصقة";
+  } else if (dx === 1) {
+    void sendVisualGameCommand("شرق");
+  } else if (dx === -1) {
+    void sendVisualGameCommand("غرب");
+  } else if (dy === 1) {
+    void sendVisualGameCommand("جنوب");
+  } else {
+    void sendVisualGameCommand("شمال");
+  }
+}
+
+async function resetVisualGame() {
+  if (!pyodide || !isVisualGameSelected() || visualGameBusy) return;
+  setVisualGameBusy(true);
+  outputEl.hidden = true;
+  gameMsg.textContent = "جارٍ تجهيز اللوحة…";
+  setStatus("busy", "جارٍ تهيئة اللعبة…");
+  pyodide.globals.set("_visual_game_source", editorEl.value.trim());
+
+  try {
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+from arabicpython.translate import translate as _translate
+_visual_game_ns = {}
+_translated_game = _translate(_visual_game_source)
+exec(compile(_translated_game, '<كنز الصحراء>', 'exec'), _visual_game_ns)
+json.dumps(_visual_game_ns["ابدا"](), ensure_ascii=False)
+`);
+    visualGameReady = true;
+    renderVisualGame(JSON.parse(stateJson));
+    setStatus("ready", "اللعبة جاهزة — حرّك اللاعب من اللوحة أو الأزرار");
+  } catch (err) {
+    visualGameReady = false;
+    outputEl.hidden = false;
+    outputEl.className = "err";
+    outputEl.textContent = `تعذر تجهيز اللعبة:\n${err.message}`;
+    gameMsg.textContent = "تعذر تجهيز اللعبة";
+    setStatus("error", "تعذر تجهيز اللعبة");
+  } finally {
+    setVisualGameBusy(false);
+  }
+}
+
+async function sendVisualGameCommand(command) {
+  if (!pyodide || !isVisualGameSelected() || visualGameBusy) return;
+  if (!visualGameReady) {
+    await resetVisualGame();
+    if (!visualGameReady) return;
+  }
+
+  setVisualGameBusy(true);
+  pyodide.globals.set("_visual_game_command", command);
+  try {
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+json.dumps(_visual_game_ns["نفذ_امر"](_visual_game_command), ensure_ascii=False)
+`);
+    renderVisualGame(JSON.parse(stateJson));
+    setStatus("ready", "تم تنفيذ الحركة");
+  } catch (err) {
+    outputEl.hidden = false;
+    outputEl.className = "err";
+    outputEl.textContent = `تعذر تنفيذ الحركة:\n${err.message}`;
+    gameMsg.textContent = "تعذر تنفيذ الحركة";
+    setStatus("error", "تعذر تنفيذ الحركة");
+  } finally {
+    setVisualGameBusy(false);
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────
 //  Pyodide init — write source files to virtual filesystem
 // ─────────────────────────────────────────────────────────────────
@@ -1564,11 +2081,9 @@ function getEmbedded(id) {
   return document.getElementById(id).textContent;
 }
 
-let pyodide = null;
-
 async function initPyodide() {
   setStatus("busy", "جارٍ تحميل Pyodide…");
-  loadingTxt.textContent = "جارٍ تحميل بيئة Python…";
+  loadingTxt.textContent = "جارٍ تحميل بيئة التشغيل…";
 
   pyodide = await loadPyodide();
 
@@ -1609,7 +2124,10 @@ load_dialect("ar-v2")
   // Done
   overlay.classList.add("hidden");
   runBtn.disabled = false;
-  setStatus("ready", "جاهز للتشغيل — Ctrl+Enter أو زر تشغيل");
+  setStatus("ready", "جاهز للتشغيل — تحكم+إدخال أو زر تشغيل");
+  if (isVisualGameSelected()) {
+    void resetVisualGame();
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────
@@ -1617,6 +2135,10 @@ load_dialect("ar-v2")
 // ─────────────────────────────────────────────────────────────────
 async function runCode() {
   if (!pyodide || runBtn.disabled) return;
+  if (isVisualGameSelected()) {
+    await resetVisualGame();
+    return;
+  }
   const source = editorEl.value.trim();
   if (!source) {
     outputEl.className = "empty";
@@ -1631,10 +2153,11 @@ async function runCode() {
 
   // Pass source to Python via a global
   pyodide.globals.set("_playground_source", source);
+  pyodide.globals.set("_playground_stdin", JSON.stringify(stdinEl.value.split(/\r?\n/)));
 
   try {
     const result = await pyodide.runPythonAsync(`
-import sys, io, traceback
+import sys, io, traceback, builtins, json
 from arabicpython.translate import translate as _translate
 
 # Map ASCII digits → Arabic-Indic so the displayed output reads naturally
@@ -1644,14 +2167,29 @@ _ARABIC_DIGIT_MAP = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
 
 _out = io.StringIO()
 _err = io.StringIO()
+_input_values = json.loads(_playground_stdin)
+
+def _playground_input(message=""):
+    _message = str(message)
+    if _message:
+        _out.write(_message)
+    if _input_values:
+        _answer = _input_values.pop(0)
+    else:
+        _answer = "خروج"
+    _answer = str(_answer)
+    _out.write(_answer + "\\n")
+    return _answer
 
 try:
     _translated = _translate(_playground_source)
     _code = compile(_translated, '<ملعب>', 'exec')
     _old_stdout = sys.stdout
     _old_stderr = sys.stderr
+    _old_input = builtins.input
     sys.stdout = _out
     sys.stderr = _err
+    builtins.input = _playground_input
     exec(_code, {"__name__": "__main__"})
 except SyntaxError as e:
     _err.write("خطأ في الصياغة")
@@ -1666,6 +2204,7 @@ finally:
     try:
         sys.stdout = _old_stdout
         sys.stderr = _old_stderr
+        builtins.input = _old_input
     except NameError:
         pass
 
@@ -1707,8 +2246,18 @@ clearBtn.addEventListener("click", () => {
   outputEl.className = "empty";
   outputEl.textContent = "الناتج سيظهر هنا بعد التشغيل…";
 });
+gameResetBtn.addEventListener("click", () => { void resetVisualGame(); });
+gameSourceToggle.addEventListener("click", () => {
+  document.body.classList.toggle("source-open");
+  gameSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+});
+for (const btn of gameCommandBtns) {
+  btn.addEventListener("click", () => {
+    void sendVisualGameCommand(btn.dataset.gameCommand);
+  });
+}
 
-// Ctrl+Enter or Cmd+Enter to run
+// اختصار لوحة المفاتيح للتشغيل
 editorEl.addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
     e.preventDefault();

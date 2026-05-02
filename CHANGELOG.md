@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Pages example gallery with direct playground links for browser-safe
   examples and source links for stdlib, AI, reverse-translation, and larger
   local demos.
+- Playground examples are now guarded by a test that runs every bundled example
+  and rejects Latin letters in runtime output.
 
 ### Changed
 
