@@ -125,5 +125,7 @@
 - [دليل المساهمة](../../CONTRIBUTING.md)
 - [سجل التغييرات](CHANGELOG.md)
 - [ميثاق المرحلة د](../../decisions/0012-phase-d-charter.md)
+- [خارطة الطريق الحالية](../../ROADMAP-PHASE-D.md)
+- [خارطة المرحلة ج التاريخية](../../ROADMAP-PHASE-C.md)
 
 </div>

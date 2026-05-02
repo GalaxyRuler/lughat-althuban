@@ -3,6 +3,7 @@
 # لغة الثعبان — بايثون بالعربية الكاملة
 
 [![الاختبارات](https://img.shields.io/badge/اختبارات-2926_نجاح-brightgreen)](tests/)
+[![CI](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml/badge.svg)](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml)
 [![بايثون](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
 [![الرخصة](https://img.shields.io/badge/رخصة-Apache--2.0-orange)](LICENSE)
 
@@ -71,20 +72,22 @@ $ ثعبان -c '1 / 0'
 | الوثيقة | الوصف |
 |---------|--------|
 | [دليل البدء الشامل](docs/ar/getting-started.md) | من "مرحبا بالعالم" إلى الاستيراد — خطوة بخطوة |
-| [دليل البدء الموسَّع](docs/tutorial-ar.md) | الموازي العربي للدليل الإنجليزي مع مسرد المصطلحات (B-060) |
-| [كتاب الوصفات العربي](docs/cookbook-ar.md) | عشر وصفات قصيرة قائمة بذاتها مع مسرد مصطلحات (B-061) |
+| [المعجم العربي الموحد](docs/ar/lexicon.md) | الكلمات المفتاحية والدوال والاستثناءات وأسماء المكتبات في مرجع واحد |
+| [كتاب الوصفات العربي](docs/ar/cookbook.md) | وصفات عملية قابلة للتشغيل |
 | [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
-| [الأمثلة التعليمية](examples/README-ar.md) | شرح الأمثلة السبعة التصاعدية |
-| [سجل التغييرات](docs/ar/CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
-| [المعجم العربي الموحد](docs/ar/lexicon.md) | المرجع المولد من `lexicon/core.toml` و`lexicon/libraries.toml` |
+| [الأمثلة التعليمية](examples/README.md) | فهرس الأمثلة الأساسية والمتقدمة |
+| [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
+| [قاموس وقت التشغيل](dictionaries/ar-v2.md) | الأثر المولّد من المعجم الموحد للقاموس الافتراضي |
 
-## المرحلة (د): AI والوصول
+## حالة المشروع
 
-اكتملت حزم D-002 إلى D-005 من المرحلة (د): أسماء AI، مترجم عكسي، أسماء stdlib المعتمدة، وأثر أخطاء عربي كامل. تبقى عناصر الواجهة مثل تبويب الترجمة العكسية في الملعب وعناصر Tier 2 مخططة في ميثاق المرحلة.
+اكتملت المراحل أ وب وج. المرحلة د نشطة الآن تحت عنوان **AI & Reach**، وحزم D-002 إلى D-005 مشحونة في هذا الفرع: أسماء AI، مترجم عكسي، أسماء stdlib المعتمدة، وأثر أخطاء عربي كامل. المساهمات الجديدة يجب أن تبدأ من [المعجم العربي الموحد](lexicon/README.md) عند إضافة مصطلح أو اسم مكتبة، ثم تضيف الاختبارات والوثائق المناسبة.
 
+- **خارطة الطريق الحالية:** [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md)
+- **خارطة المرحلة ج التاريخية:** [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md)
 - **ميثاق المرحلة د:** [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md)
 - **دليل المساهمة:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
-- **مصدر الحقيقة للمصطلحات:** [`lexicon/`](lexicon/)
+- **قائمة المواصفات:** [`specs/INDEX.md`](specs/INDEX.md)
 
 </div>
 
@@ -288,11 +291,11 @@ lughat-althuban/
 |---|---|---|
 | 0 | قرارات التصميم (8 سجلات ADR) | مكتملة |
 | أ | اللهجة الأساسية: التجهيز المسبق، التطبيع، الترجمة، CLI، REPL، خطاف الاستيراد، رسائل الخطأ | مكتملة |
-| ب | النظام البيئي: مكتبة قياسية ومكتبات طرف ثالث وأدوات تعليمية | مكتملة |
-| ج | طبقة التطبيقات المتقدمة: حزم البيانات، الويب، المستندات، التشغيل، التكامل | مكتملة |
-| د | AI والوصول: ملعب ويب، AI aliases، ترجمة عكسية، stdlib canonical، أثر بثلاثة أوضاع | D-002 إلى D-005 مشحونة |
+| ب | النظام البيئي: 40+ وحدة عربية، منسِّق، مدقِّق، نواة Jupyter، VS Code، دليل تعليمي | مكتملة |
+| ج | معجم موحد، نشر PyPI، مكتبات تطبيقية، وتكاملات متقدمة | مكتملة |
+| د | AI & Reach: ملعب ويب، AI aliases، ترجمة عكسية، stdlib canonical، أثر بثلاثة أوضاع | نشطة؛ D-002 إلى D-005 مشحونة |
 
-انظر [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
+انظر [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) و[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
@@ -302,14 +305,14 @@ lughat-althuban/
 |---------|--------|
 | [دليل البدء الشامل](docs/ar/getting-started.md) | من "مرحبا بالعالم" إلى الاستيراد — خطوة بخطوة |
 | [المعجم العربي الموحد](docs/ar/lexicon.md) | الكلمات المفتاحية والدوال والاستثناءات وأسماء المكتبات في مرجع واحد |
-| [دليل البدء الموسَّع](docs/tutorial-ar.md) | شرح تفصيلي كامل مع أمثلة وتسلسل هندسي (B-060) |
-| [كتاب الوصفات](docs/cookbook-ar.md) | عشر وصفات قائمة بذاتها قابلة للتشغيل المباشر |
-| [مسرد المصطلحات](docs/tutorial-ar-glossary.md) | 35+ مصطلح حاسوبي بتعريفات عربية فصيحة |
+| [كتاب الوصفات](docs/ar/cookbook.md) | وصفات قائمة بذاتها قابلة للتشغيل المباشر |
+| [مسرد المصطلحات](docs/ar/glossary.md) | مصطلحات مولدة من المعجم الموحد |
 | [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
 | [ويكي المشروع](docs/wiki/index.md) | دليل شامل: الكلمات المفتاحية، المكتبات، الأدوات، الأسئلة الشائعة |
 | [دليل المساهمة](CONTRIBUTING.md) | كيفية إضافة وحدات ومساهمات الكود |
 | [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
 | [ميثاق المرحلة د](decisions/0012-phase-d-charter.md) | خطة D-001 إلى D-017 وحالة D-002 إلى D-005 |
+| [خارطة الطريق](ROADMAP-PHASE-D.md) | حالة المرحلة الحالية وما بقي للصقل |
 
 ---
 
@@ -366,6 +369,7 @@ pip install -e ".[all]"   # dev, kernel, aliases, and AI optional targets
 - generated lexicon source of truth for core words, aliases, messages, and docs
 - Arabic traceback modes: `arabic`, `english`, `mixed`
 - 31 stdlib alias modules · AI aliases for OpenAI, Anthropic, LangChain Core, Transformers, and Sentence Transformers
+- 38 Arabic exception names · translated common interpreter messages
 - Formatter · Linter · Jupyter kernel · VS Code extension · pytest plugin — all ship in this repo
 - Normalization: `أ/إ/آ → ا`, final `ة → ه`, final `ى → ي`
 
@@ -373,7 +377,7 @@ pip install -e ".[all]"   # dev, kernel, aliases, and AI optional targets
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). Arabic commit messages are preferred. Every unit of work is a self-contained spec packet in `specs/`.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Arabic commit messages are preferred. Larger work should include a spec packet or a clear issue, and any new Arabic term should start in `lexicon/`.
 
 ## Acknowledgements
 

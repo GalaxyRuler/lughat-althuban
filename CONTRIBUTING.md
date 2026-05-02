@@ -9,7 +9,7 @@
 ## فهرس الأقسام
 
 1. [ما الذي يحتاجه المشروع؟](#ما-الذي-يحتاجه-المشروع)
-2. [سير عمل حزمة التنفيذ](#سير-عمل-حزمة-التنفيذ)
+2. [سير عمل التغيير](#سير-عمل-التغيير)
 3. [إضافة وحدة مكتبة جديدة — TOML](#إضافة-وحدة-مكتبة-جديدة)
 4. [قواعد التسمية العربية](#قواعد-التسمية-العربية)
 5. [قواعد التطبيع (normalize_identifier)](#قواعد-التطبيع)
@@ -32,30 +32,36 @@
 
 ---
 
-## سير عمل حزمة التنفيذ
+## سير عمل التغيير
 
-كل وحدة عمل في المشروع هي **حزمة تنفيذية** (Spec Packet) بالشكل التالي:
+أي تغيير يمس تجربة المستخدم العربية يجب أن يبدأ من **المعجم العربي الموحد** في `lexicon/`. القواميس وملفات التوثيق المولدة ليست مصدر الحقيقة؛ هي آثار تشغيل أو صفحات مشتقة.
+
+الأعمال الكبيرة ما زالت تُوثَّق في **حزمة مواصفات** (Spec Packet) بالشكل التالي:
 
 ```
-specs/B-NNN-اسم-الحزمة.md        ← المواصفة (يكتبها المخطط)
-specs/B-NNN-اسم-الحزمة.delivery.md  ← ملاحظات التسليم (يكتبها المنفذ)
+specs/D-NNN-اسم-الحزمة.md           ← المواصفة
+specs/D-NNN-اسم-الحزمة.delivery.md  ← ملاحظات التسليم
 ```
 
 **خطوات المساهم:**
 
-1. **اختر حزمة** من [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) التي لم تُنجز بعد.
-2. **اقرأ المواصفة** بعناية — كل مطلب مكتوب بتفصيل.
-3. **أنشئ فرعاً** باسم `B-NNN/اسم-الحزمة`.
-4. **نفذ المتطلبات** — كود + اختبارات + مثال `.apy`.
-5. **شغّل الاختبارات** كاملة: `pytest tests/ -x -q`.
-6. **اكتب ملاحظات التسليم** في `specs/B-NNN-*.delivery.md`.
+1. **راجع المعجم** في `lexicon/` قبل اختيار أي اسم عربي جديد.
+2. **اختر عملاً مفتوحاً** من القضايا أو [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md)، أو افتح قضية تقترح التغيير.
+3. **أنشئ فرعاً** باسم واضح مثل `feature/اسم-قصير` أو `fix/اسم-قصير`.
+4. **نفذ التغيير** مع اختبارات ووثائق وأمثلة عند الحاجة.
+5. **شغّل التحقق**: `pytest`، و`ruff check .`، و`black --check .`، و`python tools/validate_lexicon.py`، و`python tools/generate_lexicon_outputs.py --check`.
+6. **اكتب ملاحظات تسليم** إذا كان التغيير يستند إلى حزمة مواصفات.
 7. **ارفع طلب سحب** (Pull Request).
 
 ---
 
 ## إضافة وحدة مكتبة جديدة
 
-لإضافة مكتبة Python بأسماء عربية، تحتاج إلى **ثلاثة ملفات**:
+لإضافة مكتبة Python بأسماء عربية، تحتاج عادةً إلى **أربعة مواضع**:
+
+### 0. الاسم القياسي في `lexicon/libraries.toml`
+
+أضف الاسم العربي المعتمد للمكتبة أولاً. هذا يمنع drift بين runtime aliases والوثائق.
 
 ### 1. ملف TOML في `arabicpython/aliases/`
 
@@ -114,7 +120,7 @@ class TestMyLibTomlMeta:
         assert len(data["entries"]) >= 5
 ```
 
-### 3. مثال توضيحي في `examples/`
+### 3. مثال توضيحي في `examples/` أو توثيق مشتق
 
 ```python
 # examples/BNNN_mylib_demo.apy
@@ -137,21 +143,7 @@ class TestMyLibTomlMeta:
 
 **قائمة مصطلحات ثابتة (لا تغيّرها):**
 
-| المفهوم | الاسم العربي المعتمد |
-|---------|---------------------|
-| list | قائمه |
-| dict | قاموس |
-| tuple | مجموعه |
-| set | مجموعه_غير_مرتبه |
-| string | نص |
-| integer | عدد_صحيح |
-| float | عدد_عشري |
-| function | دالة |
-| class | صنف |
-| module | وحدة |
-| path | مسار |
-| error/exception | خطا |
-| import | استورد (**كلمة مفتاحية**، ليست اسماً) |
+راجع [المعجم العربي الموحد](docs/ar/lexicon.md) بدلاً من نسخ جدول يدوي هنا. عند وجود خلاف لغوي، افتح نقاشاً واذكر البدائل المقبولة أو المرفوضة في `lexicon/core.toml` أو `lexicon/libraries.toml`.
 
 ---
 
@@ -213,6 +205,10 @@ pytest tests/aliases/test_stdlib_B057_B058_B059_cross_consistency.py -v
 pytest tests/ -x -q                     # توقف عند أول فشل
 pytest tests/ -v --tb=short             # تفاصيل كاملة
 pytest tests/aliases/ -v                # اختبارات الأسماء المستعارة فقط
+python tools/validate_lexicon.py        # تحقق المعجم
+python tools/generate_lexicon_outputs.py --check
+ruff check .
+black --check .
 ```
 
 ---
@@ -295,8 +291,8 @@ Welcome! Contributions are accepted in Arabic or English.
 1. Create `arabicpython/aliases/mylib.toml` with `[meta]` and `[entries]` sections.
 2. Create `tests/aliases/test_mylib.py` using `pytest.importorskip("mylib")`.
 3. Add an example at `examples/BNNN_mylib_demo.apy`.
-4. Run `pytest tests/ -x -q` — all 2570+ tests must pass.
-5. Check cross-consistency: no Arabic key may appear in two different module TOMLs.
+4. Run `pytest`, `ruff check .`, `black --check .`, and the two lexicon checks.
+5. Check cross-consistency: no Arabic key may appear in two different module TOMLs unless explicitly documented.
 
 ### Normalization rules (critical)
 
@@ -361,5 +357,5 @@ Examples:
 - [`specs/0000-template.md`](specs/0000-template.md) — packet template
 - [`specs/INDEX.md`](specs/INDEX.md) — packet ledger
 - [`decisions/0004-normalization-policy.md`](decisions/0004-normalization-policy.md) — normalization rules
-- [`ROADMAP-PHASE-B.md`](ROADMAP-PHASE-B.md) — open packets
-- [`HANDOVER-LARGE-PACKETS.md`](HANDOVER-LARGE-PACKETS.md) — large/complex implementation packets
+- [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) — current roadmap and polish work
+- [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) — historical Phase C packet map

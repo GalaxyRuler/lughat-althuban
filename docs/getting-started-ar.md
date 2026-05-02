@@ -1,15 +1,15 @@
-# Getting started with apython
+# Getting started with لغة الثعبان
 
-> Arabic version: [tutorial-ar.md](tutorial-ar.md)
+> Arabic-first version: [ar/getting-started.md](ar/getting-started.md)
 
-This tutorial walks through the apython dialect from "hello world" to importing
+This tutorial walks through لغة الثعبان from "hello world" to importing
 your own modules. Every code sample is a real `.apy` file you can paste into a
 buffer and run; most of them mirror the seven progressive demos in
 [`examples/`](../examples/).
 
 If you read Arabic comfortably and have written Python before, this tutorial
 will take ~20 minutes. If you're new to programming, plan on an hour and run
-every snippet — apython is meant to be typed, not just read.
+every snippet — لغة الثعبان is meant to be typed, not just read.
 
 ## Contents
 
@@ -28,27 +28,27 @@ every snippet — apython is meant to be typed, not just read.
 
 ## 1. Install
 
-apython requires Python 3.11 or newer. From the repository root:
+لغة الثعبان requires Python 3.11 or newer. From the repository root:
 
 ```bash
 git clone https://github.com/GalaxyRuler/lughat-althuban
-cd apython
+cd lughat-althuban
 pip install -e .
 ```
 
-That installs the `apython` console script. Verify it:
+That installs the `ثعبان` console script. Verify it:
 
 ```bash
 ثعبان --version
 ```
 
-You now have four ways to run apython code, mirroring stock `python`:
+You now have four ways to run `.apy` code, mirroring stock `python`:
 
 ```bash
-apython script.apy [args...]    # run a file
-apython -c 'اطبع("مرحبا")'      # run an inline string
-apython - < script.apy          # read from stdin
-apython                          # interactive REPL
+ثعبان script.apy [args...]       # run a file
+ثعبان -c 'اطبع("مرحبا")'         # run an inline string
+ثعبان - < script.apy             # read from stdin
+ثعبان                            # interactive REPL
 ```
 
 Exit codes: `0` success, `1` runtime/translate error, `2` usage error.
@@ -66,12 +66,12 @@ Save this as `hello.apy`:
 Run it:
 
 ```bash
-$ apython hello.apy
+$ ثعبان hello.apy
 مرحبا، يا عالم
 ```
 
 That's it. `اطبع` is the Arabic name for Python's `print`. Every other built-in,
-keyword, and exception type works the same way — apython is Python with the
+keyword, and exception type works the same way — لغة الثعبان is Python with the
 identifier table translated, nothing more.
 
 A complete table of every translated symbol lives in
@@ -82,7 +82,7 @@ memorize it; the examples below introduce keywords as they're needed.
 
 ## 3. Variables and arithmetic
 
-Variable assignment is plain Python — apython only translates *built-in* names,
+Variable assignment is plain Python — لغة الثعبان only translates *built-in* names,
 not your own. Pick any Arabic identifier you like:
 
 ```arabic
@@ -102,7 +102,7 @@ A few things are happening here that are worth calling out:
 - **Multi-word identifiers use `_`**, not space. Arabic conventionally separates
   compound terms with a space, but Python's tokenizer treats space as a
   boundary, so the dialect uses underscores. This rule is universal across
-  apython.
+  لغة الثعبان.
 - **f-strings work normally.** Interior expressions are pretokenized just like
   the rest of the source, so `f"{السنوات_حتى_التقاعد}"` resolves the variable
   exactly as you'd expect. You can also use the Arabic `ت"..."` prefix as a shorthand: `ت"باقي {السنوات_حتى_التقاعد} سنة"` is identical to `f"باقي {السنوات_حتى_التقاعد} سنة"`.
@@ -127,7 +127,7 @@ A few things are happening here that are worth calling out:
 
 - **Arabic-Indic and Eastern-Arabic digits are auto-folded.** Writing
   `العمر = ٢٥` is identical to writing `العمر = 25`. Mixing digit systems
-  inside one numeric literal (e.g. `١2`) is a `SyntaxError` — apython rejects
+  inside one numeric literal (e.g. `١2`) is a `SyntaxError` — لغة الثعبان rejects
   it loudly rather than guess.
 - **Arabic punctuation is auto-folded** outside string literals: `،` → `,`,
   `؛` → `;`, `؟` → `?`. So `جمع(أ، ب)` is identical to `جمع(أ, ب)`. Inside
@@ -141,7 +141,7 @@ See [`examples/02_arithmetic.apy`](../examples/02_arithmetic.apy).
 
 The control-flow keywords:
 
-| Python | apython | Reads as |
+| Python | لغة الثعبان | Reads as |
 |---|---|---|
 | `if` | `إذا` | "if" |
 | `else` | `وإلا` | "otherwise" |
@@ -194,10 +194,10 @@ See [`examples/03_control_flow.apy`](../examples/03_control_flow.apy).
 ```
 
 Function names, parameter names, and local variables are all your choice —
-apython does not translate them, so you can use any Arabic, English, or mixed
+لغة الثعبان does not translate them, so you can use any Arabic, English, or mixed
 identifier that's a valid Python name.
 
-A note on identifier normalization: apython folds certain Arabic character
+A note on identifier normalization: لغة الثعبان folds certain Arabic character
 variants to a single canonical form before lookup, so `قيمه` and `قيمة` (with
 ta-marbuta) refer to the same name, as do `إذا` and `اذا` (with and without
 hamza). This means the spelling you type is forgiving, but the *stored* name
@@ -268,7 +268,7 @@ See [`examples/06_classes.apy`](../examples/06_classes.apy).
 
 ## 8. Imports
 
-apython installs a `sys.meta_path` import hook so `.apy` files import each
+لغة الثعبان installs a `sys.meta_path` import hook so `.apy` files import each
 other transparently:
 
 ```arabic
@@ -318,7 +318,7 @@ See [`examples/07_imports.apy`](../examples/07_imports.apy).
 Uncaught exceptions print Arabic tracebacks by default:
 
 ```bash
-$ apython -c '1 / 0'
+$ ثعبان -c '1 / 0'
 تتبع_الأخطاء (المكدس الأحدث آخرا):
   ملف "<string>", سطر 1, في <الوحدة>
 خطأ_قسمة_صفر: القسمة على صفر
@@ -327,7 +327,7 @@ $ apython -c '1 / 0'
 The structure is the same as a Python traceback, just with translated frame
 labels:
 
-| Python | apython |
+| Python | لغة الثعبان |
 |---|---|
 | `Traceback (most recent call last):` | `تتبع_الأخطاء (المكدس الأحدث آخرا):` |
 | `File "..."` | `ملف "..."` |
@@ -391,13 +391,13 @@ better an honest English message than a misleading Arabic one.
   happens at all,
   [`decisions/0001-architecture.md`](../decisions/0001-architecture.md)
   explains the source-to-source preprocessor design in one page.
-- **Try the REPL.** Just run `apython` with no arguments. It accepts the same
+- **Try the REPL.** Just run `ثعبان` with no arguments. It accepts the same
   Arabic-keyword syntax as a script, with multi-line input via continuation
   prompts.
 - **File issues for things that surprised you.** Arabic terms are authored in
   `lexicon/`, so naming feedback belongs there rather than in generated files.
 
-apython is a learning dialect first and a production tool second (see
+لغة الثعبان is a learning dialect first and a production tool second (see
 [`decisions/0007-scope.md`](../decisions/0007-scope.md) for the explicit
 ordering). Phase D's current AI/reach work is tracked in
 [`decisions/0012-phase-d-charter.md`](../decisions/0012-phase-d-charter.md).

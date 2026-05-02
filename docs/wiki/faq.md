@@ -80,7 +80,7 @@
 ```bash
 pip install -e ".[kernel]"
 python -m arabicpython_kernel install
-jupyter notebook   # اختر kernel "apython"
+jupyter notebook   # اختر kernel "لغة الثعبان"
 ```
 
 ---

@@ -1,8 +1,8 @@
 ---
 name: Propose a new packet
-about: Suggest work that isn't covered by an existing Phase B packet in the roadmap
+about: Suggest work that is large enough to need a spec packet
 title: "Propose: <short-name>"
-labels: ["proposal", "phase-b"]
+labels: ["proposal"]
 assignees: []
 ---
 
@@ -16,7 +16,7 @@ assignees: []
 
 ## Why not an existing packet
 
-<!-- Confirm you've read ROADMAP-PHASE-B.md and CONTRIBUTING.md. Explain why this work doesn't fit any drafted or stubbed packet. -->
+<!-- Confirm you've read ROADMAP-PHASE-D.md, specs/INDEX.md, and CONTRIBUTING.md. Explain why this work needs a new packet. -->
 
 ## Rough scope
 
@@ -24,13 +24,13 @@ assignees: []
 - **Files likely created:** <!-- best guess -->
 - **Depends on:** <!-- which existing packets must be merged first, or "none" -->
 
-## Phase A compatibility
+## Compatibility
 
 - [ ] This proposal does NOT change any entry in `dictionaries/ar-v1.md`.
-- [ ] This proposal does NOT break any of the seven examples in `examples/` or the apps in `apps/`.
-- [ ] If this proposal affects a public API, I have read [decisions/0008-phase-b-charter.md §B.3](../../decisions/0008-phase-b-charter.md) and the change is internal-only.
+- [ ] This proposal keeps examples/apps translatable or explains why a new dependency gate is needed.
+- [ ] If this proposal adds Arabic terminology, it starts in `lexicon/`.
 
-If any of the above is unchecked, this proposal needs a superseding ADR before it can become a packet. Say so explicitly.
+If any of the above is unchecked, explain the compatibility risk explicitly.
 
 ## Anything else
 

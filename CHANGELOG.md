@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Roadmap and contributor documentation now mark Phase C as complete and
+  Phase D as the active roadmap.
 - `lexicon/libraries.toml` is now the single authoring source for runtime alias
   TOMLs; generated alias files are marked as generated.
 - `lexicon/messages.toml` now owns reusable tool messages and traceback message
@@ -201,7 +203,7 @@ Demo: `examples/B55_formatter_demo.apy`.
 `arabicpython_kernel/` package — `ArabicPythonKernel` extends `IPythonKernel`.
 Translates Arabic Python in `do_execute` before execution; Arabic tab-completion
 for keywords and alias module names; `__main__.py` installer
-(`python -m arabicpython_kernel install`). Optional dep group: `pip install apython[kernel]`.
+(`python -m arabicpython_kernel install`). Optional dep group: `pip install lughat-althuban[kernel]`.
 17 structural tests (no live Jupyter required). Language: `apy`, extension: `.apy`.
 
 #### B-053 — VSCode Extension
@@ -219,7 +221,7 @@ Ships: `package.json` (language contribution, grammar, LSP config),
 All modules import via Arabic names and expose curated Arabic attribute aliases.
 Every batch ships with a TOML mapping, test file, cross-consistency test (no
 Arabic key collisions with earlier batches), demo `.apy` file, and snapshot.
-CI matrix: ubuntu / macOS / windows × Python 3.11 / 3.12 / 3.13 — **1093 passing**.
+CI matrix established for Ubuntu, macOS, and Windows on Python 3.11, 3.12, and 3.13.
 
 #### B-038 — hashlib (`هاشلب`), io (`مجاري`), contextlib (`مدير_سياق`)
 
@@ -318,7 +320,7 @@ First feature-complete release of the Arabic-keyword Python dialect. Source-to-s
 
 - **Dictionaries**: `ar-v1.md` (canonical word list, locked at v1.0) and `exceptions-ar-v1.md` (exception subclass hierarchy + interpreter-message translations).
 - **Examples**: 7 progressive `.apy` programs covering hello, arithmetic, control flow, functions, data structures, classes, and cross-module imports.
-- **Tutorial**: `docs/getting-started-ar.md` covering the eight ADR-0007 ship topics.
+- **Tutorial**: Arabic getting-started documentation covering the eight ADR-0007 ship topics.
 
 ### Added — design (ADRs)
 

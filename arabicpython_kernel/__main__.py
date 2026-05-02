@@ -1,5 +1,5 @@
 """arabicpython_kernel/__main__.py
-B-054: Install the apython Jupyter kernel spec.
+B-054: Install the لغة الثعبان Jupyter kernel spec.
 
 Usage::
 
@@ -22,7 +22,7 @@ from arabicpython.messages import ArabicArgumentParser, msg
 
 KERNEL_JSON = {
     "argv": [sys.executable, "-m", "arabicpython_kernel", "-f", "{connection_file}"],
-    "display_name": "لغة الثعبان (apython)",
+    "display_name": "لغة الثعبان",
     "language": "apy",
     "interrupt_mode": "signal",
     "metadata": {

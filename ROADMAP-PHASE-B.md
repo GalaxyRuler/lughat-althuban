@@ -1,6 +1,6 @@
 # Phase B Roadmap
 
-**Status as of 2026-04-28:** Phase B **complete**. All packets merged — stdlib batches (B-030–B-039), top-10 SDK packets, traceback expansion (B-041), full tooling layer (B-050–B-059 + VSCode/Jupyter/pytest-plugin), Arabic tutorial + cookbook (B-060), error-message coverage audit (B-061, 97/97 messages translated). Test suite: **2570 passing**.
+**Status as of 2026-05-01:** Phase B **complete**. All Phase-B runtime, alias, tooling, tutorial, cookbook, and diagnostic work has moved into the main project line. Use [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) and [`specs/INDEX.md`](specs/INDEX.md) for current work.
 
 This file is the **single visible map** of what Phase B contains, what's open for contribution, and what depends on what. To pick up work, see [CONTRIBUTING.md](CONTRIBUTING.md). To understand *why* Phase B is structured this way, see [decisions/0008-phase-b-charter.md](decisions/0008-phase-b-charter.md).
 

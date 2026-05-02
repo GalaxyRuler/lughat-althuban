@@ -1,5 +1,7 @@
 # Hand-Over Document — Large Open Packets
-*Prepared 2026-04-28. Current test suite: 2510 passing, 45 skipped.*
+> Historical handover note from 2026-04-28, before the `lughat-althuban` rename
+> and the canonical `lexicon/` workflow. Prefer `README.md`, `CONTRIBUTING.md`,
+> `ROADMAP-PHASE-C.md`, and `specs/INDEX.md` for current contribution guidance.
 
 This document is a self-contained brief for a contributor picking up one of
 the two large open packets (B-060 and B-061). Everything needed to start is
@@ -342,7 +344,7 @@ def test_cookbook_code_block_runs(tmp_path, lineno, code):
 2. **Alias TOMLs**: `grep -r "your_term" arabicpython/aliases/`
 3. **Existing demos**: `grep -r "your_term" examples/`
 4. **Siwar API** (authoritative Arabic terminology from King Salman Arabic
-   Language Center): `python tools/siwar_lookup.py <term>`
+   Language Center): use the Siwar website/API manually. No local lookup script is shipped.
    Key lexicons: `4cd164a7` (Data & AI), `97ac5360` (Digital Gov),
    `ee392446` (Statistics).
 

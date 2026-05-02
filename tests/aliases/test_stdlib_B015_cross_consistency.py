@@ -1,7 +1,7 @@
 # tests/aliases/test_stdlib_B015_cross_consistency.py
-# B-015 cross-consistency — pytest (اختبارات)
+# B-015 cross-consistency — pytest (بايتست)
 #
-# Verifies no Arabic name collisions between اختبارات and all earlier
+# Verifies no Arabic name collisions between بايتست and all earlier
 # B-batch modules (B-001/requests, B-012/django, B-013/sqlalchemy,
 # B-014/requests-extras already in requests.toml, B-016/numpy,
 # B-017/pandas, B-030 through B-039).
@@ -81,8 +81,8 @@ EARLIER_MODULES = [
 
 @pytest.mark.parametrize("earlier_mod", EARLIER_MODULES)
 def test_no_collision_with_earlier_batches(earlier_mod):
-    """اختبارات shares no Arabic entry keys with any earlier batch module."""
-    pytest_keys = _load_keys("اختبارات")
+    """بايتست shares no Arabic entry keys with any earlier batch module."""
+    pytest_keys = _load_keys("بايتست")
     earlier_keys = _load_keys(earlier_mod)
     overlap = pytest_keys & earlier_keys
-    assert not overlap, f"Collision between اختبارات and {earlier_mod}: {overlap}"
+    assert not overlap, f"Collision between بايتست and {earlier_mod}: {overlap}"

@@ -123,7 +123,7 @@ from arabicpython.reverse import reverse_translate
 
 ---
 
-## 5. نواة Jupyter — `apython kernel`
+## 5. نواة Jupyter — `لغة الثعبان`
 
 تتيح تشغيل ملفات `.apy` كـ notebooks في Jupyter.
 
@@ -137,7 +137,7 @@ python -m arabicpython_kernel install
 ### الاستخدام
 
 ```bash
-jupyter notebook    # اختر kernel "apython (لغة الثعبان)"
+jupyter notebook    # اختر kernel "لغة الثعبان"
 jupyter lab         # نفس الشيء
 ```
 
@@ -223,7 +223,7 @@ Exception names come from `lexicon/core.toml`; translated message patterns come 
 ```bash
 pip install -e ".[kernel]"
 python -m arabicpython_kernel install
-jupyter notebook   # choose "apython" kernel
+jupyter notebook   # choose the "لغة الثعبان" kernel
 ```
 
 ## VS Code Extension

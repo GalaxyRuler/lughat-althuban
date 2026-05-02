@@ -15,13 +15,13 @@ assignees: []
      - urllib.request.urlopen
      - exception: ValueError -->
 
-## Which packet does this belong to?
+## Which area does this belong to?
 
-<!-- Check ROADMAP-PHASE-B.md. Examples:
-     - B-010 (Flask)
-     - B-018 (pandas)
-     - B-035 (stdlib network)
-     - B-041 (traceback messages)
+<!-- Check docs/ar/lexicon.md and lexicon/README.md first. Examples:
+     - lexicon/core.toml
+     - lexicon/libraries.toml
+     - lexicon/messages.toml
+     - arabicpython/aliases/<library>.toml
      - or "I'm not sure — please route this" -->
 
 ## Proposed canonical Arabic term
@@ -45,7 +45,7 @@ assignees: []
 - [ ] **Hedy precedent** — checked Hedy's Arabic translation if applicable
 - [ ] **MSA over dialect** — proposal is Modern Standard Arabic
 - [ ] **Shortest defensible** — no shorter MSA option that's equally clear
-- [ ] **No homograph** — does not collide with an existing entry in `dictionaries/ar-v1.md` or any merged alias TOML
+- [ ] **No homograph** — does not collide with an existing entry in `lexicon/` or any merged alias TOML
 - [ ] **Round-trips through normalization** — `arabicpython.normalize.normalize_identifier(proposal) == proposal`. (If unsure, leave unchecked and ask.)
 
 ## Anything else
