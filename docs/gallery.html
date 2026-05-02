@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="معرض أمثلة لغة الثعبان: أمثلة قابلة للتشغيل في الملعب وأمثلة محلية لحزم stdlib وAI والويب والبيانات."
+      content="معرض أمثلة لغة الثعبان: أمثلة قابلة للتشغيل في الملعب وأمثلة محلية للمكتبة القياسية والذكاء الاصطناعي والويب والبيانات."
     />
     <title>معرض أمثلة لغة الثعبان</title>
     <style>
@@ -253,7 +253,7 @@
       <h1>معرض أمثلة لغة الثعبان</h1>
       <p class="lead">
         أمثلة قصيرة للتشغيل المباشر في الملعب، وأمثلة أوسع للتشغيل محليا بعد
-        تثبيت الحزم الاختيارية. أضيفت هنا أمثلة المرحلة د: AI، أسماء stdlib
+        تثبيت الحزم الاختيارية. أضيفت هنا أمثلة المرحلة د: الذكاء الاصطناعي، أسماء المكتبة القياسية
         المعتمدة، الترجمة العكسية، وأوضاع أثر الأخطاء.
       </p>
       <div class="actions">
@@ -325,7 +325,7 @@
           <article class="card">
             <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
             <h3>ملخص إضافات المرحلة د</h3>
-            <p>قائمة تشغيل سريعة لما أضيف: lexicon، AI، الترجمة العكسية، stdlib، والأثر.</p>
+            <p>قائمة تشغيل سريعة لما أضيف: المعجم، الذكاء الاصطناعي، الترجمة العكسية، المكتبة القياسية، والأثر.</p>
             <pre><code>لكل بند في الإضافات:
     اطبع(" -", بند)</code></pre>
             <div class="card-actions"><a href="playground.html?example=phase-d-overview">شغّل في الملعب</a></div>
@@ -333,27 +333,27 @@
 
           <article class="card">
             <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
-            <h3>أسماء stdlib المعتمدة</h3>
-            <p>أسماء عربية مختارة من المكتبة القياسية مع مكافئاتها الإنجليزية.</p>
-            <pre><code>لكل عربي، بايثون في وحدات.عناصر():
-    اطبع(ت"{عربي} = {بايثون}")</code></pre>
+            <h3>أسماء المكتبة القياسية المعتمدة</h3>
+            <p>أسماء عربية مختارة من المكتبة القياسية مع وصف عربي مختصر.</p>
+            <pre><code>لكل اسم، وصف في وحدات:
+    اطبع(ت"{اسم}: {وصف}")</code></pre>
             <div class="card-actions"><a href="playground.html?example=stdlib-canonical-names">شغّل في الملعب</a></div>
           </article>
 
           <article class="card">
             <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
-            <h3>أسماء AI العربية</h3>
-            <p>استعراض أسماء openai وanthropic وtransformers ورفاقها بالعربية.</p>
-            <pre><code>("ذكاء_مفتوح", "openai")
-("كلود_عربي", "anthropic")</code></pre>
+            <h3>أسماء الذكاء الاصطناعي العربية</h3>
+            <p>استعراض أسماء حزم الذكاء الاصطناعي بالعربية.</p>
+            <pre><code>("ذكاء_مفتوح", "نماذج ومحادثة")
+("كلود_عربي", "مساعدات لغوية")</code></pre>
             <div class="card-actions"><a href="playground.html?example=ai-alias-names">شغّل في الملعب</a></div>
           </article>
 
           <article class="card">
             <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
             <h3>فكرة الترجمة العكسية</h3>
-            <p>مقارنة قصيرة بين Python وملف <code>.apy</code>، مع أمر التشغيل المحلي.</p>
-            <pre><code>ثعبان ترجمة-عكسية script.py --stdout</code></pre>
+            <p>مقارنة قصيرة بين مصدر عادي وملف <code>.apy</code>، مع أمر التشغيل المحلي.</p>
+            <pre><code>ثعبان ترجمة-عكسية ملف.py --stdout</code></pre>
             <div class="card-actions"><a href="playground.html?example=reverse-translation-preview">شغّل في الملعب</a></div>
           </article>
 
@@ -374,7 +374,7 @@
             <p>
               هذه الأمثلة موجودة في المستودع وتحتاج بيئة محلية. استخدم
               <code>python -m pip install -e ".[ai]"</code>
-              لأمثلة AI أو
+              لأمثلة الذكاء الاصطناعي أو
               <code>python -m pip install -e ".[all]"</code>
               للأمثلة الأكبر.
             </p>
@@ -382,7 +382,7 @@
         </div>
         <div class="grid">
           <article class="card">
-            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <div class="meta"><span class="pill">قياسي</span><span class="pill">مدمج</span></div>
             <h3>رياضيات المرحلة د</h3>
             <p>مثال <code>D04_math_demo.apy</code> على الاسم العربي <code>رياضيات</code>.</p>
             <pre><code>ثعبان examples/stdlib/D04_math_demo.apy</code></pre>
@@ -390,7 +390,7 @@
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <div class="meta"><span class="pill">قياسي</span><span class="pill">مدمج</span></div>
             <h3>مسارات وملفات</h3>
             <p>مثال <code>D04_pathlib_demo.apy</code> على <code>مسار</code> وقراءة الملفات.</p>
             <pre><code>ثعبان examples/stdlib/D04_pathlib_demo.apy</code></pre>
@@ -398,7 +398,7 @@
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <div class="meta"><span class="pill">قياسي</span><span class="pill">مدمج</span></div>
             <h3>JSON عربي</h3>
             <p>مثال <code>D04_json_demo.apy</code> على الاسم المعتمد <code>جيسون</code>.</p>
             <pre><code>ثعبان examples/stdlib/D04_json_demo.apy</code></pre>
@@ -406,7 +406,7 @@
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <div class="meta"><span class="pill">قياسي</span><span class="pill">مدمج</span></div>
             <h3>وقت وتاريخ</h3>
             <p>مثال <code>D04_datetime_demo.apy</code> على الاسم العربي <code>تاريخ_وقت</code>.</p>
             <pre><code>ثعبان examples/stdlib/D04_datetime_demo.apy</code></pre>
@@ -414,7 +414,7 @@
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <div class="meta"><span class="pill">قياسي</span><span class="pill">مدمج</span></div>
             <h3>أرقام عشوائية</h3>
             <p>مثال <code>D04_random_demo.apy</code> على الاسم العربي <code>عشوائي</code>.</p>
             <pre><code>ثعبان examples/stdlib/D04_random_demo.apy</code></pre>
@@ -422,40 +422,40 @@
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
-            <h3>OpenAI بالعربية</h3>
+            <div class="meta"><span class="pill">ذكاء</span><span class="pill">إضافي</span></div>
+            <h3>ذكاء مفتوح بالعربية</h3>
             <p>مثال <code>D02_openai_demo.apy</code> يستعرض الاسم <code>ذكاء_مفتوح</code>.</p>
             <pre><code>ثعبان examples/D02_openai_demo.apy</code></pre>
             <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_openai_demo.apy">عرض المصدر</a></div>
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
-            <h3>Anthropic بالعربية</h3>
+            <div class="meta"><span class="pill">ذكاء</span><span class="pill">إضافي</span></div>
+            <h3>كلود بالعربية</h3>
             <p>مثال <code>D02_anthropic_demo.apy</code> على الاسم <code>كلود_عربي</code>.</p>
             <pre><code>ثعبان examples/D02_anthropic_demo.apy</code></pre>
             <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_anthropic_demo.apy">عرض المصدر</a></div>
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
-            <h3>LangChain Core بالعربية</h3>
+            <div class="meta"><span class="pill">ذكاء</span><span class="pill">إضافي</span></div>
+            <h3>سلاسل اللغة بالعربية</h3>
             <p>مثال <code>D02_langchain_core_demo.apy</code> على الاسم <code>سلسلة_لغه</code>.</p>
             <pre><code>ثعبان examples/D02_langchain_core_demo.apy</code></pre>
             <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_langchain_core_demo.apy">عرض المصدر</a></div>
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
-            <h3>Transformers بالعربية</h3>
+            <div class="meta"><span class="pill">ذكاء</span><span class="pill">إضافي</span></div>
+            <h3>المحولات بالعربية</h3>
             <p>مثال <code>D02_transformers_demo.apy</code> على <code>محولات</code>.</p>
             <pre><code>ثعبان examples/D02_transformers_demo.apy</code></pre>
             <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_transformers_demo.apy">عرض المصدر</a></div>
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
-            <h3>Sentence Transformers بالعربية</h3>
+            <div class="meta"><span class="pill">ذكاء</span><span class="pill">إضافي</span></div>
+            <h3>محولات الجمل بالعربية</h3>
             <p>مثال <code>D02_sentence_transformers_demo.apy</code> على <code>محولات_جمل</code>.</p>
             <pre><code>ثعبان examples/D02_sentence_transformers_demo.apy</code></pre>
             <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_sentence_transformers_demo.apy">عرض المصدر</a></div>
@@ -463,14 +463,14 @@
 
           <article class="card">
             <div class="meta"><span class="pill">أداة</span><span class="pill">ترجمة عكسية</span></div>
-            <h3>تحويل Python إلى <code>.apy</code></h3>
-            <p>الأداة الجديدة تقرأ Python وتنتج لغة الثعبان اعتمادا على خرائط المعجم.</p>
-            <pre><code>ثعبان ترجمة-عكسية script.py --stdout</code></pre>
+            <h3>تحويل بايثون إلى <code>.apy</code></h3>
+            <p>الأداة الجديدة تقرأ مصدرا عاديا وتنتج لغة الثعبان اعتمادا على خرائط المعجم.</p>
+            <pre><code>ثعبان ترجمة-عكسية ملف.py --stdout</code></pre>
             <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/wiki/tooling.md">اقرأ الدليل</a></div>
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">ملفات</span><span class="pill">stdlib</span></div>
+            <div class="meta"><span class="pill">ملفات</span><span class="pill">قياسي</span></div>
             <h3>استعراض نظام الملفات</h3>
             <p>مثال <code>B30_filesystem_walk.apy</code> على المسارات والمجلدات.</p>
             <pre><code>ثعبان examples/B30_filesystem_walk.apy</code></pre>
@@ -494,7 +494,7 @@
           </article>
 
           <article class="card">
-            <div class="meta"><span class="pill">async</span><span class="pill">stdlib</span></div>
+            <div class="meta"><span class="pill">لا تزامن</span><span class="pill">قياسي</span></div>
             <h3>تشغيل غير متزامن</h3>
             <p>مثال <code>B37_async_demo.apy</code> على المهام والانتظار.</p>
             <pre><code>ثعبان examples/B37_async_demo.apy</code></pre>

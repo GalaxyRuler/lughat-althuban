@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ملعب لغة الثعبان — Python بالعربية</title>
+  <title>ملعب لغة الثعبان — البرمجة العربية</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
@@ -1139,7 +1139,7 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
 <footer>
   مشغَّل بـ <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a> ·
   المحرّك: <a href="https://github.com/GalaxyRuler/lughat-althuban" target="_blank" rel="noopener">لغة الثعبان v0.4.0</a> ·
-  Python كاملة في المتصفح — لا تثبيت مطلوب
+  برمجة عربية كاملة في المتصفح — لا تثبيت مطلوب
 </footer>
 
 <script>
@@ -1152,7 +1152,7 @@ const EXAMPLES = [
     id: "hello", tier: 1, tag: "مبتدئ", title: "مرحبا بالعالم",
     code: `اطبع("مرحبا بالعالم!")
 اطبع("أهلاً بك في لغة الثعبان 🐍")
-اطبع("Python بالعربية الكاملة")`
+اطبع("برمجة عربية كاملة")`
   },
   {
     id: "variables", tier: 1, tag: "مبتدئ", title: "متغيرات وحساب",
@@ -1415,10 +1415,10 @@ const EXAMPLES = [
   {
     id: "phase-d-overview", tier: 4, tag: "مرحلة د", title: "ملخص إضافات المرحلة د",
     code: `الإضافات = [
-    "مصدر حقيقة واحد في lexicon/",
-    "أسماء AI عربية",
-    "مترجم عكسي من Python إلى .apy",
-    "أسماء stdlib معتمدة",
+    "مصدر حقيقة واحد في مجلد المعجم",
+    "أسماء ذكاء اصطناعي عربية",
+    "مترجم عكسي إلى ملفات عربية",
+    "أسماء مكتبة قياسية معتمدة",
     "أثر أخطاء بثلاثة أوضاع",
 ]
 
@@ -1427,52 +1427,47 @@ const EXAMPLES = [
     اطبع(" -", بند)`
   },
   {
-    id: "stdlib-canonical-names", tier: 4, tag: "مرحلة د", title: "أسماء stdlib المعتمدة",
-    code: `وحدات = {
-    "نظام": "os",
-    "مسار": "pathlib",
-    "نظام_بايثون": "sys",
-    "جيسون": "json",
-    "تعابير": "re",
-    "تنميط": "typing",
-    "خيوط": "threading",
-}
+    id: "stdlib-canonical-names", tier: 4, tag: "مرحلة د", title: "أسماء المكتبة القياسية المعتمدة",
+    code: `وحدات = [
+    ("نظام", "ملفات وبيئة التشغيل"),
+    ("مسار", "بناء المسارات وفحصها"),
+    ("نظام_بايثون", "إعدادات المفسر"),
+    ("جيسون", "قراءة البيانات المنظمة"),
+    ("تعابير", "البحث في النصوص"),
+    ("تنميط", "تلميحات الأنواع"),
+    ("خيوط", "التنفيذ المتوازي"),
+]
 
 اطبع("أمثلة من أسماء المكتبة القياسية:")
-لكل عربي، بايثون في وحدات.عناصر():
-    اطبع(ت"{عربي:>14}  ←  {بايثون}")`
+لكل اسم، وصف في وحدات:
+    اطبع(ت"{اسم}: {وصف}")`
   },
   {
-    id: "ai-alias-names", tier: 4, tag: "مرحلة د", title: "أسماء AI العربية",
-    code: `حزم_ai = [
-    ("ذكاء_مفتوح", "openai"),
-    ("كلود_عربي", "anthropic"),
-    ("سلسلة_لغه", "langchain_core"),
-    ("محولات", "transformers"),
-    ("محولات_جمل", "sentence_transformers"),
+    id: "ai-alias-names", tier: 4, tag: "مرحلة د", title: "أسماء الذكاء الاصطناعي العربية",
+    code: `حزم_الذكاء = [
+    ("ذكاء_مفتوح", "نماذج ومحادثة"),
+    ("كلود_عربي", "مساعدات لغوية"),
+    ("سلسلة_لغه", "سلاسل تطبيقات لغوية"),
+    ("محولات", "نماذج تحويلية"),
+    ("محولات_جمل", "تمثيل الجمل"),
 ]
 
 اطبع("أسماء حزم الذكاء الاصطناعي:")
-لكل عربي، بايثون في حزم_ai:
-    اطبع(ت"{عربي} = {بايثون}")`
+لكل اسم، وصف في حزم_الذكاء:
+    اطبع(ت"{اسم}: {وصف}")`
   },
   {
     id: "reverse-translation-preview", tier: 4, tag: "مرحلة د", title: "فكرة الترجمة العكسية",
-    code: `مصدر_بايثون = """
-for item in range(3):
-    print(item)
-"""
-
-مصدر_الثعبان = """
+    code: `مصدر_الثعبان = """
 لكل عنصر في نطاق(٣):
     اطبع(عنصر)
 """
 
-اطبع("Python:")
-اطبع(مصدر_بايثون)
-اطبع("لغة الثعبان:")
+اطبع("فكرة الترجمة العكسية:")
+اطبع("تقرأ الأداة مصدرا عاديا وتنتج مقابلا عربيا.")
+اطبع("مثال الناتج:")
 اطبع(مصدر_الثعبان)
-اطبع("محليا: ثعبان ترجمة-عكسية script.py --stdout")`
+اطبع("محليا: استخدم أمر الترجمة العكسية من أداة ثعبان.")`
   },
   {
     id: "arabic-error-handling", tier: 4, tag: "مرحلة د", title: "استثناء عربي واضح",
@@ -1568,7 +1563,7 @@ let pyodide = null;
 
 async function initPyodide() {
   setStatus("busy", "جارٍ تحميل Pyodide…");
-  loadingTxt.textContent = "جارٍ تحميل بيئة Python…";
+  loadingTxt.textContent = "جارٍ تحميل بيئة التشغيل…";
 
   pyodide = await loadPyodide();
 
