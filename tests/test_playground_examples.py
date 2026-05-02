@@ -77,3 +77,23 @@ def test_playground_example_output_stays_arabic_first(
 def test_desert_treasure_source_uses_no_latin_letters() -> None:
     source = (PROJECT_ROOT / "docs" / "games" / "كنز_الصحراء.apy").read_text(encoding="utf-8")
     assert not LATIN_LETTER_RE.search(source)
+
+
+def test_desert_treasure_visual_api_moves_and_wins() -> None:
+    source = (PROJECT_ROOT / "docs" / "games" / "كنز_الصحراء.apy").read_text(encoding="utf-8")
+    namespace: dict[str, object] = {}
+    exec(compile(translate(source), "<desert-treasure>", "exec"), namespace)  # noqa: S102
+
+    state = namespace["ابدا"]()
+    assert state["اللاعب"] == {"س": 3, "ص": 3}
+    for command in ["شرق", "شرق", "شمال", "بحث"]:
+        state = namespace["نفذ_امر"](command)
+
+    assert state["وجد"] is True
+    assert state["انتهت"] is True
+    assert "الكنز" in state["رسالة"]
+
+
+def test_playground_does_not_use_blocked_browser_prompt() -> None:
+    html = PLAYGROUND.read_text(encoding="utf-8")
+    assert "window.prompt" not in html
