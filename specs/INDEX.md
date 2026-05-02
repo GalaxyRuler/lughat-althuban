@@ -67,6 +67,12 @@
 | C-026 | aliases-pyjwt-v1 | C (auth) | — | merged |
 | C-030 | dictionary-v2 | C (dictionary) | — | merged |
 | C-040 | integration-demo-v1 | C (validation) | — | merged |
+| D-001 | web-playground | D (reach) | — | shipped |
+| D-002 | ai-aliases | D (AI aliases) | Codex | shipped |
+| D-003 | reverse-translator | D (tooling) | Codex | shipped CLI/API |
+| D-004 | stdlib-aliases-charter | D (stdlib) | Codex | shipped |
+| D-005 | traceback-localization | D (tracebacks) | Codex | shipped |
+| D-011 | ai-optional-extra | D (packaging) | Codex | shipped |
 
 ## Legend
 
@@ -84,4 +90,4 @@ Phase C is complete in the current repository. Its historical 20-packet roadmap 
 
 ## Phase D map
 
-Phase D is active. The current contributor roadmap is [`ROADMAP-PHASE-D.md`](../ROADMAP-PHASE-D.md), and the charter is [`decisions/0012-phase-d-charter.md`](../decisions/0012-phase-d-charter.md).
+Phase D is active. The current contributor roadmap is [`ROADMAP-PHASE-D.md`](../ROADMAP-PHASE-D.md), and the charter is [`decisions/0012-phase-d-charter.md`](../decisions/0012-phase-d-charter.md). D-002 through D-005 were implemented with `lexicon/` as the single source of truth for Arabic-authored words and generated runtime/docs outputs.

@@ -1,0 +1,34 @@
+# arabicpython/aliases/langchain_core.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "سلسلة_لغه"
+python_module = "langchain_core"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+
+[entries]
+"نموذج_لغه_اساسي" = "language_models.BaseLanguageModel"
+"نموذج_دردشه_اساسي" = "language_models.BaseChatModel"
+"رساله_اساسيه" = "messages.BaseMessage"
+"رساله_انسان" = "messages.HumanMessage"
+"رساله_ai" = "messages.AIMessage"
+"رساله_نظام" = "messages.SystemMessage"
+"قالب_موجه" = "prompts.PromptTemplate"
+"قالب_دردشه" = "prompts.ChatPromptTemplate"
+"محلل_مخرجات" = "output_parsers.BaseOutputParser"
+"محلل_نص" = "output_parsers.StrOutputParser"
+"قابل_تشغيل" = "runnables.Runnable"
+"تسلسل_قابل_تشغيل" = "runnables.RunnableSequence"
+"متوازي_قابل_تشغيل" = "runnables.RunnableParallel"
+"لامدا_قابل_تشغيل" = "runnables.RunnableLambda"
+"اداه" = "tools.BaseTool"
+"وثيقه" = "documents.Document"
+
+[attributes]
+"استدع" = "invoke"
+"استدع_دفعي" = "batch"
+"بث" = "stream"
+"صغ" = "format"

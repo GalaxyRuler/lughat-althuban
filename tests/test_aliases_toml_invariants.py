@@ -27,11 +27,11 @@ from arabicpython.normalize import normalize_identifier
 ALIASES_DIR = pathlib.Path(__file__).parent.parent / "arabicpython" / "aliases"
 TOML_FILES = sorted(ALIASES_DIR.glob("*.toml"))
 
-# Budget current as of 2026-04-30: ~59 cross-file [entries]-key collisions,
-# all reviewed and accepted (different Python objects in different libraries
-# that happen to share an Arabic name). Bump intentionally if a new packet
-# pushes the count higher; otherwise the test catches surprise growth.
-COLLISION_BUDGET = 70
+# Budget current as of Phase D source-of-truth generation: 91 cross-file
+# [entries]-key collisions, all reviewed and accepted. Phase D adds broad
+# AI/stdlib coverage and keeps common learner-facing words consistent across
+# modules; the budget still catches surprise growth beyond this reviewed set.
+COLLISION_BUDGET = 100
 
 
 def _load(path: pathlib.Path) -> dict:

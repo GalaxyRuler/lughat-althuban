@@ -1,0 +1,5 @@
+# requires: pip install langchain-core
+استورد سلسلة_لغه
+
+اطبع("HumanMessage:", سلسلة_لغه.رساله_انسان.__name__)
+اطبع("PromptTemplate:", سلسلة_لغه.قالب_موجه.__name__)

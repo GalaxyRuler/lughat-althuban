@@ -293,15 +293,16 @@ other transparently:
 الكلمتان الأساسيتان هنا هما `استورد` و`باسم`. ويمكنك أيضا استيراد أسماء محددة:
 `من helper استورد مربع`.
 
-Standard-library modules (`math`, `json`, `os`, …) are imported by their
-ordinary Python names — `استورد math`. Phase A only translates the *language*,
-not the standard library. Library-name aliasing is the job of Phase B; see
-[`decisions/0008-phase-b-charter.md`](../decisions/0008-phase-b-charter.md).
+Standard-library modules can now be imported by their canonical Arabic names:
+`استورد رياضيات`, `استورد جيسون`, `استورد نظام`, and so on. The import aliases
+are authored in `lexicon/libraries.toml` and generated into
+`arabicpython/aliases/*.toml`; see [`docs/ar/aliases-index.md`](ar/aliases-index.md)
+for the current list.
 
 **Cross-language imports** work in both directions:
 
 - A `.py` file can `import helper` to get an `.apy` module.
-- An `.apy` file can `استورد json` to get a stdlib `.py` module.
+- An `.apy` file can `استورد جيسون` to get the real stdlib `json` module.
 
 One Phase A gotcha: `from . import x` inside a package `__init__.apy` doesn't
 yet translate. Workaround: write `استورد pkg.sub باسم sub`. This is documented
@@ -314,7 +315,7 @@ See [`examples/07_imports.apy`](../examples/07_imports.apy).
 
 ## 9. Reading error messages
 
-Uncaught exceptions print Arabic tracebacks:
+Uncaught exceptions print Arabic tracebacks by default:
 
 ```bash
 $ ثعبان -c '1 / 0'
@@ -341,8 +342,17 @@ in `Error` keep that distinction in Arabic: `KeyboardInterrupt`,
 `StopIteration`, `Warning`, `GeneratorExit`, `SystemExit` are *not* prefixed
 with `خطأ_`.
 
-Full list of all 38 translated exception types is in
-[`dictionaries/exceptions-ar-v1.md`](../dictionaries/exceptions-ar-v1.md).
+Exception display names come from `lexicon/core.toml`, and message patterns come
+from `lexicon/messages.toml`. The generated reference is
+[`docs/ar/lexicon.md`](ar/lexicon.md).
+
+You can choose the traceback mode explicitly:
+
+```bash
+ثعبان --tracebacks=arabic file.apy
+ثعبان --tracebacks=english file.apy
+ثعبان --tracebacks=mixed file.apy
+```
 
 When you `raise` your own exception, you can use either the Arabic or the
 English class name — both resolve to the same object:
@@ -360,8 +370,8 @@ Output:
 التُقط: القيمة غير صالحة
 ```
 
-Around 30 of the most common interpreter messages are translated as well
-(`division by zero`, `list index out of range`, `unsupported operand type(s)`).
+Common interpreter messages are translated as well (`division by zero`,
+`list index out of range`, `unsupported operand type(s)`).
 Messages that don't have a translation pass through unchanged in English —
 better an honest English message than a misleading Arabic one.
 
@@ -372,9 +382,11 @@ better an honest English message than a misleading Arabic one.
 - **Run the examples.** [`examples/01_hello.apy`](../examples/01_hello.apy)
   through `07_imports.apy` are progressively richer demos. Each one is
   intentionally short; together they exercise every feature of the dialect.
-- **Skim the dictionary.** [`dictionaries/ar-v1.md`](../dictionaries/ar-v1.md)
-  is the canonical word list. You don't need to memorize it, but a 5-minute
-  skim builds a useful mental map of what's covered.
+- **Skim the generated lexicon.** [`docs/ar/lexicon.md`](ar/lexicon.md)
+  is generated from `lexicon/` and shows keywords, built-ins, exceptions, and
+  library aliases in one place.
+- **Try reverse translation.** `ثعبان ترجمة-عكسية script.py --stdout` turns
+  ordinary Python into `.apy` using the same reverse maps as the runtime.
 - **Read the architecture ADR.** If you're curious *how* the translation
   happens at all,
   [`decisions/0001-architecture.md`](../decisions/0001-architecture.md)
@@ -382,12 +394,10 @@ better an honest English message than a misleading Arabic one.
 - **Try the REPL.** Just run `ثعبان` with no arguments. It accepts the same
   Arabic-keyword syntax as a script, with multi-line input via continuation
   prompts.
-- **File issues for things that surprised you.** Phase A is feature-complete
-  but the dictionary will continue to evolve in `ar-v2`. If a translation
-  reads strangely, that's signal worth capturing.
+- **File issues for things that surprised you.** Arabic terms are authored in
+  `lexicon/`, so naming feedback belongs there rather than in generated files.
 
 لغة الثعبان is a learning dialect first and a production tool second (see
 [`decisions/0007-scope.md`](../decisions/0007-scope.md) for the explicit
-ordering). The shape of Phase B — including whether `استورد طلبات` will
-eventually mean `import requests` — is sketched in
-[`decisions/0008-phase-b-charter.md`](../decisions/0008-phase-b-charter.md).
+ordering). Phase D's current AI/reach work is tracked in
+[`decisions/0012-phase-d-charter.md`](../decisions/0012-phase-d-charter.md).

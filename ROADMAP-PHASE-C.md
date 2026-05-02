@@ -1,6 +1,6 @@
 # Phase C Roadmap
 
-**Status as of 2026-05-01:** Phase C is complete and historical. PyPI metadata, ClassProxy support, application-library aliases, `ar-v2`, the integration demo, and the canonical lexicon are shipped. The active phase is Phase D; see [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) and [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
+**Status as of 2026-05-02:** Phase C is complete and historical. PyPI metadata, ClassProxy support, application-library aliases, `ar-v2`, the integration demo, and the canonical lexicon are shipped. The active phase is Phase D; D-002 through D-005 runtime work is shipped on the current implementation branch. See [`ROADMAP-PHASE-D.md`](ROADMAP-PHASE-D.md) and [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
 
 This file is the historical contributor-friendly map of what Phase C contained and what depended on what. To pick up current work, see [CONTRIBUTING.md](CONTRIBUTING.md) and the Phase D roadmap. To understand *why* Phase C was structured this way, see [decisions/0011-phase-c-charter.md](decisions/0011-phase-c-charter.md).
 

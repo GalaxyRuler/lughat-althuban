@@ -1,0 +1,5 @@
+# requires: pip install anthropic
+استورد كلود_عربي
+
+اطبع("Anthropic:", كلود_عربي.عميل.__name__)
+اطبع("Timeout:", كلود_عربي.خطا_مهله_ai.__name__)

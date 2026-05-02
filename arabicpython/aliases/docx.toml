@@ -1,51 +1,46 @@
 # arabicpython/aliases/docx.toml
-# C-021: Arabic aliases for python-docx documents, paragraphs, tables, runs, and styles.
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "مستندات_وورد"
-python_module  = "docx"
-dict_version   = "ar-v1"
+arabic_name   = "مستندات_وورد"
+python_module = "docx"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
+maintainer    = "—"
 
 [entries]
-# Document and document object model classes
-"مستند"                  = "Document"
-"فئه_مستند"              = "document.Document"
-"فقره"                   = "text.paragraph.Paragraph"
-"تشغيل"                  = "text.run.Run"
-"جدول"                   = "table.Table"
-"خليه"                   = "table._Cell"
-"صف_جدول"                = "table._Row"
-
-# Enumerations
-"محاذاه_فقره"            = "enum.text.WD_ALIGN_PARAGRAPH"
-"فاصل"                   = "enum.text.WD_BREAK"
-"نوع_نمط"                = "enum.style.WD_STYLE_TYPE"
-
-# Shared measurement and color helpers
-"بوصات"                  = "shared.Inches"
-"سنتيمترات"              = "shared.Cm"
-"نقاط"                   = "shared.Pt"
-"لون_rgb"                = "shared.RGBColor"
-"طول"                    = "shared.Length"
+"مستند" = "Document"
+"فئه_مستند" = "document.Document"
+"فقره" = "text.paragraph.Paragraph"
+"تشغيل" = "text.run.Run"
+"جدول" = "table.Table"
+"خليه" = "table._Cell"
+"صف_جدول" = "table._Row"
+"محاذاه_فقره" = "enum.text.WD_ALIGN_PARAGRAPH"
+"فاصل" = "enum.text.WD_BREAK"
+"نوع_نمط" = "enum.style.WD_STYLE_TYPE"
+"بوصات" = "shared.Inches"
+"سنتيمترات" = "shared.Cm"
+"نقاط" = "shared.Pt"
+"لون_rgb" = "shared.RGBColor"
+"طول" = "shared.Length"
 
 [attributes]
-# Document, Paragraph, Run, and Table attributes for explicit ClassProxy use.
-"اضف_فقره"               = "add_paragraph"
-"اضف_عنوان"              = "add_heading"
-"اضف_جدول"               = "add_table"
-"اضف_صوره"               = "add_picture"
-"احفظ"                   = "save"
-"فقرات"                  = "paragraphs"
-"جداول"                  = "tables"
-"انماط"                  = "styles"
-"اضف_تشغيل"              = "add_run"
-"نص"                     = "text"
-"تشغيلات"                = "runs"
-"غامق"                   = "bold"
-"مائل"                   = "italic"
-"تحته_خط"                = "underline"
-"خط"                     = "font"
-"صفوف"                   = "rows"
-"اعمده"                  = "columns"
+"اضف_فقره" = "add_paragraph"
+"اضف_عنوان" = "add_heading"
+"اضف_جدول" = "add_table"
+"اضف_صوره" = "add_picture"
+"احفظ" = "save"
+"فقرات" = "paragraphs"
+"جداول" = "tables"
+"انماط" = "styles"
+"اضف_تشغيل" = "add_run"
+"نص" = "text"
+"تشغيلات" = "runs"
+"غامق" = "bold"
+"مائل" = "italic"
+"تحته_خط" = "underline"
+"خط" = "font"
+"صفوف" = "rows"
+"اعمده" = "columns"

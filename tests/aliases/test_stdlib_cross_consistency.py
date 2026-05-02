@@ -75,13 +75,13 @@ class TestCrossConsistency:
         sys_arabic, pathlib_arabic = KNOWN_DIVERGENCES["sys.path vs pathlib.Path"]
         assert sys_arabic != pathlib_arabic
 
-        نظام = _proxy("نظام")
+        نظام_بايثون = _proxy("نظام_بايثون")
         مسار_مكتبه = _proxy("مسار_مكتبه")
 
         import pathlib as _pathlib
         import sys as _sys
 
-        assert نظام.مسارات_الاستيراد is _sys.path
+        assert نظام_بايثون.مسارات_الاستيراد is _sys.path
         assert مسار_مكتبه.مسار is _pathlib.Path
 
     def test_sys_exit_vs_os_exit_share_root(self):

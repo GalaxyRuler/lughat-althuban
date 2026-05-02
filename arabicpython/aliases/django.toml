@@ -1,143 +1,96 @@
 # arabicpython/aliases/django.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `django` web framework (B-012).
-# All Arabic keys round-trip through normalize_identifier() unchanged.
-#
-# Surface coverage:
-#   URL routing, HTTP responses, shortcuts, function- and class-based views,
-#   models + fields + relationships + on-delete sentinels + Q/F/aggregates,
-#   forms, settings/apps, exceptions, signals, and WSGI entry points.
-#
-# Notes on dotted paths:
-#   Several entries use dotted Python paths because Django splits its public
-#   API across submodules (e.g. db.models.Model, core.exceptions.ValidationError).
-#   The loader's _resolve_dotted_attr triggers an importlib.import_module on the
-#   submodule when getattr fails, which makes ``django.shortcuts.render`` and
-#   ``django.core.wsgi.get_wsgi_application`` resolve transparently — Django
-#   does not auto-import these submodules the way numpy/requests do.
-#
-# Collision notes (handled here, see handoff brief B-012/B-013):
-#   - مسار  (pathlib)        → using مسار_رابط    for urls.path
-#   - فلتر  (filter builtin)  → using رشح/avoided  (no Django filter alias)
-#   - اجلب  (dict.get)        → using اجلب_او_404 for shortcuts.get_object_or_404
-#   - احذف  (del / Flask)     → not used at module level here
-#   - حدث   (asyncio/dict)    → not used; updates exposed only on QuerySet attrs
-#   - جلسه  (Flask/requests)  → not used (Django session middleware is implicit)
-#   - طلب   (Flask/requests)  → not used (request is a per-view argument)
-#   - حول   (Flask redirect)  → using اعد_توجيه  for shortcuts.redirect
-#   - صيغ   (Flask render)    → using اعرض_قالب  for shortcuts.render
-#   - استجابه (requests)       → using استجابه_http for HttpResponse
 
 [meta]
-arabic_name    = "دجانغو"
-python_module  = "django"
-dict_version   = "ar-v1"
+arabic_name   = "دجانغو"
+python_module = "django"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
+maintainer    = "—"
+arabic_aliases = ["جانغو", "نماذج_جانغو"]
 
 [entries]
-# ── URL routing (django.urls) ────────────────────────────────────────────────
-"مسار_رابط"             = "urls.path"
-"مسار_تعبيري"           = "urls.re_path"
-"ضمن_مسارات"            = "urls.include"
-"اعكس_رابط"             = "urls.reverse"
-"اعكس_رابط_كسلان"        = "urls.reverse_lazy"
+"مسار_رابط" = "urls.path"
+"مسار_تعبيري" = "urls.re_path"
+"ضمن_مسارات" = "urls.include"
+"اعكس_رابط" = "urls.reverse"
+"اعكس_رابط_كسلان" = "urls.reverse_lazy"
+"استجابه_http" = "http.HttpResponse"
+"استجابه_تحويل" = "http.HttpResponseRedirect"
+"استجابه_غير_موجود" = "http.HttpResponseNotFound"
+"استجابه_json" = "http.JsonResponse"
+"استجابه_ملف" = "http.FileResponse"
+"خطا_404" = "http.Http404"
+"استجابه_بث" = "http.StreamingHttpResponse"
+"اعرض_قالب" = "shortcuts.render"
+"اعد_توجيه" = "shortcuts.redirect"
+"اجلب_او_404" = "shortcuts.get_object_or_404"
+"اجلب_قائمه_او_404" = "shortcuts.get_list_or_404"
+"صنف_عرض" = "views.View"
+"عرض_قائمه" = "views.generic.ListView"
+"عرض_تفاصيل" = "views.generic.DetailView"
+"عرض_انشاء" = "views.generic.CreateView"
+"عرض_تحديث" = "views.generic.UpdateView"
+"عرض_حذف" = "views.generic.DeleteView"
+"عرض_نموذج" = "views.generic.FormView"
+"عرض_قالب" = "views.generic.TemplateView"
+"عرض_تحويل" = "views.generic.RedirectView"
+"نموذج" = "db.models.Model"
+"مدير_نموذج" = "db.models.Manager"
+"مجموعه_استعلام" = "db.models.QuerySet"
+"حقل_نصي" = "db.models.CharField"
+"حقل_نص_طويل" = "db.models.TextField"
+"حقل_عددي" = "db.models.IntegerField"
+"حقل_عشري" = "db.models.FloatField"
+"حقل_منطقي" = "db.models.BooleanField"
+"حقل_تاريخ" = "db.models.DateField"
+"حقل_تاريخ_وقت" = "db.models.DateTimeField"
+"حقل_وقت" = "db.models.TimeField"
+"حقل_بريد" = "db.models.EmailField"
+"حقل_رابط" = "db.models.URLField"
+"حقل_عنوان" = "db.models.SlugField"
+"حقل_معرف_فريد" = "db.models.UUIDField"
+"حقل_ملف" = "db.models.FileField"
+"حقل_صوره" = "db.models.ImageField"
+"مفتاح_خارجي" = "db.models.ForeignKey"
+"حقل_واحد_لواحد" = "db.models.OneToOneField"
+"حقل_متعدد" = "db.models.ManyToManyField"
+"تتالي" = "db.models.CASCADE"
+"احم" = "db.models.PROTECT"
+"اضبط_فارغ" = "db.models.SET_NULL"
+"لا_تفعل" = "db.models.DO_NOTHING"
+"كائن_استعلام" = "db.models.Q"
+"حقل_تعبير" = "db.models.F"
+"قيمه_حرفيه" = "db.models.Value"
+"تعبير_مغلف" = "db.models.ExpressionWrapper"
+"عد_صفوف" = "db.models.Count"
+"مجموع_حقل" = "db.models.Sum"
+"متوسط_حقل" = "db.models.Avg"
+"اعلي_حقل" = "db.models.Max"
+"ادني_حقل" = "db.models.Min"
+"نموذج_اساسي" = "forms.Form"
+"نموذج_بيانات" = "forms.ModelForm"
+"حقل_نموذج_نصي" = "forms.CharField"
+"حقل_نموذج_عددي" = "forms.IntegerField"
+"حقل_نموذج_بريد" = "forms.EmailField"
+"حقل_نموذج_خيار" = "forms.ChoiceField"
+"حقل_نموذج_خيارات" = "forms.MultipleChoiceField"
+"حقل_نموذج_منطقي" = "forms.BooleanField"
+"حقل_نموذج_تاريخ" = "forms.DateField"
+"حقل_نموذج_ملف" = "forms.FileField"
+"اعدادات" = "conf.settings"
+"اعداد_تطبيق" = "apps.AppConfig"
+"كائن_غير_موجود" = "core.exceptions.ObjectDoesNotExist"
+"تعدد_نتائج" = "core.exceptions.MultipleObjectsReturned"
+"خطا_تحقق" = "core.exceptions.ValidationError"
+"ممنوع_صلاحيه" = "core.exceptions.PermissionDenied"
+"اعداد_خاطئ" = "core.exceptions.ImproperlyConfigured"
+"قبل_حفظ" = "db.models.signals.pre_save"
+"بعد_حفظ" = "db.models.signals.post_save"
+"قبل_حذف" = "db.models.signals.pre_delete"
+"بعد_حذف" = "db.models.signals.post_delete"
+"معالج_wsgi" = "core.handlers.wsgi.WSGIHandler"
+"اجلب_تطبيق_wsgi" = "core.wsgi.get_wsgi_application"
 
-# ── HTTP objects (django.http) ───────────────────────────────────────────────
-"استجابه_http"          = "http.HttpResponse"
-"استجابه_تحويل"         = "http.HttpResponseRedirect"
-"استجابه_غير_موجود"      = "http.HttpResponseNotFound"
-"استجابه_json"          = "http.JsonResponse"
-"استجابه_ملف"           = "http.FileResponse"
-"خطا_404"               = "http.Http404"
-"استجابه_بث"            = "http.StreamingHttpResponse"
-
-# ── Shortcuts (django.shortcuts) ─────────────────────────────────────────────
-"اعرض_قالب"             = "shortcuts.render"
-"اعد_توجيه"             = "shortcuts.redirect"
-"اجلب_او_404"           = "shortcuts.get_object_or_404"
-"اجلب_قائمه_او_404"     = "shortcuts.get_list_or_404"
-
-# ── Function-based view base (django.views) ──────────────────────────────────
-"صنف_عرض"               = "views.View"
-
-# ── Generic class-based views (django.views.generic) ─────────────────────────
-"عرض_قائمه"             = "views.generic.ListView"
-"عرض_تفاصيل"            = "views.generic.DetailView"
-"عرض_انشاء"             = "views.generic.CreateView"
-"عرض_تحديث"             = "views.generic.UpdateView"
-"عرض_حذف"               = "views.generic.DeleteView"
-"عرض_نموذج"             = "views.generic.FormView"
-"عرض_قالب"              = "views.generic.TemplateView"
-"عرض_تحويل"             = "views.generic.RedirectView"
-
-# ── Models (django.db.models) ────────────────────────────────────────────────
-"نموذج"                 = "db.models.Model"
-"مدير_نموذج"            = "db.models.Manager"
-"مجموعه_استعلام"        = "db.models.QuerySet"
-"حقل_نصي"               = "db.models.CharField"
-"حقل_نص_طويل"           = "db.models.TextField"
-"حقل_عددي"              = "db.models.IntegerField"
-"حقل_عشري"              = "db.models.FloatField"
-"حقل_منطقي"             = "db.models.BooleanField"
-"حقل_تاريخ"             = "db.models.DateField"
-"حقل_تاريخ_وقت"         = "db.models.DateTimeField"
-"حقل_وقت"               = "db.models.TimeField"
-"حقل_بريد"              = "db.models.EmailField"
-"حقل_رابط"              = "db.models.URLField"
-"حقل_عنوان"             = "db.models.SlugField"
-"حقل_معرف_فريد"          = "db.models.UUIDField"
-"حقل_ملف"               = "db.models.FileField"
-"حقل_صوره"              = "db.models.ImageField"
-"مفتاح_خارجي"           = "db.models.ForeignKey"
-"حقل_واحد_لواحد"         = "db.models.OneToOneField"
-"حقل_متعدد"             = "db.models.ManyToManyField"
-"تتالي"                 = "db.models.CASCADE"
-"احم"                   = "db.models.PROTECT"
-"اضبط_فارغ"             = "db.models.SET_NULL"
-"لا_تفعل"               = "db.models.DO_NOTHING"
-"كائن_استعلام"          = "db.models.Q"
-"حقل_تعبير"             = "db.models.F"
-"قيمه_حرفيه"            = "db.models.Value"
-"تعبير_مغلف"            = "db.models.ExpressionWrapper"
-"عد_صفوف"               = "db.models.Count"
-"مجموع_حقل"             = "db.models.Sum"
-"متوسط_حقل"             = "db.models.Avg"
-"اعلي_حقل"              = "db.models.Max"
-"ادني_حقل"              = "db.models.Min"
-
-# ── Forms (django.forms) ─────────────────────────────────────────────────────
-# Form-side fields use the suffix ``_نموذج`` so they stay distinct from
-# the model-layer field aliases above (handoff brief, B-012 forms section).
-"نموذج_اساسي"           = "forms.Form"
-"نموذج_بيانات"          = "forms.ModelForm"
-"حقل_نموذج_نصي"         = "forms.CharField"
-"حقل_نموذج_عددي"        = "forms.IntegerField"
-"حقل_نموذج_بريد"        = "forms.EmailField"
-"حقل_نموذج_خيار"        = "forms.ChoiceField"
-"حقل_نموذج_خيارات"      = "forms.MultipleChoiceField"
-"حقل_نموذج_منطقي"       = "forms.BooleanField"
-"حقل_نموذج_تاريخ"       = "forms.DateField"
-"حقل_نموذج_ملف"         = "forms.FileField"
-
-# ── Settings / apps (django.conf, django.apps) ───────────────────────────────
-"اعدادات"               = "conf.settings"
-"اعداد_تطبيق"           = "apps.AppConfig"
-
-# ── Exceptions (django.core.exceptions) ──────────────────────────────────────
-"كائن_غير_موجود"        = "core.exceptions.ObjectDoesNotExist"
-"تعدد_نتائج"            = "core.exceptions.MultipleObjectsReturned"
-"خطا_تحقق"              = "core.exceptions.ValidationError"
-"ممنوع_صلاحيه"          = "core.exceptions.PermissionDenied"
-"اعداد_خاطئ"            = "core.exceptions.ImproperlyConfigured"
-
-# ── Model signals (django.db.models.signals) ─────────────────────────────────
-"قبل_حفظ"               = "db.models.signals.pre_save"
-"بعد_حفظ"               = "db.models.signals.post_save"
-"قبل_حذف"               = "db.models.signals.pre_delete"
-"بعد_حذف"               = "db.models.signals.post_delete"
-
-# ── WSGI (django.core.handlers.wsgi, django.core.wsgi) ───────────────────────
-"معالج_wsgi"            = "core.handlers.wsgi.WSGIHandler"
-"اجلب_تطبيق_wsgi"        = "core.wsgi.get_wsgi_application"
+[attributes]

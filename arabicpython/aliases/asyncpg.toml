@@ -1,51 +1,46 @@
 # arabicpython/aliases/asyncpg.toml
-# C-019: Arabic aliases for asyncpg connection, pool, query, and error symbols.
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "قاعده_بوست"
-python_module  = "asyncpg"
-dict_version   = "ar-v1"
+arabic_name   = "قاعده_بوست"
+python_module = "asyncpg"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
+maintainer    = "—"
 
 [entries]
-# Connection and pool entry points
-"اتصل"                   = "connect"
-"انشئ_مجمع"              = "create_pool"
-"اتصال"                  = "Connection"
-"مجمع"                   = "Pool"
-"سجل_قاعده"              = "Record"     # disambiguates from logging.Logger
-"معامله"                 = "transaction.Transaction"
-
-# Top-level errors
-"خطا_بوست"               = "PostgresError"
-"خطا_واجهه"              = "InterfaceError"
-
-# SQL/PostgreSQL errors
-"خطا_بوست_عام"           = "exceptions.PostgresError"
-"خطا_اتصال_مفقود"        = "exceptions.ConnectionDoesNotExistError"
-"خطا_كلمه_سر"            = "exceptions.InvalidPasswordError"
-"خطا_تفرد"               = "exceptions.UniqueViolationError"
-"خطا_مفتاح_خارجي"        = "exceptions.ForeignKeyViolationError"
-"خطا_صياغه_او_صلاحيه"    = "exceptions.SyntaxOrAccessError"
-"خطا_قاعده_مكرره"        = "exceptions.DuplicateDatabaseError"
-"خطا_جدول_غير_معرف"      = "exceptions.UndefinedTableError"
+"اتصل" = "connect"
+"انشئ_مجمع" = "create_pool"
+"اتصال" = "Connection"
+"مجمع" = "Pool"
+"سجل_قاعده" = "Record"
+"معامله" = "transaction.Transaction"
+"خطا_بوست" = "PostgresError"
+"خطا_واجهه" = "InterfaceError"
+"خطا_بوست_عام" = "exceptions.PostgresError"
+"خطا_اتصال_مفقود" = "exceptions.ConnectionDoesNotExistError"
+"خطا_كلمه_سر" = "exceptions.InvalidPasswordError"
+"خطا_تفرد" = "exceptions.UniqueViolationError"
+"خطا_مفتاح_خارجي" = "exceptions.ForeignKeyViolationError"
+"خطا_صياغه_او_صلاحيه" = "exceptions.SyntaxOrAccessError"
+"خطا_قاعده_مكرره" = "exceptions.DuplicateDatabaseError"
+"خطا_جدول_غير_معرف" = "exceptions.UndefinedTableError"
 
 [attributes]
-# Connection and Pool method names for explicit ClassProxy use.
-"اجلب"                   = "fetch"
-"اجلب_صف"                = "fetchrow"
-"اجلب_قيمه"              = "fetchval"
-"نفذ"                    = "execute"
-"نفذ_كثير"               = "executemany"
-"حضر"                    = "prepare"
-"عامله"                  = "transaction"
-"اغلق"                   = "close"
-"استحوذ"                 = "acquire"
-"حرر"                    = "release"
-"انسخ_سجلات_الي_جدول"    = "copy_records_to_table"
-"اضف_مستمع"              = "add_listener"
-"ازل_مستمع"              = "remove_listener"
-"هل_مغلق"                = "is_closed"
-"عين_مرمز_نوع"           = "set_type_codec"
-"اعد_مرمز_نوع"           = "reset_type_codec"
+"اجلب" = "fetch"
+"اجلب_صف" = "fetchrow"
+"اجلب_قيمه" = "fetchval"
+"نفذ" = "execute"
+"نفذ_كثير" = "executemany"
+"حضر" = "prepare"
+"عامله" = "transaction"
+"اغلق" = "close"
+"استحوذ" = "acquire"
+"حرر" = "release"
+"انسخ_سجلات_الي_جدول" = "copy_records_to_table"
+"اضف_مستمع" = "add_listener"
+"ازل_مستمع" = "remove_listener"
+"هل_مغلق" = "is_closed"
+"عين_مرمز_نوع" = "set_type_codec"
+"اعد_مرمز_نوع" = "reset_type_codec"

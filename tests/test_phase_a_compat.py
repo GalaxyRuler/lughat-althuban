@@ -158,6 +158,11 @@ _EXCLUDED = {
     "C25_bs4_demo.apy",  # requires optional beautifulsoup4 dependency
     "C26_jwt_demo.apy",  # requires alias finder installed; covered by test_aliases_jwt.py
     "C40_full_stack_demo.apy",  # has its own integration test; not snapshot-stable
+    "D02_anthropic_demo.apy",  # requires optional anthropic dependency
+    "D02_langchain_core_demo.apy",  # requires optional langchain-core dependency
+    "D02_openai_demo.apy",  # requires optional openai dependency
+    "D02_sentence_transformers_demo.apy",  # requires optional sentence-transformers dependency
+    "D02_transformers_demo.apy",  # requires optional transformers dependency
 }
 
 _EXAMPLE_PARAMS = sorted(p for p in EXAMPLES_DIR.glob("*.apy") if p.name not in _EXCLUDED)

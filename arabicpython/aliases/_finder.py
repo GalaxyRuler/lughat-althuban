@@ -89,7 +89,14 @@ class AliasFinder(importlib.abc.MetaPathFinder):
                 pass
 
         loaded = dict(exact)
-        for arabic_name, mapping in exact.items():
+        alias_names: dict[str, AliasMapping] = {}
+        for mapping in exact.values():
+            for alias_name in mapping.arabic_aliases:
+                alias_names.setdefault(alias_name, mapping)
+
+        loaded.update({k: v for k, v in alias_names.items() if k not in loaded})
+
+        for arabic_name, mapping in list(loaded.items()):
             normalized_name = normalize_identifier(arabic_name)
             if normalized_name != arabic_name and normalized_name not in loaded:
                 loaded[normalized_name] = mapping

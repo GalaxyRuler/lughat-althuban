@@ -14,6 +14,8 @@
 | `طلبات` | `requests` | طلبات HTTP المتزامنة |
 | `أيو_هتب` | `aiohttp` | طلبات HTTP غير المتزامنة |
 | `فاست_أبي` | `fastapi` | إطار API سريع مبني على Pydantic |
+| `دجانغو` | `django` | إطار ويب كامل |
+| `طلبات_حديثه` | `httpx` | عميل HTTP متزامن وغير متزامن |
 
 ---
 
@@ -348,13 +350,13 @@
 
 ## مقارنة المكتبات
 
-| المعيار | فلاسك | فاست_أبي | طلبات | أيو_هتب |
-|---------|-------|------------|-------|-----------------|
-| **الاستخدام** | خوادم ويب | واجهات API | عميل HTTP | عميل/خادم غير متزامن |
-| **غير متزامن** | جزئياً | كامل | لا | كامل |
-| **التحقق التلقائي** | لا | نعم (Pydantic) | لا | لا |
-| **الوثائق التلقائية** | لا | نعم (OpenAPI) | لا | لا |
-| **الثقل** | خفيف | متوسط | خفيف | متوسط |
+| المعيار | فلاسك | فاست_أبي | دجانغو | طلبات | طلبات_حديثه | أيو_هتب |
+|---------|-------|------------|--------|-------|---------------|---------|
+| **الاستخدام** | خوادم ويب | واجهات API | تطبيقات كاملة | عميل HTTP | عميل HTTP | عميل/خادم غير متزامن |
+| **غير متزامن** | جزئياً | كامل | جزئياً | لا | نعم | كامل |
+| **التحقق التلقائي** | لا | نعم (Pydantic) | نماذج Django | لا | لا | لا |
+| **الوثائق التلقائية** | لا | نعم (OpenAPI) | عبر إضافات | لا | لا | لا |
+| **الثقل** | خفيف | متوسط | كامل | خفيف | خفيف | متوسط |
 
 </div>
 
@@ -368,7 +370,9 @@
 | `طلبات` | `requests` | Synchronous HTTP client |
 | `أيو_هتب` | `aiohttp` | Async HTTP client + server |
 | `فاست_أبي` | `fastapi` | Async API framework with auto OpenAPI docs |
+| `دجانغو` | `django` | Full-stack web framework |
+| `طلبات_حديثه` | `httpx` | Sync and async HTTP client |
 
-All four packages must be installed separately (`pip install flask requests aiohttp fastapi`). The alias runtime resolves Arabic import names to the real packages automatically.
+These packages must be installed separately, or through `pip install -e ".[all]"` in the development environment. The alias runtime resolves Arabic import names to the real packages automatically.
 
 See also: [stdlib-aliases.md](stdlib-aliases.md) for `اتزامن` (asyncio) which aiohttp and fastapi depend on.

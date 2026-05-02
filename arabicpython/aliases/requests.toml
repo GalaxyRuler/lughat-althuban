@@ -1,112 +1,84 @@
 # arabicpython/aliases/requests.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `requests` library (v2.32+).
-# All Arabic keys must round-trip through normalize_identifier() unchanged.
-# No two Arabic keys may share the same Python attribute value.
-# Sorted alphabetically by Python attribute name within each group.
-#
-# Curation notes (ADR 0003):
-#   - MSA over dialect throughout.
-#   - Response *instance* attributes (status_code, text, json, …) live in
-#     [attributes] so ClassProxy can expose them when wrapping response objects.
-#   - "رأس" (head) is stored as "راس" because normalize_identifier folds
-#     hamza-above (أ → ا).
-#   - Words ending in ta-marbuta (ة) are stored with heh (ه) because
-#     normalize_identifier converts the final ta-marbuta to heh.
-#   - HTTPBasicAuth / HTTPDigestAuth are NOT exported at requests top-level;
-#     use dotted paths "auth.HTTPBasicAuth" / "auth.HTTPDigestAuth".
-#   - SSLError, InvalidHeader, InvalidURL, MissingSchema are also NOT exported
-#     at top-level; use "exceptions.<Name>" dotted paths.
 
 [meta]
-arabic_name  = "طلبات"
+arabic_name   = "طلبات"
 python_module = "requests"
 dict_version  = "ar-v1"
 schema_version = 1
-maintainer   = "—"
+maintainer    = "—"
 
 [entries]
-# ── HTTP verbs ──────────────────────────────────────────────────────────────
-"احذف"              = "delete"
-"احصل"              = "get"
-"اطلب"              = "request"
-"خيارات"            = "options"
-"راس"               = "head"         # رأس → راس after normalize_identifier hamza fold
-"ضع"                = "put"
-"عدل"               = "patch"
-"نشر"               = "post"
-
-# ── Classes ─────────────────────────────────────────────────────────────────
-"استجابه"           = "Response"     # استجابة → استجابه (ta-marbuta fold)
-"جلسه"              = "Session"      # جلسة → جلسه (ta-marbuta fold)
-"طلب"               = "Request"
-"طلب_محضر"          = "PreparedRequest"
-
-# ── Authentication ───────────────────────────────────────────────────────────
-"مصادقه_اساسيه"     = "auth.HTTPBasicAuth"    # not exported at top level
-"مصادقه_قاعده"      = "auth.AuthBase"          # base class for custom auth handlers
-"مصادقه_هضم"        = "auth.HTTPDigestAuth"    # not exported at top level
-"مصادقه_وكيل"       = "auth.HTTPProxyAuth"     # proxy authentication
-
-# ── Exceptions ───────────────────────────────────────────────────────────────
-"خطا_اتصال"         = "ConnectionError"
-"خطا_اتصال_مهله"    = "ConnectTimeout"
-"خطا_المخطط"        = "exceptions.InvalidSchema"       # unknown scheme (ftp://, etc.)
-"خطا_بروتوكول"      = "HTTPError"
-"خطا_بث_مستهلك"     = "exceptions.StreamConsumedError" # response body already consumed
-"خطا_جسم"           = "exceptions.UnrewindableBodyError"
-"خطا_راس_غير_صالح"  = "exceptions.InvalidHeader"       # not exported at top level
-"خطا_رابط_وكيل"     = "exceptions.InvalidProxyURL"
-"خطا_url_غير_صالح"  = "exceptions.InvalidURL"          # not exported at top level
-"خطا_طلب"           = "RequestException"
-"خطا_ssl"           = "exceptions.SSLError"             # not exported at top level
-"خطا_كثير_تحويلات"  = "TooManyRedirects"
-"خطا_كوكيز"         = "cookies.CookieConflictError"
-"خطا_مهله"          = "Timeout"
-"خطا_نقص_المخطط"    = "exceptions.MissingSchema"       # not exported at top level
-"خطا_وكيل"          = "exceptions.ProxyError"
-"خطا_قراءه"         = "ReadTimeout"
-"خطا_ترميز_مقطع"    = "exceptions.ChunkedEncodingError"
-"خطا_فك_محتوي"      = "exceptions.ContentDecodingError"
-"خطا_اعاده_محاوله"  = "exceptions.RetryError"
-"خطا_json"          = "exceptions.JSONDecodeError"
-"خطا_url_مطلوب"     = "URLRequired"
-
-# ── Submodules and utilities ─────────────────────────────────────────────────
-"ادوات"             = "utils"        # أدوات → ادوات (hamza fold)
-"استثناءات"         = "exceptions"
-"انشئ_جلسه"         = "session"      # factory function (lowercase) → new Session
-"جلسات"             = "sessions"
-"رموز_الحاله"       = "codes"        # رموز الحالة → رموز_الحاله (ta-marbuta fold)
-"كوكيز"             = "cookies"
-"محول_http"         = "adapters.HTTPAdapter"
-"محولات"            = "adapters"
-"مصادقه"            = "auth"
-"نماذج"             = "models"
-
-# ── Structures ───────────────────────────────────────────────────────────────
-"قاموس_بحث"         = "structures.LookupDict"
-"قاموس_غير_حساس"    = "structures.CaseInsensitiveDict"  # case-insensitive header dict
-"وعاء_كوكيز"        = "cookies.RequestsCookieJar"
+"احذف" = "delete"
+"احصل" = "get"
+"اطلب" = "request"
+"خيارات" = "options"
+"راس" = "head"
+"ضع" = "put"
+"عدل" = "patch"
+"نشر" = "post"
+"استجابه" = "Response"
+"جلسه" = "Session"
+"طلب" = "Request"
+"طلب_محضر" = "PreparedRequest"
+"مصادقه_اساسيه" = "auth.HTTPBasicAuth"
+"مصادقه_قاعده" = "auth.AuthBase"
+"مصادقه_هضم" = "auth.HTTPDigestAuth"
+"مصادقه_وكيل" = "auth.HTTPProxyAuth"
+"خطا_اتصال" = "ConnectionError"
+"خطا_اتصال_مهله" = "ConnectTimeout"
+"خطا_المخطط" = "exceptions.InvalidSchema"
+"خطا_بروتوكول" = "HTTPError"
+"خطا_بث_مستهلك" = "exceptions.StreamConsumedError"
+"خطا_جسم" = "exceptions.UnrewindableBodyError"
+"خطا_راس_غير_صالح" = "exceptions.InvalidHeader"
+"خطا_رابط_وكيل" = "exceptions.InvalidProxyURL"
+"خطا_url_غير_صالح" = "exceptions.InvalidURL"
+"خطا_طلب" = "RequestException"
+"خطا_ssl" = "exceptions.SSLError"
+"خطا_كثير_تحويلات" = "TooManyRedirects"
+"خطا_كوكيز" = "cookies.CookieConflictError"
+"خطا_مهله" = "Timeout"
+"خطا_نقص_المخطط" = "exceptions.MissingSchema"
+"خطا_وكيل" = "exceptions.ProxyError"
+"خطا_قراءه" = "ReadTimeout"
+"خطا_ترميز_مقطع" = "exceptions.ChunkedEncodingError"
+"خطا_فك_محتوي" = "exceptions.ContentDecodingError"
+"خطا_اعاده_محاوله" = "exceptions.RetryError"
+"خطا_json" = "exceptions.JSONDecodeError"
+"خطا_url_مطلوب" = "URLRequired"
+"ادوات" = "utils"
+"استثناءات" = "exceptions"
+"انشئ_جلسه" = "session"
+"جلسات" = "sessions"
+"رموز_الحاله" = "codes"
+"كوكيز" = "cookies"
+"محول_http" = "adapters.HTTPAdapter"
+"محولات" = "adapters"
+"مصادقه" = "auth"
+"نماذج" = "models"
+"قاموس_بحث" = "structures.LookupDict"
+"قاموس_غير_حساس" = "structures.CaseInsensitiveDict"
+"وعاء_كوكيز" = "cookies.RequestsCookieJar"
 
 [attributes]
-"احذف_جلسه"         = "delete"
-"اغلق_جلسه"         = "close"
-"ارسل_جلسه"         = "send"
-"ارفع_للحاله"       = "raise_for_status"
-"اطلب_جلسه"         = "request"
-"بيانات_json"       = "json"
-"ترويسات"           = "headers"
-"حضر_طلب"           = "prepare_request"
-"خيارات_جلسه"       = "options"
-"رابط"              = "url"
-"راس_جلسه"          = "head"
-"رمز_الحاله"        = "status_code"
-"ضع_جلسه"           = "put"
-"عدل_جلسه"          = "patch"
-"محتوي"             = "content"
-"ناجح"              = "ok"
-"نشر_جلسه"          = "post"
-"نص"                = "text"
-"احصل_جلسه"         = "get"
+"احذف_جلسه" = "delete"
+"اغلق_جلسه" = "close"
+"ارسل_جلسه" = "send"
+"ارفع_للحاله" = "raise_for_status"
+"اطلب_جلسه" = "request"
+"بيانات_json" = "json"
+"ترويسات" = "headers"
+"حضر_طلب" = "prepare_request"
+"خيارات_جلسه" = "options"
+"رابط" = "url"
+"راس_جلسه" = "head"
+"رمز_الحاله" = "status_code"
+"ضع_جلسه" = "put"
+"عدل_جلسه" = "patch"
+"محتوي" = "content"
+"ناجح" = "ok"
+"نشر_جلسه" = "post"
+"نص" = "text"
+"احصل_جلسه" = "get"

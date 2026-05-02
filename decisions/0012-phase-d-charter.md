@@ -1,8 +1,23 @@
 # 0012 — Phase D charter: AI & Reach
 
-**Status**: accepted  
+**Status**: accepted; D-002 through D-005 implementation update recorded
 **Date**: 2026-04-30  
 **Deciders**: project author  
+
+---
+
+## Implementation update — 2026-05-02
+
+The D-002 through D-005 runtime work has shipped with a lexicon single-source-of-truth model:
+
+- `lexicon/libraries.toml` now authors AI aliases, stdlib aliases, compatibility import names, entries, attributes, optional extras, and proxy metadata.
+- `lexicon/core.toml` remains canonical for keywords, built-ins, methods, and exception display names.
+- `lexicon/messages.toml` authors tool strings plus traceback regex/templates.
+- `tools/generate_lexicon_outputs.py` generates runtime alias TOMLs, generated traceback/message modules, dictionary docs, and docs indexes.
+- `tools/validate_lexicon.py` fails on generated drift.
+- Full local verification after installing `.[all]`: `2926 passed, 23 skipped, 1 warning`.
+
+Notes against the original charter: D-003 CLI/API reverse translation is shipped; the playground reverse-translation tab remains a follow-up. D-011's `.[ai]` packaging extra shipped alongside D-002.
 
 ---
 
@@ -56,8 +71,10 @@ A self-contained static HTML page at `docs/playground.html`, deployed to GitHub 
 
 ### D-002 — AI SDK Arabic aliases
 
+**Status**: **SHIPPED** (2026-05-02)
+
 **Packet label**: D-002  
-**Scope**: Arabic module aliases for `anthropic`, `openai`, `langchain-core`, `transformers` (HuggingFace), and `sentence-transformers`. Each gets a TOML file under `arabicpython/aliases/`, a test file under `tests/aliases/`, and a demo `.apy` file under `examples/`.
+**Scope**: Arabic module aliases for `anthropic`, `openai`, `langchain-core`, `transformers` (HuggingFace), and `sentence-transformers`. The canonical authoring lives in `lexicon/libraries.toml`; runtime TOMLs under `arabicpython/aliases/` are generated outputs with tests and demos under `tests/aliases/` and `examples/`.
 
 **Why this tier**: The single highest-leverage item after the playground. Arabic developers building AI applications are the fastest-growing segment. Aliasing `anthropic` as `كلود_عربي` and `openai` as `ذكاء_مفتوح` makes لغة الثعبان immediately relevant to this wave.
 
@@ -244,6 +261,8 @@ Do NOT just bump the budget without renaming.
 
 ### D-003 — Reverse translator: Python → لغة الثعبان
 
+**Status**: **SHIPPED for CLI/API** (2026-05-02); playground tab remains follow-up.
+
 **Packet label**: D-003  
 **Scope**: A CLI tool and library function that takes a `.py` file or string and produces equivalent `.apy` source using Arabic keywords and, optionally, Arabic built-in names and exception names. Integrated into the `ثعبان` CLI as `ثعبان ترجمة-عكسية <file.py>`.
 
@@ -263,7 +282,7 @@ Do NOT just bump the budget without renaming.
 ثعبان ترجمة-عكسية script.py --level=3 # include exceptions too
 ```
 
-**Implementation approach**: The `Dialect` object already has `reverse_names` and `reverse_attributes` maps (built in `dialect.py` — every `load_dialect()` call populates them). The reverse translator tokenizes the `.py` file with `tokenize`, walks NAME tokens, and replaces Python keywords/builtins with their Arabic canonical form using `reverse_names` / `reverse_attributes`.
+**Implementation approach**: The `Dialect` object has `reverse_names` and `reverse_attributes` maps generated from the active lexicon-backed dictionaries. The reverse translator tokenizes the `.py` file with `tokenize`, walks NAME tokens, and replaces Python keywords/builtins with their Arabic canonical form using `reverse_names` / `reverse_attributes`. There is no separate reverse word table.
 
 **Acceptance criteria**:
 - `ثعبان ترجمة-عكسية examples/hello.py` produces valid `.apy` that runs via `ثعبان تشغيل`
@@ -357,10 +376,12 @@ Add subcommand: ثعبان ترجمة-عكسية
 
 ---
 
-### D-004 — Arabic stdlib module aliases (20+ Python stdlib modules)
+### D-004 — Arabic stdlib module aliases (31 Python stdlib modules)
+
+**Status**: **SHIPPED** (2026-05-02)
 
 **Packet label**: D-004  
-**Scope**: Arabic aliases for the Python standard library modules most commonly used by beginners and educators. Unlike Phase C's third-party library aliases, these cover `import` statements for stdlib modules and their top-level functions.
+**Scope**: Arabic aliases for the Python standard library modules most commonly used by beginners and educators. The D charter names are canonical in `lexicon/libraries.toml`; older non-conflicting names are preserved through `arabic_aliases`.
 
 **Why this tier**: A learner writing their first Arabic Python program will quickly need `os`, `math`, `datetime`, `json`, `pathlib`, `random`, `re`, and `collections`. Without stdlib aliases, they are forced into a code-switch: `استورد math` works (they can import by English name), but calling `math.sqrt()` instead of `رياضيات.جذر()` breaks the immersion. Phase D must close this.
 
@@ -380,7 +401,7 @@ Add subcommand: ثعبان ترجمة-عكسية
 | `itertools` | `ادوات_تكرار` | P2 |
 | `functools` | `ادوات_دوال` | P2 |
 | `string` | `نصوص` | P2 |
-| `time` | `وقت` | P2 |
+| `time` | `وقت_نظام` | P2 |
 | `sys` | `نظام_بايثون` | P2 |
 | `io` | `ادخال_اخراج` | P3 |
 | `csv` | `ملف_csv` | P3 |
@@ -389,12 +410,14 @@ Add subcommand: ثعبان ترجمة-عكسية
 | `logging` | `تسجيل` | P3 |
 | `threading` | `خيوط` | P3 |
 
-**Special handling**: stdlib modules are already importable (no `pip install` needed), so `pytest.importorskip` is not required. Test files can import directly.
+The shipped set expands this minimum to 31 generated stdlib aliases, including `typing` (`تنميط`), `argparse` (`محلل_وسائط`), `shutil` (`ادوات_ملفات`), `secrets` (`اسرار`), `subprocess` (`عملية_فرعية`), `contextlib` (`مدير_سياق`), `sqlite3` (`قاعدة_بيانات`), `csv` (`ملف_csv`), `io` (`ادخال_اخراج`), `calendar` (`روزنامه`), and `statistics` (`احصاء`).
+
+**Special handling**: stdlib modules are already importable (no `pip install` needed), so `pytest.importorskip` is not required. Test files can import directly. Generated TOMLs must trace back to `lexicon/libraries.toml`.
 
 **Acceptance criteria**:
 - `استورد رياضيات` works and `رياضيات.جذر(٩)` returns `3.0`
 - `استورد تاريخ_وقت` works and `تاريخ_وقت.تاريخ.اليوم()` returns today's date
-- All 20 TOML files pass the invariant tests
+- All 31 stdlib TOML files pass the invariant tests
 - A new `tests/aliases/stdlib/` subdirectory contains test files
 - A new `examples/stdlib/` directory contains at least 5 demo `.apy` files
 
@@ -520,8 +543,10 @@ If needed, bump COLLISION_BUDGET to a new reviewed number and document why.
 
 ### D-005 — Full Arabic traceback localization
 
+**Status**: **SHIPPED** (2026-05-02)
+
 **Packet label**: D-005  
-**Scope**: Extend `arabicpython/tracebacks.py` to translate the English text of every built-in Python exception message that appears in a traceback — not just the exception class name, but the descriptive message itself. Add a `--tracebacks=arabic` flag to the CLI and make it the default for `.apy` files.
+**Scope**: Extend traceback localization to translate exception display names from `lexicon/core.toml` and common CPython message patterns from `lexicon/messages.toml`. Add CLI modes `arabic`, `english`, and `mixed`; `arabic` is the default for `.apy` execution.
 
 **Why this tier**: A learner who gets `NameError: name 'x' is not defined` in Arabic context is forced to context-switch back to English to understand the error. The dictionary already translates exception class names (`NameError` → `خطا_اسم`); D-005 completes the work by translating the message text.
 
@@ -550,7 +575,7 @@ If needed, bump COLLISION_BUDGET to a new reviewed number and document why.
 **Acceptance criteria**:
 - `ثعبان تشغيل script.apy` shows Arabic error messages for all top-30 patterns
 - `PYTHONTRACEBACK=arabic ثعبان تشغيل script.apy` is equivalent
-- English tracebacks still available via `--tracebacks=english` flag
+- English tracebacks still available via `--tracebacks=english`; mixed tracebacks via `--tracebacks=mixed`
 - Tests in `tests/test_tracebacks_arabic.py` verify 10+ message patterns
 
 ---
@@ -769,6 +794,8 @@ In tutorial.html, add a "🔗 الملعب" link pointing back to playground.htm
 
 ### D-011 — `[ai]` optional-dependency extra (pyproject.toml)
 
+**Status**: **SHIPPED with D-002** (2026-05-02)
+
 **Scope**: After D-002 ships, add `lughat-althuban[ai]` as a published optional extra. Update the README with an "AI with Arabic" section showing a full Arabic `anthropic` usage example. Add a GitHub Actions workflow job that installs `.[ai]` and runs `pytest tests/aliases/test_anthropic.py` on CI.
 
 **Acceptance criteria**: `pip install lughat-althuban[ai]` installs all AI SDK aliases; CI verifies the aliases on every push.
@@ -840,6 +867,8 @@ A `ar-gulf`, `ar-levantine` dictionary variant could serve these communities. Th
 ## Phase D completion criterion
 
 Phase D is considered complete when all Tier 1 items are shipped (D-001 through D-005) and the playground URL (GitHub Pages) is publicly accessible and correctly runs all 7 built-in examples.
+
+As of 2026-05-02, the repository implementation for D-002 through D-005 is shipped and verified. The only original Tier 1 acceptance item not covered by this implementation pass is the D-003 playground reverse-translation tab.
 
 Tier 2 items are targeted for Phase D but are individually deferrable. A "Phase D.1" patch release may ship Tier 2 items after the Tier 1 gate is met.
 

@@ -1,119 +1,88 @@
 # arabicpython/aliases/sqlalchemy.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
-#
-# Maps Arabic names to the `sqlalchemy` database toolkit (B-013).
-# All Arabic keys round-trip through normalize_identifier() unchanged.
-#
-# Surface coverage:
-#   Engine + connection helpers, Session/sessionmaker/scoped_session,
-#   Declarative ORM mapping primitives, column types, query construction
-#   (select/insert/update/delete + and_/or_/not_/func/case/cast/literal/label),
-#   ORM loading helpers, result-row objects, and the exc.* exception family.
-#
-# Collision notes (handled here, see handoff brief B-012/B-013):
-#   - اختر  (random.choice)  → using اختر_من       for sqlalchemy.select
-#   - مرشح  (logging.Filter) → not used; query filtering goes through select()
-#   - فهرس  (pandas.Index)   → using فهرس_جدول    for sqlalchemy.Index
-#   - خطا_تكامل (sqlite3)    → using خطا_تكامل_orm for sqlalchemy.exc.IntegrityError
-#   - جلسه  (Flask/requests) → using جلسه_قاعده   for orm.Session
-#   - حدث / احذف (asyncio/del) → using حدث_صفوف / احذف_صفوف for the SQL constructors
 
 [meta]
-arabic_name    = "ألكيمي"
-python_module  = "sqlalchemy"
-dict_version   = "ar-v1"
+arabic_name   = "ألكيمي"
+python_module = "sqlalchemy"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
+maintainer    = "—"
+arabic_aliases = ["نموذج_كائنات"]
 
 [entries]
-# ── Engine & connection (sqlalchemy) ─────────────────────────────────────────
-"انشئ_محرك"             = "create_engine"
-"نص_خام"                = "text"
-"رابط_url"              = "URL"
-"احلل_url"              = "make_url"
-"افحص_محرك"             = "inspect"
-
-# ── Session (sqlalchemy.orm) ─────────────────────────────────────────────────
-"جلسه_قاعده"            = "orm.Session"
-"صانع_جلسات"            = "orm.sessionmaker"
-"جلسه_موجهه"            = "orm.scoped_session"
-
-# ── ORM base & mapping (sqlalchemy.orm) ──────────────────────────────────────
-"اساس_تعريفي"           = "orm.DeclarativeBase"
-"عمود_موجه"             = "orm.MappedColumn"
-"عرف_عمود"              = "orm.mapped_column"
-"علاقه"                 = "orm.relationship"
-"علاقه_عكسيه"           = "orm.backref"
-"موجه"                  = "orm.Mapped"
-"سجل_تعيينات"           = "orm.registry"
-
-# ── Column types & constraints (sqlalchemy) ──────────────────────────────────
-"عمود"                  = "Column"
-"نوع_عدد_صحيح"          = "Integer"
-"نوع_نص"                = "String"
-"نوع_عشري"              = "Float"
-"نوع_منطقي"             = "Boolean"
-"نوع_تاريخ"             = "Date"
-"نوع_تاريخ_وقت"         = "DateTime"
-"نوع_وقت"               = "Time"
-"نوع_نص_طويل"           = "Text"
-"مفتاح_اجنبي"           = "ForeignKey"
-"قيد_مفتاح_رئيسي"        = "PrimaryKeyConstraint"
-"قيد_فريد"              = "UniqueConstraint"
-"فهرس_جدول"             = "Index"
-
-# ── Query construction (sqlalchemy) ──────────────────────────────────────────
-"اختر_من"               = "select"
-"ادخل_صف"               = "insert"
-"حدث_صفوف"              = "update"
-"احذف_صفوف"             = "delete"
-"اجتماع"                = "and_"
-"افتراق"                = "or_"
-"نفي"                   = "not_"
-"داله_sql"              = "func"
-"حاله_sql"              = "case"
-"حول_نوع"               = "cast"
-"قيمه_حرفيه_sql"        = "literal"
-"وسم_عمود"              = "label"
-
-# ── ORM query helpers (sqlalchemy.orm) ───────────────────────────────────────
-"كائن_استعلام_orm"       = "orm.Query"
-"تحميل_مدمج"            = "orm.joinedload"
-"تحميل_فرعي"            = "orm.subqueryload"
-"تحميل_بالاختيار"       = "orm.selectinload"
-"يحوي_فورا"             = "orm.contains_eager"
-"اجل_تحميل"             = "orm.defer"
-"الغ_تاجيل"             = "orm.undefer"
-
-# ── Result objects (sqlalchemy) ──────────────────────────────────────────────
-"صف_نتيجه"              = "Row"
-"نتيجه_استعلام"         = "Result"
-"نتيجه_عدديه"           = "ScalarResult"
-"نتيجه_مؤشر"            = "CursorResult"
-
-# ── Exceptions (sqlalchemy.exc) ──────────────────────────────────────────────
-"خطا_sqlalchemy"        = "exc.SQLAlchemyError"
-"خطا_تكامل_orm"         = "exc.IntegrityError"
-"خطا_تشغيلي"            = "exc.OperationalError"
-"لا_نتيجه"              = "exc.NoResultFound"
-"نتائج_متعدده"          = "exc.MultipleResultsFound"
+"انشئ_محرك" = "create_engine"
+"نص_خام" = "text"
+"رابط_url" = "URL"
+"احلل_url" = "make_url"
+"افحص_محرك" = "inspect"
+"جلسه_قاعده" = "orm.Session"
+"صانع_جلسات" = "orm.sessionmaker"
+"جلسه_موجهه" = "orm.scoped_session"
+"اساس_تعريفي" = "orm.DeclarativeBase"
+"عمود_موجه" = "orm.MappedColumn"
+"عرف_عمود" = "orm.mapped_column"
+"علاقه" = "orm.relationship"
+"علاقه_عكسيه" = "orm.backref"
+"موجه" = "orm.Mapped"
+"سجل_تعيينات" = "orm.registry"
+"عمود" = "Column"
+"نوع_عدد_صحيح" = "Integer"
+"نوع_نص" = "String"
+"نوع_عشري" = "Float"
+"نوع_منطقي" = "Boolean"
+"نوع_تاريخ" = "Date"
+"نوع_تاريخ_وقت" = "DateTime"
+"نوع_وقت" = "Time"
+"نوع_نص_طويل" = "Text"
+"مفتاح_اجنبي" = "ForeignKey"
+"قيد_مفتاح_رئيسي" = "PrimaryKeyConstraint"
+"قيد_فريد" = "UniqueConstraint"
+"فهرس_جدول" = "Index"
+"اختر_من" = "select"
+"ادخل_صف" = "insert"
+"حدث_صفوف" = "update"
+"احذف_صفوف" = "delete"
+"اجتماع" = "and_"
+"افتراق" = "or_"
+"نفي" = "not_"
+"داله_sql" = "func"
+"حاله_sql" = "case"
+"حول_نوع" = "cast"
+"قيمه_حرفيه_sql" = "literal"
+"وسم_عمود" = "label"
+"كائن_استعلام_orm" = "orm.Query"
+"تحميل_مدمج" = "orm.joinedload"
+"تحميل_فرعي" = "orm.subqueryload"
+"تحميل_بالاختيار" = "orm.selectinload"
+"يحوي_فورا" = "orm.contains_eager"
+"اجل_تحميل" = "orm.defer"
+"الغ_تاجيل" = "orm.undefer"
+"صف_نتيجه" = "Row"
+"نتيجه_استعلام" = "Result"
+"نتيجه_عدديه" = "ScalarResult"
+"نتيجه_مؤشر" = "CursorResult"
+"خطا_sqlalchemy" = "exc.SQLAlchemyError"
+"خطا_تكامل_orm" = "exc.IntegrityError"
+"خطا_تشغيلي" = "exc.OperationalError"
+"لا_نتيجه" = "exc.NoResultFound"
+"نتائج_متعدده" = "exc.MultipleResultsFound"
 
 [attributes]
-# Engine/Connection/Session/Result names for explicit ClassProxy use.
-"اتصل"                  = "connect"
-"ابدا"                  = "begin"
-"اغلق"                  = "close"
-"التزم"                 = "commit"
-"استعلم"                = "query"
-"اضف"                   = "add"
-"اضف_الكل"              = "add_all"
-"اجلب"                  = "fetchone"
-"اجلب_الكل"             = "fetchall"
-"اسم_المحرك"            = "name"
-"تخلص"                  = "dispose"
-"تراجع"                 = "rollback"
-"قياسي"                 = "scalar"
-"كل_النتائج"            = "all"
-"نفذ"                   = "execute"
-"واحد"                  = "one"
-"واحد_او_لا"            = "one_or_none"
+"اتصل" = "connect"
+"ابدا" = "begin"
+"اغلق" = "close"
+"التزم" = "commit"
+"استعلم" = "query"
+"اضف" = "add"
+"اضف_الكل" = "add_all"
+"اجلب" = "fetchone"
+"اجلب_الكل" = "fetchall"
+"اسم_المحرك" = "name"
+"تخلص" = "dispose"
+"تراجع" = "rollback"
+"قياسي" = "scalar"
+"كل_النتائج" = "all"
+"نفذ" = "execute"
+"واحد" = "one"
+"واحد_او_لا" = "one_or_none"

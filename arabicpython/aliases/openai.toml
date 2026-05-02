@@ -1,0 +1,41 @@
+# arabicpython/aliases/openai.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "ذكاء_مفتوح"
+python_module = "openai"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+proxy_classes = ["OpenAI", "AsyncOpenAI"]
+
+[entries]
+"عميل" = "OpenAI"
+"عميل_غير_متزامن" = "AsyncOpenAI"
+"اجلب_اجابه" = "chat.completions.create"
+"اكمال" = "completions.create"
+"تضمين" = "embeddings.create"
+"اكمال_دردشه" = "types.chat.ChatCompletion"
+"اكمال_نص" = "types.Completion"
+"تضمين_نص" = "types.CreateEmbeddingResponse"
+"صوره" = "types.Image"
+"نموذج" = "types.Model"
+"خطا_api" = "APIError"
+"خطا_اتصال_ai" = "APIConnectionError"
+"خطا_حاله_ai" = "APIStatusError"
+"خطا_مفتاح" = "AuthenticationError"
+"خطا_صلاحيات_ai" = "PermissionDeniedError"
+"خطا_غير_موجود_ai" = "NotFoundError"
+"خطا_طلب_ai" = "BadRequestError"
+"خطا_تعارض_ai" = "ConflictError"
+"خطا_غير_قابل_ai" = "UnprocessableEntityError"
+"خطا_معدل_ai" = "RateLimitError"
+"خطا_مهله_ai" = "APITimeoutError"
+
+[attributes]
+"انشئ" = "create"
+"دردشه" = "chat"
+"اكمالات" = "completions"
+"تضمينات" = "embeddings"
+"نماذج" = "models"

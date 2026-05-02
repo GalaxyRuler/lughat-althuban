@@ -18,8 +18,11 @@ class ArabicConsole(_code_module.InteractiveConsole):
         self,
         locals: "dict[str, Any] | None" = None,
         filename: str = "<stdin>",
+        *,
+        tracebacks: str = "arabic",
     ) -> None:
         super().__init__(locals=locals, filename=filename)
+        self.tracebacks = tracebacks
 
     def runsource(
         self,
@@ -62,7 +65,7 @@ class ArabicConsole(_code_module.InteractiveConsole):
         # showtraceback does — it strips its own frame.
         if exc_tb is not None:
             exc_tb = exc_tb.tb_next
-        print_translated_exception(exc_type, exc_value, exc_tb, file=self)
+        print_translated_exception(exc_type, exc_value, exc_tb, file=self, mode=self.tracebacks)
 
 
 def _is_incomplete_marker(e: SyntaxError) -> bool:
@@ -84,6 +87,7 @@ def run_repl(
     *,
     banner: "str | None" = None,
     exit_msg: "str | None" = None,
+    tracebacks: str = "arabic",
 ) -> int:
     """Start an interactive Arabic Python session.
 
@@ -112,7 +116,7 @@ def run_repl(
     sys.ps1 = os.environ.get("THUABAN_PS1", getattr(sys, "ps1", ">>> "))
     sys.ps2 = os.environ.get("THUABAN_PS2", getattr(sys, "ps2", "... "))
 
-    console = ArabicConsole()
+    console = ArabicConsole(tracebacks=tracebacks)
     try:
         console.interact(banner=banner, exitmsg=exit_msg)
     except SystemExit as e:

@@ -1,0 +1,45 @@
+"""Generated Arabic user-facing message data."""
+
+# Generated from lexicon/messages.toml. Do not edit by hand.
+# fmt: off
+# ruff: noqa: E501
+
+MESSAGES: dict[str, str] = {
+    'aliases.unmapped_instance_attribute': 'لا يملك الكائن هذه الصفة العربية',
+    'aliases.unmapped_instance_warning': 'الاسم العربي غير موجود في خريطة الكائن المنسقة',
+    'aliases.unmapped_module_attribute': 'لا تملك الوحدة العربية هذه الصفة',
+    'aliases.unmapped_module_warning': 'الاسم العربي غير موجود في خريطة الوحدة المنسقة',
+    'cli.description': 'لغة الثعبان، مشغّل بايثون العربي.',
+    'cli.dict_help': 'اختر نسخة القاموس.',
+    'cli.dictionary_conflict': 'تعارض في نسخة القاموس',
+    'cli.invalid_utf8': 'ترميز الملف ليس UTF-8 صالحا',
+    'cli.is_directory': 'المسار مجلد وليس ملفا',
+    'cli.keyboard_interrupt': 'مقاطعة_لوحة_المفاتيح',
+    'cli.missing_file': 'الملف غير موجود',
+    'cli.open_file_error': 'تعذر فتح الملف',
+    'cli.stdin_read_error': 'تعذر قراءة الإدخال القياسي',
+    'cli.unknown_dictionary': 'نسخة القاموس غير معروفة',
+    'formatter.already_formatted': 'منسق مسبقا',
+    'formatter.check_help': 'لا تكتب التغييرات، واخرج برمز 1 إذا احتاج أي ملف إلى تنسيق.',
+    'formatter.description': 'نسّق ملفات .apy.',
+    'formatter.file_not_found': 'الملف غير موجود',
+    'formatter.reformatted': 'أعيد تنسيقه',
+    'formatter.would_reformat': 'سيعاد تنسيقه',
+    'kernel.install_help': 'ثبّت مواصفة النواة في Jupyter.',
+    'kernel.installed_kernel': 'ثُبّتت مواصفة النواة',
+    'kernel.missing_jupyter_client': 'الحزمة jupyter_client غير مثبتة. ثبّتها بالأمر: pip install jupyter_client',
+    'kernel.translation_error': 'خطأ في الترجمة',
+    'linter.description': 'راجع ملفات .apy.',
+    'linter.file_not_found': 'الملف غير موجود',
+    'linter.line_too_long': 'السطر طويل',
+    'linter.missing_intro': 'لا يحتوي الملف على تعليق أو توثيق علوي',
+    'linter.mixed_identifier': 'معرّف يمزج العربية واللاتينية',
+    'linter.no_info_help': 'أخف تشخيصات المعلومات.',
+    'linter.select_help': 'قائمة رموز التشخيص المراد تفعيلها، مفصولة بفواصل.',
+    'linter.tab_indentation': 'إزاحة بعلامة جدولة؛ استخدم 4 مسافات',
+    'linter.trailing_whitespace': 'مسافة زائدة في نهاية السطر',
+    'pretokenize.bidi_control': 'حرف تحكم باتجاه النص غير مسموح خارج النصوص الحرفية',
+    'pretokenize.bidi_reason': 'راجع https://trojansource.codes لمعرفة السبب',
+    'pretokenize.mixed_digits': 'مزج أنظمة الأرقام داخل العدد غير مسموح',
+    'pretokenize.one_digit_system': 'استخدم نظام أرقام واحدا في العدد',
+}

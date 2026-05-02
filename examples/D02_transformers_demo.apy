@@ -1,0 +1,5 @@
+# requires: pip install transformers
+استورد محولات
+
+اطبع("AutoModel:", محولات.نموذج_تلقائي.__name__)
+اطبع("AutoTokenizer:", محولات.مرمز_تلقائي.__name__)

@@ -1,77 +1,64 @@
 # arabicpython/aliases/celery.toml
-# C-017: Arabic aliases for Celery apps, tasks, canvas primitives, beat, and errors.
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
 
 [meta]
-arabic_name    = "مهام_خلفيه"
-python_module  = "celery"
-dict_version   = "ar-v1"
+arabic_name   = "مهام_خلفيه"
+python_module = "celery"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer     = "—"
-proxy_classes  = ["Celery", "Task"]
+maintainer    = "—"
+proxy_classes = ["Celery", "Task"]
 
 [entries]
-# ── App and task primitives ──────────────────────────────────────────────────
-"التطبيق_الحالي"        = "current_app"
-"المهمه_الحاليه"        = "current_task"
-"تطبيق_سيلري"           = "Celery"
-"مهمه"                  = "Task"
-"مهمه_مشتركه"           = "shared_task"
-
-# ── Canvas primitives ────────────────────────────────────────────────────────
-"ربما_توقيع"            = "maybe_signature"
-"سلسله"                 = "chain"
-"مجموعة_مهام"           = "group"
-"وتر"                   = "chord"
-"توقيع"                 = "signature"
-
-# ── App instance methods/properties (ClassFactory → InstanceProxy) ───────────
-"اعداد_من_كائن"         = "Celery.config_from_object"
-"اكتشف_مهام"            = "Celery.autodiscover_tasks"
-"ارسل_مهمه"             = "Celery.send_task"
-"التكوين"               = "Celery.conf"
-"تحكم_تطبيق"            = "Celery.control"
-"توقيع_مهمه"            = "Celery.signature"
-"عرف_مهمه"              = "Celery.task"
-"مهام_مسجله"            = "Celery.tasks"
-
-# ── Task instance methods (ClassFactory → InstanceProxy) ─────────────────────
-"اجل_مهمه"              = "Task.delay"
-"طبق_غير_متزامن_مهمه"  = "Task.apply_async"
-
-# ── Results, beat, and scheduling ────────────────────────────────────────────
-"جدول_ضربات"            = "beat.Scheduler"
-"جدوله"                 = "schedules.schedule"
-"جدوله_cron"            = "schedules.crontab"
-"خطوه_بدء_ايقاف"        = "bootsteps.StartStopStep"
-"نتيجه_غير_متزامنه"     = "result.AsyncResult"
-"نتيجه_مجموعه"          = "result.GroupResult"
-
-# ── Utilities/state/signals ──────────────────────────────────────────────────
-"اشارات"                = "signals"
-"حالات"                 = "states"
-"معرف_uuid"             = "uuid"
-
-# ── Exceptions ───────────────────────────────────────────────────────────────
-"ارفض"                  = "exceptions.Reject"
-"اعد_المحاوله"          = "exceptions.Retry"
-"تجاهل"                 = "exceptions.Ignore"
-"خطا_سيلري"             = "exceptions.CeleryError"
-"خطا_مهمه"              = "exceptions.TaskError"
-"خطا_مهله_ناعم"         = "exceptions.SoftTimeLimitExceeded"
-"خطا_مهله_صلب"          = "exceptions.TimeLimitExceeded"
-"غير_مسجل"              = "exceptions.NotRegistered"
+"التطبيق_الحالي" = "current_app"
+"المهمه_الحاليه" = "current_task"
+"تطبيق_سيلري" = "Celery"
+"مهمه" = "Task"
+"مهمه_مشتركه" = "shared_task"
+"ربما_توقيع" = "maybe_signature"
+"سلسله" = "chain"
+"مجموعة_مهام" = "group"
+"وتر" = "chord"
+"توقيع" = "signature"
+"اعداد_من_كائن" = "Celery.config_from_object"
+"اكتشف_مهام" = "Celery.autodiscover_tasks"
+"ارسل_مهمه" = "Celery.send_task"
+"التكوين" = "Celery.conf"
+"تحكم_تطبيق" = "Celery.control"
+"توقيع_مهمه" = "Celery.signature"
+"عرف_مهمه" = "Celery.task"
+"مهام_مسجله" = "Celery.tasks"
+"اجل_مهمه" = "Task.delay"
+"طبق_غير_متزامن_مهمه" = "Task.apply_async"
+"جدول_ضربات" = "beat.Scheduler"
+"جدوله" = "schedules.schedule"
+"جدوله_cron" = "schedules.crontab"
+"خطوه_بدء_ايقاف" = "bootsteps.StartStopStep"
+"نتيجه_غير_متزامنه" = "result.AsyncResult"
+"نتيجه_مجموعه" = "result.GroupResult"
+"اشارات" = "signals"
+"حالات" = "states"
+"معرف_uuid" = "uuid"
+"ارفض" = "exceptions.Reject"
+"اعد_المحاوله" = "exceptions.Retry"
+"تجاهل" = "exceptions.Ignore"
+"خطا_سيلري" = "exceptions.CeleryError"
+"خطا_مهمه" = "exceptions.TaskError"
+"خطا_مهله_ناعم" = "exceptions.SoftTimeLimitExceeded"
+"خطا_مهله_صلب" = "exceptions.TimeLimitExceeded"
+"غير_مسجل" = "exceptions.NotRegistered"
 
 [attributes]
-# Celery app/task attributes for explicit ClassProxy use.
-"اعداد_من_كائن"         = "config_from_object"
-"اكتشف_مهام"            = "autodiscover_tasks"
-"ارسل_مهمه"             = "send_task"
-"التكوين"               = "conf"
-"تحكم"                  = "control"
-"توقيع_مهمه"            = "signature"
-"عرف_مهمه"              = "task"
-"مهام"                  = "tasks"
-"اجل"                   = "delay"
-"طبق_غير_متزامن"        = "apply_async"
-"احصل_نتيجه"            = "get"
-"جاهز"                  = "ready"
+"اعداد_من_كائن" = "config_from_object"
+"اكتشف_مهام" = "autodiscover_tasks"
+"ارسل_مهمه" = "send_task"
+"التكوين" = "conf"
+"تحكم" = "control"
+"توقيع_مهمه" = "signature"
+"عرف_مهمه" = "task"
+"مهام" = "tasks"
+"اجل" = "delay"
+"طبق_غير_متزامن" = "apply_async"
+"احصل_نتيجه" = "get"
+"جاهز" = "ready"

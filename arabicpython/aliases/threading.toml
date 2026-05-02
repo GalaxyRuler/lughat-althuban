@@ -1,0 +1,37 @@
+# arabicpython/aliases/threading.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
+# Schema version: 1
+
+[meta]
+arabic_name   = "خيوط"
+python_module = "threading"
+dict_version  = "ar-v2"
+schema_version = 1
+maintainer    = "—"
+proxy_classes = ["Thread"]
+
+[entries]
+"خيط" = "Thread"
+"قفل" = "Lock"
+"قفل_معاد" = "RLock"
+"حدث" = "Event"
+"شرط" = "Condition"
+"مؤقت" = "Timer"
+"حاجز" = "Barrier"
+"اشاره" = "Semaphore"
+"اشاره_محدوده" = "BoundedSemaphore"
+"محلي" = "local"
+"الخيط_الحالي" = "current_thread"
+"الخيط_الرئيسي" = "main_thread"
+"عدد_نشط" = "active_count"
+"عدد_نشط_قديم" = "activeCount"
+"عدد" = "enumerate"
+
+[attributes]
+"ابدا" = "start"
+"انضم" = "join"
+"حي" = "is_alive"
+"عين" = "set"
+"انتظر" = "wait"
+"حرر" = "release"
+"اكتسب" = "acquire"

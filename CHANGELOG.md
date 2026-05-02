@@ -7,10 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Phase D D-002 through D-005 delivery:
+  - AI aliases for `anthropic`, `openai`, `langchain_core`, `transformers`,
+    and `sentence_transformers`, all authored in `lexicon/libraries.toml`.
+  - Reverse translator API and CLI command: `arabicpython.reverse` and
+    `ثعبان ترجمة-عكسية`.
+  - Canonical stdlib import names for D-004, including `نظام`→`os`,
+    `نظام_بايثون`→`sys`, `مسار`→`pathlib`, `تعابير`→`re`,
+    `ادوات_دوال`→`functools`, `تنميط`→`typing`, `خيوط`→`threading`,
+    and `مسار_نظام`→`os.path`.
+  - Traceback localization modes: `arabic`, `english`, and `mixed`.
+
 ### Changed
 
 - Roadmap and contributor documentation now mark Phase C as complete and
   Phase D as the active roadmap.
+- `lexicon/libraries.toml` is now the single authoring source for runtime alias
+  TOMLs; generated alias files are marked as generated.
+- `lexicon/messages.toml` now owns reusable tool messages and traceback message
+  regex/templates; runtime imports generated Python data modules.
+- `tools/validate_lexicon.py` now checks generated dictionaries, alias TOMLs,
+  docs, messages, and traceback data for drift.
+- Old non-conflicting import names such as `نظام_تشغيل`, `مسار_مكتبه`,
+  `عشوائيات`, `اختبارات`, `صور`, `جانغو`, and `رسم_مخططات` are preserved as
+  compatibility `arabic_aliases`.
+- The full optional test environment is covered by `.[all]`; Windows dev
+  installs include `pyreadline3` for readline-backed REPL history tests.
+
+### Verification
+
+- Full local suite after installing optional extras:
+  `2926 passed, 23 skipped, 1 warning`.
+- Remaining skips are Python-version-specific f-string tests or tutorial
+  snippets explicitly marked non-runnable.
 
 ## [0.4.0] — 2026-05-01
 

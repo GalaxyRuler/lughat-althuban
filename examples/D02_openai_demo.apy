@@ -1,0 +1,5 @@
+# requires: pip install openai
+استورد ذكاء_مفتوح
+
+اطبع("OpenAI:", ذكاء_مفتوح.عميل.__name__)
+اطبع("Authentication:", ذكاء_مفتوح.خطا_مفتاح.__name__)
