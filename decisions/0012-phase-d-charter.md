@@ -784,6 +784,8 @@ In tutorial.html, add a "🔗 الملعب" link pointing back to playground.htm
 
 ### D-010 — Example gallery page
 
+**Status**: **SHIPPED** (2026-05-02)
+
 **Scope**: `docs/gallery.html` — a grid of 20+ real-world `.apy` program examples. Each card shows: program title (Arabic), a short description, a syntax-highlighted code preview, and a "شغّل في الملعب" button that opens `playground.html?example=<id>` with the code pre-loaded.
 
 **Programs to include**: One per major domain — web scraping, data analysis, file operations, API calls, game logic, sorting algorithms, math visualizations, text processing, OOP patterns, functional patterns, async patterns, exception patterns, CLI tools, unit tests, regex, date/time manipulation, JSON parsing, CSV processing, recursion, decorators.

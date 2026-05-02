@@ -1,6 +1,6 @@
 # Phase D Roadmap
 
-**Status as of 2026-05-01:** Phase D is active. Phase C is complete and historical; see [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) for its shipped packet map. Phase D is governed by [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
+**Status as of 2026-05-02:** Phase D is active. Phase C is complete and historical; see [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) for its shipped packet map. Phase D is governed by [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
 
 Theme: **AI & Reach** — make لغة الثعبان easier to discover, try, share, and use for modern AI-oriented Python work.
 
@@ -25,10 +25,10 @@ Tier 2 work is useful during Phase D, but can ship after the Tier 1 gate.
 | ID | Title | Status | Notes |
 |---|---|---|---|
 | D-001 | Web playground | shipped | `docs/playground.html` and `.github/workflows/pages.yml` are present. |
-| D-002 | AI SDK Arabic aliases | drafted | Target libraries: `anthropic`, `openai`, `langchain-core`, `transformers`, `sentence-transformers`. |
-| D-003 | Reverse translator: Python to لغة الثعبان | drafted | Should reuse dialect reverse maps and integrate with the playground. |
-| D-004 | Standard-library alias coverage reconciliation | needs decision | Many stdlib aliases already shipped earlier; this packet should audit gaps and align names with `lexicon/libraries.toml` before adding or renaming anything. |
-| D-005 | Full traceback localization policy | needs decision | Runtime tracebacks are already Arabic-first, but ADR 0012 also asks for CLI mode flags and a defined English/mixed fallback policy. |
+| D-002 | AI SDK Arabic aliases | shipped | `anthropic`, `openai`, `langchain-core`, `transformers`, and `sentence-transformers` are authored in `lexicon/libraries.toml`. |
+| D-003 | Reverse translator: Python to لغة الثعبان | shipped CLI/API | Uses generated dialect reverse maps; playground reverse-translation UI remains a follow-up. |
+| D-004 | Standard-library alias coverage reconciliation | shipped | Canonical D charter names live in `lexicon/libraries.toml` with compatible old names preserved where safe. |
+| D-005 | Full traceback localization policy | shipped | CLI supports `--tracebacks=arabic|english|mixed` with generated exception/message data. |
 
 ---
 
@@ -40,8 +40,8 @@ Tier 2 work is useful during Phase D, but can ship after the Tier 1 gate.
 | D-007 | Mobile-optimized playground / PWA | drafted | Offline manifest, service worker, and touch-friendly layout. |
 | D-008 | Arabic Jupyter kernel improvements | drafted | Arabic display metadata, completion polish, and notebook UX. |
 | D-009 | Arabic `pip` wrapper improvements | drafted | Clarify installation and package-management flows for learners. |
-| D-010 | Example gallery page | drafted | Fast static gallery linking examples into the playground. |
-| D-011 | `[ai]` optional-dependency extra | blocked by D-002 | Add after AI aliases settle. |
+| D-010 | Example gallery page | shipped | `docs/gallery.html` links runnable examples into `playground.html?example=<id>` and lists local stdlib/AI examples. |
+| D-011 | `[ai]` optional-dependency extra | shipped | `.[ai]` installs AI SDK alias dependencies for local examples and CI coverage. |
 
 ---
 

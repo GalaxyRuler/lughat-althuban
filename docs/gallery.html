@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="معرض أمثلة لغة الثعبان: أمثلة قابلة للتشغيل في الملعب وأمثلة محلية لحزم stdlib وAI والويب والبيانات."
+    />
+    <title>معرض أمثلة لغة الثعبان</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f5ef;
+        --ink: #1f2933;
+        --muted: #5f6c72;
+        --panel: #fffdf7;
+        --line: #ded7ca;
+        --accent: #0f766e;
+        --accent-ink: #ffffff;
+        --soft: #e8f4f1;
+        --code: #243b53;
+        --shadow: rgba(31, 41, 51, 0.08);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --bg: #101615;
+          --ink: #f4f1ea;
+          --muted: #b7c0bd;
+          --panel: #17211f;
+          --line: #31423e;
+          --accent: #5eead4;
+          --accent-ink: #082f2a;
+          --soft: #173b36;
+          --code: #d8eee9;
+          --shadow: rgba(0, 0, 0, 0.24);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          "Segoe UI",
+          Tahoma,
+          Arial,
+          sans-serif;
+        line-height: 1.75;
+      }
+
+      header,
+      main,
+      footer {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 48px 0 28px;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .nav-link,
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 14px;
+        background: var(--panel);
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .button.primary {
+        border-color: transparent;
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 12px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.15;
+      }
+
+      .lead {
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      section {
+        padding: 26px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 16px;
+      }
+
+      .section-head p {
+        max-width: 560px;
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        display: flex;
+        min-height: 236px;
+        flex-direction: column;
+        gap: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+        background: var(--panel);
+        box-shadow: 0 12px 30px var(--shadow);
+      }
+
+      .card h3 {
+        margin-bottom: 0;
+        font-size: 1.12rem;
+      }
+
+      .card p {
+        color: var(--muted);
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        border-radius: 999px;
+        padding: 2px 10px;
+        background: var(--soft);
+        color: var(--ink);
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+
+      code {
+        direction: ltr;
+        unicode-bidi: embed;
+        border-radius: 6px;
+        padding: 2px 5px;
+        background: var(--soft);
+        color: var(--code);
+        font-family:
+          "Cascadia Mono",
+          Consolas,
+          monospace;
+        font-size: 0.92em;
+      }
+
+      pre {
+        margin: 0;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: var(--soft);
+        direction: rtl;
+        text-align: right;
+        unicode-bidi: plaintext;
+      }
+
+      pre code {
+        direction: inherit;
+        unicode-bidi: plaintext;
+        padding: 0;
+        background: transparent;
+      }
+
+      .card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .card-actions a {
+        font-size: 0.95rem;
+      }
+
+      footer {
+        padding: 28px 0 44px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="روابط رئيسية">
+        <a class="nav-link" href="index.html">الرئيسية</a>
+        <a class="nav-link" href="playground.html">الملعب</a>
+        <a class="nav-link" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/ar/README.md">الوثائق العربية</a>
+        <a class="nav-link" href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/wiki/index.md">الويكي</a>
+      </nav>
+      <h1>معرض أمثلة لغة الثعبان</h1>
+      <p class="lead">
+        أمثلة قصيرة للتشغيل المباشر في الملعب، وأمثلة أوسع للتشغيل محليا بعد
+        تثبيت الحزم الاختيارية. أضيفت هنا أمثلة المرحلة د: AI، أسماء stdlib
+        المعتمدة، الترجمة العكسية، وأوضاع أثر الأخطاء.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="playground.html?example=phase-d-overview">افتح مثال المرحلة د</a>
+        <a class="button" href="https://github.com/GalaxyRuler/lughat-althuban/tree/main/examples">تصفح مجلد examples</a>
+      </div>
+    </header>
+
+    <main>
+      <section aria-labelledby="browser">
+        <div class="section-head">
+          <div>
+            <h2 id="browser">أمثلة تعمل في المتصفح</h2>
+            <p>هذه البطاقات تفتح الملعب وتحمّل المثال مباشرة، دون تثبيت محلي.</p>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="meta"><span class="pill">مبتدئ</span><span class="pill">ملعب</span></div>
+            <h3>مرحبا بالعالم</h3>
+            <p>أول برنامج عربي: طباعة نصوص بسيطة والتأكد من أن الملعب جاهز.</p>
+            <pre><code>اطبع("مرحبا بالعالم")</code></pre>
+            <div class="card-actions"><a href="playground.html?example=hello">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مبتدئ</span><span class="pill">ملعب</span></div>
+            <h3>متغيرات وحساب</h3>
+            <p>مساحة ومحيط باستخدام أرقام عربية وكلمات عربية.</p>
+            <pre><code>المساحة = الطول * العرض</code></pre>
+            <div class="card-actions"><a href="playground.html?example=variables">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مبتدئ</span><span class="pill">ملعب</span></div>
+            <h3>شرط بسيط</h3>
+            <p>تجربة <code>اذا</code> و<code>والا</code> في مثال صغير.</p>
+            <pre><code>اذا الدرجة >= ٥٠:
+    اطبع("ناجح")</code></pre>
+            <div class="card-actions"><a href="playground.html?example=condition">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">متوسط</span><span class="pill">ملعب</span></div>
+            <h3>دالة بسيطة</h3>
+            <p>تعريف دالة عربية وإرجاع نص ثم استدعاؤها عدة مرات.</p>
+            <pre><code>دالة مرحبا(اسم):
+    ارجع "مرحبا يا " + اسم</code></pre>
+            <div class="card-actions"><a href="playground.html?example=function">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">متوسط</span><span class="pill">ملعب</span></div>
+            <h3>مدركات القائمة</h3>
+            <p>بناء قوائم بتعبير عربي واحد مع شرط داخل المدرك.</p>
+            <pre><code>المربعات = [س * س لكل س في نطاق(١، ١١)]</code></pre>
+            <div class="card-actions"><a href="playground.html?example=list-comprehension">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">متقدم</span><span class="pill">ملعب</span></div>
+            <h3>الأعداد الأولية</h3>
+            <p>دالة عربية تختبر الأولية وتجمع النتائج في قائمة.</p>
+            <pre><code>اذا عدد_اولي(ع):
+    الاوليات.اضف(ع)</code></pre>
+            <div class="card-actions"><a href="playground.html?example=prime-numbers">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
+            <h3>ملخص إضافات المرحلة د</h3>
+            <p>قائمة تشغيل سريعة لما أضيف: lexicon، AI، الترجمة العكسية، stdlib، والأثر.</p>
+            <pre><code>لكل بند في الإضافات:
+    اطبع(" -", بند)</code></pre>
+            <div class="card-actions"><a href="playground.html?example=phase-d-overview">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
+            <h3>أسماء stdlib المعتمدة</h3>
+            <p>أسماء عربية مختارة من المكتبة القياسية مع مكافئاتها الإنجليزية.</p>
+            <pre><code>لكل عربي، بايثون في وحدات.عناصر():
+    اطبع(ت"{عربي} = {بايثون}")</code></pre>
+            <div class="card-actions"><a href="playground.html?example=stdlib-canonical-names">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
+            <h3>أسماء AI العربية</h3>
+            <p>استعراض أسماء openai وanthropic وtransformers ورفاقها بالعربية.</p>
+            <pre><code>("ذكاء_مفتوح", "openai")
+("كلود_عربي", "anthropic")</code></pre>
+            <div class="card-actions"><a href="playground.html?example=ai-alias-names">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
+            <h3>فكرة الترجمة العكسية</h3>
+            <p>مقارنة قصيرة بين Python وملف <code>.apy</code>، مع أمر التشغيل المحلي.</p>
+            <pre><code>ثعبان ترجمة-عكسية script.py --stdout</code></pre>
+            <div class="card-actions"><a href="playground.html?example=reverse-translation-preview">شغّل في الملعب</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">مرحلة د</span><span class="pill">ملعب</span></div>
+            <h3>استثناء عربي واضح</h3>
+            <p>رفع <code>خطأ_قيمة</code> والتقاطه برسالة عربية قابلة للقراءة.</p>
+            <pre><code>ارفع خطأ_قيمة("نحتاج عددا موجبا")</code></pre>
+            <div class="card-actions"><a href="playground.html?example=arabic-error-handling">شغّل في الملعب</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="local">
+        <div class="section-head">
+          <div>
+            <h2 id="local">أمثلة محلية أوسع</h2>
+            <p>
+              هذه الأمثلة موجودة في المستودع وتحتاج بيئة محلية. استخدم
+              <code>python -m pip install -e ".[ai]"</code>
+              لأمثلة AI أو
+              <code>python -m pip install -e ".[all]"</code>
+              للأمثلة الأكبر.
+            </p>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <h3>رياضيات المرحلة د</h3>
+            <p>مثال <code>D04_math_demo.apy</code> على الاسم العربي <code>رياضيات</code>.</p>
+            <pre><code>ثعبان examples/stdlib/D04_math_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/stdlib/D04_math_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <h3>مسارات وملفات</h3>
+            <p>مثال <code>D04_pathlib_demo.apy</code> على <code>مسار</code> وقراءة الملفات.</p>
+            <pre><code>ثعبان examples/stdlib/D04_pathlib_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/stdlib/D04_pathlib_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <h3>JSON عربي</h3>
+            <p>مثال <code>D04_json_demo.apy</code> على الاسم المعتمد <code>جيسون</code>.</p>
+            <pre><code>ثعبان examples/stdlib/D04_json_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/stdlib/D04_json_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <h3>وقت وتاريخ</h3>
+            <p>مثال <code>D04_datetime_demo.apy</code> على الاسم العربي <code>تاريخ_وقت</code>.</p>
+            <pre><code>ثعبان examples/stdlib/D04_datetime_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/stdlib/D04_datetime_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">stdlib</span><span class="pill">مدمج</span></div>
+            <h3>أرقام عشوائية</h3>
+            <p>مثال <code>D04_random_demo.apy</code> على الاسم العربي <code>عشوائي</code>.</p>
+            <pre><code>ثعبان examples/stdlib/D04_random_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/stdlib/D04_random_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
+            <h3>OpenAI بالعربية</h3>
+            <p>مثال <code>D02_openai_demo.apy</code> يستعرض الاسم <code>ذكاء_مفتوح</code>.</p>
+            <pre><code>ثعبان examples/D02_openai_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_openai_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
+            <h3>Anthropic بالعربية</h3>
+            <p>مثال <code>D02_anthropic_demo.apy</code> على الاسم <code>كلود_عربي</code>.</p>
+            <pre><code>ثعبان examples/D02_anthropic_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_anthropic_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
+            <h3>LangChain Core بالعربية</h3>
+            <p>مثال <code>D02_langchain_core_demo.apy</code> على الاسم <code>سلسلة_لغه</code>.</p>
+            <pre><code>ثعبان examples/D02_langchain_core_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_langchain_core_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
+            <h3>Transformers بالعربية</h3>
+            <p>مثال <code>D02_transformers_demo.apy</code> على <code>محولات</code>.</p>
+            <pre><code>ثعبان examples/D02_transformers_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_transformers_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">AI</span><span class="pill">.[ai]</span></div>
+            <h3>Sentence Transformers بالعربية</h3>
+            <p>مثال <code>D02_sentence_transformers_demo.apy</code> على <code>محولات_جمل</code>.</p>
+            <pre><code>ثعبان examples/D02_sentence_transformers_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/D02_sentence_transformers_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">أداة</span><span class="pill">ترجمة عكسية</span></div>
+            <h3>تحويل Python إلى <code>.apy</code></h3>
+            <p>الأداة الجديدة تقرأ Python وتنتج لغة الثعبان اعتمادا على خرائط المعجم.</p>
+            <pre><code>ثعبان ترجمة-عكسية script.py --stdout</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/docs/wiki/tooling.md">اقرأ الدليل</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">ملفات</span><span class="pill">stdlib</span></div>
+            <h3>استعراض نظام الملفات</h3>
+            <p>مثال <code>B30_filesystem_walk.apy</code> على المسارات والمجلدات.</p>
+            <pre><code>ثعبان examples/B30_filesystem_walk.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/B30_filesystem_walk.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">أنماط</span><span class="pill">دوال</span></div>
+            <h3>معالجة وظيفية للبيانات</h3>
+            <p>مثال <code>B31_functional_data.apy</code> على أدوات الدوال والتكرار.</p>
+            <pre><code>ثعبان examples/B31_functional_data.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/B31_functional_data.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">نصوص</span><span class="pill">تعابير</span></div>
+            <h3>معالجة نصية</h3>
+            <p>مثال <code>B34_text_processing.apy</code> على النصوص والتعابير النمطية.</p>
+            <pre><code>ثعبان examples/B34_text_processing.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/B34_text_processing.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">async</span><span class="pill">stdlib</span></div>
+            <h3>تشغيل غير متزامن</h3>
+            <p>مثال <code>B37_async_demo.apy</code> على المهام والانتظار.</p>
+            <pre><code>ثعبان examples/B37_async_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/B37_async_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">بيانات</span><span class="pill">.[all]</span></div>
+            <h3>Matplotlib</h3>
+            <p>مثال <code>C10_matplotlib_demo.apy</code> على <code>رسوم_بيانيه</code>.</p>
+            <pre><code>ثعبان examples/C10_matplotlib_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C10_matplotlib_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">تعلم آلي</span><span class="pill">.[all]</span></div>
+            <h3>Scikit-learn</h3>
+            <p>مثال <code>C11_sklearn_demo.apy</code> على تجربة تعلم آلي صغيرة.</p>
+            <pre><code>ثعبان examples/C11_sklearn_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C11_sklearn_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">تحقق</span><span class="pill">.[all]</span></div>
+            <h3>Pydantic</h3>
+            <p>مثال <code>C12_pydantic_demo.apy</code> على نماذج البيانات والتحقق.</p>
+            <pre><code>ثعبان examples/C12_pydantic_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C12_pydantic_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">HTTP</span><span class="pill">.[all]</span></div>
+            <h3>طلبات API</h3>
+            <p>مثال <code>C13_httpx_demo.apy</code> على عميل HTTP حديث.</p>
+            <pre><code>ثعبان examples/C13_httpx_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C13_httpx_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">CLI</span><span class="pill">.[all]</span></div>
+            <h3>أداة سطر أوامر</h3>
+            <p>مثال <code>C14_click_demo.apy</code> على بناء واجهة CLI عربية.</p>
+            <pre><code>ثعبان examples/C14_click_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C14_click_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">Excel</span><span class="pill">.[all]</span></div>
+            <h3>جداول Excel</h3>
+            <p>مثال <code>C20_openpyxl_demo.apy</code> على إنشاء مصنفات وجداول.</p>
+            <pre><code>ثعبان examples/C20_openpyxl_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C20_openpyxl_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">ويب</span><span class="pill">.[all]</span></div>
+            <h3>استخراج بيانات HTML</h3>
+            <p>مثال <code>C25_bs4_demo.apy</code> على قراءة صفحات HTML وتحليلها.</p>
+            <pre><code>ثعبان examples/C25_bs4_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C25_bs4_demo.apy">عرض المصدر</a></div>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="pill">تطبيقات</span><span class="pill">تكامل</span></div>
+            <h3>تطبيق كامل</h3>
+            <p>مثال <code>C40_full_stack_demo.apy</code> يجمع FastAPI وقاعدة بيانات ومهام وExcel.</p>
+            <pre><code>ثعبان examples/C40_full_stack_demo.apy</code></pre>
+            <div class="card-actions"><a href="https://github.com/GalaxyRuler/lughat-althuban/blob/main/examples/C40_full_stack_demo.apy">عرض المصدر</a></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        لا يحمل هذا المعرض Pyodide إلا عند فتح الملعب، لذلك تبقى الصفحة سريعة على GitHub Pages.
+      </p>
+    </footer>
+  </body>
+</html>
