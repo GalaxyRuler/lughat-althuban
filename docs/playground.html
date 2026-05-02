@@ -159,6 +159,8 @@
     .example-btn[data-tier="1"] .ex-tag { color: var(--green); }
     .example-btn[data-tier="2"] .ex-tag { color: var(--yellow); }
     .example-btn[data-tier="3"] .ex-tag { color: var(--red); }
+    .example-btn[data-tier="4"] .ex-tag { color: var(--accent-h); }
+    .example-btn[data-tier="5"] .ex-tag { color: var(--green); }
     .examples-section-header {
       font-size: 0.7rem;
       font-weight: 700;
@@ -1084,6 +1086,9 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
     <h1>لغة الثعبان <span>— ملعب تفاعلي</span></h1>
   </div>
   <div class="header-links">
+    <a class="badge" href="playground.html?example=desert-treasure">
+      لعبة عربية
+    </a>
     <a class="badge" href="https://github.com/GalaxyRuler/lughat-althuban" target="_blank" rel="noopener">
       ⭐ GitHub
     </a>
@@ -1482,6 +1487,12 @@ const EXAMPLES = [
     استثناء خطأ_قيمة باسم السبب:
         اطبع("تم التقاط الخطأ:", السبب)`
   },
+
+  // ═══════════════ ألعاب ═══════════════
+  {
+    id: "desert-treasure", tier: 5, tag: "لعبة", title: "كنز الصحراء",
+    source: "games/كنز_الصحراء.apy"
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────
@@ -1501,13 +1512,27 @@ const exList    = document.getElementById("example-list");
 //  Populate examples sidebar
 // ─────────────────────────────────────────────────────────────────
 let activeExBtn = null;
-const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د" };
+const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د", 5: "الألعاب" };
 let lastTier = null;
 const requestedExample = new URLSearchParams(window.location.search).get("example");
 let initialExample = null;
+const sourceCache = new Map();
 
-function selectExample(ex, btn, updateUrl = true) {
-  editorEl.value = ex.code;
+async function loadExampleSource(ex) {
+  if (Object.prototype.hasOwnProperty.call(ex, "code")) return ex.code;
+  if (!ex.source) return "";
+  if (sourceCache.has(ex.source)) return sourceCache.get(ex.source);
+
+  const response = await fetch(new URL(ex.source, window.location.href));
+  if (!response.ok) {
+    throw new Error(`تعذر تحميل المصدر: ${response.status}`);
+  }
+  const text = await response.text();
+  sourceCache.set(ex.source, text);
+  return text;
+}
+
+async function selectExample(ex, btn, updateUrl = true) {
   if (activeExBtn) activeExBtn.classList.remove("active");
   btn.classList.add("active");
   activeExBtn = btn;
@@ -1516,6 +1541,28 @@ function selectExample(ex, btn, updateUrl = true) {
     url.searchParams.set("example", ex.id);
     window.history.replaceState(null, "", url);
   }
+
+  const loadingExternal = Boolean(ex.source && !Object.prototype.hasOwnProperty.call(ex, "code"));
+  if (loadingExternal) {
+    editorEl.value = "جارٍ تحميل مصدر المثال…";
+    runBtn.disabled = true;
+    setStatus("busy", "جارٍ تحميل مصدر المثال…");
+  }
+
+  try {
+    editorEl.value = await loadExampleSource(ex);
+    if (loadingExternal && pyodide) {
+      setStatus("ready", "تم تحميل مصدر اللعبة — جاهز للتشغيل");
+    }
+  } catch (err) {
+    editorEl.value = "تعذر تحميل مصدر المثال.";
+    outputEl.className = "err";
+    outputEl.textContent = err.message;
+    setStatus("error", "تعذر تحميل مصدر المثال");
+  } finally {
+    if (pyodide) runBtn.disabled = false;
+  }
+
   editorEl.focus();
 }
 
@@ -1534,7 +1581,7 @@ EXAMPLES.forEach((ex, idx) => {
   btn.dataset.tier = ex.tier;
   btn.dataset.example = ex.id || String(idx);
   btn.innerHTML = `<span class="ex-tag">${ex.tag}</span>${ex.title}`;
-  btn.addEventListener("click", () => selectExample(ex, btn));
+  btn.addEventListener("click", () => { void selectExample(ex, btn); });
   exList.appendChild(btn);
   if (idx === 0) initialExample = { ex, btn };
   if (requestedExample && (requestedExample === ex.id || requestedExample === String(idx))) {
@@ -1542,7 +1589,7 @@ EXAMPLES.forEach((ex, idx) => {
   }
 });
 
-if (initialExample) selectExample(initialExample.ex, initialExample.btn, Boolean(requestedExample));
+if (initialExample) void selectExample(initialExample.ex, initialExample.btn, Boolean(requestedExample));
 
 // ─────────────────────────────────────────────────────────────────
 //  Status helpers
@@ -1629,7 +1676,8 @@ async function runCode() {
 
   try {
     const result = await pyodide.runPythonAsync(`
-import sys, io, traceback
+import sys, io, traceback, builtins
+from js import window
 from arabicpython.translate import translate as _translate
 
 # Map ASCII digits → Arabic-Indic so the displayed output reads naturally
@@ -1640,13 +1688,26 @@ _ARABIC_DIGIT_MAP = str.maketrans("0123456789", "٠١٢٣٤٥٦٧٨٩")
 _out = io.StringIO()
 _err = io.StringIO()
 
+def _playground_input(message=""):
+    _message = str(message)
+    if _message:
+        _out.write(_message)
+    _answer = window.prompt(_message)
+    if _answer is None:
+        _answer = "خروج"
+    _answer = str(_answer)
+    _out.write(_answer + "\\n")
+    return _answer
+
 try:
     _translated = _translate(_playground_source)
     _code = compile(_translated, '<ملعب>', 'exec')
     _old_stdout = sys.stdout
     _old_stderr = sys.stderr
+    _old_input = builtins.input
     sys.stdout = _out
     sys.stderr = _err
+    builtins.input = _playground_input
     exec(_code, {"__name__": "__main__"})
 except SyntaxError as e:
     _err.write("خطأ في الصياغة")
@@ -1661,6 +1722,7 @@ finally:
     try:
         sys.stdout = _old_stdout
         sys.stderr = _old_stderr
+        builtins.input = _old_input
     except NameError:
         pass
 
