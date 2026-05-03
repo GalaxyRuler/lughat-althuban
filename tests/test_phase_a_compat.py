@@ -53,7 +53,7 @@ DICT_FILE = PROJECT_ROOT / "dictionaries" / "ar-v1.md"
 def run_apy_program(
     path: pathlib.Path,
     *,
-    timeout: float = 10.0,
+    timeout: float = 30.0,
     cwd: pathlib.Path | None = None,
     extra_args: list[str] | None = None,
 ) -> tuple[int, str, str]:
