@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   local demos.
 - Arabic Pygame alias coverage under `لعبه`/`لعبة`, plus a `pygame-ce`
   example and a visual platform game in the playground.
+- A second Arabic Pygame playground game, `حارس الكويكبات`, adds arcade
+  movement, thrust, shooting, shields, asteroid splitting, waves, and particles.
 - Playground examples are now guarded by a test that runs every bundled example
   and rejects Latin letters in runtime output.
 
