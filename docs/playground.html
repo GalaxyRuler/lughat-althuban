@@ -2682,6 +2682,9 @@ const citySourceToggle = document.getElementById("city-source-toggle");
 const cityActionBtns = Array.from(document.querySelectorAll("[data-city-action]"));
 let pyodide = null;
 let activeExample = null;
+let activeExampleSourceReady = false;
+let activeExampleSerial = 0;
+let pendingVisualAutoStart = false;
 let visualGameReady = false;
 let visualGameBusy = false;
 let visualGameFinished = false;
@@ -2792,6 +2795,26 @@ function isVisualExampleSelected() {
   return isVisualGameSelected() || isPlatformerSelected() || isSmartCitySelected();
 }
 
+async function autoStartSelectedVisualExample() {
+  if (!isVisualExampleSelected()) {
+    pendingVisualAutoStart = false;
+    return;
+  }
+  if (!pendingVisualAutoStart) return;
+  if (!pyodide || !activeExampleSourceReady) {
+    pendingVisualAutoStart = true;
+    return;
+  }
+  pendingVisualAutoStart = false;
+  if (isVisualGameSelected()) {
+    await resetVisualGame();
+  } else if (isPlatformerSelected()) {
+    await resetPlatformer();
+  } else if (isSmartCitySelected()) {
+    await resetSmartCity();
+  }
+}
+
 function isSourceOpen() {
   return document.body.classList.contains("source-open");
 }
@@ -2860,8 +2883,15 @@ function updateGameMode() {
 }
 
 async function selectExample(ex, btn, updateUrl = true) {
+  const selectionSerial = activeExampleSerial + 1;
+  activeExampleSerial = selectionSerial;
   activeExample = ex;
+  activeExampleSourceReady = false;
   visualGameReady = false;
+  platformerReady = false;
+  smartCityReady = false;
+  pendingVisualAutoStart = isVisualExampleSelected();
+  if (isVisualExampleSelected()) document.body.classList.remove("source-open");
   updateGameMode();
   if (activeExBtn) activeExBtn.classList.remove("active");
   btn.classList.add("active");
@@ -2881,26 +2911,24 @@ async function selectExample(ex, btn, updateUrl = true) {
 
   try {
     editorEl.value = await loadExampleSource(ex);
+    if (selectionSerial !== activeExampleSerial) return;
+    activeExampleSourceReady = true;
     if (loadingExternal && pyodide) {
       setStatus("ready", "تم تحميل مصدر المثال — جاهز للتشغيل");
     }
-    if (isVisualGameSelected() && pyodide) {
-      void resetVisualGame();
-    } else if (isPlatformerSelected() && pyodide) {
-      void resetPlatformer();
-    } else if (isSmartCitySelected() && pyodide) {
-      void resetSmartCity();
-    }
+    await autoStartSelectedVisualExample();
   } catch (err) {
+    if (selectionSerial !== activeExampleSerial) return;
     editorEl.value = "تعذر تحميل مصدر المثال.";
     outputEl.className = "err";
     outputEl.hidden = false;
     outputEl.textContent = err.message;
     setStatus("error", "تعذر تحميل مصدر المثال");
   } finally {
-    if (pyodide) runBtn.disabled = false;
+    if (selectionSerial === activeExampleSerial && pyodide) runBtn.disabled = false;
   }
 
+  if (selectionSerial !== activeExampleSerial) return;
   if (isPlatformerSelected()) {
     focusPlatformerStage();
   } else if (!isVisualExampleSelected()) {
@@ -3646,13 +3674,7 @@ load_dialect("ar-v2")
   overlay.classList.add("hidden");
   runBtn.disabled = false;
   setStatus("ready", "جاهز للتشغيل — تحكم+إدخال أو زر تشغيل");
-  if (isVisualGameSelected()) {
-    void resetVisualGame();
-  } else if (isPlatformerSelected()) {
-    void resetPlatformer();
-  } else if (isSmartCitySelected()) {
-    void resetSmartCity();
-  }
+  await autoStartSelectedVisualExample();
 }
 
 // ─────────────────────────────────────────────────────────────────
