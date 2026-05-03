@@ -252,24 +252,17 @@ body > main {
   justify-content: center;
   width: 84px;
   height: 68px;
-  padding: 7px;
+  padding: 5px;
   border: 1px solid #b2b6b9;
   border-radius: 8px;
   background: #111921;
 }
 
-.brand-mark path[fill="#111921"] {
-  fill: #afdfe1;
-}
-
-.brand-mark path[fill="#2c1a66"] {
-  fill: #ea6753;
-}
-
-.brand-lockup svg {
+.brand-mark img {
   display: block;
-  width: 68px;
-  height: 52px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .brand-name {
@@ -512,12 +505,7 @@ header:not(.site-hero) .brand-lockup {
 header:not(.site-hero) .brand-mark {
   width: 58px;
   height: 46px;
-  padding: 5px;
-}
-
-header:not(.site-hero) .brand-lockup svg {
-  width: 46px;
-  height: 36px;
+  padding: 3px;
 }
 
 header:not(.site-hero) .brand-name {
