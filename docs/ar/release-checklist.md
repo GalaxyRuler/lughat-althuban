@@ -43,6 +43,6 @@ python -m pip install -e ".[ai]"
 python -m pytest tests/aliases/test_anthropic.py tests/aliases/test_openai.py tests/aliases/test_transformers.py
 ```
 
-- في بيئة Python 3.13 مع `.[all]` كان خط الأساس بعد المرحلة د: `2926 passed, 23 skipped, 1 warning`. التخطي المتبقي خاص بإصدار Python أو مقتطفات تعليمية غير قابلة للتشغيل، لا بمكتبات اختيارية ناقصة.
+- في بيئة Python 3.13 مع `.[all]` كان خط الأساس بعد إضافة أمثلة الملعب المرئية: `2960 passed, 23 skipped`. التخطي المتبقي خاص بإصدار Python أو مقتطفات تعليمية غير قابلة للتشغيل، لا بمكتبات اختيارية ناقصة.
 
 </div>

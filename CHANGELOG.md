@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Pages example gallery with direct playground links for browser-safe
   examples and source links for stdlib, AI, reverse-translation, and larger
   local demos.
+- Arabic Pygame alias coverage under `لعبه`/`لعبة`, plus a `pygame-ce`
+  example and a visual platform game in the playground.
 - Playground examples are now guarded by a test that runs every bundled example
   and rejects Latin letters in runtime output.
 
@@ -44,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Verification
 
 - Full local suite after installing optional extras:
-  `2926 passed, 23 skipped, 1 warning`.
+  `2960 passed, 23 skipped`.
 - Remaining skips are Python-version-specific f-string tests or tutorial
   snippets explicitly marked non-runnable.
 

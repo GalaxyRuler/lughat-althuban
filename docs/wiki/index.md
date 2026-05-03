@@ -17,6 +17,7 @@
 | [مكتبات علمية وبيانات](science-aliases.md) | numpy، pandas، matplotlib، seaborn، scipy |
 | [مكتبات الويب](web-aliases.md) | flask، requests، aiohttp، fastapi، django، httpx |
 | [مكتبات الذكاء الاصطناعي](ai-aliases.md) | openai، anthropic، langchain_core، transformers |
+| [مكتبات الوسائط والألعاب](media-aliases.md) | Pillow وPygame مع أمثلة عربية |
 | [أدوات التطوير](tooling.md) | المنسّق، المدقّق، المترجم العكسي، أوضاع الأثر، Jupyter، VS Code |
 | [قواعد التطبيع](normalization.md) | كيف تُوحَّد الهمزات وتاء المربوطة والألف المقصورة |
 | [الأسئلة الشائعة](faq.md) | إجابات للأسئلة المتكررة |
@@ -82,6 +83,7 @@ Welcome to the complete documentation for Arabic Python.
 | [Science & data aliases](science-aliases.md) | numpy, pandas, matplotlib, seaborn, scipy |
 | [Web aliases](web-aliases.md) | flask, requests, aiohttp, fastapi, django, httpx |
 | [AI aliases](ai-aliases.md) | openai, anthropic, langchain_core, transformers |
+| [Media & game aliases](media-aliases.md) | Pillow and Pygame with Arabic examples |
 | [Tooling](tooling.md) | Formatter, linter, reverse translator, traceback modes, Jupyter kernel, VS Code |
 | [Normalization](normalization.md) | How hamza, ta-marbuta, and alef-maqsura variants are folded |
 | [FAQ](faq.md) | Answers to common questions |

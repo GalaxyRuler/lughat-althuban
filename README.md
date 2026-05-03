@@ -2,14 +2,14 @@
 
 # لغة الثعبان — بايثون بالعربية الكاملة
 
-[![الاختبارات](https://img.shields.io/badge/اختبارات-2926_نجاح-brightgreen)](tests/)
+[![الاختبارات](https://img.shields.io/badge/اختبارات-2960_نجاح-brightgreen)](tests/)
 [![CI](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml/badge.svg)](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml)
 [![بايثون](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
 [![الرخصة](https://img.shields.io/badge/رخصة-Apache--2.0-orange)](LICENSE)
 
 لهجة برمجية تكتب فيها **الكلمات المفتاحية والدوال المدمجة والاستثناءات والمكتبات** بالعربية الكاملة. ملفات `.apy` تُترجم إلى بايثون القياسي في وقت التحميل وتُنفَّذ بواسطة CPython — دون تشعيب للمترجم ودون تعديل على اللغة الأصلية.
 
-**الحالة (2026-05-02)**: المراحل أ/ب/ج مكتملة، وعمل المرحلة د D-002 إلى D-005 مشحون: معجم واحد في `lexicon/`، أسماء AI عربية، مترجم عكسي Python→لغة الثعبان، أسماء stdlib المعتمدة، وأثر أخطاء عربي بثلاثة أوضاع. آخر تشغيل كامل: **2926 اختباراً ناجحاً** على Python 3.13 مع 23 تخطياً مقصوداً لا يعتمد على مكتبات ناقصة.
+**الحالة (2026-05-03)**: المراحل أ/ب/ج مكتملة، وعمل المرحلة د D-002 إلى D-005 مشحون: معجم واحد في `lexicon/`، أسماء AI عربية، مترجم عكسي Python→لغة الثعبان، أسماء stdlib المعتمدة، أثر أخطاء عربي بثلاثة أوضاع، وملعب مرئي يتضمن لعبة منصة بواجهة Pygame عربية. آخر تشغيل كامل: **2960 اختباراً ناجحاً** على Python 3.13 مع 23 تخطياً مقصوداً.
 
 ---
 
@@ -76,7 +76,7 @@ $ ثعبان -c '1 / 0'
 | [كتاب الوصفات العربي](docs/ar/cookbook.md) | وصفات عملية قابلة للتشغيل |
 | [نظرة عامة على المشروع](docs/ar/README.md) | المعمارية، هيكل المشروع، خارطة الطريق |
 | [الأمثلة التعليمية](examples/README.md) | فهرس الأمثلة الأساسية والمتقدمة |
-| [معرض GitHub Pages للأمثلة](docs/gallery.html) | أمثلة قابلة للفتح في الملعب وروابط لأمثلة stdlib وAI |
+| [معرض GitHub Pages للأمثلة](docs/gallery.html) | أمثلة قابلة للفتح في الملعب، بما فيها الألعاب المرئية وعروض stdlib وAI |
 | [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
 | [قاموس وقت التشغيل](dictionaries/ar-v2.md) | الأثر المولّد من المعجم الموحد للقاموس الافتراضي |
 
@@ -192,6 +192,19 @@ $ ثعبان -c '1 / 0'
 pip install -e ".[ai]"
 ```
 
+### وسائط وألعاب
+
+| الاسم العربي | حزمة Python |
+|---|---|
+| `بيلو` | `PIL.Image` / Pillow |
+| `لعبه` أو `لعبة` | `pygame` / pygame-ce |
+
+ثبّتها مع مجموعة الأسماء الاختيارية:
+
+```bash
+pip install -e ".[aliases]"
+```
+
 ### ويب وشبكات (6 حزم)
 
 | الاسم العربي | حزمة Python |
@@ -250,7 +263,7 @@ lughat-althuban/
 ├── lexicon/                   مصدر الحقيقة للمصطلحات والكلمات والرسائل
 ├── dictionaries/              مخرجات القواميس المولدة
 ├── specs/                     حزم المواصفات للتنفيذ
-├── tests/                     مجموعة pytest (2926 نجاحاً في بيئة all)
+├── tests/                     مجموعة pytest (2960 نجاحاً في بيئة all)
 ├── examples/                  برامج .apy قابلة للتشغيل
 ├── docs/
 │   ├── ar/                    الوثائق العربية
@@ -335,7 +348,7 @@ lughat-althuban/
 
 A Python dialect where **keywords, built-ins, exceptions, and popular libraries** are all written in Arabic. `.apy` files are translated to standard Python at import time and executed by CPython — no interpreter fork, no language modification.
 
-**Status (2026-05-02)**: Phases A-C complete; Phase D D-002 through D-005 are shipped. Full local verification with optional extras: **2926 passed, 23 intentionally skipped** on Python 3.13.
+**Status (2026-05-03)**: Phases A-C complete; Phase D D-002 through D-005 are shipped, with visual playground examples and an Arabic Pygame alias. Full local verification with optional extras: **2960 passed, 23 intentionally skipped** on Python 3.13.
 
 **License**: Apache-2.0.
 
@@ -369,7 +382,7 @@ pip install -e ".[all]"   # dev, kernel, aliases, and AI optional targets
 
 - generated lexicon source of truth for core words, aliases, messages, and docs
 - Arabic traceback modes: `arabic`, `english`, `mixed`
-- 31 stdlib alias modules · AI aliases for OpenAI, Anthropic, LangChain Core, Transformers, and Sentence Transformers
+- 31 stdlib alias modules · AI aliases for OpenAI, Anthropic, LangChain Core, Transformers, and Sentence Transformers · media/game aliases for Pillow and Pygame
 - 38 Arabic exception names · translated common interpreter messages
 - Formatter · Linter · Jupyter kernel · VS Code extension · pytest plugin — all ship in this repo
 - Normalization: `أ/إ/آ → ا`, final `ة → ه`, final `ى → ي`
