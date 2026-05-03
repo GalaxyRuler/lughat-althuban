@@ -335,6 +335,10 @@ def test_asteroid_guard_has_visual_playground_surface() -> None:
     assert "#platform-panel.keyboard-only .platform-controls" in html
     assert "body.game-mode #examples-panel { display: none; }" in html
     assert "function focusPlatformerStage()" in html
+    assert "let pendingVisualAutoStart = false;" in html
+    assert "async function autoStartSelectedVisualExample()" in html
+    assert 'if (isVisualExampleSelected()) document.body.classList.remove("source-open");' in html
+    assert "await autoStartSelectedVisualExample();" in html
     assert 'window.addEventListener("keydown", handlePlatformerKeyDown, { capture: true });' in html
     assert 'window.addEventListener("keyup", handlePlatformerKeyUp, { capture: true });' in html
     assert 'platformPanel.addEventListener("pointerdown"' in html
