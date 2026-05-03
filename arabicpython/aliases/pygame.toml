@@ -1,12 +1,13 @@
 # arabicpython/aliases/pygame.toml
+# Generated from lexicon/libraries.toml. Do not edit by hand.
 # Schema version: 1
 
 [meta]
-arabic_name = "لعبه"
+arabic_name   = "لعبه"
 python_module = "pygame"
-dict_version = "ar-v1"
+dict_version  = "ar-v1"
 schema_version = 1
-maintainer = "—"
+maintainer    = "—"
 arabic_aliases = ["لعبة", "العاب", "ألعاب"]
 
 [entries]

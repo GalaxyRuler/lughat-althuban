@@ -50,8 +50,7 @@ def _playground_examples() -> list[tuple[str, str]]:
         source_match = SOURCE_RE.search(body)
         if source_match:
             parts = [
-                source_path.read_text(encoding="utf-8")
-                for source_path in _library_paths(body)
+                source_path.read_text(encoding="utf-8") for source_path in _library_paths(body)
             ]
             source_path = PLAYGROUND.parent / source_match.group("source")
             parts.append(source_path.read_text(encoding="utf-8"))
@@ -146,9 +145,7 @@ def test_external_playground_sources_use_no_latin_letters(source_path: Path) -> 
 
 
 def test_smart_city_showcase_runs_as_complex_arabic_program() -> None:
-    source = (PROJECT_ROOT / "docs" / "showcases" / "مدينة_ذكية.apy").read_text(
-        encoding="utf-8"
-    )
+    source = (PROJECT_ROOT / "docs" / "showcases" / "مدينة_ذكية.apy").read_text(encoding="utf-8")
     namespace: dict[str, object] = {}
 
     exec(compile(translate(source), "<smart-city>", "exec"), namespace)  # noqa: S102
