@@ -162,6 +162,7 @@
     .example-btn[data-tier="3"] .ex-tag { color: var(--red); }
     .example-btn[data-tier="4"] .ex-tag { color: var(--accent-h); }
     .example-btn[data-tier="5"] .ex-tag { color: var(--green); }
+    .example-btn[data-tier="6"] .ex-tag { color: var(--yellow); }
     .examples-section-header {
       font-size: 0.7rem;
       font-weight: 700;
@@ -419,6 +420,7 @@
       grid-template-columns: repeat(3, minmax(0, 78px));
       gap: 0.45rem;
       justify-content: center;
+      direction: ltr;
     }
     .game-controls button {
       min-height: 40px;
@@ -430,6 +432,7 @@
       font: inherit;
       font-size: 0.82rem;
       font-weight: 800;
+      direction: rtl;
     }
     .game-controls button:hover:not(:disabled) {
       border-color: var(--accent);
@@ -456,6 +459,575 @@
       padding: 0.65rem 0.75rem;
       font-size: 0.76rem;
       line-height: 1.65;
+    }
+    #platform-panel {
+      flex: 1;
+      background:
+        linear-gradient(180deg, rgba(56, 139, 253, 0.14), rgba(20, 184, 166, 0.09)),
+        #07111d;
+      padding: 0.9rem;
+      display: grid;
+      grid-template-rows: auto auto auto auto auto;
+      gap: 0.75rem;
+      overflow: auto;
+    }
+    .platform-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .platform-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+    .platform-title strong {
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+    #platform-message {
+      color: #5eead4;
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+    .platform-actions,
+    .platform-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      justify-content: flex-end;
+    }
+    .platform-controls {
+      direction: ltr;
+      justify-content: flex-start;
+    }
+    .platform-actions button,
+    .platform-controls button {
+      border: 1px solid rgba(94, 234, 212, 0.38);
+      border-radius: var(--radius);
+      background: rgba(20, 184, 166, 0.12);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 800;
+      min-height: 38px;
+      padding: 0.4rem 0.7rem;
+    }
+    .platform-controls button {
+      direction: rtl;
+    }
+    .platform-controls button.active {
+      border-color: #e3b341;
+      background: rgba(227, 179, 65, 0.18);
+      color: #fff7cf;
+    }
+    .platform-actions button:hover:not(:disabled),
+    .platform-controls button:hover:not(:disabled) {
+      border-color: #5eead4;
+      background: rgba(20, 184, 166, 0.2);
+    }
+    .platform-actions button:disabled,
+    .platform-controls button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+    .platform-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+    .platform-stat {
+      border: 1px solid rgba(139, 148, 158, 0.22);
+      border-radius: var(--radius);
+      background: rgba(1, 4, 9, 0.42);
+      padding: 0.55rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .platform-stat span {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .platform-stat strong {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    .platform-stage-wrap {
+      --platform-stage-height: clamp(320px, calc(100vh - 410px), 540px);
+      min-height: 0;
+      height: var(--platform-stage-height);
+      display: grid;
+      place-items: center;
+    }
+    #platform-stage {
+      position: relative;
+      width: min(100%, calc(var(--platform-stage-height) * 16 / 9));
+      height: var(--platform-stage-height);
+      border: 1px solid rgba(94, 234, 212, 0.22);
+      border-radius: var(--radius);
+      overflow: hidden;
+      direction: ltr;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 82% 16%, rgba(227, 179, 65, 0.22), transparent 13%),
+        linear-gradient(180deg, #0b2a3d 0%, #0b1724 62%, #101018 100%);
+      background-size: 48px 48px, 48px 48px, auto, auto;
+      box-shadow: inset 0 -42px 80px rgba(0, 0, 0, 0.26);
+    }
+    .platform-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #platform-stage:focus-visible {
+      outline: 2px solid #5eead4;
+      outline-offset: 3px;
+    }
+    .platform-object {
+      position: absolute;
+      box-sizing: border-box;
+    }
+    .platform-tile {
+      border: 1px solid rgba(94, 234, 212, 0.28);
+      border-radius: 6px;
+      background: linear-gradient(180deg, #1f6f78, #16414e);
+      box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.08);
+    }
+    .platform-tile.moving {
+      border-color: rgba(227, 179, 65, 0.55);
+      background: linear-gradient(180deg, #8a6a1a, #4d3913);
+    }
+    .platform-hero {
+      border-radius: 9px 9px 6px 6px;
+      border: 2px solid rgba(255, 247, 207, 0.85);
+      background: linear-gradient(180deg, #5eead4, #0f766e);
+      box-shadow: 0 0 0 4px rgba(94, 234, 212, 0.15), 0 10px 16px rgba(0, 0, 0, 0.25);
+      z-index: 6;
+    }
+    .platform-hero::after {
+      content: "";
+      position: absolute;
+      width: 34%;
+      height: 18%;
+      border-radius: 999px;
+      background: #fff7cf;
+      top: 24%;
+      left: 33%;
+    }
+    .platform-coin {
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fff7cf, var(--yellow) 58%, #8a6a1a);
+      box-shadow: 0 0 14px rgba(227, 179, 65, 0.45);
+      z-index: 4;
+    }
+    .platform-hazard {
+      border-radius: 7px 7px 0 0;
+      background: linear-gradient(180deg, #f97316, #7f1d1d);
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      z-index: 3;
+    }
+    .platform-gate {
+      border: 2px solid rgba(227, 179, 65, 0.8);
+      border-radius: 999px 999px 8px 8px;
+      background: radial-gradient(circle at 50% 34%, rgba(94, 234, 212, 0.65), rgba(56, 139, 253, 0.18) 56%, rgba(1, 4, 9, 0.2));
+      box-shadow: 0 0 22px rgba(94, 234, 212, 0.36);
+      z-index: 2;
+    }
+    #platform-log {
+      min-height: 48px;
+      border: 1px solid rgba(139, 148, 158, 0.22);
+      border-radius: var(--radius);
+      background: rgba(1, 4, 9, 0.48);
+      color: var(--muted);
+      padding: 0.55rem 0.7rem;
+      font-size: 0.74rem;
+      line-height: 1.55;
+    }
+    #city-panel {
+      flex: 1;
+      background:
+        linear-gradient(135deg, rgba(45, 212, 191, 0.08), rgba(56, 139, 253, 0.09)),
+        #071015;
+      padding: 0.9rem;
+      overflow: auto;
+    }
+    .city-shell {
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: auto auto minmax(420px, 1fr) auto;
+      gap: 0.85rem;
+    }
+    .city-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+    .city-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      min-width: 0;
+    }
+    .city-title strong {
+      color: var(--text);
+      font-size: 1.08rem;
+      line-height: 1.3;
+    }
+    #city-message {
+      color: #5eead4;
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+    .city-actions,
+    .city-command-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      justify-content: flex-end;
+    }
+    .city-actions button,
+    .city-command-row button {
+      border: 1px solid rgba(94, 234, 212, 0.38);
+      border-radius: var(--radius);
+      background: rgba(20, 184, 166, 0.12);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      min-height: 36px;
+      padding: 0.38rem 0.68rem;
+    }
+    .city-actions button:hover:not(:disabled),
+    .city-command-row button:hover:not(:disabled) {
+      border-color: #5eead4;
+      background: rgba(20, 184, 166, 0.2);
+    }
+    .city-actions button:disabled,
+    .city-command-row button:disabled,
+    .city-node:disabled,
+    .district-card:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+    .city-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(142px, 1fr));
+      gap: 0.65rem;
+    }
+    .city-metric,
+    .city-side,
+    .city-log,
+    .district-card {
+      border: 1px solid rgba(139, 148, 158, 0.22);
+      border-radius: var(--radius);
+      background: rgba(1, 4, 9, 0.42);
+    }
+    .city-metric {
+      padding: 0.62rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+    .city-metric span {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .city-metric strong {
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+    #city-alert {
+      color: var(--yellow);
+      font-size: 0.94rem;
+    }
+    #city-result[data-result="نجاح"] { color: var(--green); }
+    #city-result[data-result="خسارة"] { color: var(--red); }
+    .meter {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(139, 148, 158, 0.2);
+      overflow: hidden;
+    }
+    .meter > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e, #5eead4);
+      transition: width 0.25s ease;
+    }
+    .city-board {
+      display: grid;
+      grid-template-columns: minmax(360px, 1.35fr) minmax(280px, 0.65fr);
+      gap: 0.85rem;
+      min-height: 0;
+    }
+    .city-map-wrap {
+      position: relative;
+      min-height: 420px;
+      border: 1px solid rgba(94, 234, 212, 0.18);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(rgba(94, 234, 212, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 234, 212, 0.06) 1px, transparent 1px),
+        radial-gradient(circle at 72% 28%, rgba(56, 139, 253, 0.2), transparent 25%),
+        radial-gradient(circle at 22% 72%, rgba(227, 179, 65, 0.14), transparent 26%),
+        #08131a;
+      background-size: 36px 36px, 36px 36px, auto, auto, auto;
+      overflow: hidden;
+      direction: ltr;
+    }
+    #city-roads {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .city-road {
+      stroke: rgba(139, 148, 158, 0.36);
+      stroke-width: 1.1;
+      vector-effect: non-scaling-stroke;
+    }
+    .city-road.active {
+      stroke: #5eead4;
+      stroke-width: 2.7;
+      filter: drop-shadow(0 0 5px rgba(94, 234, 212, 0.42));
+    }
+    #city-nodes {
+      position: absolute;
+      inset: 0;
+    }
+    .city-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      min-width: 78px;
+      min-height: 42px;
+      border: 1px solid rgba(139, 148, 158, 0.35);
+      border-radius: var(--radius);
+      background: rgba(13, 17, 23, 0.88);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1.25;
+      padding: 0.32rem 0.45rem;
+      direction: rtl;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+    }
+    .city-node[data-kind="مركز"] {
+      border-color: rgba(88, 166, 255, 0.75);
+      background: rgba(56, 139, 253, 0.2);
+    }
+    .city-node[data-kind="حي"] {
+      border-color: rgba(94, 234, 212, 0.58);
+      background: rgba(15, 118, 110, 0.78);
+    }
+    .city-node[data-state="متوتر"] {
+      border-color: rgba(227, 179, 65, 0.72);
+      background: rgba(133, 94, 14, 0.86);
+    }
+    .city-node[data-state="خطر"] {
+      border-color: rgba(248, 81, 73, 0.72);
+      background: rgba(126, 38, 36, 0.88);
+    }
+    .city-node[data-state="ضغط"] {
+      border-color: rgba(227, 179, 65, 0.72);
+      background: rgba(133, 94, 14, 0.86);
+    }
+    .city-node[data-state="طارئ"] {
+      border-color: rgba(248, 81, 73, 0.72);
+      background: rgba(126, 38, 36, 0.88);
+    }
+    .city-node[data-alert="نعم"]::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      top: -4px;
+      left: -4px;
+      box-shadow: 0 0 0 5px rgba(248, 81, 73, 0.16);
+    }
+    .city-node[data-kind="مرفق"] {
+      border-color: rgba(227, 179, 65, 0.52);
+      background: rgba(87, 66, 20, 0.74);
+    }
+    .city-node.selected {
+      border-color: #fff7cf;
+      box-shadow: 0 0 0 3px rgba(227, 179, 65, 0.28), 0 12px 26px rgba(0, 0, 0, 0.38);
+    }
+    .city-side {
+      min-height: 0;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      overflow: auto;
+    }
+    .city-side h4,
+    .city-log h4 {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+    .city-selected {
+      display: grid;
+      gap: 0.5rem;
+    }
+    .city-selected-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .city-selected-title strong {
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .status-pill {
+      border: 1px solid rgba(139, 148, 158, 0.3);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 0.12rem 0.5rem;
+      white-space: nowrap;
+    }
+    .status-pill[data-state="آمن"] { background: rgba(34, 197, 94, 0.16); border-color: rgba(34, 197, 94, 0.46); }
+    .status-pill[data-state="متوتر"] { background: rgba(227, 179, 65, 0.16); border-color: rgba(227, 179, 65, 0.46); }
+    .status-pill[data-state="خطر"] { background: rgba(248, 81, 73, 0.16); border-color: rgba(248, 81, 73, 0.5); }
+    .status-pill[data-state="مراقبة"] { background: rgba(94, 234, 212, 0.14); border-color: rgba(94, 234, 212, 0.42); }
+    .status-pill[data-state="ضغط"] { background: rgba(227, 179, 65, 0.16); border-color: rgba(227, 179, 65, 0.46); }
+    .status-pill[data-state="طارئ"] { background: rgba(248, 81, 73, 0.16); border-color: rgba(248, 81, 73, 0.5); }
+    .city-kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    .city-kv strong {
+      color: var(--text);
+      font-weight: 900;
+    }
+    .forecast-list,
+    .station-list,
+    .city-impact {
+      display: grid;
+      gap: 0.38rem;
+    }
+    .city-impact {
+      border: 1px solid rgba(94, 234, 212, 0.18);
+      border-radius: 7px;
+      background: rgba(20, 184, 166, 0.08);
+      color: var(--text);
+      font-size: 0.76rem;
+      font-weight: 800;
+      line-height: 1.55;
+      padding: 0.5rem 0.58rem;
+    }
+    .forecast-row,
+    .station-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      border: 1px solid rgba(139, 148, 158, 0.18);
+      border-radius: 7px;
+      background: rgba(13, 17, 23, 0.48);
+      color: var(--muted);
+      font-size: 0.72rem;
+      padding: 0.38rem 0.48rem;
+    }
+    .forecast-row strong,
+    .station-row strong {
+      color: var(--text);
+    }
+    .city-lower {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
+      gap: 0.85rem;
+    }
+    #city-districts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+    .district-card {
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      padding: 0.65rem;
+      text-align: right;
+      display: grid;
+      gap: 0.45rem;
+      min-width: 0;
+    }
+    .district-card:hover:not(:disabled),
+    .district-card.selected {
+      border-color: rgba(94, 234, 212, 0.6);
+      background: rgba(20, 184, 166, 0.12);
+    }
+    .district-card[data-state="متوتر"] {
+      border-color: rgba(227, 179, 65, 0.42);
+    }
+    .district-card[data-state="خطر"] {
+      border-color: rgba(248, 81, 73, 0.48);
+    }
+    .district-card[data-state="ضغط"] {
+      border-color: rgba(227, 179, 65, 0.42);
+    }
+    .district-card[data-state="طارئ"] {
+      border-color: rgba(248, 81, 73, 0.48);
+    }
+    .district-card[data-alert="نعم"] {
+      box-shadow: 0 0 0 2px rgba(248, 81, 73, 0.14) inset;
+    }
+    .district-card strong {
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+    .district-card small {
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+    .district-meters {
+      display: grid;
+      gap: 0.32rem;
+    }
+    .mini-meter {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 0.35rem;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 800;
+    }
+    .city-log {
+      padding: 0.65rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.65;
+      min-height: 118px;
+      overflow: auto;
     }
     #output {
       flex: 1;
@@ -548,6 +1120,14 @@
       flex: 1;
       border-bottom: none;
     }
+    body.game-mode #platform-panel {
+      flex: 1;
+      border-bottom: none;
+    }
+    body.game-mode #city-panel {
+      flex: 1;
+      border-bottom: none;
+    }
     body.game-mode #output { display: none; }
     body.game-mode.source-open #editor-panel {
       display: flex;
@@ -567,6 +1147,42 @@
       body.game-mode.source-open #output-panel {
         width: 100%;
         order: 1;
+      }
+      .platform-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .city-board,
+      .city-lower {
+        grid-template-columns: 1fr;
+      }
+      .city-metrics,
+      #city-districts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .city-map-wrap {
+        min-height: 360px;
+      }
+    }
+    @media (max-width: 560px) {
+      .city-head,
+      .game-top {
+        flex-direction: column;
+      }
+      .city-actions,
+      .city-command-row,
+      .platform-actions,
+      .platform-controls,
+      .game-actions {
+        justify-content: flex-start;
+      }
+      .platform-stats,
+      .city-metrics,
+      #city-districts {
+        grid-template-columns: 1fr;
+      }
+      .city-node {
+        min-width: 62px;
+        font-size: 0.65rem;
       }
     }
   </style>
@@ -1330,6 +1946,12 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
     <h1>لغة الثعبان <span>— ملعب تفاعلي</span></h1>
   </div>
   <div class="header-links">
+    <a class="badge" href="playground.html?example=smart-city">
+      برنامج كبير
+    </a>
+    <a class="badge" href="playground.html?example=city-jump">
+      لعبة منصة
+    </a>
     <a class="badge" href="playground.html?example=desert-treasure">
       لعبة عربية
     </a>
@@ -1409,6 +2031,142 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
         <button class="south" type="button" data-game-command="جنوب">جنوب</button>
       </div>
       <div id="game-log" aria-live="polite"></div>
+    </div>
+    <div id="platform-panel" hidden>
+      <div class="platform-top">
+        <div class="platform-title">
+          <strong>قفزة المدينة</strong>
+          <span id="platform-message">جارٍ تجهيز المرحلة…</span>
+        </div>
+        <div class="platform-actions">
+          <button id="platform-source-toggle" type="button">عرض الشفرة</button>
+          <button id="platform-reset" type="button">إعادة المرحلة</button>
+        </div>
+      </div>
+      <div class="platform-stats" aria-live="polite">
+        <div class="platform-stat">
+          <span>البلورات</span>
+          <strong id="platform-score">٠ / ٠</strong>
+        </div>
+        <div class="platform-stat">
+          <span>القلوب</span>
+          <strong id="platform-lives">٣</strong>
+        </div>
+        <div class="platform-stat">
+          <span>الحالة</span>
+          <strong id="platform-result">قيد اللعب</strong>
+        </div>
+        <div class="platform-stat">
+          <span>التحكم</span>
+          <strong>← → ↑ / مسافة</strong>
+        </div>
+      </div>
+      <div class="platform-stage-wrap">
+        <div id="platform-stage" tabindex="0" aria-label="مرحلة قفزة المدينة">
+          <canvas id="canvas" class="platform-canvas" width="960" height="540"></canvas>
+        </div>
+      </div>
+      <div class="platform-controls" aria-label="أوامر قفزة المدينة">
+        <button type="button" data-platform-command="يسار" aria-keyshortcuts="ArrowLeft KeyA">يسار</button>
+        <button type="button" data-platform-command="قفز" aria-keyshortcuts="ArrowUp Space KeyW">قفز</button>
+        <button type="button" data-platform-command="يمين" aria-keyshortcuts="ArrowRight KeyD">يمين</button>
+      </div>
+      <div id="platform-log" aria-live="polite"></div>
+    </div>
+    <div id="city-panel" hidden>
+      <div class="city-shell">
+        <div class="city-head">
+          <div class="city-title">
+            <strong>أسبوع الإنقاذ الذكي</strong>
+            <span id="city-message">جارٍ تشغيل المدينة…</span>
+          </div>
+          <div class="city-actions">
+            <button id="city-source-toggle" type="button">عرض الشفرة</button>
+            <button id="city-reset" type="button">إعادة المدينة</button>
+          </div>
+        </div>
+
+        <div class="city-metrics" aria-live="polite">
+          <div class="city-metric">
+            <span>تقدم الجولة</span>
+            <strong id="city-day">١</strong>
+          </div>
+          <div class="city-metric">
+            <span>هدف الفوز</span>
+            <strong id="city-goal">٦٠٪</strong>
+            <div class="meter"><i id="city-goal-bar"></i></div>
+          </div>
+          <div class="city-metric">
+            <span>النقاط</span>
+            <strong id="city-budget">٠</strong>
+          </div>
+          <div class="city-metric">
+            <span>نبض المدينة</span>
+            <strong id="city-stability">٠٪</strong>
+            <div class="meter"><i id="city-stability-bar"></i></div>
+          </div>
+          <div class="city-metric">
+            <span>أحياء آمنة</span>
+            <strong id="city-coverage">٠٪ / ٠٪</strong>
+            <div class="meter"><i id="city-energy-bar"></i></div>
+          </div>
+          <div class="city-metric">
+            <span>إنذار اليوم</span>
+            <strong id="city-alert">—</strong>
+          </div>
+          <div class="city-metric">
+            <span>نتيجة الجولة</span>
+            <strong id="city-result">قيد التشغيل</strong>
+          </div>
+        </div>
+
+        <div class="city-board">
+          <div class="city-map-wrap" aria-label="خريطة المدينة الذكية">
+            <svg id="city-roads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+            <div id="city-nodes"></div>
+          </div>
+          <aside class="city-side">
+            <section class="city-selected" aria-live="polite">
+              <h4>الحي في الخطر</h4>
+              <div class="city-selected-title">
+                <strong id="city-selected-name">—</strong>
+                <span class="status-pill" id="city-selected-status">—</span>
+              </div>
+              <div class="city-kv" id="city-selected-facts"></div>
+              <div class="district-meters" id="city-selected-meters"></div>
+            </section>
+            <section>
+              <h4>اختر فريق الاستجابة</h4>
+              <div class="city-command-row">
+                <button type="button" data-city-action="كهرباء">فريق الكهرباء</button>
+                <button type="button" data-city-action="ماء">خزان ماء</button>
+                <button type="button" data-city-action="مرور">تنظيم المرور</button>
+                <button type="button" data-city-action="صحة">إسعاف ذكي</button>
+              </div>
+            </section>
+            <section>
+              <h4>أثر آخر قرار</h4>
+              <div class="city-impact" id="city-impact">—</div>
+            </section>
+            <section>
+              <h4>الأزمات القادمة</h4>
+              <div class="forecast-list" id="city-forecast"></div>
+            </section>
+            <section>
+              <h4>فرق الاستجابة</h4>
+              <div class="station-list" id="city-stations"></div>
+            </section>
+          </aside>
+        </div>
+
+        <div class="city-lower">
+          <div id="city-districts" aria-label="أحياء المدينة"></div>
+          <div class="city-log">
+            <h4>آخر ما حدث</h4>
+            <div id="city-log" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="stdin-panel">
       <label for="stdin-input">مدخلات البرنامج</label>
@@ -1776,9 +2534,19 @@ const EXAMPLES = [
         اطبع("تم التقاط الخطأ:", السبب)`
   },
 
+  // ═══════════════ عروض كبرى ═══════════════
+  {
+    id: "smart-city", tier: 5, tag: "عرض كبير", title: "محاكي مدينة ذكية",
+    source: "showcases/مدينة_ذكية.apy"
+  },
+
   // ═══════════════ ألعاب ═══════════════
   {
-    id: "desert-treasure", tier: 5, tag: "لعبة", title: "كنز الصحراء",
+    id: "city-jump", tier: 6, tag: "منصة", title: "قفزة المدينة",
+    source: "games/قفزة_المدينة.apy"
+  },
+  {
+    id: "desert-treasure", tier: 6, tag: "لعبة", title: "كنز الصحراء",
     source: "games/كنز_الصحراء.apy"
   },
 ];
@@ -1807,18 +2575,67 @@ const gameEnergyBar = document.getElementById("game-energy-bar");
 const gameResetBtn  = document.getElementById("game-reset");
 const gameSourceToggle = document.getElementById("game-source-toggle");
 const gameCommandBtns = Array.from(document.querySelectorAll("[data-game-command]"));
+const platformPanel = document.getElementById("platform-panel");
+const platformStage = document.getElementById("platform-stage");
+const platformCanvas = document.getElementById("canvas");
+const platformMessage = document.getElementById("platform-message");
+const platformScore = document.getElementById("platform-score");
+const platformLives = document.getElementById("platform-lives");
+const platformResult = document.getElementById("platform-result");
+const platformLog = document.getElementById("platform-log");
+const platformResetBtn = document.getElementById("platform-reset");
+const platformSourceToggle = document.getElementById("platform-source-toggle");
+const platformCommandBtns = Array.from(document.querySelectorAll("[data-platform-command]"));
+const cityPanel = document.getElementById("city-panel");
+const cityMessage = document.getElementById("city-message");
+const cityDay = document.getElementById("city-day");
+const cityGoal = document.getElementById("city-goal");
+const cityGoalBar = document.getElementById("city-goal-bar");
+const cityBudget = document.getElementById("city-budget");
+const cityStability = document.getElementById("city-stability");
+const cityStabilityBar = document.getElementById("city-stability-bar");
+const cityCoverage = document.getElementById("city-coverage");
+const cityEnergyBar = document.getElementById("city-energy-bar");
+const cityAlert = document.getElementById("city-alert");
+const cityResult = document.getElementById("city-result");
+const cityRoads = document.getElementById("city-roads");
+const cityNodes = document.getElementById("city-nodes");
+const cityDistricts = document.getElementById("city-districts");
+const citySelectedName = document.getElementById("city-selected-name");
+const citySelectedStatus = document.getElementById("city-selected-status");
+const citySelectedFacts = document.getElementById("city-selected-facts");
+const citySelectedMeters = document.getElementById("city-selected-meters");
+const cityForecast = document.getElementById("city-forecast");
+const cityStations = document.getElementById("city-stations");
+const cityImpact = document.getElementById("city-impact");
+const cityLog = document.getElementById("city-log");
+const cityResetBtn = document.getElementById("city-reset");
+const citySourceToggle = document.getElementById("city-source-toggle");
+const cityActionBtns = Array.from(document.querySelectorAll("[data-city-action]"));
 let pyodide = null;
 let activeExample = null;
 let visualGameReady = false;
 let visualGameBusy = false;
 let visualGameFinished = false;
+let platformerReady = false;
+let platformerBusy = false;
+let platformerFinished = false;
+let platformerLoop = null;
+const platformerKeys = new Set();
+let platformerJumpQueued = false;
+let platformerPygameReady = false;
+let smartCityReady = false;
+let smartCityBusy = false;
+let smartCityFinished = false;
 
 // ─────────────────────────────────────────────────────────────────
 //  Populate examples sidebar
 // ─────────────────────────────────────────────────────────────────
 let activeExBtn = null;
-const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د", 5: "الألعاب" };
+const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د", 5: "عروض كبرى", 6: "الألعاب" };
 const VISUAL_GAME_ID = "desert-treasure";
+const PLATFORMER_ID = "city-jump";
+const SMART_CITY_ID = "smart-city";
 let lastTier = null;
 const requestedExample = new URLSearchParams(window.location.search).get("example");
 let initialExample = null;
@@ -1826,35 +2643,72 @@ const sourceCache = new Map();
 
 async function loadExampleSource(ex) {
   if (Object.prototype.hasOwnProperty.call(ex, "code")) return ex.code;
-  if (!ex.source) return "";
-  if (sourceCache.has(ex.source)) return sourceCache.get(ex.source);
+  const paths = [...(ex.libraries || []), ex.source].filter(Boolean);
+  if (!paths.length) return "";
 
-  const response = await fetch(new URL(ex.source, window.location.href));
-  if (!response.ok) {
-    throw new Error(`تعذر تحميل المصدر: ${response.status}`);
+  const parts = [];
+  for (const path of paths) {
+    if (sourceCache.has(path)) {
+      parts.push(sourceCache.get(path));
+      continue;
+    }
+    const response = await fetch(new URL(path, window.location.href), { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`تعذر تحميل المصدر: ${response.status}`);
+    }
+    const text = await response.text();
+    sourceCache.set(path, text);
+    parts.push(text);
   }
-  const text = await response.text();
-  sourceCache.set(ex.source, text);
-  return text;
+  return parts.join("\n\n");
 }
 
 function isVisualGameSelected() {
   return activeExample && activeExample.id === VISUAL_GAME_ID;
 }
 
+function isPlatformerSelected() {
+  return activeExample && activeExample.id === PLATFORMER_ID;
+}
+
+function isSmartCitySelected() {
+  return activeExample && activeExample.id === SMART_CITY_ID;
+}
+
+function isVisualExampleSelected() {
+  return isVisualGameSelected() || isPlatformerSelected() || isSmartCitySelected();
+}
+
 function updateGameMode() {
   const showGame = isVisualGameSelected();
-  document.body.classList.toggle("game-mode", showGame);
-  if (!showGame) document.body.classList.remove("source-open");
+  const showPlatformer = isPlatformerSelected();
+  const showCity = isSmartCitySelected();
+  const showVisual = isVisualExampleSelected();
+  document.body.classList.toggle("game-mode", showVisual);
+  if (!showVisual) document.body.classList.remove("source-open");
   gamePanel.hidden = !showGame;
-  stdinPanel.hidden = showGame;
-  outputEl.hidden = showGame;
+  platformPanel.hidden = !showPlatformer;
+  cityPanel.hidden = !showCity;
+  stdinPanel.hidden = showVisual;
+  outputEl.hidden = showVisual;
   gameSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
-  runBtn.innerHTML = showGame ? "↻ بدء <kbd>تحكم+إدخال</kbd>" : "▶ تشغيل <kbd>تحكم+إدخال</kbd>";
+  platformSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+  citySourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+  runBtn.innerHTML = showVisual ? "↻ بدء <kbd>تحكم+إدخال</kbd>" : "▶ تشغيل <kbd>تحكم+إدخال</kbd>";
   if (!showGame) {
     visualGameReady = false;
     visualGameFinished = false;
   }
+  if (!showPlatformer) {
+    platformerReady = false;
+    platformerFinished = false;
+    platformerJumpQueued = false;
+    platformerKeys.clear();
+    syncPlatformerControls();
+    stopPlatformerLoop();
+  }
+  if (!showCity) smartCityReady = false;
+  if (!showCity) smartCityFinished = false;
 }
 
 async function selectExample(ex, btn, updateUrl = true) {
@@ -1870,7 +2724,7 @@ async function selectExample(ex, btn, updateUrl = true) {
     window.history.replaceState(null, "", url);
   }
 
-  const loadingExternal = Boolean(ex.source && !Object.prototype.hasOwnProperty.call(ex, "code"));
+  const loadingExternal = Boolean((ex.source || ex.libraries) && !Object.prototype.hasOwnProperty.call(ex, "code"));
   if (loadingExternal) {
     editorEl.value = "جارٍ تحميل مصدر المثال…";
     runBtn.disabled = true;
@@ -1880,10 +2734,14 @@ async function selectExample(ex, btn, updateUrl = true) {
   try {
     editorEl.value = await loadExampleSource(ex);
     if (loadingExternal && pyodide) {
-      setStatus("ready", "تم تحميل مصدر اللعبة — جاهز للتشغيل");
+      setStatus("ready", "تم تحميل مصدر المثال — جاهز للتشغيل");
     }
     if (isVisualGameSelected() && pyodide) {
       void resetVisualGame();
+    } else if (isPlatformerSelected() && pyodide) {
+      void resetPlatformer();
+    } else if (isSmartCitySelected() && pyodide) {
+      void resetSmartCity();
     }
   } catch (err) {
     editorEl.value = "تعذر تحميل مصدر المثال.";
@@ -2074,6 +2932,473 @@ json.dumps(_visual_game_ns["نفذ_امر"](_visual_game_command), ensure_ascii=
   }
 }
 
+function platformStyle(box) {
+  return {
+    left: `${(Number(box["س"]) / 960) * 100}%`,
+    top: `${(Number(box["ص"]) / 540) * 100}%`,
+    width: `${(Number(box["عرض"]) / 960) * 100}%`,
+    height: `${(Number(box["ارتفاع"]) / 540) * 100}%`,
+  };
+}
+
+function applyPlatformBox(el, box) {
+  const style = platformStyle(box);
+  el.style.left = style.left;
+  el.style.top = style.top;
+  el.style.width = style.width;
+  el.style.height = style.height;
+}
+
+function setPlatformerBusy(isBusy) {
+  platformerBusy = isBusy;
+  platformResetBtn.disabled = isBusy;
+  platformSourceToggle.disabled = isBusy;
+  for (const btn of platformCommandBtns) btn.disabled = isBusy && !platformerReady;
+}
+
+function stopPlatformerLoop() {
+  if (platformerLoop) {
+    window.clearInterval(platformerLoop);
+    platformerLoop = null;
+  }
+}
+
+function startPlatformerLoop() {
+  stopPlatformerLoop();
+  platformerLoop = window.setInterval(() => {
+    if (isPlatformerSelected() && platformerReady && !platformerBusy && !platformerFinished) {
+      void tickPlatformer();
+    }
+  }, 55);
+}
+
+function currentPlatformerCommand() {
+  const commands = [];
+  if (platformerKeys.has("يسار")) commands.push("يسار");
+  if (platformerKeys.has("يمين")) commands.push("يمين");
+  if (platformerKeys.has("قفز") || platformerJumpQueued) commands.push("قفز");
+  return commands.join(" ");
+}
+
+function syncPlatformerControls() {
+  for (const btn of platformCommandBtns) {
+    btn.classList.toggle("active", platformerKeys.has(btn.dataset.platformCommand));
+  }
+}
+
+function setPlatformerKey(command, isPressed) {
+  if (!command) return;
+  if (command === "قفز" && isPressed) platformerJumpQueued = true;
+  if (isPressed) {
+    platformerKeys.add(command);
+  } else {
+    platformerKeys.delete(command);
+  }
+  syncPlatformerControls();
+}
+
+function platformCommandFromKeyboard(event) {
+  if (event.code === "ArrowLeft" || event.code === "KeyA") return "يسار";
+  if (event.code === "ArrowRight" || event.code === "KeyD") return "يمين";
+  if (event.code === "Space" || event.code === "ArrowUp" || event.code === "KeyW") return "قفز";
+  if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") return "يسار";
+  if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") return "يمين";
+  if (event.key === " " || event.key === "ArrowUp" || event.key === "w" || event.key === "W") return "قفز";
+  return "";
+}
+
+async function ensurePlatformerPygame() {
+  if (platformerPygameReady) return;
+  platformMessage.textContent = "جارٍ تحميل محرك باي غيم…";
+  setStatus("busy", "جارٍ تحميل pygame-ce…");
+  platformCanvas.id = "canvas";
+  pyodide.canvas.setCanvas2D(platformCanvas);
+  pyodide._api._skip_unwind_fatal_error = true;
+  await pyodide.loadPackage("pygame-ce");
+  await pyodide.runPythonAsync(`
+import sys
+import types
+import pygame
+
+لعبه = types.SimpleNamespace()
+لعبه.ابدا = pygame.init
+لعبه.اغلق = pygame.quit
+لعبه.مستطيل = pygame.Rect
+لعبه.سطح = pygame.Surface
+لعبه.نافذه = pygame.display.set_mode
+لعبه.عنوان_النافذه = pygame.display.set_caption
+لعبه.اعرض = pygame.display.flip
+لعبه.حدث_العرض = pygame.display.update
+لعبه.احداث = pygame.event.get
+لعبه.حاله_المفاتيح = pygame.key.get_pressed
+لعبه.ساعه = pygame.time.Clock
+لعبه.ارسم_مستطيل = pygame.draw.rect
+لعبه.ارسم_دائره = pygame.draw.circle
+لعبه.ارسم_خط = pygame.draw.line
+لعبه.ارسم_مضلع = pygame.draw.polygon
+لعبه.املا = pygame.Surface.fill
+لعبه.انسخ_سطح = pygame.Surface.blit
+لعبه.سطح_مستطيل = pygame.Surface.get_rect
+لعبه.يتصادم = pygame.Rect.colliderect
+لعبه.انتظر_اطار = pygame.time.Clock.tick
+sys.modules["لعبه"] = لعبه
+sys.modules["لعبة"] = لعبه
+`);
+  platformerPygameReady = true;
+}
+
+function renderPlatformer(state) {
+  const hero = state["بطل"];
+  platformerFinished = Boolean(state["انتهت"]);
+  platformMessage.textContent = state["رسالة"];
+  platformScore.textContent = `${toArabicDigits(hero["نقاط"])} / ${toArabicDigits(state["المطلوب"])}`;
+  platformLives.textContent = toArabicDigits(hero["قلوب"]);
+  platformResult.textContent = state["انتهت"] ? (state["فوز"] ? "فزت" : "خسرت") : "قيد اللعب";
+
+  platformLog.innerHTML = "";
+  for (const item of state["سجل"]) {
+    const line = document.createElement("div");
+    line.textContent = item;
+    platformLog.appendChild(line);
+  }
+
+  if (platformerFinished) {
+    stopPlatformerLoop();
+  }
+  syncPlatformerControls();
+}
+
+async function resetPlatformer() {
+  if (!pyodide || !isPlatformerSelected() || platformerBusy) return;
+  platformerFinished = false;
+  platformerJumpQueued = false;
+  platformerKeys.clear();
+  syncPlatformerControls();
+  setPlatformerBusy(true);
+  outputEl.hidden = true;
+  platformMessage.textContent = "جارٍ تجهيز المرحلة…";
+  setStatus("busy", "جارٍ تهيئة لعبة المنصة…");
+  pyodide.globals.set("_platformer_source", editorEl.value.trim());
+
+  try {
+    await ensurePlatformerPygame();
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+from arabicpython.translate import translate as _translate
+_platformer_ns = {}
+_translated_platformer = _translate(_platformer_source)
+exec(compile(_translated_platformer, '<قفزة المدينة>', 'exec'), _platformer_ns)
+json.dumps(_platformer_ns["ابدا"](), ensure_ascii=False)
+`);
+    platformerReady = true;
+    renderPlatformer(JSON.parse(stateJson));
+    platformStage.focus({ preventScroll: true });
+    startPlatformerLoop();
+    setStatus("ready", "قفزة المدينة جاهزة — استخدم الأسهم والمسافة");
+  } catch (err) {
+    platformerReady = false;
+    platformMessage.textContent = "تعذر تجهيز لعبة المنصة";
+    platformLog.textContent = err.message;
+    setStatus("error", "تعذر تجهيز لعبة المنصة");
+  } finally {
+    setPlatformerBusy(false);
+  }
+}
+
+async function tickPlatformer() {
+  if (!pyodide || !isPlatformerSelected() || platformerBusy || !platformerReady) return;
+  platformerBusy = true;
+  pyodide.globals.set("_platformer_command", currentPlatformerCommand());
+  platformerJumpQueued = false;
+  try {
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+json.dumps(_platformer_ns["نفذ_امر"](_platformer_command), ensure_ascii=False)
+`);
+    renderPlatformer(JSON.parse(stateJson));
+  } catch (err) {
+    platformMessage.textContent = "تعذر تنفيذ الحركة";
+    platformLog.textContent = err.message;
+    setStatus("error", "تعذر تنفيذ الحركة");
+    stopPlatformerLoop();
+  } finally {
+    platformerBusy = false;
+  }
+}
+
+function percentText(value) {
+  return `${toArabicDigits(Math.round(Number(value)))}٪`;
+}
+
+function setMeterFill(element, value) {
+  element.style.width = `${Math.max(0, Math.min(100, Math.round(Number(value))))}%`;
+}
+
+function setSmartCityBusy(isBusy) {
+  smartCityBusy = isBusy;
+  cityResetBtn.disabled = isBusy;
+  citySourceToggle.disabled = isBusy;
+  for (const btn of cityActionBtns) btn.disabled = isBusy || smartCityFinished;
+  for (const node of cityNodes.querySelectorAll("button")) node.disabled = isBusy;
+  for (const card of cityDistricts.querySelectorAll("button")) card.disabled = isBusy;
+}
+
+function roadKey(a, b) {
+  return [a, b].sort().join("::");
+}
+
+function addFact(label, value) {
+  const labelEl = document.createElement("span");
+  labelEl.textContent = label;
+  const valueEl = document.createElement("strong");
+  valueEl.textContent = value;
+  citySelectedFacts.append(labelEl, valueEl);
+}
+
+function addMeter(container, label, value) {
+  const row = document.createElement("div");
+  row.className = "mini-meter";
+  const labelEl = document.createElement("span");
+  labelEl.textContent = label;
+  const meter = document.createElement("div");
+  meter.className = "meter";
+  const fill = document.createElement("i");
+  setMeterFill(fill, value);
+  meter.appendChild(fill);
+  row.append(labelEl, meter);
+  container.appendChild(row);
+}
+
+function selectedDistrictFrom(state) {
+  return state["الأحياء"].find((district) => district["اسم"] === state["المحدد"]) || state["الأحياء"][0];
+}
+
+function districtByNodeName(state) {
+  const map = new Map();
+  for (const district of state["الأحياء"]) {
+    map.set(district["عقدة"], district);
+  }
+  return map;
+}
+
+function renderSmartCity(state) {
+  const totals = state["مجاميع"];
+  const selected = selectedDistrictFrom(state);
+  smartCityFinished = Boolean(state["انتهت"]);
+
+  cityMessage.textContent = state["رسالة"];
+  cityDay.textContent = `${toArabicDigits(state["اليوم"])} / ${toArabicDigits(state["مدة_الجولة"])}`;
+  cityGoal.textContent = percentText(state["هدف_الاستقرار"]);
+  setMeterFill(cityGoalBar, state["هدف_الاستقرار"]);
+  cityBudget.textContent = toArabicDigits(state["ميزانية"]);
+  cityStability.textContent = percentText(state["استقرار"]);
+  setMeterFill(cityStabilityBar, state["استقرار"]);
+  cityCoverage.textContent = `${toArabicDigits(totals["آمنة"])} / ${toArabicDigits(totals["كل"])}`;
+  setMeterFill(cityEnergyBar, totals["نسبة_آمنة"]);
+  cityAlert.textContent = `${state["إنذار"]["نوع"]} · ${state["إنذار"]["اسم"]} · ${state["إنذار"]["حي"]}`;
+  cityResult.textContent = state["نتيجة"];
+  cityResult.dataset.result = state["فوز"] ? "نجاح" : (state["انتهت"] ? "خسارة" : "مستمر");
+  cityImpact.textContent = state["أثر_القرار"];
+
+  const positions = new Map();
+  for (const node of state["العقد"]) {
+    positions.set(node["اسم"], node);
+  }
+  const districtByNode = districtByNodeName(state);
+  const activeRoads = new Set();
+  for (let index = 0; index < state["المسار"].length - 1; index += 1) {
+    activeRoads.add(roadKey(state["المسار"][index], state["المسار"][index + 1]));
+  }
+
+  cityRoads.innerHTML = "";
+  const renderedRoads = new Set();
+  for (const link of state["الروابط"]) {
+    const key = roadKey(link["من"], link["إلى"]);
+    if (renderedRoads.has(key)) continue;
+    renderedRoads.add(key);
+    const start = positions.get(link["من"]);
+    const end = positions.get(link["إلى"]);
+    if (!start || !end) continue;
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", start["س"]);
+    line.setAttribute("y1", start["ص"]);
+    line.setAttribute("x2", end["س"]);
+    line.setAttribute("y2", end["ص"]);
+    line.classList.add("city-road");
+    if (activeRoads.has(key)) line.classList.add("active");
+    cityRoads.appendChild(line);
+  }
+
+  cityNodes.innerHTML = "";
+  for (const node of state["العقد"]) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "city-node";
+    btn.dataset.kind = node["نوع"];
+    btn.style.left = `${Number(node["س"])}%`;
+    btn.style.top = `${Number(node["ص"])}%`;
+    btn.textContent = node["عنوان"];
+    const district = districtByNode.get(node["اسم"]);
+    if (district) {
+      btn.dataset.state = district["حالة"];
+      btn.dataset.alert = district["مشكلة"] ? "نعم" : "لا";
+    }
+    if (node["حي"] && node["حي"] === state["المحدد"]) btn.classList.add("selected");
+    if (node["حي"]) {
+      btn.addEventListener("click", () => { void selectSmartCityDistrict(node["حي"]); });
+    } else {
+      btn.disabled = smartCityBusy;
+    }
+    cityNodes.appendChild(btn);
+  }
+
+  citySelectedName.textContent = selected["اسم"];
+  citySelectedStatus.textContent = selected["حالة"];
+  citySelectedStatus.dataset.state = selected["حالة"];
+  citySelectedFacts.innerHTML = "";
+  addFact("السكان", toArabicDigits(selected["سكان"]));
+  addFact("نبض الحي", percentText(selected["نبض"]));
+  addFact("الأزمة", selected["مشكلة"] || "لا يوجد");
+  addFact("نوعها", selected["نوع"] || "لا يوجد");
+  addFact("طريق الفريق", `${state["المسار"].join(" ← ")} (${toArabicDigits(state["كلفة_المسار"])})`);
+
+  citySelectedMeters.innerHTML = "";
+  addMeter(citySelectedMeters, "نبض", selected["نبض"]);
+
+  cityForecast.innerHTML = "";
+  for (const item of state["تنبؤ"]) {
+    const row = document.createElement("div");
+    row.className = "forecast-row";
+    const day = document.createElement("strong");
+    day.textContent = `يوم ${toArabicDigits(item["يوم"])}`;
+    const demand = document.createElement("span");
+    demand.textContent = `${item["نوع"]}: ${item["اسم"]} في ${item["حي"]}`;
+    row.append(day, demand);
+    cityForecast.appendChild(row);
+  }
+
+  cityStations.innerHTML = "";
+  for (const station of state["المحطات"]) {
+    const row = document.createElement("div");
+    row.className = "station-row";
+    const name = document.createElement("strong");
+    name.textContent = station["اسم"];
+    const amount = document.createElement("span");
+    amount.textContent = `${station["نوع"]} · رمز ${station["رمز"]}`;
+    row.append(name, amount);
+    cityStations.appendChild(row);
+  }
+
+  cityDistricts.innerHTML = "";
+  for (const district of state["الأحياء"]) {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "district-card";
+    card.dataset.state = district["حالة"];
+    card.dataset.alert = district["مشكلة"] ? "نعم" : "لا";
+    if (district["اسم"] === state["المحدد"]) card.classList.add("selected");
+    const title = document.createElement("strong");
+    title.textContent = district["اسم"];
+    const subtitle = document.createElement("small");
+    subtitle.textContent = `${district["حالة"]} · نبض ${percentText(district["نبض"])}`;
+    const meters = document.createElement("div");
+    meters.className = "district-meters";
+    addMeter(meters, "نبض", district["نبض"]);
+    card.append(title, subtitle, meters);
+    card.addEventListener("click", () => { void selectSmartCityDistrict(district["اسم"]); });
+    cityDistricts.appendChild(card);
+  }
+
+  cityLog.innerHTML = "";
+  for (const item of state["سجل"]) {
+    const line = document.createElement("div");
+    line.textContent = item;
+    cityLog.appendChild(line);
+  }
+  setSmartCityBusy(false);
+}
+
+async function resetSmartCity() {
+  if (!pyodide || !isSmartCitySelected() || smartCityBusy) return;
+  smartCityFinished = false;
+  setSmartCityBusy(true);
+  outputEl.hidden = true;
+  cityMessage.textContent = "جارٍ تشغيل المدينة…";
+  setStatus("busy", "جارٍ تهيئة محاكي المدينة…");
+  pyodide.globals.set("_smart_city_source", editorEl.value.trim());
+
+  try {
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+from arabicpython.translate import translate as _translate
+_smart_city_ns = {}
+_translated_city = _translate(_smart_city_source)
+exec(compile(_translated_city, '<مدينة ذكية>', 'exec'), _smart_city_ns)
+json.dumps(_smart_city_ns["ابدا"](), ensure_ascii=False)
+`);
+    smartCityReady = true;
+    renderSmartCity(JSON.parse(stateJson));
+    setStatus("ready", "محاكي المدينة جاهز — اختر حيا ونفذ القرارات");
+  } catch (err) {
+    smartCityReady = false;
+    cityMessage.textContent = "تعذر تشغيل المدينة";
+    cityLog.textContent = err.message;
+    setStatus("error", "تعذر تشغيل محاكي المدينة");
+  } finally {
+    setSmartCityBusy(false);
+  }
+}
+
+async function selectSmartCityDistrict(name) {
+  if (!pyodide || !isSmartCitySelected() || smartCityBusy) return;
+  if (!smartCityReady) {
+    await resetSmartCity();
+    if (!smartCityReady) return;
+  }
+
+  setSmartCityBusy(true);
+  pyodide.globals.set("_smart_city_district", name);
+  try {
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+json.dumps(_smart_city_ns["اختر_حي"](_smart_city_district), ensure_ascii=False)
+`);
+    renderSmartCity(JSON.parse(stateJson));
+    setStatus("ready", "تم اختيار الحي");
+  } catch (err) {
+    cityMessage.textContent = "تعذر اختيار الحي";
+    cityLog.textContent = err.message;
+    setStatus("error", "تعذر اختيار الحي");
+  } finally {
+    setSmartCityBusy(false);
+  }
+}
+
+async function sendSmartCityAction(action) {
+  if (!pyodide || !isSmartCitySelected() || smartCityBusy) return;
+  if (!smartCityReady) {
+    await resetSmartCity();
+    if (!smartCityReady) return;
+  }
+
+  setSmartCityBusy(true);
+  pyodide.globals.set("_smart_city_action", action);
+  try {
+    const stateJson = await pyodide.runPythonAsync(`
+import json
+json.dumps(_smart_city_ns["نفذ_قرار"](_smart_city_action), ensure_ascii=False)
+`);
+    renderSmartCity(JSON.parse(stateJson));
+    setStatus("ready", "تم تنفيذ قرار المدينة");
+  } catch (err) {
+    cityMessage.textContent = "تعذر تنفيذ القرار";
+    cityLog.textContent = err.message;
+    setStatus("error", "تعذر تنفيذ القرار");
+  } finally {
+    setSmartCityBusy(false);
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────
 //  Pyodide init — write source files to virtual filesystem
 // ─────────────────────────────────────────────────────────────────
@@ -2127,6 +3452,10 @@ load_dialect("ar-v2")
   setStatus("ready", "جاهز للتشغيل — تحكم+إدخال أو زر تشغيل");
   if (isVisualGameSelected()) {
     void resetVisualGame();
+  } else if (isPlatformerSelected()) {
+    void resetPlatformer();
+  } else if (isSmartCitySelected()) {
+    void resetSmartCity();
   }
 }
 
@@ -2137,6 +3466,14 @@ async function runCode() {
   if (!pyodide || runBtn.disabled) return;
   if (isVisualGameSelected()) {
     await resetVisualGame();
+    return;
+  }
+  if (isPlatformerSelected()) {
+    await resetPlatformer();
+    return;
+  }
+  if (isSmartCitySelected()) {
+    await resetSmartCity();
     return;
   }
   const source = editorEl.value.trim();
@@ -2251,11 +3588,51 @@ gameSourceToggle.addEventListener("click", () => {
   document.body.classList.toggle("source-open");
   gameSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
 });
+platformResetBtn.addEventListener("click", () => { void resetPlatformer(); });
+platformSourceToggle.addEventListener("click", () => {
+  document.body.classList.toggle("source-open");
+  platformSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+});
+cityResetBtn.addEventListener("click", () => { void resetSmartCity(); });
+citySourceToggle.addEventListener("click", () => {
+  document.body.classList.toggle("source-open");
+  citySourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+});
 for (const btn of gameCommandBtns) {
   btn.addEventListener("click", () => {
     void sendVisualGameCommand(btn.dataset.gameCommand);
   });
 }
+for (const btn of platformCommandBtns) {
+  const command = btn.dataset.platformCommand;
+  btn.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
+    setPlatformerKey(command, true);
+    platformStage.focus({ preventScroll: true });
+  });
+  btn.addEventListener("pointerup", () => { setPlatformerKey(command, false); });
+  btn.addEventListener("pointerleave", () => { setPlatformerKey(command, false); });
+  btn.addEventListener("pointercancel", () => { setPlatformerKey(command, false); });
+}
+for (const btn of cityActionBtns) {
+  btn.addEventListener("click", () => {
+    void sendSmartCityAction(btn.dataset.cityAction);
+  });
+}
+
+window.addEventListener("keydown", (event) => {
+  if (!isPlatformerSelected() || document.body.classList.contains("source-open")) return;
+  const command = platformCommandFromKeyboard(event);
+  if (!command) return;
+  event.preventDefault();
+  setPlatformerKey(command, true);
+});
+
+window.addEventListener("keyup", (event) => {
+  const command = platformCommandFromKeyboard(event);
+  if (!command) return;
+  setPlatformerKey(command, false);
+});
 
 // اختصار لوحة المفاتيح للتشغيل
 editorEl.addEventListener("keydown", (e) => {
