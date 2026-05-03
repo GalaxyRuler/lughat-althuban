@@ -1,28 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
-  <title id="title">Abdullah Al Kulaib brand lockup for Lughat Althuban</title>
-  <desc id="desc">Dark navy Abdullah Al Kulaib brand banner with an abstract AK monogram and Lughat Althuban repository title.</desc>
-  <rect width="1200" height="360" fill="#111921"/>
-  <rect x="0" y="328" width="1200" height="32" fill="#2c1a66"/>
-  <rect x="860" y="0" width="340" height="360" fill="#f5f6fc"/>
-  <g transform="translate(934 56)">
-    <rect width="192" height="152" rx="8" fill="#FFFFFF" stroke="#b2b6b9" stroke-width="3"/>
-    <path fill="#111921" d="M31 122 82 30h31L61 122z"/>
-    <path fill="#111921" d="M61 86h70v27H51z"/>
-    <path fill="#2c1a66" d="M136 30h30v92h-30z"/>
-    <path fill="#2c1a66" d="M165 72 208 30h-36l-36 38z"/>
-    <path fill="#2c1a66" d="M165 78 210 122h-37l-37-36z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="420" viewBox="0 0 1400 420" role="img" aria-labelledby="title desc">
+  <title id="title">Abdullah Al Kulaib branded banner for Lughat Althuban</title>
+  <desc id="desc">A dark navy and off-white repository banner using the Abdullah Al Kulaib AK monogram and the Lughat Althuban Arabic Python project title.</desc>
+  <rect width="1400" height="420" fill="#111921"/>
+  <rect x="0" y="0" width="42" height="420" fill="#ea6753"/>
+  <rect x="1040" y="0" width="360" height="420" fill="#f5f6fc"/>
+  <rect x="1040" y="0" width="22" height="420" fill="#2c1a66"/>
+  <g transform="translate(1119 58)">
+    <rect width="204" height="166" rx="8" fill="#FFFFFF" stroke="#b2b6b9" stroke-width="3"/>
+    <path fill="#111921" d="M33 134 88 32h33L65 134z"/>
+    <path fill="#111921" d="M66 93h76v29H55z"/>
+    <path fill="#2c1a66" d="M146 32h32v102h-32z"/>
+    <path fill="#2c1a66" d="M177 80 225 32h-39l-40 44z"/>
+    <path fill="#2c1a66" d="M177 87 226 134h-40l-40-39z"/>
   </g>
-  <text x="1030" y="250" fill="#111921" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="30" font-weight="700">Abdullah Al Kulaib</text>
-  <text x="1030" y="287" fill="#111921" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="400">Shared services | Advisory | Startups</text>
-  <text x="72" y="124" fill="#FFFFFF" font-family="Montserrat, Arial, sans-serif" font-size="56" font-weight="700">لغة الثعبان</text>
-  <text x="72" y="186" fill="#FFFFFF" font-family="Montserrat, Arial, sans-serif" font-size="34" font-weight="700">Arabic-first Python dialect</text>
-  <text x="72" y="238" fill="#b2b6b9" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="400">Keywords, stdlib/library aliases, tooling, tracebacks, and a browser playground.</text>
-  <g transform="translate(72 274)">
-    <rect width="144" height="38" rx="8" fill="#ea6753"/>
-    <text x="72" y="26" fill="#FFFFFF" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="700">PLAYGROUND</text>
-    <rect x="162" width="118" height="38" rx="8" fill="#afdfe1"/>
-    <text x="221" y="26" fill="#111921" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="700">DOCS</text>
-    <rect x="298" width="138" height="38" rx="8" fill="#2d1b46"/>
-    <text x="367" y="26" fill="#FFFFFF" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="700">EXAMPLES</text>
+  <text x="1221" y="274" fill="#111921" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="31" font-weight="700">Abdullah Al Kulaib</text>
+  <text x="1221" y="312" fill="#111921" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="400">Shared services | Advisory | Startups</text>
+  <text x="98" y="96" fill="#afdfe1" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="700">ARABIC-FIRST PYTHON DIALECT</text>
+  <text x="98" y="174" fill="#FFFFFF" font-family="Montserrat, Arial, sans-serif" font-size="72" font-weight="700">لغة الثعبان</text>
+  <text x="98" y="230" fill="#FFFFFF" font-family="Montserrat, Arial, sans-serif" font-size="34" font-weight="700">بايثون بالعربية الكاملة</text>
+  <text x="98" y="285" fill="#b2b6b9" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="400">Keywords, tooling, tracebacks, examples, and a browser playground.</text>
+  <g transform="translate(98 332)">
+    <rect width="150" height="44" rx="8" fill="#ea6753"/>
+    <text x="75" y="29" fill="#FFFFFF" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="700">PLAYGROUND</text>
+    <rect x="168" width="122" height="44" rx="8" fill="#afdfe1"/>
+    <text x="229" y="29" fill="#111921" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="700">DOCS</text>
+    <rect x="308" width="154" height="44" rx="8" fill="#2d1b46"/>
+    <text x="385" y="29" fill="#FFFFFF" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="17" font-weight="700">EXAMPLES</text>
   </g>
 </svg>
