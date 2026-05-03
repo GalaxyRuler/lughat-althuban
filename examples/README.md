@@ -49,6 +49,7 @@ python -m pip install -e ".[aliases]"
 | `C11_sklearn_demo.apy` | `scikit-learn` | تعلم آلي صغير |
 | `C12_pydantic_demo.apy` | `pydantic` | نماذج تحقق |
 | `C13_httpx_demo.apy` | `httpx` | طلبات HTTP |
+| `pygame/C31_pygame_arabic_demo.apy` | `pygame-ce` | نافذة ورسوم ثنائية الأبعاد بأسماء عربية |
 | `C20_openpyxl_demo.apy` | `openpyxl` | ملفات Excel |
 | `C21_docx_demo.apy` | `python-docx` | مستندات Word |
 

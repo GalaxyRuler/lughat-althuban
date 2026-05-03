@@ -72,6 +72,7 @@ aliases = [
     "python-dotenv>=1.0",
     "PyYAML>=6.0",
     "matplotlib>=3.8",
+    "pygame-ce>=2.5",
     "scikit-learn>=1.4",
     "pydantic>=2.0",
     "httpx>=0.27",

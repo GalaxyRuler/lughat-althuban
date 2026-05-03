@@ -242,6 +242,7 @@
 | العربية | وحدة Python | ملف الخريطة |
 |---|---|---|
 | بيلو | `PIL.Image` | `arabicpython/aliases/pillow.toml` |
+| لعبه | `pygame` | `arabicpython/aliases/pygame.toml` |
 
 ### المكتبة القياسية
 
