@@ -1,6 +1,6 @@
 # Phase D Roadmap
 
-**Status as of 2026-05-02:** Phase D is active. Phase C is complete and historical; see [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) for its shipped packet map. Phase D is governed by [`decisions/0012-phase-d-charter.md`](decisions/0012-phase-d-charter.md).
+**Status as of 2026-05-02:** Phase D is active. Phase C is complete and historical; see [`ROADMAP-PHASE-C.md`](ROADMAP-PHASE-C.md) for its shipped packet map.
 
 Theme: **AI & Reach** — make لغة الثعبان easier to discover, try, share, and use for modern AI-oriented Python work.
 
