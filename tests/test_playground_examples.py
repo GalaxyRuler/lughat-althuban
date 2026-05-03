@@ -12,6 +12,12 @@ from arabicpython.translate import translate
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PLAYGROUND = PROJECT_ROOT / "docs" / "playground.html"
+BRAND_CSS = PROJECT_ROOT / "docs" / "brand.css"
+GITHUB_PAGES = [
+    PROJECT_ROOT / "docs" / "index.html",
+    PROJECT_ROOT / "docs" / "gallery.html",
+    PLAYGROUND,
+]
 EXAMPLE_RE = re.compile(
     r'^  \{\s*\n\s*id:\s*"(?P<id>[^"]+)"(?P<body>.*?)(?=^  \},?\s*$)',
     re.M | re.S,
@@ -310,6 +316,9 @@ def test_asteroid_guard_thrust_releases_into_controlled_drift() -> None:
 
 def test_asteroid_guard_has_visual_playground_surface() -> None:
     html = PLAYGROUND.read_text(encoding="utf-8")
+    game_source = (PROJECT_ROOT / "docs" / "games" / "حارس_الكويكبات.apy").read_text(
+        encoding="utf-8"
+    )
     assert 'id: "asteroid-guard"' in html
     assert 'source: "games/حارس_الكويكبات.apy"' in html
     assert 'const ASTEROID_ID = "asteroid-guard";' in html
@@ -329,6 +338,37 @@ def test_asteroid_guard_has_visual_playground_surface() -> None:
     assert 'window.addEventListener("keydown", handlePlatformerKeyDown, { capture: true });' in html
     assert 'window.addEventListener("keyup", handlePlatformerKeyUp, { capture: true });' in html
     assert 'platformPanel.addEventListener("pointerdown"' in html
+    assert "rgba(255, 247, 207" not in html
+    assert "(٢٥٥، ٢٤٧، ٢٠٧)" not in game_source
+    assert "لون_طلقة = (٩٤، ٢٣٤، ٢١٢)" in game_source
+    assert "لون_طلقة_توهج = (٢٣٤، ١٠٣، ٨٣)" in game_source
+
+
+def test_github_pages_brand_theme_uses_dark_surfaces_holistically() -> None:
+    css = BRAND_CSS.read_text(encoding="utf-8")
+
+    assert "--bg: #030712" in css
+    assert "--panel: #111921" in css
+    assert "--soft: #17212c" in css
+    assert '.brand-mark path[fill="#111921"]' in css
+    assert ".platform-canvas {\n  background: #030712;" in css
+
+    forbidden_surface_defaults = (
+        "background: #ffffff",
+        "background: #FFFFFF",
+        "background: #f5f6fc",
+        "--bg: #f5f6fc",
+        "--panel: #ffffff",
+        "--panel: #FFFFFF",
+        "--soft: #f5f6fc",
+        "--shadow: #ffffff",
+        "--shadow: #FFFFFF",
+    )
+    for path in [BRAND_CSS, *GITHUB_PAGES]:
+        page_css = path.read_text(encoding="utf-8")
+        assert 'rel="stylesheet" href="brand.css' in page_css or path == BRAND_CSS
+        for forbidden in forbidden_surface_defaults:
+            assert forbidden not in page_css
 
 
 def test_desert_treasure_visual_api_moves_and_wins() -> None:
