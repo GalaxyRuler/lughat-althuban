@@ -506,6 +506,9 @@
       direction: ltr;
       justify-content: flex-start;
     }
+    #platform-panel.keyboard-only .platform-controls {
+      display: none;
+    }
     .platform-actions button,
     .platform-controls button {
       border: 1px solid rgba(94, 234, 212, 0.38);
@@ -568,6 +571,15 @@
       display: grid;
       place-items: center;
     }
+    #platform-panel.keyboard-only .platform-stage-wrap {
+      --platform-stage-height: clamp(390px, calc(100vh - 330px), 620px);
+    }
+    #platform-panel.arcade-mode {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(94, 234, 212, 0.16), transparent 28%),
+        radial-gradient(circle at 84% 18%, rgba(234, 103, 83, 0.14), transparent 26%),
+        linear-gradient(180deg, rgba(17, 25, 33, 0.9), rgba(3, 7, 18, 0.96));
+    }
     #platform-stage {
       position: relative;
       width: min(100%, calc(var(--platform-stage-height) * 16 / 9));
@@ -583,6 +595,17 @@
         linear-gradient(180deg, #0b2a3d 0%, #0b1724 62%, #101018 100%);
       background-size: 48px 48px, 48px 48px, auto, auto;
       box-shadow: inset 0 -42px 80px rgba(0, 0, 0, 0.26);
+    }
+    #platform-panel.arcade-mode #platform-stage {
+      border-color: rgba(234, 103, 83, 0.72);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(94, 234, 212, 0.12), transparent 36%),
+        radial-gradient(circle at 18% 16%, rgba(234, 103, 83, 0.12), transparent 24%),
+        linear-gradient(180deg, #050914 0%, #030712 100%);
+      box-shadow:
+        0 0 0 1px rgba(255, 247, 207, 0.08),
+        0 0 32px rgba(234, 103, 83, 0.28),
+        inset 0 0 90px rgba(94, 234, 212, 0.08);
     }
     .platform-canvas {
       display: block;
@@ -1111,6 +1134,7 @@
     }
 
     body.game-mode .main-wrap { overflow: auto; }
+    body.game-mode #examples-panel { display: none; }
     body.game-mode:not(.source-open) #editor-panel { display: none; }
     body.game-mode #output-panel {
       flex: 1;
@@ -2066,7 +2090,7 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
     <div id="platform-panel" hidden>
       <div class="platform-top">
         <div class="platform-title">
-          <strong>قفزة المدينة</strong>
+          <strong id="platform-title">قفزة المدينة</strong>
           <span id="platform-message">جارٍ تجهيز المرحلة…</span>
         </div>
         <div class="platform-actions">
@@ -2076,20 +2100,20 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
       </div>
       <div class="platform-stats" aria-live="polite">
         <div class="platform-stat">
-          <span>البلورات</span>
+          <span id="platform-score-label">البلورات</span>
           <strong id="platform-score">٠ / ٠</strong>
         </div>
         <div class="platform-stat">
-          <span>القلوب</span>
+          <span id="platform-lives-label">القلوب</span>
           <strong id="platform-lives">٣</strong>
         </div>
         <div class="platform-stat">
-          <span>الحالة</span>
+          <span id="platform-result-label">الحالة</span>
           <strong id="platform-result">قيد اللعب</strong>
         </div>
         <div class="platform-stat">
           <span>التحكم</span>
-          <strong>← → ↑ / مسافة</strong>
+          <strong id="platform-control-hint">← → ↑ / مسافة</strong>
         </div>
       </div>
       <div class="platform-stage-wrap">
@@ -2100,6 +2124,9 @@ def translate(source: str, *, dialect=None, dict_version=None) -> str:
       <div class="platform-controls" aria-label="أوامر قفزة المدينة">
         <button type="button" data-platform-command="يسار" aria-keyshortcuts="ArrowLeft KeyA">يسار</button>
         <button type="button" data-platform-command="قفز" aria-keyshortcuts="ArrowUp Space KeyW">قفز</button>
+        <button type="button" data-platform-command="اندفاع" aria-keyshortcuts="ArrowUp KeyW" hidden>اندفاع</button>
+        <button type="button" data-platform-command="إطلاق" aria-keyshortcuts="Space" hidden>إطلاق</button>
+        <button type="button" data-platform-command="درع" aria-keyshortcuts="ShiftLeft ShiftRight ArrowDown KeyS" hidden>درع</button>
         <button type="button" data-platform-command="يمين" aria-keyshortcuts="ArrowRight KeyD">يمين</button>
       </div>
       <div id="platform-log" aria-live="polite"></div>
@@ -2577,6 +2604,10 @@ const EXAMPLES = [
     source: "games/قفزة_المدينة.apy"
   },
   {
+    id: "asteroid-guard", tier: 6, tag: "أركيد", title: "حارس الكويكبات",
+    source: "games/حارس_الكويكبات.apy"
+  },
+  {
     id: "desert-treasure", tier: 6, tag: "لعبة", title: "كنز الصحراء",
     source: "games/كنز_الصحراء.apy"
   },
@@ -2609,13 +2640,19 @@ const gameCommandBtns = Array.from(document.querySelectorAll("[data-game-command
 const platformPanel = document.getElementById("platform-panel");
 const platformStage = document.getElementById("platform-stage");
 const platformCanvas = document.getElementById("canvas");
+const platformTitle = document.getElementById("platform-title");
 const platformMessage = document.getElementById("platform-message");
+const platformScoreLabel = document.getElementById("platform-score-label");
 const platformScore = document.getElementById("platform-score");
+const platformLivesLabel = document.getElementById("platform-lives-label");
 const platformLives = document.getElementById("platform-lives");
+const platformResultLabel = document.getElementById("platform-result-label");
 const platformResult = document.getElementById("platform-result");
+const platformControlHint = document.getElementById("platform-control-hint");
 const platformLog = document.getElementById("platform-log");
 const platformResetBtn = document.getElementById("platform-reset");
 const platformSourceToggle = document.getElementById("platform-source-toggle");
+const platformControls = document.querySelector(".platform-controls");
 const platformCommandBtns = Array.from(document.querySelectorAll("[data-platform-command]"));
 const cityPanel = document.getElementById("city-panel");
 const cityMessage = document.getElementById("city-message");
@@ -2654,6 +2691,7 @@ let platformerFinished = false;
 let platformerLoop = null;
 const platformerKeys = new Set();
 let platformerJumpQueued = false;
+let platformerFireQueued = false;
 let platformerPygameReady = false;
 let smartCityReady = false;
 let smartCityBusy = false;
@@ -2666,7 +2704,51 @@ let activeExBtn = null;
 const TIER_HEADERS = { 1: "🟢 المبتدئ", 2: "🟡 المتوسط", 3: "🔴 المتقدم", 4: "المرحلة د", 5: "عروض كبرى", 6: "الألعاب" };
 const VISUAL_GAME_ID = "desert-treasure";
 const PLATFORMER_ID = "city-jump";
+const ASTEROID_ID = "asteroid-guard";
 const SMART_CITY_ID = "smart-city";
+const PYGAME_GAME_IDS = new Set([PLATFORMER_ID, ASTEROID_ID]);
+const PYGAME_GAME_META = {
+  [PLATFORMER_ID]: {
+    title: "قفزة المدينة",
+    stageLabel: "مرحلة قفزة المدينة",
+    initialMessage: "جارٍ تجهيز المرحلة…",
+    resetLabel: "إعادة المرحلة",
+    busyText: "جارٍ تجهيز المرحلة…",
+    busyStatus: "جارٍ تهيئة لعبة المنصة…",
+    readyStatus: "قفزة المدينة جاهزة — استخدم الأسهم والمسافة",
+    errorText: "تعذر تجهيز لعبة المنصة",
+    errorStatus: "تعذر تجهيز لعبة المنصة",
+    compileName: "<قفزة المدينة>",
+    scoreLabel: "البلورات",
+    livesLabel: "القلوب",
+    resultLabel: "الحالة",
+    controlHint: "← → ↑ / مسافة",
+    controls: ["يسار", "قفز", "يمين"],
+    tickMs: 55,
+    keyboardOnly: false,
+    arcadeMode: false,
+  },
+  [ASTEROID_ID]: {
+    title: "حارس الكويكبات",
+    stageLabel: "ساحة حارس الكويكبات",
+    initialMessage: "جارٍ تجهيز الحزام…",
+    resetLabel: "جولة جديدة",
+    busyText: "جارٍ تجهيز الحزام…",
+    busyStatus: "جارٍ تهيئة حارس الكويكبات…",
+    readyStatus: "حارس الكويكبات جاهز — الأسهم للدوران والاندفاع والمسافة للإطلاق",
+    errorText: "تعذر تجهيز حارس الكويكبات",
+    errorStatus: "تعذر تجهيز حارس الكويكبات",
+    compileName: "<حارس الكويكبات>",
+    scoreLabel: "النقاط",
+    livesLabel: "الدروع",
+    resultLabel: "الموجة",
+    controlHint: "← → ↑ / مسافة / تبديل",
+    controls: ["يسار", "اندفاع", "إطلاق", "درع", "يمين"],
+    tickMs: 1000 / 60,
+    keyboardOnly: true,
+    arcadeMode: true,
+  },
+};
 let lastTier = null;
 const requestedExample = new URLSearchParams(window.location.search).get("example");
 let initialExample = null;
@@ -2699,7 +2781,7 @@ function isVisualGameSelected() {
 }
 
 function isPlatformerSelected() {
-  return activeExample && activeExample.id === PLATFORMER_ID;
+  return activeExample && PYGAME_GAME_IDS.has(activeExample.id);
 }
 
 function isSmartCitySelected() {
@@ -2710,6 +2792,39 @@ function isVisualExampleSelected() {
   return isVisualGameSelected() || isPlatformerSelected() || isSmartCitySelected();
 }
 
+function isSourceOpen() {
+  return document.body.classList.contains("source-open");
+}
+
+function currentPygameMeta() {
+  return PYGAME_GAME_META[activeExample?.id] || PYGAME_GAME_META[PLATFORMER_ID];
+}
+
+function focusPlatformerStage() {
+  if (!isPlatformerSelected() || isSourceOpen()) return;
+  platformStage.focus({ preventScroll: true });
+}
+
+function configurePlatformerPanel() {
+  const meta = currentPygameMeta();
+  platformPanel.classList.toggle("keyboard-only", Boolean(meta.keyboardOnly));
+  platformPanel.classList.toggle("arcade-mode", Boolean(meta.arcadeMode));
+  platformTitle.textContent = meta.title;
+  platformStage.setAttribute("aria-label", meta.stageLabel);
+  platformResetBtn.textContent = meta.resetLabel;
+  platformScoreLabel.textContent = meta.scoreLabel;
+  platformLivesLabel.textContent = meta.livesLabel;
+  platformResultLabel.textContent = meta.resultLabel;
+  platformControlHint.textContent = meta.controlHint;
+  platformControls.hidden = Boolean(meta.keyboardOnly);
+  const visibleControls = new Set(meta.controls);
+  for (const btn of platformCommandBtns) {
+    const command = btn.dataset.platformCommand;
+    btn.hidden = !visibleControls.has(command);
+    btn.disabled = btn.hidden;
+  }
+}
+
 function updateGameMode() {
   const showGame = isVisualGameSelected();
   const showPlatformer = isPlatformerSelected();
@@ -2717,14 +2832,15 @@ function updateGameMode() {
   const showVisual = isVisualExampleSelected();
   document.body.classList.toggle("game-mode", showVisual);
   if (!showVisual) document.body.classList.remove("source-open");
+  if (showPlatformer) configurePlatformerPanel();
   gamePanel.hidden = !showGame;
   platformPanel.hidden = !showPlatformer;
   cityPanel.hidden = !showCity;
   stdinPanel.hidden = showVisual;
   outputEl.hidden = showVisual;
-  gameSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
-  platformSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
-  citySourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+  gameSourceToggle.textContent = isSourceOpen() ? "إخفاء الشفرة" : "عرض الشفرة";
+  platformSourceToggle.textContent = isSourceOpen() ? "إخفاء الشفرة" : "عرض الشفرة";
+  citySourceToggle.textContent = isSourceOpen() ? "إخفاء الشفرة" : "عرض الشفرة";
   runBtn.innerHTML = showVisual ? "↻ بدء <kbd>تحكم+إدخال</kbd>" : "▶ تشغيل <kbd>تحكم+إدخال</kbd>";
   if (!showGame) {
     visualGameReady = false;
@@ -2734,6 +2850,7 @@ function updateGameMode() {
     platformerReady = false;
     platformerFinished = false;
     platformerJumpQueued = false;
+    platformerFireQueued = false;
     platformerKeys.clear();
     syncPlatformerControls();
     stopPlatformerLoop();
@@ -2784,7 +2901,11 @@ async function selectExample(ex, btn, updateUrl = true) {
     if (pyodide) runBtn.disabled = false;
   }
 
-  editorEl.focus();
+  if (isPlatformerSelected()) {
+    focusPlatformerStage();
+  } else if (!isVisualExampleSelected()) {
+    editorEl.focus();
+  }
 }
 
 EXAMPLES.forEach((ex, idx) => {
@@ -2984,7 +3105,7 @@ function setPlatformerBusy(isBusy) {
   platformerBusy = isBusy;
   platformResetBtn.disabled = isBusy;
   platformSourceToggle.disabled = isBusy;
-  for (const btn of platformCommandBtns) btn.disabled = isBusy && !platformerReady;
+  for (const btn of platformCommandBtns) btn.disabled = btn.hidden || (isBusy && !platformerReady);
 }
 
 function stopPlatformerLoop() {
@@ -2996,18 +3117,25 @@ function stopPlatformerLoop() {
 
 function startPlatformerLoop() {
   stopPlatformerLoop();
+  const tickMs = currentPygameMeta().tickMs || 55;
   platformerLoop = window.setInterval(() => {
     if (isPlatformerSelected() && platformerReady && !platformerBusy && !platformerFinished) {
       void tickPlatformer();
     }
-  }, 55);
+  }, tickMs);
 }
 
 function currentPlatformerCommand() {
   const commands = [];
-  if (platformerKeys.has("يسار")) commands.push("يسار");
-  if (platformerKeys.has("يمين")) commands.push("يمين");
-  if (platformerKeys.has("قفز") || platformerJumpQueued) commands.push("قفز");
+  for (const command of currentPygameMeta().controls) {
+    if (
+      platformerKeys.has(command) ||
+      (command === "قفز" && platformerJumpQueued) ||
+      (command === "إطلاق" && platformerFireQueued)
+    ) {
+      commands.push(command);
+    }
+  }
   return commands.join(" ");
 }
 
@@ -3020,6 +3148,7 @@ function syncPlatformerControls() {
 function setPlatformerKey(command, isPressed) {
   if (!command) return;
   if (command === "قفز" && isPressed) platformerJumpQueued = true;
+  if (command === "إطلاق" && isPressed) platformerFireQueued = true;
   if (isPressed) {
     platformerKeys.add(command);
   } else {
@@ -3029,6 +3158,19 @@ function setPlatformerKey(command, isPressed) {
 }
 
 function platformCommandFromKeyboard(event) {
+  if (activeExample?.id === ASTEROID_ID) {
+    if (event.code === "ArrowLeft" || event.code === "KeyA") return "يسار";
+    if (event.code === "ArrowRight" || event.code === "KeyD") return "يمين";
+    if (event.code === "ArrowUp" || event.code === "KeyW") return "اندفاع";
+    if (event.code === "Space") return "إطلاق";
+    if (event.code === "ShiftLeft" || event.code === "ShiftRight" || event.code === "ArrowDown" || event.code === "KeyS") return "درع";
+    if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") return "يسار";
+    if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") return "يمين";
+    if (event.key === "ArrowUp" || event.key === "w" || event.key === "W") return "اندفاع";
+    if (event.key === " ") return "إطلاق";
+    if (event.key === "Shift" || event.key === "ArrowDown" || event.key === "s" || event.key === "S") return "درع";
+    return "";
+  }
   if (event.code === "ArrowLeft" || event.code === "KeyA") return "يسار";
   if (event.code === "ArrowRight" || event.code === "KeyD") return "يمين";
   if (event.code === "Space" || event.code === "ArrowUp" || event.code === "KeyW") return "قفز";
@@ -3050,6 +3192,7 @@ async function ensurePlatformerPygame() {
 import sys
 import types
 import pygame
+import math
 
 لعبه = types.SimpleNamespace()
 لعبه.ابدا = pygame.init
@@ -3074,17 +3217,34 @@ import pygame
 لعبه.انتظر_اطار = pygame.time.Clock.tick
 sys.modules["لعبه"] = لعبه
 sys.modules["لعبة"] = لعبه
+
+رياضيات = types.SimpleNamespace()
+رياضيات.باي = math.pi
+رياضيات.ثاو = math.tau
+رياضيات.جذر = math.sqrt
+رياضيات.جيب = math.sin
+رياضيات.جيب_تمام = math.cos
+sys.modules["رياضيات"] = رياضيات
 `);
   platformerPygameReady = true;
 }
 
 function renderPlatformer(state) {
+  const isAsteroid = activeExample?.id === ASTEROID_ID;
   const hero = state["بطل"];
   platformerFinished = Boolean(state["انتهت"]);
   platformMessage.textContent = state["رسالة"];
-  platformScore.textContent = `${toArabicDigits(hero["نقاط"])} / ${toArabicDigits(state["المطلوب"])}`;
-  platformLives.textContent = toArabicDigits(hero["قلوب"]);
-  platformResult.textContent = state["انتهت"] ? (state["فوز"] ? "فزت" : "خسرت") : "قيد اللعب";
+  if (isAsteroid) {
+    platformScore.textContent = toArabicDigits(state["نقاط"]);
+    platformLives.textContent = `${toArabicDigits(state["دروع"])} / ${toArabicDigits(Math.round(Number(state["طاقة_درع"])))}٪`;
+    platformResult.textContent = state["انتهت"]
+      ? (state["فوز"] ? "فزت" : "خسرت")
+      : `موجة ${toArabicDigits(state["موجة"])} · ${toArabicDigits(state["كويكبات"])} كويكب`;
+  } else {
+    platformScore.textContent = `${toArabicDigits(hero["نقاط"])} / ${toArabicDigits(state["المطلوب"])}`;
+    platformLives.textContent = toArabicDigits(hero["قلوب"]);
+    platformResult.textContent = state["انتهت"] ? (state["فوز"] ? "فزت" : "خسرت") : "قيد اللعب";
+  }
 
   platformLog.innerHTML = "";
   for (const item of state["سجل"]) {
@@ -3101,15 +3261,19 @@ function renderPlatformer(state) {
 
 async function resetPlatformer() {
   if (!pyodide || !isPlatformerSelected() || platformerBusy) return;
+  const meta = currentPygameMeta();
+  configurePlatformerPanel();
   platformerFinished = false;
   platformerJumpQueued = false;
+  platformerFireQueued = false;
   platformerKeys.clear();
   syncPlatformerControls();
   setPlatformerBusy(true);
   outputEl.hidden = true;
-  platformMessage.textContent = "جارٍ تجهيز المرحلة…";
-  setStatus("busy", "جارٍ تهيئة لعبة المنصة…");
+  platformMessage.textContent = meta.busyText;
+  setStatus("busy", meta.busyStatus);
   pyodide.globals.set("_platformer_source", editorEl.value.trim());
+  pyodide.globals.set("_platformer_filename", meta.compileName);
 
   try {
     await ensurePlatformerPygame();
@@ -3118,19 +3282,19 @@ import json
 from arabicpython.translate import translate as _translate
 _platformer_ns = {}
 _translated_platformer = _translate(_platformer_source)
-exec(compile(_translated_platformer, '<قفزة المدينة>', 'exec'), _platformer_ns)
+exec(compile(_translated_platformer, _platformer_filename, 'exec'), _platformer_ns)
 json.dumps(_platformer_ns["ابدا"](), ensure_ascii=False)
 `);
     platformerReady = true;
     renderPlatformer(JSON.parse(stateJson));
-    platformStage.focus({ preventScroll: true });
+    focusPlatformerStage();
     startPlatformerLoop();
-    setStatus("ready", "قفزة المدينة جاهزة — استخدم الأسهم والمسافة");
+    setStatus("ready", meta.readyStatus);
   } catch (err) {
     platformerReady = false;
-    platformMessage.textContent = "تعذر تجهيز لعبة المنصة";
+    platformMessage.textContent = meta.errorText;
     platformLog.textContent = err.message;
-    setStatus("error", "تعذر تجهيز لعبة المنصة");
+    setStatus("error", meta.errorStatus);
   } finally {
     setPlatformerBusy(false);
   }
@@ -3141,6 +3305,7 @@ async function tickPlatformer() {
   platformerBusy = true;
   pyodide.globals.set("_platformer_command", currentPlatformerCommand());
   platformerJumpQueued = false;
+  platformerFireQueued = false;
   try {
     const stateJson = await pyodide.runPythonAsync(`
 import json
@@ -3622,7 +3787,8 @@ gameSourceToggle.addEventListener("click", () => {
 platformResetBtn.addEventListener("click", () => { void resetPlatformer(); });
 platformSourceToggle.addEventListener("click", () => {
   document.body.classList.toggle("source-open");
-  platformSourceToggle.textContent = document.body.classList.contains("source-open") ? "إخفاء الشفرة" : "عرض الشفرة";
+  platformSourceToggle.textContent = isSourceOpen() ? "إخفاء الشفرة" : "عرض الشفرة";
+  if (!isSourceOpen()) focusPlatformerStage();
 });
 cityResetBtn.addEventListener("click", () => { void resetSmartCity(); });
 citySourceToggle.addEventListener("click", () => {
@@ -3639,7 +3805,7 @@ for (const btn of platformCommandBtns) {
   btn.addEventListener("pointerdown", (event) => {
     event.preventDefault();
     setPlatformerKey(command, true);
-    platformStage.focus({ preventScroll: true });
+    focusPlatformerStage();
   });
   btn.addEventListener("pointerup", () => { setPlatformerKey(command, false); });
   btn.addEventListener("pointerleave", () => { setPlatformerKey(command, false); });
@@ -3651,19 +3817,31 @@ for (const btn of cityActionBtns) {
   });
 }
 
-window.addEventListener("keydown", (event) => {
-  if (!isPlatformerSelected() || document.body.classList.contains("source-open")) return;
+platformPanel.addEventListener("pointerdown", () => {
+  focusPlatformerStage();
+});
+
+function handlePlatformerKeyDown(event) {
+  if (!isPlatformerSelected() || isSourceOpen()) return;
   const command = platformCommandFromKeyboard(event);
   if (!command) return;
   event.preventDefault();
+  event.stopPropagation();
+  focusPlatformerStage();
   setPlatformerKey(command, true);
-});
+}
 
-window.addEventListener("keyup", (event) => {
+function handlePlatformerKeyUp(event) {
+  if (!isPlatformerSelected()) return;
   const command = platformCommandFromKeyboard(event);
   if (!command) return;
+  event.preventDefault();
+  event.stopPropagation();
   setPlatformerKey(command, false);
-});
+}
+
+window.addEventListener("keydown", handlePlatformerKeyDown, { capture: true });
+window.addEventListener("keyup", handlePlatformerKeyUp, { capture: true });
 
 // اختصار لوحة المفاتيح للتشغيل
 editorEl.addEventListener("keydown", (e) => {

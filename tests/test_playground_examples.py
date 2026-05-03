@@ -104,7 +104,7 @@ def test_playground_example_output_stays_arabic_first(
     example_id: str,
     source: str,
 ) -> None:
-    if example_id == "city-jump":
+    if example_id in {"city-jump", "asteroid-guard"}:
         pytest.importorskip("pygame", reason="pygame-ce required for the Pygame platformer")
         os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
         os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
@@ -225,7 +225,8 @@ def test_city_jump_platformer_has_visual_playground_surface() -> None:
     assert 'pyodide.loadPackage("pygame-ce")' in html
     assert 'sys.modules["لعبه"] = لعبه' in html
     assert 'data-platform-command="قفز"' in html
-    assert "<strong>← → ↑ / مسافة</strong>" in html
+    assert 'id="platform-control-hint"' in html
+    assert "← → ↑ / مسافة" in html
     assert 'aria-keyshortcuts="ArrowLeft KeyA"' in html
     assert 'aria-keyshortcuts="ArrowUp Space KeyW"' in html
     assert 'aria-keyshortcuts="ArrowRight KeyD"' in html
@@ -238,6 +239,96 @@ def test_city_jump_platformer_has_visual_playground_surface() -> None:
     assert ".platform-controls {\n      direction: ltr;" in html
     assert html.index('data-platform-command="يسار"') < html.index('data-platform-command="قفز"')
     assert html.index('data-platform-command="قفز"') < html.index('data-platform-command="يمين"')
+
+
+def test_asteroid_guard_runs_with_arabic_pygame_api() -> None:
+    pytest.importorskip("pygame", reason="pygame-ce required for the Pygame arcade game")
+    os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
+    os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
+    from arabicpython import install_aliases
+
+    install_aliases()
+    game_source = (PROJECT_ROOT / "docs" / "games" / "حارس_الكويكبات.apy").read_text(
+        encoding="utf-8"
+    )
+    namespace: dict[str, object] = {}
+
+    exec(compile(translate(game_source), "<asteroid-guard>", "exec"), namespace)  # noqa: S102
+
+    state = namespace["ابدا"]()
+    assert state["دروع"] == 3
+    assert state["موجة"] == 1
+    assert state["كويكبات"] >= 4
+    assert state["نقاط"] == 0
+
+    for command in ["اندفاع", "يمين", "إطلاق", "إطلاق", "يسار درع"]:
+        state = namespace["نفذ_امر"](command)
+
+    assert state["طلقات"] >= 1
+    assert state["طاقة_درع"] <= 100
+    assert "بطل" in state
+    assert "كويكبات" in state
+    _assert_no_latin_in_text_values(state)
+
+
+def test_asteroid_guard_thrust_releases_into_controlled_drift() -> None:
+    pytest.importorskip("pygame", reason="pygame-ce required for the Pygame arcade game")
+    os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
+    os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
+    from arabicpython import install_aliases
+
+    install_aliases()
+    game_source = (PROJECT_ROOT / "docs" / "games" / "حارس_الكويكبات.apy").read_text(
+        encoding="utf-8"
+    )
+    namespace: dict[str, object] = {}
+
+    exec(compile(translate(game_source), "<asteroid-guard>", "exec"), namespace)  # noqa: S102
+    namespace["ابدا"]()
+
+    def ship_speed() -> float:
+        ship = namespace["السفينه"]
+        return (ship["سع"] ** 2 + ship["صع"] ** 2) ** 0.5
+
+    for _ in range(30):
+        namespace["نفذ_امر"]("اندفاع")
+
+    speed_after_thrust = ship_speed()
+
+    for _ in range(30):
+        namespace["نفذ_امر"]("")
+
+    speed_after_release = ship_speed()
+
+    for _ in range(90):
+        namespace["نفذ_امر"]("")
+
+    assert speed_after_thrust <= 4.0
+    assert speed_after_release < speed_after_thrust * 0.35
+    assert ship_speed() <= 0.1
+
+
+def test_asteroid_guard_has_visual_playground_surface() -> None:
+    html = PLAYGROUND.read_text(encoding="utf-8")
+    assert 'id: "asteroid-guard"' in html
+    assert 'source: "games/حارس_الكويكبات.apy"' in html
+    assert 'const ASTEROID_ID = "asteroid-guard";' in html
+    assert 'data-platform-command="اندفاع"' in html
+    assert 'data-platform-command="إطلاق"' in html
+    assert 'data-platform-command="درع"' in html
+    assert "رياضيات.جيب_تمام = math.cos" in html
+    assert "if (activeExample?.id === ASTEROID_ID)" in html
+    assert "let platformerFireQueued = false;" in html
+    assert 'command === "إطلاق" && platformerFireQueued' in html
+    assert "keyboardOnly: true" in html
+    assert "tickMs: 1000 / 60" in html
+    assert "platformControls.hidden = Boolean(meta.keyboardOnly)" in html
+    assert "#platform-panel.keyboard-only .platform-controls" in html
+    assert "body.game-mode #examples-panel { display: none; }" in html
+    assert "function focusPlatformerStage()" in html
+    assert 'window.addEventListener("keydown", handlePlatformerKeyDown, { capture: true });' in html
+    assert 'window.addEventListener("keyup", handlePlatformerKeyUp, { capture: true });' in html
+    assert 'platformPanel.addEventListener("pointerdown"' in html
 
 
 def test_desert_treasure_visual_api_moves_and_wins() -> None:
