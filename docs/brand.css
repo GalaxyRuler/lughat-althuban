@@ -1,0 +1,553 @@
+:root,
+:root[data-theme="light"],
+:root[data-theme="dark"] {
+  color-scheme: light;
+  --brand-navy: #111921;
+  --brand-purple: #2c1a66;
+  --brand-white: #FFFFFF;
+  --brand-offwhite: #f5f6fc;
+  --brand-gray: #b2b6b9;
+  --brand-orange: #ea6753;
+  --brand-violet: #2d1b46;
+  --brand-cyan: #afdfe1;
+  --bg: #f5f6fc;
+  --surface: #111921;
+  --surface2: #2d1b46;
+  --border: #b2b6b9;
+  --text: #FFFFFF;
+  --muted: #b2b6b9;
+  --accent: #ea6753;
+  --accent-h: #2c1a66;
+  --green: #afdfe1;
+  --red: #ea6753;
+  --yellow: #ea6753;
+  --ink: #111921;
+  --line: #b2b6b9;
+  --panel: #FFFFFF;
+  --accent-strong: #2c1a66;
+  --accent-ink: #FFFFFF;
+  --soft: #f5f6fc;
+  --code: #2d1b46;
+  --shadow: #FFFFFF;
+  --radius: 8px;
+  --mono: "Montserrat", sans-serif;
+}
+
+* {
+  letter-spacing: 0;
+}
+
+html,
+body {
+  background: #f5f6fc;
+  color: #111921;
+  font-family: "Montserrat", sans-serif;
+}
+
+body,
+button,
+input,
+textarea,
+select,
+code,
+pre,
+kbd {
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: #2c1a66;
+}
+
+a:hover {
+  color: #ea6753;
+}
+
+.site-hero {
+  width: 100%;
+  margin: 0;
+  padding: 32px max(24px, calc((100% - 1120px) / 2)) 40px;
+  background: #111921;
+  color: #FFFFFF;
+  border-bottom: 8px solid #2c1a66;
+}
+
+.site-hero h1 {
+  max-width: 860px;
+  color: #FFFFFF;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.site-hero .lead,
+.site-hero p {
+  color: #FFFFFF;
+}
+
+.site-hero .eyebrow {
+  color: #afdfe1;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 190px;
+  padding: 8px;
+  color: #111921;
+  text-align: center;
+  text-decoration: none;
+}
+
+.brand-lockup.on-dark {
+  color: #FFFFFF;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 72px;
+  padding: 8px;
+  background: #FFFFFF;
+  border: 1px solid #b2b6b9;
+  border-radius: 8px;
+}
+
+.brand-lockup svg {
+  display: block;
+  width: 72px;
+  height: 56px;
+}
+
+.brand-name {
+  display: block;
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.brand-tagline {
+  display: block;
+  color: inherit;
+  font-size: 0.68rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.topbar,
+nav {
+  align-items: center;
+}
+
+.brand,
+.header-brand h1,
+.header-brand span {
+  color: #FFFFFF;
+}
+
+.theme-toggle {
+  display: none;
+}
+
+.button,
+.button.primary,
+.badge.primary,
+#run-btn {
+  border: 1px solid #ea6753;
+  background: #ea6753;
+  color: #FFFFFF;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.button.secondary,
+.badge,
+.nav-link,
+.game-actions button,
+.platform-actions button,
+.platform-controls button,
+.city-actions button,
+.city-command-row button,
+#game-reset,
+#game-source-toggle,
+#platform-source-toggle,
+#platform-reset,
+#city-source-toggle,
+#city-reset,
+#clear-btn {
+  border: 1px solid #b2b6b9;
+  background: #FFFFFF;
+  color: #111921;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.button:hover,
+.button.primary:hover,
+.badge:hover,
+.badge.primary:hover,
+.nav-link:hover,
+#run-btn:hover:not(:disabled),
+.game-actions button:hover:not(:disabled),
+.platform-actions button:hover:not(:disabled),
+.platform-controls button:hover:not(:disabled),
+.city-actions button:hover:not(:disabled),
+.city-command-row button:hover:not(:disabled) {
+  border-color: #2c1a66;
+  background: #2c1a66;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+main,
+footer {
+  color: #111921;
+}
+
+section {
+  border-top: 1px solid #b2b6b9;
+}
+
+h1,
+h2,
+h3,
+h4,
+.panel-header h3,
+#examples-panel h2 {
+  color: #111921;
+  font-weight: 700;
+}
+
+p,
+li,
+.lead,
+.card p,
+.section-head p {
+  color: #b2b6b9;
+  font-weight: 400;
+}
+
+.card,
+.nav-link,
+.pill,
+pre,
+code,
+#stdin-panel,
+#stdin-input,
+#output,
+#game-log,
+#platform-log,
+.city-log,
+.city-side,
+.city-metric,
+.district-card,
+.city-selected,
+.forecast-row,
+.station-row,
+.city-impact {
+  border-color: #b2b6b9;
+  background: #FFFFFF;
+  color: #111921;
+  box-shadow: none;
+}
+
+.pill,
+code,
+pre,
+.meta .pill {
+  background: #f5f6fc;
+  color: #2d1b46;
+}
+
+header:not(.site-hero),
+#status-bar,
+#examples-panel,
+.panel-header,
+footer {
+  background: #111921;
+  color: #FFFFFF;
+  border-color: #b2b6b9;
+}
+
+body > header:not(.site-hero) {
+  height: auto;
+  min-height: 88px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+header:not(.site-hero) .brand-lockup {
+  min-width: 150px;
+  padding: 4px;
+}
+
+header:not(.site-hero) .brand-mark {
+  width: 64px;
+  height: 52px;
+  padding: 6px;
+}
+
+header:not(.site-hero) .brand-lockup svg {
+  width: 52px;
+  height: 42px;
+}
+
+header:not(.site-hero) .brand-name {
+  font-size: 0.72rem;
+}
+
+header:not(.site-hero) .brand-tagline {
+  font-size: 0.5rem;
+}
+
+header:not(.site-hero) .header-brand {
+  gap: 16px;
+}
+
+header:not(.site-hero) .header-brand h1 {
+  color: #FFFFFF;
+}
+
+header:not(.site-hero) .header-brand h1 span {
+  color: #b2b6b9;
+}
+
+footer,
+footer p,
+footer code,
+#status-text {
+  color: #FFFFFF;
+}
+
+.main-wrap {
+  background: #f5f6fc;
+}
+
+#editor-panel,
+#output-panel {
+  border-color: #b2b6b9;
+}
+
+#editor,
+#stdin-input,
+#output {
+  background: #FFFFFF;
+  color: #111921;
+  font-family: "Montserrat", sans-serif;
+}
+
+#editor::placeholder,
+#stdin-input::placeholder,
+#output.empty {
+  color: #b2b6b9;
+}
+
+#output.err,
+#status-dot.error {
+  color: #ea6753;
+  background: #ea6753;
+}
+
+#status-dot.ready,
+#status-dot.busy {
+  background: #afdfe1;
+}
+
+.example-btn {
+  color: #111921;
+  font-family: "Montserrat", sans-serif;
+}
+
+.example-btn:hover,
+.example-btn.active {
+  border-color: #2c1a66;
+  background: #f5f6fc;
+  color: #2c1a66;
+}
+
+.example-btn .ex-tag,
+.example-btn[data-tier] .ex-tag,
+.examples-section-header {
+  color: #ea6753;
+}
+
+#loading-overlay,
+#game-panel,
+#platform-panel,
+#city-panel {
+  background: #111921;
+  color: #FFFFFF;
+}
+
+.loader-snake {
+  display: none;
+}
+
+.loader-bar,
+.energy-track,
+.meter,
+.mini-meter {
+  background: #2d1b46;
+  border: 1px solid #b2b6b9;
+}
+
+.loader-bar-inner,
+#game-energy-bar,
+.meter > i,
+.mini-meter > i {
+  background: #ea6753;
+}
+
+.game-title strong,
+.platform-title strong,
+.city-title strong,
+.game-stat-value,
+.platform-stat strong,
+.city-metric strong,
+.district-card strong,
+.forecast-row strong,
+.station-row strong,
+#game-message,
+#platform-message,
+#city-message {
+  color: #FFFFFF;
+}
+
+#game-board,
+.platform-stage-wrap,
+#platform-stage,
+.city-map-wrap {
+  border-color: #b2b6b9;
+  background: #f5f6fc;
+  box-shadow: none;
+}
+
+.game-cell,
+.platform-object,
+.platform-tile,
+.city-node {
+  border-color: #b2b6b9;
+  background: #FFFFFF;
+  color: #111921;
+  box-shadow: none;
+}
+
+.game-cell.player,
+.platform-hero,
+.city-node.selected,
+.district-card.selected {
+  border-color: #ea6753;
+  background: #ea6753;
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+.game-cell.near,
+.platform-coin,
+.city-road.active,
+.status-pill[data-state="مراقبة"],
+#city-result[data-result="نجاح"] {
+  border-color: #afdfe1;
+  background: #afdfe1;
+  color: #111921;
+}
+
+.game-cell.treasure,
+.platform-gate,
+.city-node[data-alert="نعم"]::after {
+  border-color: #ea6753;
+  background: #ea6753;
+  color: #FFFFFF;
+}
+
+.platform-hazard,
+.city-node[data-state="خطر"],
+.city-node[data-state="طارئ"],
+.district-card[data-state="خطر"],
+.district-card[data-state="طارئ"],
+.status-pill[data-state="خطر"],
+.status-pill[data-state="طارئ"],
+#city-result[data-result="خسارة"] {
+  border-color: #ea6753;
+  background: #2d1b46;
+  color: #FFFFFF;
+}
+
+.platform-tile.moving,
+.city-node[data-state="متوتر"],
+.city-node[data-state="ضغط"],
+.district-card[data-state="متوتر"],
+.district-card[data-state="ضغط"],
+.status-pill[data-state="متوتر"],
+.status-pill[data-state="ضغط"] {
+  border-color: #ea6753;
+  background: #f5f6fc;
+  color: #111921;
+}
+
+.platform-canvas,
+.city-board {
+  background: #f5f6fc;
+}
+
+#city-roads,
+.city-road {
+  stroke: #2c1a66;
+  filter: none;
+}
+
+.status-pill {
+  border: 1px solid #b2b6b9;
+  background: #f5f6fc;
+  color: #111921;
+}
+
+.platform-controls {
+  direction: ltr;
+}
+
+.platform-controls button,
+.game-controls button {
+  direction: rtl;
+}
+
+:focus-visible,
+.theme-toggle:focus-visible,
+.button:focus-visible,
+.badge:focus-visible,
+.nav-link:focus-visible,
+.card:focus-visible,
+#run-btn:focus-visible,
+#editor:focus-visible,
+#stdin-input:focus-visible,
+#platform-stage:focus-visible {
+  outline: 3px solid #ea6753;
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .site-hero {
+    padding: 24px 16px 32px;
+  }
+
+  .brand-lockup {
+    min-width: 150px;
+  }
+
+  .brand-name {
+    font-size: 0.82rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.6rem;
+  }
+}

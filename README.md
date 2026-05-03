@@ -1,15 +1,19 @@
 <div dir="rtl">
 
+![Abdullah Al Kulaib brand banner](docs/assets/brand-lockup.svg)
+
 # لغة الثعبان — بايثون بالعربية الكاملة
 
-[![الاختبارات](https://img.shields.io/badge/اختبارات-2960_نجاح-brightgreen)](tests/)
-[![CI](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml/badge.svg)](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml)
-[![بايثون](https://img.shields.io/badge/Python-3.11%2B-blue)](https://python.org)
-[![الرخصة](https://img.shields.io/badge/رخصة-Apache--2.0-orange)](LICENSE)
+[![الاختبارات](https://img.shields.io/badge/%D8%A7%D8%AE%D8%AA%D8%A8%D8%A7%D8%B1%D8%A7%D8%AA-2960_%D9%86%D8%AC%D8%A7%D8%AD-2c1a66?labelColor=111921)](tests/)
+[![CI](https://img.shields.io/github/actions/workflow/status/GalaxyRuler/lughat-althuban/ci.yml?branch=main&label=CI&labelColor=111921&color=2c1a66)](https://github.com/GalaxyRuler/lughat-althuban/actions/workflows/ci.yml)
+[![بايثون](https://img.shields.io/badge/Python-3.11%2B-2d1b46?labelColor=111921)](https://python.org)
+[![الرخصة](https://img.shields.io/badge/%D8%B1%D8%AE%D8%B5%D8%A9-Apache--2.0-ea6753?labelColor=111921)](LICENSE)
 
 لهجة برمجية تكتب فيها **الكلمات المفتاحية والدوال المدمجة والاستثناءات والمكتبات** بالعربية الكاملة. ملفات `.apy` تُترجم إلى بايثون القياسي في وقت التحميل وتُنفَّذ بواسطة CPython — دون تشعيب للمترجم ودون تعديل على اللغة الأصلية.
 
 **الحالة (2026-05-03)**: المراحل أ/ب/ج مكتملة، وعمل المرحلة د D-002 إلى D-005 مشحون: معجم واحد في `lexicon/`، أسماء AI عربية، مترجم عكسي Python→لغة الثعبان، أسماء stdlib المعتمدة، أثر أخطاء عربي بثلاثة أوضاع، وملعب مرئي يتضمن لعبة منصة بواجهة Pygame عربية. آخر تشغيل كامل: **2960 اختباراً ناجحاً** على Python 3.13 مع 23 تخطياً مقصوداً.
+
+**الصفحات:** [الرئيسية](https://galaxyruler.github.io/lughat-althuban/) · [الملعب](https://galaxyruler.github.io/lughat-althuban/playground.html) · [معرض الأمثلة](https://galaxyruler.github.io/lughat-althuban/gallery.html)
 
 ---
 
@@ -79,6 +83,10 @@ $ ثعبان -c '1 / 0'
 | [معرض GitHub Pages للأمثلة](docs/gallery.html) | أمثلة قابلة للفتح في الملعب، بما فيها الألعاب المرئية وعروض stdlib وAI |
 | [سجل التغييرات](CHANGELOG.md) | ما الذي تغيّر في كل إصدار |
 | [قاموس وقت التشغيل](dictionaries/ar-v2.md) | الأثر المولّد من المعجم الموحد للقاموس الافتراضي |
+
+## الهوية البصرية للصفحات
+
+تعتمد صفحات `docs/` هوية Abdullah Al Kulaib: خط Montserrat بوزني Regular وBold، وخلفية عنوان داكنة `#111921`، ونص أبيض `#FFFFFF`، ولمسات بنفسجية `#2c1a66` وبرتقالية `#ea6753`. الشعار مولّد داخل الصفحات كمنوغرام AK هندسي دون أصول خارجية، مع إبقاء صفحات لغة الثعبان عربية أولاً ومباشرة نحو الملعب والأمثلة.
 
 ## حالة المشروع
 

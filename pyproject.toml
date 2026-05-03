@@ -33,7 +33,7 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage       = "https://github.com/GalaxyRuler/lughat-althuban"
+Homepage       = "https://galaxyruler.github.io/lughat-althuban/"
 Documentation  = "https://galaxyruler.github.io/lughat-althuban/"
 Repository     = "https://github.com/GalaxyRuler/lughat-althuban"
 Changelog      = "https://github.com/GalaxyRuler/lughat-althuban/blob/main/CHANGELOG.md"
