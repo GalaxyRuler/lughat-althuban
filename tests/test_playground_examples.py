@@ -18,6 +18,11 @@ GITHUB_PAGES = [
     PROJECT_ROOT / "docs" / "gallery.html",
     PLAYGROUND,
 ]
+PUBLIC_BRAND_FILES = [
+    PROJECT_ROOT / "README.md",
+    PROJECT_ROOT / "docs" / "assets" / "brand-lockup.svg",
+    *GITHUB_PAGES,
+]
 EXAMPLE_RE = re.compile(
     r'^  \{\s*\n\s*id:\s*"(?P<id>[^"]+)"(?P<body>.*?)(?=^  \},?\s*$)',
     re.M | re.S,
@@ -373,6 +378,17 @@ def test_github_pages_brand_theme_uses_dark_surfaces_holistically() -> None:
         assert 'rel="stylesheet" href="brand.css' in page_css or path == BRAND_CSS
         for forbidden in forbidden_surface_defaults:
             assert forbidden not in page_css
+
+
+def test_public_branding_does_not_expose_real_name() -> None:
+    for path in PUBLIC_BRAND_FILES:
+        text = path.read_text(encoding="utf-8")
+        assert "بايثون بالعربية الكاملة" in text
+
+    for path in GITHUB_PAGES:
+        text = path.read_text(encoding="utf-8")
+        assert 'aria-label="لغة الثعبان"' in text
+        assert '<span class="brand-name">لغة الثعبان</span>' in text
 
 
 def test_desert_treasure_visual_api_moves_and_wins() -> None:
