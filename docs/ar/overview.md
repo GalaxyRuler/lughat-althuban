@@ -188,7 +188,7 @@ lughat-althuban/
 ├── arabicpython/aliases/  تعيينات TOML مولدة من lexicon/libraries.toml
 ├── examples/              أمثلة تعليمية وتصاعدية
 ├── specs/                 حزم المواصفات
-└── tests/                 مجموعة pytest (2926 نجاحاً في بيئة .[all])
+└── tests/                 مجموعة pytest (2960 نجاحاً في بيئة .[all])
 ```
 
 ---

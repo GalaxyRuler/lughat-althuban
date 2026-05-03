@@ -21,7 +21,7 @@
 | الأمثلة | `examples/` | `tests/test_examples.py` |
 | أمثلة الملعب | `docs/playground.html` | `tests/test_playground_examples.py` |
 
-آخر تحقق كامل في بيئة `pip install -e ".[all]"`: `2926 passed, 23 skipped, 1 warning`.
+آخر تحقق كامل في بيئة `pip install -e ".[all]"`: `2960 passed, 23 skipped`.
 التخطيات المتبقية مرتبطة بمسارات Python 3.11 أو مقتطفات تعليمية موسومة بأنها غير قابلة للتشغيل، وليست مكتبات ناقصة.
 
 </div>
