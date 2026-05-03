@@ -18,6 +18,12 @@ GITHUB_PAGES = [
     PROJECT_ROOT / "docs" / "gallery.html",
     PLAYGROUND,
 ]
+PUBLIC_LOGO_IMAGE = PROJECT_ROOT / "docs" / "assets" / "ak-logo-noname.png"
+PUBLIC_TEXT_BRAND_FILES = [
+    PROJECT_ROOT / "README.md",
+    PROJECT_ROOT / "docs" / "assets" / "brand-lockup.svg",
+    *GITHUB_PAGES,
+]
 EXAMPLE_RE = re.compile(
     r'^  \{\s*\n\s*id:\s*"(?P<id>[^"]+)"(?P<body>.*?)(?=^  \},?\s*$)',
     re.M | re.S,
@@ -354,7 +360,7 @@ def test_github_pages_brand_theme_uses_dark_surfaces_holistically() -> None:
     assert "--bg: #030712" in css
     assert "--panel: #111921" in css
     assert "--soft: #17212c" in css
-    assert '.brand-mark path[fill="#111921"]' in css
+    assert ".brand-mark img {" in css
     assert ".platform-canvas {\n  background: #030712;" in css
 
     forbidden_surface_defaults = (
@@ -373,6 +379,23 @@ def test_github_pages_brand_theme_uses_dark_surfaces_holistically() -> None:
         assert 'rel="stylesheet" href="brand.css' in page_css or path == BRAND_CSS
         for forbidden in forbidden_surface_defaults:
             assert forbidden not in page_css
+
+
+def test_public_branding_does_not_expose_real_name() -> None:
+    logo_bytes = PUBLIC_LOGO_IMAGE.read_bytes()
+    assert logo_bytes.startswith(b"\x89PNG\r\n\x1a\n")
+    assert len(logo_bytes) > 1000
+
+    for path in PUBLIC_TEXT_BRAND_FILES:
+        text = path.read_text(encoding="utf-8")
+        assert "بايثون بالعربية الكاملة" in text
+
+    for path in GITHUB_PAGES:
+        text = path.read_text(encoding="utf-8")
+        assert 'aria-label="لغة الثعبان"' in text
+        assert 'src="assets/ak-logo-noname.png"' in text
+        assert '<svg viewBox="0 0 96 76"' not in text
+        assert '<span class="brand-name">لغة الثعبان</span>' in text
 
 
 def test_desert_treasure_visual_api_moves_and_wins() -> None:
